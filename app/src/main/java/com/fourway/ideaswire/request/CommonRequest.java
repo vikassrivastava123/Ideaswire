@@ -1,0 +1,114 @@
+package com.fourway.ideaswire.request;
+
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import java.util.Map;
+
+/**
+ * Created by Vikas on 6/30/2016.
+ */
+
+public abstract class CommonRequest {
+    /*------------------------- Constant Fields Definition ----------------------------*/
+    private static final String LOGIN_REQUEST_DOMAIN = "http://4ways:4wayssecret@localhost:8899/";
+
+    private static final String LOGIN_REQUEST_URL = LOGIN_REQUEST_DOMAIN + "4ways/userauth/oauth/token?grant_type=password";
+    public static enum RequestType  {
+        COMMON_REQUEST_LOGIN,
+        COMMON_REQUEST_FORGET_PASSWORD,
+        COMMON_REQUEST_SIGNUP,
+
+        COMMON_REQUEST_END // WARNING: Add all request types above this line only
+    }
+
+    public static enum ResponseCode  {
+        COMMON_RES_SUCCESS,
+        COMMON_RES_INTERNAL_ERROR,
+        COMMON_RES_LOGIN_FAILED_INVALID_CREDENTIAL,
+        COMMON_RES_FAILED_TO_CONNECT,
+
+        COMMON_REQUEST_END // WARNING: Add all request types above this line only
+    }
+
+    public static enum CommonRequestMethod {
+        COMMON_REQUEST_METHOD_GET,
+        COMMON_REQUEST_METHOD_POST,
+
+        COMMON_REQUEST_METHOD_END
+    }
+
+    /*---------------------------- Member variables -----------------------------------*/
+    private String mURL;
+    private CommonRequestMethod mMethod;
+    private Map<String, String> mParams;
+    private RequestType mRequestType;
+    private Context mContext;
+
+
+    public CommonRequest (Context context,RequestType type,
+                          CommonRequestMethod reqMethod, Map<String, String> param){
+        mContext = context; mRequestType = type; mMethod = reqMethod; mParams = param;
+        mURL = getURL (mRequestType);
+    }
+
+    public void setURL (String url){
+        mURL = url;
+    }
+
+    public void setHttpRequestMethod (CommonRequestMethod method){
+        mMethod = method;
+    }
+
+    public void setParam (Map<String, String> params){
+        mParams = params;
+    }
+
+    public abstract void onResponseHandler (JSONObject response);
+    public abstract void onErrorHandler (VolleyError error);
+
+    private String getURL (RequestType type){
+        String url = null;
+        switch (type){
+            case COMMON_REQUEST_LOGIN:
+                url = LOGIN_REQUEST_URL;
+                break;
+        }
+        return url;
+    }
+
+    public void executeRequest (){
+        Response.Listener<JSONObject> listner = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                onResponseHandler(response);
+            }
+        };
+
+        Response.ErrorListener errorListner = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onErrorHandler(error);
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+
+        CustomRequest jsObjRequest;
+        if (mMethod == CommonRequestMethod.COMMON_REQUEST_METHOD_GET){
+            jsObjRequest = new CustomRequest(mURL, null, listner, errorListner);
+        }
+        else {
+            jsObjRequest = new CustomRequest(Request.Method.POST, mURL, mParams, listner, errorListner);
+        }
+
+        requestQueue.add(jsObjRequest);
+    }
+}
