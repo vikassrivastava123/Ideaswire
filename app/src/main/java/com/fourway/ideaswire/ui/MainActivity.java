@@ -3,13 +3,16 @@ package com.fourway.ideaswire.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.SignUpData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.LoginRequest;
-import com.fourway.ideaswire.request.LoginData;
+import com.fourway.ideaswire.data.LoginData;
+import com.fourway.ideaswire.request.SignUpRequest;
 
-public class MainActivity extends AppCompatActivity implements LoginRequest.LoginResponseCallback{
+public class MainActivity extends AppCompatActivity implements SignUpRequest.SignUpResponseCallback{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +21,14 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
     }
 
     public void TestLogin (View v){
-        LoginData data = new LoginData("vik", "vik");
-        LoginRequest req = new LoginRequest(this, data, this);
+        SignUpData data = new SignUpData("test", "test", "f_name", "l_name", "abc@abc.com", "9818869437");
+        SignUpRequest req = new SignUpRequest(this, data, this);
         req.executeRequest();
     }
 
+
     @Override
-    public void onLoginResponse(CommonRequest.ResponseCode res, LoginData data) {
-        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
-            // TODO: Store tokens and show success to user
-        }
-        else
-        {
-            //TODO: Error conditions
-        }
+    public void onSignUpResponse(CommonRequest.ResponseCode res, SignUpData data) {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
     }
 }

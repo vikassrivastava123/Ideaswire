@@ -18,10 +18,12 @@ import java.util.Map;
 
 public abstract class CommonRequest {
     /*------------------------- Constant Fields Definition ----------------------------*/
-    private static final String LOGIN_REQUEST_DOMAIN = "http://4ways:4wayssecret@localhost:8899/";
+    private static final String DOMAIN = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8080";
 
-    private static final String LOGIN_REQUEST_URL = LOGIN_REQUEST_DOMAIN + "4ways/userauth/oauth/token?grant_type=password";
-    public static enum RequestType  {
+    private static final String LOGIN_REQUEST_URL = DOMAIN + "4ways/userauth/oauth/token?grant_type=password";
+    private static final String SIGN_UP_REQUEST_URL = DOMAIN + "/4ways/api/user/register";
+
+    public enum RequestType  {
         COMMON_REQUEST_LOGIN,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
@@ -29,7 +31,7 @@ public abstract class CommonRequest {
         COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }
 
-    public static enum ResponseCode  {
+    public enum ResponseCode  {
         COMMON_RES_SUCCESS,
         COMMON_RES_INTERNAL_ERROR,
         COMMON_RES_LOGIN_FAILED_INVALID_CREDENTIAL,
@@ -38,7 +40,7 @@ public abstract class CommonRequest {
         COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }
 
-    public static enum CommonRequestMethod {
+    public enum CommonRequestMethod {
         COMMON_REQUEST_METHOD_GET,
         COMMON_REQUEST_METHOD_POST,
 
@@ -79,6 +81,9 @@ public abstract class CommonRequest {
         switch (type){
             case COMMON_REQUEST_LOGIN:
                 url = LOGIN_REQUEST_URL;
+                break;
+            case COMMON_REQUEST_SIGNUP:
+                url = SIGN_UP_REQUEST_URL;
                 break;
         }
         return url;

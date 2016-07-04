@@ -1,4 +1,4 @@
-package com.fourway.ideaswire.request;
+package com.fourway.ideaswire.data;
 
 /**
  * Created by Vikas on 7/1/2016.
