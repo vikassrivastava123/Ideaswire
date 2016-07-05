@@ -111,7 +111,12 @@ public abstract class CommonRequest {
             jsObjRequest = new CustomRequest(mURL, null, listner, errorListner);
         }
         else {
-            jsObjRequest = new CustomRequest(Request.Method.POST, mURL, mParams, listner, errorListner);
+            jsObjRequest = new CustomRequest(Request.Method.POST, mURL, mParams, listner, errorListner){
+                public String getBodyContentType()
+                {
+                    return "application/json";
+                }
+            };
         }
 
         requestQueue.add(jsObjRequest);
