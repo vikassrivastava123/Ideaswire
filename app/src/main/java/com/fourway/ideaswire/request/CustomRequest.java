@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -21,6 +23,7 @@ public class CustomRequest extends Request<JSONObject> {
 
     private Listener<JSONObject> listener;
     private Map<String, String> params;
+    JSONObject  jsonBody;
 
     public CustomRequest(String url, Map<String, String> params,
                          Listener<JSONObject> reponseListener, ErrorListener errorListener) {
@@ -40,6 +43,12 @@ public class CustomRequest extends Request<JSONObject> {
             throws com.android.volley.AuthFailureError {
         return params;
     };
+
+    @Override
+    public byte[] getBody() throws AuthFailureError {
+        JSONObject obj = new JSONObject(params);
+        return obj.toString().getBytes();
+    }
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {

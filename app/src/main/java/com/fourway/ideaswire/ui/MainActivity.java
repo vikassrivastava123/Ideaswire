@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements SignUpRequest.Sig
     }
 
     public void TestLogin (View v){
-        SignUpData data = new SignUpData("test", "test", "f_name", "l_name", "abc@abc.com", "9818869437");
+        SignUpData data = new SignUpData("imtest", "test", "f_name", "l_name", "abc@abc.com", "9818869437");
         SignUpRequest req = new SignUpRequest(this, data, this);
         req.executeRequest();
     }
