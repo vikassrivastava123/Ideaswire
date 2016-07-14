@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5d404dad-b2a2-4412-b186-ef4a0fb9d411" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/LoginRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/LoginRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/SignUpRequest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/SignUpRequest.java" />
     </list>
     <ignored path="Ideaswire.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/VolleyErrorHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="339">
-              <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+              <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -2819,7 +2817,14 @@
       <option name="project" value="LOCAL" />
       <updated>1468520840879</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added common error handling">
+      <created>1468520949672</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1468520949672</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2916,7 +2921,8 @@
     <MESSAGE value="Updating for sign up" />
     <MESSAGE value="Adding Content type header" />
     <MESSAGE value="Change in Login Request.&#10;Added common error handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change in Login Request.&#10;Added common error handling" />
+    <MESSAGE value="Added common error handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added common error handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3419,7 +3425,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/fourway/ideaswire/request/VolleyErrorHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
-          <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+          <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
