@@ -11,6 +11,7 @@ public class SignUpData {
     private String mLastName;
     private String mEmailId;
     private String mMobileNumber;
+    private String mErrorMessage;
 
     private String mResponseMessage;
 
@@ -48,6 +49,14 @@ public class SignUpData {
 
     public void seResponseMessage(String msg){
         mResponseMessage = msg;
+    }
+
+    public void setErrorMessage (String msg){
+        mErrorMessage = msg;
+    }
+
+    public String getErrorMessage (){
+        return mErrorMessage;
     }
 
 }

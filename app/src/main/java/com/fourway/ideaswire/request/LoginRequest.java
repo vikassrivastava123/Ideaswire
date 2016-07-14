@@ -1,15 +1,34 @@
 package com.fourway.ideaswire.request;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.LoginData;
+import com.fourway.ideaswire.data.VolleyErrorHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_CONNECTION_TIMEOUT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_CONNECT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 
 /**
  * Created by Vikas on 6/30/2016.
@@ -20,6 +39,7 @@ public class LoginRequest extends CommonRequest{
     private static final String JSON_FIELD_PASSWORD = "password";
     private Map<String, String> mParams;
     private LoginData mLoginData;
+    Context mContext;
 
 
     public interface LoginResponseCallback {
@@ -30,11 +50,13 @@ public class LoginRequest extends CommonRequest{
     public LoginRequest (Context context, LoginData data, LoginResponseCallback cb)
     {
         super(context, RequestType.COMMON_REQUEST_LOGIN, CommonRequestMethod.COMMON_REQUEST_METHOD_POST, null);
+        mContext = context;
         mLoginData = data;
-        mParams = new HashMap<>();
-        mParams.put(JSON_FIELD_USERNAME, data.getUserName());
-        mParams.put(JSON_FIELD_PASSWORD, data.getPassword());
-        super.setParam(mParams);
+
+        String url = getRequestTypeURL(RequestType.COMMON_REQUEST_LOGIN);
+        url += "&username=" + data.getUserName();
+        url += "&password=" + data.getPassword();
+        super.setURL(url);
 
         mLoginResponseCallback = cb;
     }
@@ -45,6 +67,7 @@ public class LoginRequest extends CommonRequest{
             //TODO: Need to change parsing as per response from server
             mLoginData.setAccessToken(response.getString("access_token"));
             mLoginData.setRefreshToken(response.getString("refresh_token"));
+            mLoginData.setAccessTokenExpiry(response.getInt("expires_in"));
             mLoginResponseCallback.onLoginResponse (ResponseCode.COMMON_RES_SUCCESS, mLoginData);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -53,6 +76,64 @@ public class LoginRequest extends CommonRequest{
 
     @Override
     public void onErrorHandler(VolleyError error) {
-        mLoginResponseCallback.onLoginResponse (ResponseCode.COMMON_RES_INTERNAL_ERROR, mLoginData);
+        String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
+        ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
+        if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_TIMEOUT)
+        {
+            resCode = COMMON_RES_CONNECTION_TIMEOUT;
+        }
+        else if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_UNKNOWN){
+            resCode = COMMON_RES_INTERNAL_ERROR;
+        }
+        else if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_NO_INTERNET){
+            resCode = COMMON_RES_FAILED_TO_CONNECT;
+        }
+        else
+        {
+            resCode = COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
+            mLoginData.setErrorMessage(errorMsg);
+        }
+        mLoginResponseCallback.onLoginResponse (resCode, mLoginData);
+    }
+
+    public void executeRequest (){
+        String url = getURL();
+
+        Response.Listener<String> listner = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                onResponseHandler(obj);
+            }
+        };
+
+        Response.ErrorListener errorListner = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onErrorHandler(error);
+            }
+        };
+
+
+        StringRequest jsonReq = new StringRequest(Request.Method.POST, url, listner, errorListner){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                String tempUrl = getURL();
+
+                String credentials = tempUrl.substring((tempUrl.indexOf("http://") + "http://".length()), tempUrl.indexOf("@"));
+                String credBase64 = Base64.encodeToString(credentials.getBytes(), Base64.DEFAULT).replace("\n", "");
+
+                params.put("authorization", "Basic "+ credBase64);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        requestQueue.add(jsonReq);
     }
 }

@@ -7,8 +7,11 @@ package com.fourway.ideaswire.data;
 public class LoginData {
     private String mUsername;
     private String mPassword;
+
     private String mAccessToken;
     private String mRefreshToken;
+    private Integer mAccessTokenExpiryTime;
+    private String mErrorMessage;
 
     public LoginData(String u_name, String u_password){
         mUsername = u_name; mPassword = u_password;
@@ -36,5 +39,21 @@ public class LoginData {
 
     public void setRefreshToken (String token){
         mRefreshToken = token;
+    }
+
+    public void setAccessTokenExpiry (int seconds){
+        mAccessTokenExpiryTime = seconds;
+    }
+
+    public Integer getAccessTokenExpiry (){
+        return mAccessTokenExpiryTime;
+    }
+
+    public void setErrorMessage (String msg){
+        mErrorMessage = msg;
+    }
+
+    public String getErrorMessage (){
+        return mErrorMessage;
     }
 }

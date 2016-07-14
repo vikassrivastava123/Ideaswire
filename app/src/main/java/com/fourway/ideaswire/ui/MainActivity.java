@@ -12,7 +12,7 @@ import com.fourway.ideaswire.request.LoginRequest;
 import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.request.SignUpRequest;
 
-public class MainActivity extends AppCompatActivity implements SignUpRequest.SignUpResponseCallback{
+public class MainActivity extends AppCompatActivity implements LoginRequest.LoginResponseCallback{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +21,14 @@ public class MainActivity extends AppCompatActivity implements SignUpRequest.Sig
     }
 
     public void TestLogin (View v){
-        SignUpData data = new SignUpData("imtest", "test", "f_name", "l_name", "abc@abc.com", "9818869437");
-        SignUpRequest req = new SignUpRequest(this, data, this);
+        LoginData data = new LoginData("ramji", "ramji");
+        LoginRequest req = new LoginRequest(this, data, this);
         req.executeRequest();
     }
 
 
     @Override
-    public void onSignUpResponse(CommonRequest.ResponseCode res, SignUpData data) {
+    public void onLoginResponse(CommonRequest.ResponseCode res, LoginData data) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
     }
 }
