@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.fourway.ideaswire.data.SignUpData;
-import com.fourway.ideaswire.data.VolleyErrorHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;

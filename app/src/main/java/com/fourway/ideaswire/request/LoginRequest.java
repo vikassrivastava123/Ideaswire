@@ -1,9 +1,7 @@
 package com.fourway.ideaswire.request;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,15 +11,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.LoginData;
-import com.fourway.ideaswire.data.VolleyErrorHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
