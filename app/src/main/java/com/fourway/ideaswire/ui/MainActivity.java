@@ -1,16 +1,15 @@
 package com.fourway.ideaswire.ui;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.SignUpData;
+import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.LoginRequest;
-import com.fourway.ideaswire.data.LoginData;
-import com.fourway.ideaswire.request.SignUpRequest;
 
 public class MainActivity extends AppCompatActivity implements LoginRequest.LoginResponseCallback{
 
@@ -18,6 +17,9 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        startActivity(intent);
     }
 
     public void TestLogin (View v){

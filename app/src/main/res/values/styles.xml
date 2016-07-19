@@ -5,7 +5,37 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/cardHint</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorHint">@color/cardHint</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@color/primary</item>
+        <item name="android:bottomDark">@color/primary</item>
+        <item name="android:bottomMedium">@color/primary</item>
+        <item name="android:centerBright">@color/primary</item>
+        <item name="android:centerDark">@color/primary</item>
+        <item name="android:centerMedium">@color/primary</item>
+        <item name="android:fullBright">@color/primary</item>
+        <item name="android:fullDark">@color/primary</item>
+        <item name="android:topBright">@color/primary</item>
+        <item name="android:topDark">@color/primary</item>
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="AppTheme_Dark_Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+    </style>
+
 
 </resources>
