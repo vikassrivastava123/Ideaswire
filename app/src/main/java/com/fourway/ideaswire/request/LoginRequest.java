@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.LoginData;
+import com.fourway.ideaswire.request.helper.VolleyErrorHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
  * Created by Vikas on 6/30/2016.
  */
 
-public class LoginRequest extends CommonRequest{
+public class LoginRequest extends CommonRequest {
     private static final String JSON_FIELD_USERNAME = "username";
     private static final String JSON_FIELD_PASSWORD = "password";
     private Map<String, String> mParams;

@@ -1,4 +1,4 @@
-package com.fourway.ideaswire.request;
+package com.fourway.ideaswire.request.helper;
 
 
 import java.io.UnsupportedEncodingException;
