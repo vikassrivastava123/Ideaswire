@@ -2,4 +2,5 @@
     <string name="app_name">Ideaswire</string>
     <string name="title_activity_login_ui">loginUi</string>
     <string name="title_activity_signup_ui">signupUi</string>
+    <string name="title_activity_homepage_before_login">HomepageBeforeLogin</string>
 </resources>

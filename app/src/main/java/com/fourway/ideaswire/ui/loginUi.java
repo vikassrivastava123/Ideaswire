@@ -108,7 +108,11 @@ public class loginUi extends AppCompatActivity implements LoginRequest.LoginResp
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        finish();
+      //  finish();
+
+        Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
+        startActivityForResult(intent, REQUEST_SIGNUP);
+
     }
 
     public void onLoginFailed(String msg) {
