@@ -1,23 +1,26 @@
 package com.fourway.ideaswire.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.fourway.ideaswire.R;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Timer;
@@ -36,7 +39,8 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
     private File mCurrentPhoto;
 
     final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
-    final int REQUEST_CAMERA_IMAGE_SELECTOR = 102;
+    final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
+    final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
 
 
 
@@ -158,45 +162,66 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
 
     public void galleryButtonOnClick(View view) {
 
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        this.startActivityForResult(galleryIntent, REQUEST_GALLERY_IMAGE_SELECTOR);
+
+        if(Build.VERSION.SDK_INT >= 23) {
+            Log.d("galleryButtonOnClick", "Build.VERSION.SDK_INT >= 23");
+            verifyStoragePermissions(this);
+        }
+
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+       // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
+
+
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_GALLERY_IMAGE_SELECTOR:
-                if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-                    String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                    Uri selectedImage = data.getData();
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    if (cursor == null || cursor.getCount() < 1) {
-                        mCurrentPhoto = null;
-                        break;
-                    }
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    if(columnIndex < 0) { // no column index
-                        mCurrentPhoto = null;
-                        break;
-                    }
-                    mCurrentPhoto = new File(cursor.getString(columnIndex));
-                    cursor.close();
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static final String[] PERMISSINOS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    public  void verifyStoragePermissions(Activity activity) {
+
+        if(Build.VERSION.SDK_INT >= 23) {
+            int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 } else {
-                    mCurrentPhoto = null;
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
                 }
-                break;
-            case REQUEST_CAMERA_IMAGE_SELECTOR:
-                if (resultCode != Activity.RESULT_OK) {
-                    mCurrentPhoto = null;
-                }
-                break;
+             /*   ActivityCompat.requestPermissions(
+                        activity,
+                        PERMISSINOS_STORAGE,
+                        REQUEST_EXTERNAL_STORAGE
+                );*/
+            }
         }
-        if (mCurrentPhoto != null) {
-            ImageView imageView = (ImageView)findViewById(R.id.cameraImage);
-            Picasso.with(this).load(mCurrentPhoto).into(imageView);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("onActivityResult", "start :");
+
+        if (requestCode == REQUEST_GALLERY_IMAGE_SELECTOR && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+            Log.d("onActivityResult","URI :"+ imageUri);
+            String uriString = imageUri.toString();//FileUtils.getPath(this, imageUri);
+            Log.d("onActivityResult","URI :"+ uriString);
+            Intent EditPhotoIntent = new Intent(this,EditPhotoSelectedUi.class);
+            EditPhotoIntent.putExtra("imageUri",uriString);
+            startActivity(EditPhotoIntent);
+        }
+    }
+
+
 }

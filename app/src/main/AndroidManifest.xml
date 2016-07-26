@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fourway.ideaswire">
 
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+         />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="23" />
+
 
         <activity android:name=".ui.MainActivity">
             <intent-filter>
@@ -30,6 +34,10 @@
         <activity
             android:name=".ui.HomepageBeforeLogin"
             android:label="@string/title_activity_homepage_before_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.EditPhotoSelectedUi"
+            android:label="@string/title_activity_edit_photo_selected_ui"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
