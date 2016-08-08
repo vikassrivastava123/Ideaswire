@@ -26,9 +26,9 @@ import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener{
+public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    int currentPage = 0 , NUM_PAGES = 5;
+    int currentPage = 0, NUM_PAGES = 5;
     ViewPager mViewPager;
     Handler mHandler;
     Runnable mUpdate;
@@ -41,7 +41,6 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
     final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
     final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
     final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
-
 
 
     @Override
@@ -72,25 +71,24 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
     }
 
 
-   void startSlideShow()
-    {
+    void startSlideShow() {
         mHandler = new Handler();
         mUpdate = new Runnable() {
-        public void run() {
-            if (currentPage == NUM_PAGES - 1) {
-                currentPage = 0;
+            public void run() {
+                if (currentPage == NUM_PAGES - 1) {
+                    currentPage = 0;
+                }
+                mViewPager.setCurrentItem(currentPage++, true);
             }
-            mViewPager.setCurrentItem(currentPage++, true);
-        }
-    };
-    new Timer().schedule(new TimerTask() {
+        };
+        new Timer().schedule(new TimerTask() {
 
-        @Override
-        public void run() {
-            mHandler.post(mUpdate);
-        }
-    }, 500, 3000);
-}
+            @Override
+            public void run() {
+                mHandler.post(mUpdate);
+            }
+        }, 500, 3000);
+    }
 
     private int dotsCount;
     private ImageView[] dots;
@@ -160,22 +158,24 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
         }
     }
 
-    public void galleryButtonOnClick(View view) {
-
-
-        if(Build.VERSION.SDK_INT >= 23) {
-            Log.d("galleryButtonOnClick", "Build.VERSION.SDK_INT >= 23");
-            verifyStoragePermissions(this);
-        }
-
+    void startGallery(){
         Intent intent = new Intent();
         // Show only images, no videos or anything else
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-       // Always show the chooser (if there are multiple options available)
+        // Always show the chooser (if there are multiple options available)
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
 
 
+    }
+
+    public void galleryButtonOnClick(View view) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            Log.d("galleryButtonOnClick", "Build.VERSION.SDK_INT >= 23");
+            verifyStoragePermissions(this);
+        }else{
+            startGallery();
+        }
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -184,24 +184,61 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    public  void verifyStoragePermissions(Activity activity) {
+    final static int GALLERY_OPEN_REQUEST = 1;
 
-        if(Build.VERSION.SDK_INT >= 23) {
+    public void verifyStoragePermissions(Activity activity) {
+
+        if (Build.VERSION.SDK_INT >= 23) {
             int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if (permission != PackageManager.PERMISSION_GRANTED) {
+                Log.d("verifySPermissions", "permission != PackageManager.PERMISSION_GRANTED");
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    Log.d("verifySPermissions", "shouldShowRequestPermissionRationale");
                 } else {
+
+                    Log.d("verifySPermissions", "requestPermissions 1");
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            1);
+                            GALLERY_OPEN_REQUEST);
+                    Log.d("verifySPermissions", "requestPermissions 2");
                 }
              /*   ActivityCompat.requestPermissions(
                         activity,
                         PERMISSINOS_STORAGE,
                         REQUEST_EXTERNAL_STORAGE
                 );*/
+            }else{
+                Log.d("verifySPermissions", "permission ==== PackageManager.PERMISSION_GRANTED");
+                startGallery();
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case GALLERY_OPEN_REQUEST: {
+                Log.d("PermissionsResult", "permission =GALLERY_OPEN_REQUEST");
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PermissionsResult", "permission was granted, yay!");
+                    //
+                    startGallery();
+
+
+                } else {
+                    Log.d("PermissionsResult", "permission denied, boo! Disable functionality that depends on this permission.");
+
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 
@@ -214,14 +251,15 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
 
         if (requestCode == REQUEST_GALLERY_IMAGE_SELECTOR && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            Log.d("onActivityResult","URI :"+ imageUri);
-            String uriString = imageUri.toString();//FileUtils.getPath(this, imageUri);
-            Log.d("onActivityResult","URI :"+ uriString);
-            Intent EditPhotoIntent = new Intent(this,EditPhotoSelectedUi.class);
-            EditPhotoIntent.putExtra("imageUri",uriString);
+            Log.d("onActivityResult", "URI :" + imageUri);
+            String uriString = null;
+            uriString = FileUtils.getPath(this, imageUri);
+            Log.d("onActivityResult", "URI :" + uriString);
+            Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
+            EditPhotoIntent.putExtra("imageUri", uriString);
             startActivity(EditPhotoIntent);
+        }else{
+            Log.d("onActivityResult", "No data received");
         }
     }
-
-
 }
