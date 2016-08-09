@@ -22,12 +22,7 @@
         import java.text.DecimalFormat;
         import java.util.Comparator;
 
-/**
- * @version 2009-07-03
- * @author Peli
- * @version 2013-12-11
- * @author paulburke (ipaulpro)
- */
+
 public class FileUtils {
     private FileUtils() {} //private constructor to enforce Singleton pattern
 

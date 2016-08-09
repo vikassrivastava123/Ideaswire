@@ -22,6 +22,7 @@ public class loginUi extends AppCompatActivity implements LoginRequest.LoginResp
 
     private static final String TAG = "loginUi";
     private static final int REQUEST_SIGNUP = 0;
+    public static String mLogintoken = null;
     static ProgressDialog mProgressDialog;
 
     @InjectView(R.id.input_username)
@@ -144,6 +145,7 @@ public class loginUi extends AppCompatActivity implements LoginRequest.LoginResp
 
         switch(responseCode){
             case COMMON_RES_SUCCESS:
+                mLogintoken = data.getAccessToken();
                 onLoginSuccess();
                 break;
             case COMMON_RES_INTERNAL_ERROR:
