@@ -89,12 +89,12 @@ public class CommonFileUpload {
 
     public void uploadFile(){
         VolleyMultipartRequest multipartRequest =
-                new VolleyMultipartRequest(Request.Method.GET, mUrl, mResponseListner, mErrorListner)
+                new VolleyMultipartRequest(Request.Method.POST, mUrl, mResponseListner, mErrorListner)
                 {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        params.put(COMMON_UPLOAD_SEARCH_TOKEN_TAG, mAppKey);
+                        params.put("content-type", "multipart/form-data");
                         return params;
                     }
 

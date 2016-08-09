@@ -10,11 +10,15 @@ import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.ImageUploadData;
+import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.ImageUploadRequest;
 
 import java.io.File;
 
-public class EditPhotoSelectedUi extends AppCompatActivity {
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_IMAGE_NOT_FOUND;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
+
+public class EditPhotoSelectedUi extends AppCompatActivity implements ImageUploadRequest.SearchResponseCallback{
 
     Uri imgUri;
     @Override
@@ -60,10 +64,24 @@ public class EditPhotoSelectedUi extends AppCompatActivity {
         File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
         ImageUploadData data = new ImageUploadData(sendToSearch,"test",loginUi.mLogintoken);
 
-        ImageUploadRequest req = new ImageUploadRequest(EditPhotoSelectedUi.this, data);
+        ImageUploadRequest req = new ImageUploadRequest(EditPhotoSelectedUi.this, data, this);
         req.executeRequest();
 
 
 
+    }
+
+    @Override
+    public void onSearchResponse(CommonRequest.ResponseCode res, ImageUploadData data) {
+        if (res == COMMON_RES_IMAGE_NOT_FOUND){
+            //TODO: Go in create profile.
+        }
+        else if (res == COMMON_RES_SUCCESS)
+        {
+            //TODO: Show profile scren
+        }
+        else{
+            //TODO: Do error handling
+        }
     }
 }
