@@ -1,23 +1,16 @@
 package com.fourway.ideaswire.request;
 
 import android.content.Context;
-import android.util.Base64;
-import android.util.JsonReader;
-import android.util.JsonWriter;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fourway.ideaswire.request.helper.CustomRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
