@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fourway.ideaswire">
 
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +34,14 @@
         <activity
             android:name=".ui.EditPhotoSelectedUi"
             android:label="@string/title_activity_edit_photo_selected_ui"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.HomeScreenFirstLogin"
+            android:label="@string/title_activity_home_screen_first_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.CropedImage"
+            android:label="@string/title_activity_croped_image"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

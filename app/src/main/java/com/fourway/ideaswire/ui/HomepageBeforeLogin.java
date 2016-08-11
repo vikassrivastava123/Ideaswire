@@ -159,21 +159,26 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
     }
 
     void startGallery(){
-        Intent intent = new Intent();
+
+        Intent inf = new Intent (this,CropedImage.class);
+        startActivity(inf);
+      /*  Intent intent = new Intent();
         // Show only images, no videos or anything else
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         // Always show the chooser (if there are multiple options available)
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
-
+*/
 
     }
 
     public void galleryButtonOnClick(View view) {
-        if (Build.VERSION.SDK_INT >= 23) {
+       /* if (Build.VERSION.SDK_INT >= 23) {
             Log.d("galleryButtonOnClick", "Build.VERSION.SDK_INT >= 23");
             verifyStoragePermissions(this);
-        }else{
+        }else
+        */
+        {
             startGallery();
         }
     }
