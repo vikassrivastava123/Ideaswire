@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_CONNECTION_TIMEOUT;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_CONNECT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_IMAGE_NOT_FOUND;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
@@ -28,8 +29,8 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
 
 public class ImageUploadRequest{
     private static final String IMAGE_UPLOAD_SEARCH_PROFILE_URL =
-            "http://4ways:4wayssecret@ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8899" +
-            "/api/profile/search/profile/exists";
+            "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
+            "/4ways/api/profile/search/profile/exists";
     Context mContext;
     ImageUploadData mImageData;
     CommonFileUpload mFileUpload;
@@ -41,8 +42,8 @@ public class ImageUploadRequest{
 
 
 
-    public ImageUploadRequest (Context context, ImageUploadData data){
-        mContext = context; mImageData = data;
+    public ImageUploadRequest (Context context, ImageUploadData data, SearchResponseCallback cb){
+        mContext = context; mImageData = data; mSearchResponseCallback = cb;
     }
 
     public void executeRequest (){
@@ -87,19 +88,23 @@ public class ImageUploadRequest{
     public void onResponseHandler(JSONObject response) {
         /*try {
             //TODO: Need to change parsing as per response from server
-            //mLoginData.setAccessToken(response.getString("access_token"));
-            //mLoginData.setRefreshToken(response.getString("refresh_token"));
-            //mLoginData.setAccessTokenExpiry(response.getInt("expires_in"));
+            mImageData.setAccessToken(response.getString("access_token"));
+            //mImageData.setRefreshToken(response.getString("refresh_token"));
+            //mImageData.setAccessTokenExpiry(response.getInt("expires_in"));
             mSearchResponseCallback.onSearchResponse(COMMON_RES_SUCCESS, mImageData);
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        } */
         mSearchResponseCallback.onSearchResponse(COMMON_RES_SUCCESS, mImageData);
     }
 
     public void onErrorHandler(VolleyError error) {
         String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
         CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
+        if (error.networkResponse.statusCode == 404) {
+            resCode = COMMON_RES_IMAGE_NOT_FOUND;
+            mSearchResponseCallback.onSearchResponse (resCode, mImageData);
+        }
         if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_TIMEOUT)
         {
             resCode = COMMON_RES_CONNECTION_TIMEOUT;
