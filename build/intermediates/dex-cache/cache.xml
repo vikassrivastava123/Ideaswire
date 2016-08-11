@@ -1,3 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\Vaibhav Gusain\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\6.1.0\63735f48b82bcd24cdd33821342428252eb1ca5a\butterknife-6.1.0.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-6.1.0_329bacc6d3b910db19709af556133acba15f98e9\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_3dd8be013118c4feaf3fbd85ce18ded2b2a4d8f7\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="597a953ae4e615e29154adae8ace95becc0526da">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_60768af85f6b779e2546ddeb5da2ee151515084a\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.4.0_9adfc8e063cabaa650dc324df377f6fc649ee7f8\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="535cf3712ef0eeae8dc1db0b0c35c9d0a3472801">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_9e106d65686292cb9ae8bedf64e73145e7e5e924\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_c2660a2d754ec176e7394f97c191ed9046896d4a\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_d77f2753f6434d9abf78d21239be2bae0a50324d\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Vaibhav Gusain\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_06b1c06496b6808c91ee177b6955ff8a53442715\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_7ee48239618f518bf870e0a9eab0faf71de21465\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Vaibhav Gusain\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.4.0\f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2\picasso-2.4.0.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="f36d2d4e3a36b3259aaf9d004d29b4cdc6c1bfb2">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.4.0_15b925ab7b8ebc9538b2cdabf721171b7b782dbc\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\design\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.4.0_f4e628c727ac76c6fe4277d91568c2344ed25529\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_7078d7841b8a9ce78983bb384349145152514bcc\classes.dex" />
+    </item>
+    <item
+        jar="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\exploded-aar\com.android.support.constraint\constraint-layout\1.0.0-alpha1\jars\classes.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="ea579447f9afb1fbcb28e150e1cd4bfe7f56e75b">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support.constraint-constraint-layout-1.0.0-alpha1_787064f481c635ed462f660dff8251630ccd79d2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Vaibhav Gusain\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-alpha1\constraint-layout-solver-1.0.0-alpha1.jar"
+        jumboMode="true"
+        revision="21.1.2"
+        sha1="78d61c347aa5002119e3c17bffcbebf28fe07b0b">
+        <dex dex="E:\Work\IdeasWire\Ideaswire\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.0-alpha1_269ce482f4f858a1b67d03fd32a4ff2df2861034\classes.dex" />
+    </item>
+
+</items>
