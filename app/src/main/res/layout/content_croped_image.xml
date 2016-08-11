@@ -12,13 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.arthu.testandroidcropper.MainActivity">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onLoadImageClick"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Load  Image"/>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -64,5 +57,12 @@
         android:onClick="onCropImageClick"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="Crop  Image"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onRotateImageClick"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Rotate  Image"/>
 
 </LinearLayout>  

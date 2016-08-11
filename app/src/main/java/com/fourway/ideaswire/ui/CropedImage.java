@@ -72,16 +72,16 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
         mCropImageView.setOnGetCroppedImageCompleteListener(null);
     }
     final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
-    public void onLoadImageClick(View view) {
-     //   CropImage.startPickImageActivity(this);
-
-        Intent intent = new Intent();
-        // Show only images, no videos or anything else
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        // Always show the chooser (if there are multiple options available)
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
-    }
+//    public void onLoadImageClick(View view) {
+//     //   CropImage.startPickImageActivity(this);
+//
+//        Intent intent = new Intent();
+//        // Show only images, no videos or anything else
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        // Always show the chooser (if there are multiple options available)
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
+//    }
 
     public void onCropImageClick(View view) {
         mCropImageView.getCroppedImageAsync(500, 500);
@@ -136,7 +136,7 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
                 mCropImageView.setImageBitmap(bitmap);
             }
         } else {
-            Log.e("Crop",  "Failed to crop image", error);
+            Log.e("Crop", "Failed to crop image", error);
             createImagefromBitmap(bitmap);
 
             Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
@@ -181,4 +181,7 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
         }
     }
 
+    public void onRotateImageClick(View view) {
+        mCropImageView.rotateImage(90);
+    }
 }
