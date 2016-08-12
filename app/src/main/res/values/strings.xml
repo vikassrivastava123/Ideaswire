@@ -4,4 +4,6 @@
     <string name="title_activity_signup_ui">signupUi</string>
     <string name="title_activity_homepage_before_login">HomepageBeforeLogin</string>
     <string name="title_activity_edit_photo_selected_ui">EditPhotoSelectedUi</string>
+    <string name="title_activity_home_screen_first_login">HomeScreenFirstLogin</string>
+    <string name="title_activity_croped_image">cropedImage</string>
 </resources>

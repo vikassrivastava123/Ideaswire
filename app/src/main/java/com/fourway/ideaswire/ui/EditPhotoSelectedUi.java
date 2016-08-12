@@ -1,6 +1,8 @@
 package com.fourway.ideaswire.ui;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,79 +11,75 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.ImageUploadData;
-import com.fourway.ideaswire.request.CommonRequest;
-import com.fourway.ideaswire.request.ImageUploadRequest;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
-import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_IMAGE_NOT_FOUND;
-import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
-
-public class EditPhotoSelectedUi extends AppCompatActivity implements ImageUploadRequest.SearchResponseCallback{
+public class EditPhotoSelectedUi extends AppCompatActivity {
 
     Uri imgUri;
+    ImageView CroppedimageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_photo_selected_ui);
 
-        Intent intent = getIntent();
-        String image_path= intent.getStringExtra("imageUri");
+     //   Intent intent = getIntent();
+     //   String image_path= intent.getStringExtra("imageUri");
 
-
-        ImageView imageView = (ImageView) findViewById(R.id.capturedImage);
-        if (imageView != null && image_path != null) {
+        Log.v("EditPhotoSelectedUi","start");
+        CroppedimageView = (ImageView) findViewById(R.id.capturedImage);
+        showImage();
+        /*if (CroppedimageView != null && image_path != null) {
             imgUri=Uri.parse(image_path);
             if(imgUri != null) {
 
-                Log.d("EditPhotoSelectedUi","image_path" + image_path);
-                Log.d("EditPhotoSelectedUi","imgUri" + imgUri);
+                Log.v("EditPhotoSelectedUi", "image_path" + image_path);
+                Log.v("EditPhotoSelectedUi","imgUri" + imgUri);
 
-                imageView.setImageURI(null);
-                imageView.setImageURI(imgUri);
+                CroppedimageView.setImageURI(null);
+                CroppedimageView.setImageURI(imgUri);
             }else{
-                Log.d("EditPhotoSelectedUi","imageView not available");
+                Log.v("EditPhotoSelectedUi","imageView not available");
             }
         }else{
-            Log.d("EditPhotoSelectedUi","imageView not available");
+            Log.v("EditPhotoSelectedUi","imageView not available");
 
-        }
+        }*/
 
 
     }
 
+    void showImage(){
 
+        Log.v("EditPhotoSelectedUi","showImage");
+        try {
+            FileInputStream in = openFileInput("Imaged");
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            CroppedimageView.setImageDrawable(new BitmapDrawable(getResources(),bitmap));
+        }catch (FileNotFoundException e){
+            Log.v("EditPhotoSelectedUi","Imaged file not found");
+        }
+
+    }
 
 
     public void TestSearch(View view) {
+
+        Log.v("TestSearch","start");
 
         if(imgUri == null){
             Log.v("TestSearch","imgUri is null");
             return;
         }
 
-        File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
+  /*      File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
         ImageUploadData data = new ImageUploadData(sendToSearch,"test",loginUi.mLogintoken);
 
-        ImageUploadRequest req = new ImageUploadRequest(EditPhotoSelectedUi.this, data, this);
-        req.executeRequest();
+        ImageUploadRequest req = new ImageUploadRequest(EditPhotoSelectedUi.this, data);
+        req.executeRequest();*/
 
 
 
-    }
-
-    @Override
-    public void onSearchResponse(CommonRequest.ResponseCode res, ImageUploadData data) {
-        if (res == COMMON_RES_IMAGE_NOT_FOUND){
-            //TODO: Go in create profile.
-        }
-        else if (res == COMMON_RES_SUCCESS)
-        {
-            //TODO: Show profile scren
-        }
-        else{
-            //TODO: Do error handling
-        }
     }
 }
