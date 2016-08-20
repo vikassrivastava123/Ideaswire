@@ -2,9 +2,16 @@
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="android:textColorHint">@color/cardHint</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/secondary</item>
+        <item name="android:statusBarColor">@color/appBar</item>
+    </style>
+
+
+    <style name="AppTheme.TitleCustomBar">
+        <item name="windowActionBar">true</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:statusBarColor">@color/appBar</item>
+        <item name="android:textColorHint">@color/primary</item>
     </style>
 </resources>

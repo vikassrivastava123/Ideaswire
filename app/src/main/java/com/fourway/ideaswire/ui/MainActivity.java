@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        Intent intent = new Intent(getApplicationContext(), HomeScreenFirstLogin.class);
         startActivity(intent);
     }
 
