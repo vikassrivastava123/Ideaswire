@@ -96,13 +96,19 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
         Log.e("Crop", "onCropImageClick uri 1" + uriString);
         String test = FileUtils.getPath(this,mCropImageUri);
         Log.e("Crop", "onCropImageClick uri 2" + test);
+        if(test == null){
+            test = uriString;
+
+        }else {
+        }
+
         EditPhotoIntent.putExtra("imageUri", test);
         startActivity(EditPhotoIntent);
 
     }
 
     public void createImagefromBitmap(Bitmap bitmap){
-        String fileName = "imaged";
+        String fileName = "Imaged";
         try{
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
