@@ -49,11 +49,11 @@
             android:theme="@style/AppTheme.TitleCustomBar" />
         <activity
             android:name=".ui.CreateCampaign_homePage"
-            android:label="Create Campaign"
-            android:theme="@style/AppTheme.TitleCustomBar" />
+            android:label="@string/title_activity_create_campaign_home_page"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CreateCampaign_EnterData"
-            android:label="@string/title_activity_create_campaign__enter_data"
+            android:label="@string/title_activity_create__campaign__enter_data"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".editCampaign"
@@ -61,8 +61,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CreateCampain_Sucess"
-            android:label="@string/title_activity_create_campain__sucess"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_choose_template__category"
+            android:theme="@style/AppTheme.TitleCustomBar" />
         <activity
             android:name=".ui.ChooseTemplate_Category"
             android:label="@string/title_activity_choose_template__category"

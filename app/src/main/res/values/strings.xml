@@ -13,12 +13,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_create_campaign_home_page">CreateCampaign_homePage</string>
-    <string name="title_activity_create__campaign__enter_data">Create_Campaign_EnterData</string>
-    <string name="title_activity_create_campaign__enter_data">CreateCampaign_EnterData</string>
-    <string name="title_activity_edit_campaign">editCampaign</string>
-    <string name="title_activity_create_campain__sucess">CreateCampain_Sucess</string>
-    <string name="title_activity_choose_template__category">ChooseTemplate_Category</string>
+    <string name="title_activity_create_campaign_home_page">Create Campaign</string>
+    <string name="title_activity_create__campaign__enter_data">Create Campaign</string>
+    <string name="title_activity_edit_campaign">Create Campaign</string>
+    <string name="title_activity_create_campain__sucess">Create Campaign</string>
+    <string name="title_activity_choose_template__category">Choose Template</string>
 
     <string-array name="image_ids_choose_category">
         <item>@drawable/business</item>
