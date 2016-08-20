@@ -98,6 +98,7 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
         Log.e("Crop", "onCropImageClick uri 2" + test);
         if(test == null){
             test = uriString;
+            Log.e("Crop", "onCropImageClick uri 3" + test);
 
         }else {
         }
@@ -138,16 +139,25 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
     public void  onGetCroppedImageComplete(CropImageView view, Bitmap bitmap, Exception error) {
         mProgressView.setVisibility(View.INVISIBLE);
         if (error == null) {
+            Log.e("Crop", "Success to crop image", error);
             if (bitmap != null) {
-                mCropImageView.setImageBitmap(bitmap);
+               // mCropImageView.setImageBitmap(bitmap);
+                createImagefromBitmap(bitmap);
+                Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
+                startActivity(EditPhotoIntent);
+            }else{
+                Toast.makeText(this,  "some issue ", Toast.LENGTH_LONG).show();
             }
         } else {
             Log.e("Crop", "Failed to crop image", error);
-            createImagefromBitmap(bitmap);
-
-            Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
-            startActivity(EditPhotoIntent);
-            //Toast.makeText(this,  "Something went wrong, try again", Toast.LENGTH_LONG).show();
+            if (bitmap != null) {
+                createImagefromBitmap(bitmap);
+                Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
+                startActivity(EditPhotoIntent);
+            }else{
+                Toast.makeText(this,  "Something went wrong, try again", Toast.LENGTH_LONG).show();
+            }
+            //
         }
     }
 
