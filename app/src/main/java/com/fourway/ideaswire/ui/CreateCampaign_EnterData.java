@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.editCampaign;
 
 public class CreateCampaign_EnterData extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class CreateCampaign_EnterData extends AppCompatActivity {
 
     public void uploadToCreateCampaign(View view) {
 
-        Intent intent = new Intent(this,EditPhotoSelectedUi.class);
+        Intent intent = new Intent(this,editCampaign.class);
         startActivity(intent);
 
     }
