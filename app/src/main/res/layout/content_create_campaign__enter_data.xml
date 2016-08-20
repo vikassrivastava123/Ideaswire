@@ -19,7 +19,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/closeCamapign"
+        android:id="@+id/closeCamapignIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/close"
