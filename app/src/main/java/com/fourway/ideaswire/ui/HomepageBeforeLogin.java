@@ -266,5 +266,5 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
         }else{
             Log.d("onActivityResult", "No data received");
         }
-    }
+    }//
 }

@@ -14,6 +14,12 @@
         <item name="android:textColorHint">@color/cardHint</item>
     </style>
 
+    <style name="AppTheme.TitleCustomBar">
+        <item name="windowActionBar">true</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColorHint">@color/primary</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

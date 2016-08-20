@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.fourway.ideaswire.editCampaign"
+    tools:showIn="@layout/activity_edit_campaign">
+
+    <ImageView
+        android:id="@+id/closeCamapign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="closeEditBox"
+        android:background="@null"
+        />
+
+    <EditText
+        android:id = "@+id/etCampaignName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="16dp"
+
+        android:hint="Campaign Name"
+        android:textColor="@color/text"
+        android:textColorHint="@color/textHintOnWhite"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@+id/etCampaignName"
+        android:layout_marginTop="16dp"
+        android:id="@+id/imageToEdit"
+        android:background="@null"
+       />
+
+    <ImageView
+        android:id="@+id/editCamapignPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_below="@+id/etCampaignName"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:onClick="editCampaignPic"
+        />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageToEdit"
+        android:layout_marginTop="10dp"
+        android:text="Status"
+        android:textSize="25dp"
+        />
+
+    <RadioButton
+        android:id="@+id/StatusOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStatus"
+        android:layout_marginTop="16dp"
+        android:text="Active"
+        android:textSize="25dp"
+
+        />
+
+    <RadioButton
+        android:id="@+id/StatusDraft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStatus"
+        android:layout_marginTop="16dp"
+        android:text="Draft"
+        android:layout_marginLeft="150dp"
+        android:layout_toRightOf="@+id/StatusOn"
+        android:textSize="25dp"
+
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_deleteCampaign"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:gravity="center"
+        android:background="@drawable/loginbutton"
+        android:textColor="@color/card"
+        android:text="Delete Campaign"
+        android:layout_below="@+id/StatusOn"
+        android:onClick="deleteCamapign"
+        />
+
+</RelativeLayout>

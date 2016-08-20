@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.fourway.ideaswire.ui.ImageNotFoundUi"
+    tools:showIn="@layout/activity_image_not_found_ui">
+
+    <ImageView
+        android:id="@+id/whoops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src = "@drawable/whoops"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="155dp"
+        />
+    <TextView
+        android:id="@+id/whoopsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WHOOPS!"
+        android:textSize="44dp"
+        android:layout_below="@+id/whoops"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        />
+    <TextView
+        android:id="@+id/whoopsText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We don't have app for this image"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/whoopsText"
+        />
+    <TextView
+        android:id="@+id/textMsg"
+        android:layout_below="@+id/whoopsText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:text="Want to create app with this image"
+        android:layout_centerHorizontal="true"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/newTemplateBtn"
+        android:layout_below="@+id/textMsg"
+        android:layout_marginTop="10dp"
+        android:text="CREATE AN APP"
+        android:background="@drawable/loginbutton"
+
+        />
+
+</RelativeLayout>
