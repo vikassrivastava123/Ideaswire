@@ -1,5 +1,6 @@
 package com.fourway.ideaswire.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
@@ -42,4 +44,10 @@ public class CreateCampain_Sucess extends AppCompatActivity {
 
     }
 
+    public void addTemplate(View view) {
+
+        Log.v("CreateCampain_Sucess","Clicked to start choosing template");
+        Intent iny = new Intent(this,ChooseTemplate_Category.class);
+        startActivity(iny);
+    }
 }

@@ -1,24 +1,19 @@
 package com.fourway.ideaswire.ui;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-
-import java.util.ArrayList;
 
 public class ChooseTemplate_Category extends AppCompatActivity {
 
@@ -30,13 +25,115 @@ public class ChooseTemplate_Category extends AppCompatActivity {
         setContentView(R.layout.activity_choose_template__category);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
-
-
         gridView = (GridView) findViewById(R.id.gridView);
-        gridAdapter = new GridViewAdapter(this, R.layout.activity_choose_template__category, getData());
-        gridView.setAdapter(gridAdapter);
+   //     gridAdapter = new GridViewAdapter(this, R.layout.activity_choose_template__category, getData());
+    //    gridView.setAdapter(gridAdapter);
+
+        String[] values = new String[] { "business", "entertainment", "finance",
+                "health", "individual","information","other","restaurent","see_all_template","wedding"};
+
+        // use your custom layout
+        ArrayAdapter<String> adapter = new GridViewAdapter<String>(this,
+                values);
+        gridView.setAdapter(adapter);
+
+        ////
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                Log.v("tets","test test");
+                //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
+            }});
+        ////
+
+  }
+
+
+
+
+
+    private class GridViewAdapter<S> extends ArrayAdapter<String>{
+
+        private final Context context;
+        private final String[] values;
+
+        public GridViewAdapter(Context context, String[] values) {
+            super(context, R.layout.choose_category_grid_layout, values);
+            this.context = context;
+            this.values = values;
+        }
+
+
+        class viewHolder{
+            TextView tvHeader;
+            ImageView imgView;
+
+        }
+        LayoutInflater inflater;
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final viewHolder holderObj ;
+
+            if(convertView == null){
+
+                holderObj = new viewHolder();
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.choose_category_grid_layout, null);
+
+                holderObj.tvHeader = (TextView) convertView.findViewById(R.id.tvTemplateCatrgory);
+                holderObj.imgView = (ImageView) convertView.findViewById(R.id.imgvTemplateCatrgory);
+
+                convertView.setTag(holderObj);
+
+            }else{
+                holderObj = (viewHolder)convertView.getTag();
+            }
+
+            Log.v("fristScreenAdapter", "position" + position + " " + values[position]);
+            holderObj.tvHeader.setText(values[position]);
+
+
+
+            switch (position){
+                case 0:
+                    holderObj.imgView.setImageResource(R.drawable.business);
+                    break;
+                case 1:
+                    holderObj.imgView.setImageResource(R.drawable.entertainment);
+                    break;
+                case 2:
+
+                    holderObj.imgView.setImageResource(R.drawable.finance);
+                    break;
+                case 3:
+
+                    holderObj.imgView.setImageResource(R.drawable.health);
+                    break;
+                case 4:
+                    holderObj.imgView.setImageResource(R.drawable.individual);
+                    break;
+                case 5:
+                    holderObj.imgView.setImageResource(R.drawable.information);
+                    break;
+                case 6:
+                    holderObj.imgView.setImageResource(R.drawable.other);
+                    break;
+                case 7:
+                    holderObj.imgView.setImageResource(R.drawable.restaurent);
+                    break;
+                case 8:
+                    holderObj.imgView.setImageResource(R.drawable.see_all_template);
+                    break;
+                case 9:
+                    holderObj.imgView.setImageResource(R.drawable.wedding);
+                    break;
+            }
+            return convertView;
+        }
     }
 
+
+/*
     // Prepare some dummy data for gridview
     private ArrayList<ImageItem> getData() {
         final ArrayList<ImageItem> imageItems = new ArrayList<>();
@@ -53,11 +150,12 @@ public class ChooseTemplate_Category extends AppCompatActivity {
         }
         return imageItems;
     }
-
+*/
 
 
 }
 
+/*
  class ImageItem {
     private Bitmap image;
     private String title;
@@ -132,4 +230,4 @@ try {
         TextView imageTitle;
         ImageView image;
     }
-}
+}*/

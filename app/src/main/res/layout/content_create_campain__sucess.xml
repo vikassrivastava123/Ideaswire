@@ -64,7 +64,7 @@
       android:text="You are just few minute away from your app"
       />
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/btn_addTemplate"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
