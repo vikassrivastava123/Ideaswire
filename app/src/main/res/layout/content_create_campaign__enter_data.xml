@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:background="@color/backgrndAddCampaign"
         android:layout_marginBottom="10dp"
         android:id="@+id/dummyLayout"
@@ -48,8 +48,9 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginTop="32dp"
-       android:clickable="true"
-       android:onClick="uploadToCreateCampaign"
+    android:padding="10dp"
+    android:clickable="true"
+    android:onClick="uploadToCreateCampaign"
     android:background="@drawable/upload_image_bg"
     >
 
@@ -60,6 +61,7 @@
         android:src="@drawable/upload"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:onClick="uploadToCreateCampaign"
         android:background="@null"
        />
 
@@ -72,6 +74,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
         android:text= "Upload Image"
+        android:onClick="uploadToCreateCampaign"
         android:layout_below="@+id/imageButton" />
 
        <TextView
@@ -82,8 +85,7 @@
            android:layout_marginBottom="16dp"
            android:text = "Accepted filetype PNG,JPG"
            android:layout_centerHorizontal="true"
-           android:textSize="20dp"
-
+           android:textSize="20dp" android:onClick="uploadToCreateCampaign"
            />
 
 </RelativeLayout>

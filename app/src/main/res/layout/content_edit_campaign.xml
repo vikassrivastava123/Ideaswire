@@ -20,29 +20,32 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:onClick="closeEditBox"
-        android:background="@null"
+         android:background="@null"
         />
-
-    <EditText
-        android:id = "@+id/etCampaignName"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/txtEdit"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <EditText android:id="@+id/etCampaignName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/text"
+            android:hint="Campaign Name"
+            android:textColorHint = "@color/textHintOnWhite"
+            />
+    </android.support.design.widget.TextInputLayout>
 
-        android:hint="Campaign Name"
-        android:textColor="@color/text"
-        android:textColorHint="@color/textHintOnWhite"
-        />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_below="@+id/etCampaignName"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/txtEdit"
+        android:layout_marginTop="10dp"
         android:id="@+id/imageToEdit"
+        android:scaleType="centerCrop"
         android:background="@null"
        />
 
@@ -51,12 +54,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit"
-        android:layout_below="@+id/etCampaignName"
+        android:layout_below="@+id/txtEdit"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:background="@null"
-        android:onClick="editCampaignPic"
+
+        />
+
+
         />
 
     <TextView
@@ -64,48 +70,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageToEdit"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:text="Status"
-        android:textSize="25dp"
-        />
+        android:textSize="25dp">
+</TextView>
 
-    <RadioButton
-        android:id="@+id/StatusOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RadioGroup
+        android:id="@+id/radiogrp"
         android:layout_below="@+id/tvStatus"
-        android:layout_marginTop="16dp"
-        android:text="Active"
-        android:textSize="25dp"
-
-        />
-
-    <RadioButton
-        android:id="@+id/StatusDraft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvStatus"
-        android:layout_marginTop="16dp"
-        android:text="Draft"
-        android:layout_marginLeft="150dp"
-        android:layout_toRightOf="@+id/StatusOn"
-        android:textSize="25dp"
-
-        />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_deleteCampaign"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="24dp"
-        android:padding="12dp"
+        android:layout_marginTop="17dp"
+        android:textColor="@color/card"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/success"
+
+        >
+
+        <RadioButton
+            android:id="@+id/StatusOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Active"
+            android:textSize="25dp"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/StatusDraft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Draft"
+            android:layout_marginLeft="75dp"
+            android:onClick="onRadioButtonClicked"
+            android:textSize="25dp"/>
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btn_createCampaign"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/card"
         android:gravity="center"
         android:background="@drawable/loginbutton"
-        android:textColor="@color/card"
-        android:text="Delete Campaign"
-        android:layout_below="@+id/StatusOn"
-        android:onClick="deleteCamapign"
+        android:layout_alignParentBottom="true"
+        android:text="Create Campaign"
+        android:onClick="createCamapignBtn"
         />
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.editCampaign;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -34,26 +35,42 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
 
     private TextView mProgressViewText;
 
+    private String scrnName = null;
+
+    private final static String TAG = "CropedImage";
+
+    private static boolean galleryStarted = false;
+
+    private String mCampaignNameReceived = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_croped_image);
-
+        Log.v(TAG, "onCreate galleryStarted == " + galleryStarted);
 
         mCropImageView = (CropImageView)  findViewById(R.id.CropImageView);
         mProgressView =  findViewById(R.id.ProgressView);
         mProgressViewText = (TextView)  findViewById(R.id.ProgressViewText);
 
 
-        Intent intent = new Intent();
-        // Show only images, no videos or anything else
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        // Always show the chooser (if there are multiple options available)
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
+        Intent intentScrn = getIntent();
+        scrnName = intentScrn.getStringExtra("ScreenName");
+        mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
 
 
+        Log.v("","scrnName"+scrnName);
+
+        if(galleryStarted == false) {
+            galleryStarted = true;
+            Intent intent = new Intent();
+            // Show only images, no videos or anything else
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            // Always show the chooser (if there are multiple options available)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
+        }
 
     }
 
@@ -61,16 +78,44 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
     @Override
     protected void onStart() {
         super.onStart();
+        Log.v(TAG, "onStart");
         mCropImageView.setOnSetImageUriCompleteListener(this);
         mCropImageView.setOnGetCroppedImageCompleteListener(this);
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(TAG,"onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.v(TAG,"onRestart");
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        Log.v(TAG, "onStop");
         mCropImageView.setOnSetImageUriCompleteListener(null);
         mCropImageView.setOnGetCroppedImageCompleteListener(null);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v(TAG, "onDestroy" + galleryStarted);
+        galleryStarted =false;
+    }
+
     final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
 //    public void onLoadImageClick(View view) {
 //     //   CropImage.startPickImageActivity(this);
@@ -103,23 +148,30 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
         }else {
         }
 
-        EditPhotoIntent.putExtra("imageUri", test);
-        startActivity(EditPhotoIntent);
 
+            if(scrnName != null && scrnName.equals("Create Campaign") == true) {
+
+            }else {
+             //   EditPhotoIntent.putExtra("imageUri", test);
+             //   startActivity(EditPhotoIntent);
+            }
     }
 
     public void createImagefromBitmap(Bitmap bitmap){
         String fileName = "Imaged";
+        Log.v("createImagefromBitmap","start");
         try{
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
             FileOutputStream fo = openFileOutput(fileName, Context.MODE_PRIVATE);
+            Log.v("createImagefromBitmap","try");
             fo.write(bytes.toByteArray());
             fo.close();
         }catch (Exception e){
             e.printStackTrace();
             fileName=null;
+            Log.v("createImagefromBitmap","catch");
         }
     }
 
@@ -143,27 +195,25 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
             if (bitmap != null) {
                // mCropImageView.setImageBitmap(bitmap);
                 createImagefromBitmap(bitmap);
-                Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
-                startActivity(EditPhotoIntent);
-            }else{
-                Toast.makeText(this,  "some issue ", Toast.LENGTH_LONG).show();
+                Intent editCampaignIntent = new Intent(this, editCampaign.class);
+                editCampaignIntent.putExtra("imageUri", "test");
+                editCampaignIntent.putExtra("CampaignName",mCampaignNameReceived);
+                Log.e("Crop", "Call to Create Campaign");
+                startActivity(editCampaignIntent);
+
+             }else{
+                Toast.makeText(this,  "Please Try again", Toast.LENGTH_LONG).show();
             }
         } else {
             Log.e("Crop", "Failed to crop image", error);
-            if (bitmap != null) {
-                createImagefromBitmap(bitmap);
-                Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
-                startActivity(EditPhotoIntent);
-            }else{
-                Toast.makeText(this,  "Something went wrong, try again", Toast.LENGTH_LONG).show();
-            }
-            //
-        }
+            Toast.makeText(this,  "Failed to crop image ,Please Try again", Toast.LENGTH_LONG).show();
+         }
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int  requestCode, int resultCode, Intent data) {
+        galleryStarted = false;
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = CropImage.getPickImageResultUri(this, data);
 

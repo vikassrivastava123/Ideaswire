@@ -54,7 +54,7 @@ public class EditPhotoSelectedUi extends AppCompatActivity {
 
         Log.v("EditPhotoSelectedUi","showImage");
         try {
-            FileInputStream in = openFileInput("Imaged");
+            FileInputStream in = openFileInput("ImagedA");
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             CroppedimageView.setImageDrawable(new BitmapDrawable(getResources(),bitmap));
         }catch (FileNotFoundException e){

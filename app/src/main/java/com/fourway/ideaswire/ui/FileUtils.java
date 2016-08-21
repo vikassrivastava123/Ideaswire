@@ -503,9 +503,9 @@ public class FileUtils {
         // Implicitly allow the user to select a particular kind of data
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         // The MIME data type filter
-        intent.setType("*/*");
-        // Only return URIs that can be opened with ContentResolver
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+       // intent.setType("*/*");
+//        // Only return URIs that can be opened with ContentResolver
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
         return intent;
     }
 }

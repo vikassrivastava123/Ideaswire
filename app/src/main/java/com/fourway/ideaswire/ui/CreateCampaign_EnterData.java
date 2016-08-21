@@ -12,17 +12,33 @@ import com.fourway.ideaswire.R;
 
 public class CreateCampaign_EnterData extends AppCompatActivity {
 
+    EditText etCampignName = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campaign__enter_data);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        etCampignName = (EditText)findViewById(R.id.etCampaignName);
     }
 
     public void uploadToCreateCampaign(View view) {
+        String campnName = null;
+        if(etCampignName !=null){
+            campnName = etCampignName.getText().toString();
+        }
+
+        /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
 
         Intent inf = new Intent (this,CropedImage.class);
+        inf.putExtra("ScreenName","Create Campaign");
+        inf.putExtra("CampaignName",campnName);
         startActivity(inf);
 
       //  Intent intent = new Intent(this,editCampaign.class);
@@ -34,9 +50,10 @@ public class CreateCampaign_EnterData extends AppCompatActivity {
 
     public void closeEditBox(View view) {
         ImageView closeCampaignTitle = (ImageView)findViewById(R.id.closeCamapignIcon);
-        EditText closeEDit = (EditText)findViewById(R.id.etCampaignName);
-        closeEDit.setVisibility(View.GONE);
+        etCampignName.setVisibility(View.GONE);
         closeCampaignTitle.setVisibility(View.GONE);
-
+        etCampignName = null;
     }
+
+
 }
