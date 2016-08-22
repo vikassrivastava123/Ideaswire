@@ -27,5 +27,7 @@ public class CreateCampaign_homePage extends AppCompatActivity {
 
         Intent intent = new Intent(this,CreateCampaign_EnterData.class);
         startActivity(intent);
+
+
     }
 }
