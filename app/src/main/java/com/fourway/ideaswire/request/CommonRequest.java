@@ -29,6 +29,9 @@ public abstract class CommonRequest {
         COMMON_REQUEST_LOGIN,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
+        COMMON_REQUEST_CREATE_PROFILE,
+
+        COMMON_REQUEST_GET_PROFILE_STATUS,
 
         COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }
@@ -55,6 +58,7 @@ public abstract class CommonRequest {
     private String mURL;
     private CommonRequestMethod mMethod;
     private Map<String, String> mParams;
+    private JSONObject mJSONParams;
     private RequestType mRequestType;
     private Context mContext;
 
@@ -75,6 +79,10 @@ public abstract class CommonRequest {
 
     public void setParam (Map<String, String> params){
         mParams = params;
+    }
+
+    public void setParam (JSONObject params){
+        mJSONParams = params;
     }
 
     public abstract void onResponseHandler (JSONObject response);
