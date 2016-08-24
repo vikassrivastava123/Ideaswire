@@ -146,6 +146,7 @@ public class loginUi extends AppCompatActivity implements LoginRequest.LoginResp
         switch(responseCode){
             case COMMON_RES_SUCCESS:
                 mLogintoken = data.getAccessToken();
+                Log.v(TAG,"LoginToken" + mLogintoken);
                 onLoginSuccess();
                 break;
             case COMMON_RES_INTERNAL_ERROR:

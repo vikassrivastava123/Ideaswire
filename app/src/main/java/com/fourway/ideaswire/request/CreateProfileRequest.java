@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.request;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -142,6 +143,7 @@ public class CreateProfileRequest{
 
     public void onErrorHandler(VolleyError error) {
         String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
+        Log.v("onErrorHandler","error is" + error);
         CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
         if (error.networkResponse.statusCode == 404) {
             resCode = COMMON_RES_CONNECTION_TIMEOUT;

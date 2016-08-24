@@ -13,13 +13,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.fourway.ideaswire.data.CreateProfileData;
+import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.CreateProfileRequest;
 import com.fourway.ideaswire.ui.CreateCampain_Sucess;
+import com.fourway.ideaswire.ui.loginUi;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class editCampaign extends AppCompatActivity {
+public class editCampaign extends AppCompatActivity implements CreateProfileRequest.CreateProfileResponseCallback {
 
     ImageView selImage;
     RadioButton statusOn = null;
@@ -105,10 +109,38 @@ public class editCampaign extends AppCompatActivity {
         String CamapingName = mEtCampnName.getText().toString();
         File sendFile = new File("Imaged");
 
-        //make request here
+        if(sendFile == null){
+            Log.v(Tag,"file data is null");
+        }else {
+            Log.v(Tag, "Make request Now to create templae");
+            Log.v(Tag,"LoginToken" + loginUi.mLogintoken);
 
-        Intent inte = new Intent(this, CreateCampain_Sucess.class);
-        startActivity(inte);
+            CreateProfileData data = new CreateProfileData(CreateProfileData.TemplateID.PROFILE_TEMPLATE_ID_T1, "default", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+            CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data);
+            req.executeRequest();
+        }
+       //make request here
+    }
+
+    @Override
+    public void onCreateProfileResponse(CommonRequest.ResponseCode res, CreateProfileData data) {
+
+        Log.v(Tag,"ResponseCode : "+res);
+
+        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
+
+            Log.v(Tag,"Success ResponseCode : "+res);
+            Intent inte = new Intent(this, CreateCampain_Sucess.class);
+            startActivity(inte);
+
+
+        }else
+           Log.v(Tag,"Error ResponseCode : "+res);
+//                COMMON_RES_INTERNAL_ERROR,
+//                COMMON_RES_CONNECTION_TIMEOUT,
+//                COMMON_RES_FAILED_TO_CONNECT,
+//                COMMON_RES_IMAGE_NOT_FOUND,
+//                COMMON_RES_SERVER_ERROR_WITH_MESSAGE
 
     }
 
