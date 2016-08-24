@@ -64,6 +64,12 @@
             android:label="@string/title_activity_create_campain__sucess"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.select_layout"
+            android:label="@string/title_activity_choose_template__category"
+            android:theme="@style/AppTheme.TitleCustomBar" />
+
+
+        <activity
             android:name=".ui.ChooseTemplate_Category"
             android:label="@string/title_activity_choose_template__category"
             android:theme="@style/AppTheme.NoActionBar"></activity>

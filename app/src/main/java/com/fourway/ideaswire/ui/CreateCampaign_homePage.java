@@ -15,11 +15,8 @@ public class CreateCampaign_homePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campaign_home_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-           // toolbar.setTitle("Create Campaign");
-           // toolbar.setNavigationIcon(R.drawable.ic_menu_send);
-           // setSupportActionBar(toolbar);
-        }
+        setSupportActionBar(toolbar);
+
 
     }
 
