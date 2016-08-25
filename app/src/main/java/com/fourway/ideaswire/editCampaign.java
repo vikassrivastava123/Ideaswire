@@ -115,9 +115,12 @@ public class editCampaign extends AppCompatActivity implements CreateProfileRequ
             Log.v(Tag, "Make request Now to create templae");
             Log.v(Tag,"LoginToken" + loginUi.mLogintoken);
 
-            CreateProfileData data = new CreateProfileData(CreateProfileData.TemplateID.PROFILE_TEMPLATE_ID_T1, "default", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+            /*CreateProfileData data = new CreateProfileData(CreateProfileData.TemplateID.PROFILE_TEMPLATE_ID_T1, "default", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
             CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data);
-            req.executeRequest();
+            req.executeRequest();*/
+
+            Intent inte = new Intent(this, CreateCampain_Sucess.class);
+            startActivity(inte);
         }
        //make request here
     }
