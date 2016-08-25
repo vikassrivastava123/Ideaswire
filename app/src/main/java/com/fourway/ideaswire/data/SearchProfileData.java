@@ -11,26 +11,17 @@ public class SearchProfileData {
     private File mImageFile;
     private String mFileName;
     private String mToken;
-    private String mSearchProfileId;
     private String mErrorMessage;
-    private boolean mIsSearchByImage;
     private ArrayList<Profile> mProfileList;
     private int mTotalNumberOfProfiles = 0;
 
     public SearchProfileData(File img, String filename, String token){
-        mImageFile = img; mToken = token; mFileName = filename; mIsSearchByImage = true;
-    }
-
-    public SearchProfileData(String search_profile_id, String filename, String token){
-        mSearchProfileId = search_profile_id; mToken = token; mFileName = filename;
-        mIsSearchByImage = false;
+        mImageFile = img; mToken = token; mFileName = filename;
     }
 
     public String getAppKey (){ return  mToken;}
     public String getFileName (){return mFileName;}
     public File getImageFile (){return mImageFile;}
-    public boolean isImageSearch(){return mIsSearchByImage;}
-
     public void setErrorMessage (String msg){mErrorMessage = msg;}
     public String getErrorMessage(){return mErrorMessage;}
 

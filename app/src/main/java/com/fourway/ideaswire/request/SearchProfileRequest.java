@@ -6,10 +6,12 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.SearchProfileData;
 import com.fourway.ideaswire.request.helper.CommonFileUpload;
 import com.fourway.ideaswire.request.helper.VolleyErrorHelper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +23,11 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
+import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_ATTR;
+import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_CATEGORY;
+import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_DEPT;
+import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_NAME;
+import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_TYPE;
 
 /**
  * Created by Vikas on 7/23/2016.
@@ -45,17 +52,8 @@ public class SearchProfileRequest {
         mContext = context; mImageData = data; mSearchResponseCallback = cb;
     }
 
-    public void executeRequest (){
-        if (mImageData.isImageSearch() == true){
-            searchProfileForImage();
-        }
-        else
-        {
-            //TODO: searchProfileForId();
-        }
-    }
 
-    void searchProfileForImage(){
+    void executeRequest(){
         String url = IMAGE_UPLOAD_SEARCH_PROFILE_URL;
         Response.Listener<NetworkResponse> listner = new Response.Listener<NetworkResponse>() {
 
@@ -65,12 +63,12 @@ public class SearchProfileRequest {
                 try {
                     String str = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                     obj = new JSONObject(str);
+                    onResponseHandler(obj);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                onResponseHandler(obj);
             }
         };
 
@@ -94,14 +92,29 @@ public class SearchProfileRequest {
     }
 
 
-    public void onResponseHandler(JSONObject response) {
+    public void onResponseHandler(JSONObject response) throws JSONException {
         parseAndAddProfileResults(response);
         mSearchResponseCallback.onSearchResponse(COMMON_RES_SUCCESS, mImageData);
     }
 
-    private void parseAndAddProfileResults (JSONObject res){
-        //TODO: Need to implement parsing
-        // TODO: Create Profile objects from response and add into mImageData
+    private void parseAndAddProfileResults (JSONObject res) throws JSONException {
+        JSONArray profileList = res.getJSONArray("Data");
+        int size = profileList.length();
+        for (int i=0; i<size; i++){
+            JSONObject profile = profileList.getJSONObject(i);
+            String id = profile.getString("id");
+            String templateId = profile.getString("templateId");/* //Comment: Not needed as of now
+            JSONObject data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
+            String p_name = data.getString(CREATE_PROFILE_JSON_TAG_NAME);
+            String p_cat = data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
+            String p_type = data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
+            String p_dept = data.getString(CREATE_PROFILE_JSON_TAG_DEPT);*/
+            String p_img_url = profile.getString("downloadUrl");
+
+            Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));
+            p.setImageUrl(p_img_url);
+            mImageData.addProfile(p);
+        }
     }
 
     public void onErrorHandler(VolleyError error) {

@@ -36,6 +36,12 @@ public class CreateProfileRequest{
     private String mProfileId;
     CommonFileUpload mFileUpload;
 
+    public static final String CREATE_PROFILE_JSON_TAG_NAME = "ProfileName";
+    public static final String CREATE_PROFILE_JSON_TAG_CATEGORY = "ProfileCategory";
+    public static final String CREATE_PROFILE_JSON_TAG_TYPE = "ProfileType";
+    public static final String CREATE_PROFILE_JSON_TAG_DEPT = "ProfileDept";
+    public static final String CREATE_PROFILE_JSON_TAG_ATTR = "imageAttributes";
+
     public interface CreateProfileResponseCallback {
         void onCreateProfileResponse(CommonRequest.ResponseCode res, CreateProfileData data);
     }
@@ -52,15 +58,14 @@ public class CreateProfileRequest{
         JSONObject js = new JSONObject();
         try {
             js.put("authorization", "bearer " + mProfileRequestData.getAccessToken());
-            js.put("templateId", mProfileRequestData.getTemplateId());
 
-            JSONObject imageAttributes = new JSONObject();
-            imageAttributes.put("imagename", mProfileRequestData.getImageName());
-            imageAttributes.put("imagecategory", mProfileRequestData.getImageCategory());
-            imageAttributes.put("imagetype", "JPEG"); //TODO: Hardcoded JPEG type sent to server
-            imageAttributes.put("imagedept", mProfileRequestData.getImageDepartment());
+            JSONObject profileAttributes = new JSONObject();
+            profileAttributes.put("ProfileName", mProfileRequestData.getProfileName());
+            profileAttributes.put("ProfileCategory", mProfileRequestData.getProfileCategory());
+            profileAttributes.put("ProfileType", "JPEG"); //TODO: Hardcoded JPEG type sent to server
+            profileAttributes.put("ProfileDept", mProfileRequestData.getProfileDepartment());
 
-            js.put("imageAttributes", imageAttributes);
+            js.put("imageAttributes", profileAttributes);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,6 +75,7 @@ public class CreateProfileRequest{
             public void onResponse(JSONObject response) {
                 try {
                     mProfileId = response.getString("data");
+                    mProfileRequestData.setProfileId (mProfileId);
                     uploadProfileImage();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -124,7 +130,7 @@ public class CreateProfileRequest{
         mFileUpload = new CommonFileUpload(mContext,
                 mProfileRequestData.getImageData(),
                 CommonFileUpload.FileType.COMMON_UPLOAD_FILE_TYPE_IMAGE,
-                mProfileRequestData.getImageName(),
+                mProfileRequestData.getProfileName(),
                 url,
                 mProfileRequestData.getAccessToken(),
                 listner,
