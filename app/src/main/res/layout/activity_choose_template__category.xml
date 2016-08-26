@@ -18,8 +18,11 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/titleBar"
             app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Create"
             android:clickable="true"
-            android:contextClickable="false" />
+            android:contextClickable="false"
+            app:navigationIcon="@drawable/back_1"
+            android:visibility="visible"/>
 
     </android.support.design.widget.AppBarLayout>
 

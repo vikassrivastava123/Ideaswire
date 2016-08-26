@@ -6,12 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.fourway.ideaswire.data.CreateProfileData;
 import com.fourway.ideaswire.request.CommonRequest;
@@ -31,12 +32,18 @@ public class editCampaign extends AppCompatActivity implements CreateProfileRequ
     private EditText mEtCampnName = null;
     private String mCampaignNameReceived = null;
     private static String Tag = "editCampaign";
+    TextView t1_new;
+    Button btn1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_campaign);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+  //      Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+     //   Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+        btn1 = (Button) findViewById(R.id.btn_createCampaign);
+  //      btn1.setTypeface(mycustomFont);
+   //     t1_new.setTypeface(mycustomFont);
         Intent intentScrn = getIntent();
         mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
         mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
@@ -46,6 +53,8 @@ public class editCampaign extends AppCompatActivity implements CreateProfileRequ
         selImage = (ImageView)findViewById(R.id.imageToEdit);
         statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
         statusOn = (RadioButton)findViewById(R.id.StatusOn);
+     //   statusDraft.setTypeface(mycustomFont);
+    //    statusOn.setTypeface(mycustomFont);
         showImageCampaign();
         //selImage.set
 

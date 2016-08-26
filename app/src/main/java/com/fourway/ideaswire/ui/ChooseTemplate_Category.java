@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,17 @@ public class ChooseTemplate_Category extends AppCompatActivity {
         setContentView(R.layout.activity_choose_template__category);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                finish();
+                //Intent intent = new Intent(getApplicationContext(),CreateCampaign_homePage.class);
+                //startActivity(intent);
+            }
+        });
         gridView = (GridView) findViewById(R.id.gridView);
    //     gridAdapter = new GridViewAdapter(this, R.layout.activity_choose_template__category, getData());
     //    gridView.setAdapter(gridAdapter);

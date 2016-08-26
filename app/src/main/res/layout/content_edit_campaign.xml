@@ -34,6 +34,7 @@
             android:inputType="text"
             android:textColor="@color/text"
             android:hint="Campaign Name"
+            android:backgroundTint="#000000"
             android:textColorHint = "@color/textHintOnWhite"
             />
     </android.support.design.widget.TextInputLayout>
@@ -84,7 +85,7 @@
         android:textColor="@color/card"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="@color/success"
+
 
         >
 
@@ -95,7 +96,8 @@
             android:onClick="onRadioButtonClicked"
             android:text="Active"
             android:textSize="25dp"
-            android:checked="true" />
+            android:checked="true"
+            android:buttonTint="#00FF00"/>
 
         <RadioButton
             android:id="@+id/StatusDraft"
@@ -104,7 +106,9 @@
             android:text="Draft"
             android:layout_marginLeft="75dp"
             android:onClick="onRadioButtonClicked"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:checked="true"
+            android:buttonTint="#00FF00"/>
 
     </RadioGroup>
 
