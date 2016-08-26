@@ -1,11 +1,13 @@
 package com.fourway.ideaswire;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class editCampaign extends AppCompatActivity implements CreateProfileRequest.CreateProfileResponseCallback {
+public class editCampaign extends Activity implements CreateProfileRequest.CreateProfileResponseCallback {
 
     ImageView selImage;
     RadioButton statusOn = null;
@@ -32,29 +34,41 @@ public class editCampaign extends AppCompatActivity implements CreateProfileRequ
     private EditText mEtCampnName = null;
     private String mCampaignNameReceived = null;
     private static String Tag = "editCampaign";
-    TextView t1_new;
+    TextView t1_new,mTitle;
     Button btn1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_campaign);
-  //      Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Typeface mycustomFont= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setTypeface(mycustomFont);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                finish();
+                //Intent intent = new Intent(getBaseContext(),CreateCampaign_homePage.class);
+                //startActivity(intent);
+            }
+        });
 //        setSupportActionBar(toolbar);
-     //   Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+
         btn1 = (Button) findViewById(R.id.btn_createCampaign);
-  //      btn1.setTypeface(mycustomFont);
-   //     t1_new.setTypeface(mycustomFont);
-        Intent intentScrn = getIntent();
-        mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
-        mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
+        btn1.setTypeface(mycustomFont);
+//        t1_new.setTypeface(mycustomFont);
+//        Intent intentScrn = getIntent();
+//        mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
+//        mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
         if(mEtCampnName != null){
             mEtCampnName.setText(mCampaignNameReceived);
         }
         selImage = (ImageView)findViewById(R.id.imageToEdit);
         statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
         statusOn = (RadioButton)findViewById(R.id.StatusOn);
-     //   statusDraft.setTypeface(mycustomFont);
-    //    statusOn.setTypeface(mycustomFont);
+        statusDraft.setTypeface(mycustomFont);
+        statusOn.setTypeface(mycustomFont);
         showImageCampaign();
         //selImage.set
 
@@ -115,7 +129,7 @@ public class editCampaign extends AppCompatActivity implements CreateProfileRequ
             liveCampain = true;
         }
 
-        String CamapingName = mEtCampnName.getText().toString();
+       // String CamapingName = mEtCampnName.getText().toString();
         File sendFile = new File("Imaged");
 
         if(sendFile == null){

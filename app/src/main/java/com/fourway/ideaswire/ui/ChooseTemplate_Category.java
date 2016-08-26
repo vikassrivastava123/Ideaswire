@@ -1,9 +1,10 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,24 +18,27 @@ import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
 
-public class ChooseTemplate_Category extends AppCompatActivity {
+public class ChooseTemplate_Category extends Activity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
+    TextView mTitle,choose_cat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_template__category);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setTypeface(mycustomFont);
+        choose_cat = (TextView) findViewById(R.id.HeaderCategory);
+        choose_cat.setTypeface(mycustomFont);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // back button pressed
                 finish();
-                //Intent intent = new Intent(getApplicationContext(),CreateCampaign_homePage.class);
+                //Intent intent = new Intent(getBaseContext(),CreateCampaign_homePage.class);
                 //startActivity(intent);
             }
         });
@@ -72,11 +76,13 @@ public class ChooseTemplate_Category extends AppCompatActivity {
 
         private final Context context;
         private final String[] values;
-
+        private Typeface tf;
         public GridViewAdapter(Context context, String[] values) {
             super(context, R.layout.choose_category_grid_layout, values);
             this.context = context;
             this.values = values;
+            Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+            this.tf = mycustomFont;
         }
 
 
@@ -97,6 +103,7 @@ public class ChooseTemplate_Category extends AppCompatActivity {
                 convertView = inflater.inflate(R.layout.choose_category_grid_layout, null);
 
                 holderObj.tvHeader = (TextView) convertView.findViewById(R.id.tvTemplateCatrgory);
+                holderObj.tvHeader.setTypeface(tf);
                 holderObj.imgView = (ImageView) convertView.findViewById(R.id.imgvTemplateCatrgory);
 
                 convertView.setTag(holderObj);

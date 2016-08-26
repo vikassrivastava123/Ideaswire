@@ -1,9 +1,11 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
@@ -22,7 +25,7 @@ import com.fourway.ideaswire.templates.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-public class select_layout_of_template extends AppCompatActivity {
+public class select_layout_of_template extends Activity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
@@ -30,7 +33,7 @@ public class select_layout_of_template extends AppCompatActivity {
     public static List<pages> listOfTemplatePagesObj;
 
     private final String TAG = "seleclayouttemplate";
-
+    TextView mTitle,t;
     void startModifyTemplate(int typeOfTemplateSelected){
 
         listOfTemplatePagesObj = new ArrayList<pages>();
@@ -57,7 +60,21 @@ public class select_layout_of_template extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_layout_of_template);
-
+        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                finish();
+                //Intent intent = new Intent(getBaseContext(),CreateCampaign_homePage.class);
+                //startActivity(intent);
+            }
+        });
+        t= (TextView) findViewById(R.id.HeaderOfSelectLAyout);
+        mTitle.setTypeface(mycustomFont);
+        t.setTypeface(mycustomFont);
         gridView = (GridView) findViewById(R.id.gridViewForSelectLayout);
 
         String[] values = new String[] { "business", "entertainment", "finance",

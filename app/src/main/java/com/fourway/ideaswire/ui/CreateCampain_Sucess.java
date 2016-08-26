@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +19,10 @@ import com.fourway.ideaswire.R;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class CreateCampain_Sucess extends AppCompatActivity {
+public class CreateCampain_Sucess extends Activity {
 
     ImageView selImage;
-    TextView t1,t2,t3;
+    TextView t1,t2,t3,mTitle;
     Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,8 @@ public class CreateCampain_Sucess extends AppCompatActivity {
         setContentView(R.layout.activity_create_campain__sucess);
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setTypeface(mycustomFont);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
