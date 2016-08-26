@@ -32,4 +32,6 @@
         <item>@drawable/wedding</item>
 
     </string-array>
+    <string name="title_activity_about_us_ui_template1">AboutUsUiTemplate1</string>
+    <string name="title_activity_home_page_ui_template1">HomePageUiTemplate1</string>
 </resources>

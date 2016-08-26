@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,6 +43,9 @@ public class ChooseTemplate_Category extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.v("tets","test test");
+
+                Intent sel = new Intent(ChooseTemplate_Category.this,select_layout_of_template.class);
+                startActivity(sel);
                 //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
             }});
         ////

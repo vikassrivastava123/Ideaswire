@@ -74,9 +74,9 @@ public class EditPhotoSelectedUi extends AppCompatActivity {
         }
 
   /*      File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
-        ImageUploadData data = new ImageUploadData(sendToSearch,"test",loginUi.mLogintoken);
+        SearchProfileData data = new SearchProfileData(sendToSearch,"test",loginUi.mLogintoken);
 
-        ImageUploadRequest req = new ImageUploadRequest(EditPhotoSelectedUi.this, data);
+        SearchProfileRequest req = new SearchProfileRequest(EditPhotoSelectedUi.this, data);
         req.executeRequest();*/
 
 

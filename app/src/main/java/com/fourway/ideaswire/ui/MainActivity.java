@@ -13,11 +13,24 @@ import com.fourway.ideaswire.request.LoginRequest;
 
 public class MainActivity extends AppCompatActivity implements LoginRequest.LoginResponseCallback{
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    /*    listOfTemplatePagesObj = new ArrayList<pages>();
+
+        pages abtusObj = new AboutUsPage();
+        listOfTemplatePagesObj.add(0, abtusObj);
+
+        dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(1);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+
+        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        intent.putExtra("data",data);*/
         Intent intent = new Intent(getApplicationContext(), HomeScreenFirstLogin.class);
         startActivity(intent);
     }

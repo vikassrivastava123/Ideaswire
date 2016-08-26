@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -96,6 +97,11 @@ public class CommonFileUpload {
                         Map<String, String> params = new HashMap<>();
                         params.put("content-type", "multipart/form-data");
                         return params;
+                    }
+
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        return (mHeader != null) ? mHeader : super.getHeaders();
                     }
 
                     @Override

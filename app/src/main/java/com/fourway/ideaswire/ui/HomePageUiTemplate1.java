@@ -1,30 +1,23 @@
 package com.fourway.ideaswire.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.fourway.ideaswire.R;
 
-public class CreateCampaign_homePage extends AppCompatActivity {
+public class HomePageUiTemplate1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_campaign_home_page);
+        setContentView(R.layout.activity_home_page_ui_on_app);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-    }
-
-    public void createCamEditBtn(View view) {
-
-        Intent intent = new Intent(this,CreateCampaign_EnterData.class);
-        startActivity(intent);
-
 
     }
+
 }

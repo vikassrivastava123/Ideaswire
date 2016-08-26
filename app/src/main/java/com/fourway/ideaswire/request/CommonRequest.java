@@ -24,13 +24,19 @@ public abstract class CommonRequest {
     private static final String LOGIN_REQUEST_URL = "http://4ways:4wayssecret@ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8899"
             + "/4ways/userauth/oauth/token" + "?grant_type=password";
     private static final String SIGN_UP_REQUEST_URL = DOMAIN + "/4ways/api/user/register";
+    private static final String GET_PROFILE_DATA_URL =
+            "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
+                    "/4ways/api/profile/search/profile/content";;
 
     public enum RequestType  {
         COMMON_REQUEST_LOGIN,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
+        COMMON_REQUEST_CREATE_PROFILE,
 
-        COMMON_REQUEST_END // WARNING: Add all request types above this line only
+        COMMON_REQUEST_GET_PROFILE_STATUS,
+
+        COMMON_REQUEST_GET_PROFILE, COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }
 
     public enum ResponseCode  {
@@ -55,6 +61,7 @@ public abstract class CommonRequest {
     private String mURL;
     private CommonRequestMethod mMethod;
     private Map<String, String> mParams;
+    private JSONObject mJSONParams;
     private RequestType mRequestType;
     private Context mContext;
 
@@ -77,6 +84,10 @@ public abstract class CommonRequest {
         mParams = params;
     }
 
+    public void setParam (JSONObject params){
+        mJSONParams = params;
+    }
+
     public abstract void onResponseHandler (JSONObject response);
     public abstract void onErrorHandler (VolleyError error);
 
@@ -88,6 +99,9 @@ public abstract class CommonRequest {
                 break;
             case COMMON_REQUEST_SIGNUP:
                 url = SIGN_UP_REQUEST_URL;
+                break;
+            case COMMON_REQUEST_GET_PROFILE:
+                url = GET_PROFILE_DATA_URL;
                 break;
         }
         return url;
