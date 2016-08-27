@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.CreateProfileData;
+import com.fourway.ideaswire.data.UpdateImageRequestData;
 import com.fourway.ideaswire.request.helper.CommonFileUpload;
 import com.fourway.ideaswire.request.helper.VolleyErrorHelper;
 
@@ -30,7 +31,7 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
  * Created by Vikas on 8/22/2016.
  */
 
-public class CreateProfileRequest{
+public class CreateProfileRequest implements UpdateImageRequest.UpdateImageResponseCallback{
     private Context mContext;
     private CreateProfileData mProfileRequestData;
     private String mProfileId;
@@ -41,6 +42,12 @@ public class CreateProfileRequest{
     public static final String CREATE_PROFILE_JSON_TAG_TYPE = "ProfileType";
     public static final String CREATE_PROFILE_JSON_TAG_DEPT = "ProfileDept";
     public static final String CREATE_PROFILE_JSON_TAG_ATTR = "imageAttributes";
+
+    @Override
+    public void onUpdateImageResponse(CommonRequest.ResponseCode res, UpdateImageRequestData data) {
+        mProfileRequestData.setErrorMessage(data.getErrorMessage());
+        mCreateProfileResponseCallback.onCreateProfileResponse(res, mProfileRequestData);
+    }
 
     public interface CreateProfileResponseCallback {
         void onCreateProfileResponse(CommonRequest.ResponseCode res, CreateProfileData data);
@@ -109,42 +116,13 @@ public class CreateProfileRequest{
     }
 
     private void uploadProfileImage (){
-        String url = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8090/4ways/api/image/profile/upload/image";
-
-        Response.Listener<NetworkResponse> listner = new Response.Listener<NetworkResponse>() {
-
-            @Override
-            public void onResponse(NetworkResponse response) {
-                mCreateProfileResponseCallback.onCreateProfileResponse(CommonRequest.ResponseCode.COMMON_RES_SUCCESS, mProfileRequestData);
-            }
-        };
-
-        Response.ErrorListener errorListner = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                onErrorHandler(error);
-            }
-        };
-
-
-        mFileUpload = new CommonFileUpload(mContext,
-                mProfileRequestData.getImageData(),
-                CommonFileUpload.FileType.COMMON_UPLOAD_FILE_TYPE_IMAGE,
-                mProfileRequestData.getProfileName(),
-                url,
+        UpdateImageRequestData data = new UpdateImageRequestData(
                 mProfileRequestData.getAccessToken(),
-                listner,
-                errorListner);
-        mFileUpload.setFileTag("image");
-
-        Map<String, String> params = new HashMap<>();
-        params.put("content-type", "multipart/form-data");
-        params.put("authorization", "bearer "+ mProfileRequestData.getAccessToken());
-        params.put("x-image-profile-id", mProfileId);
-
-        mFileUpload.setHeader(params);
-
-        mFileUpload.uploadFile();
+                mProfileRequestData.getProfileId(),
+                mProfileRequestData.getProfileName(),
+                mProfileRequestData.getImageData());
+        UpdateImageRequest req = new UpdateImageRequest(mContext,data, this);
+        req.executeRequest();
     }
 
     public void onErrorHandler(VolleyError error) {

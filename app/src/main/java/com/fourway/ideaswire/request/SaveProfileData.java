@@ -81,7 +81,7 @@ public class SaveProfileData {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                Request.Method.POST, url, js,listner, errorListner) {
+                Request.Method.PUT, url, js,listner, errorListner) {
 
             /**
              * Passing some request headers
