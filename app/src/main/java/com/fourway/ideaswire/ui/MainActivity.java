@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    /*    listOfTemplatePagesObj = new ArrayList<pages>();
+        /*listOfTemplatePagesObj = new ArrayList<pages>();
 
         pages abtusObj = new AboutUsPage();
         listOfTemplatePagesObj.add(0, abtusObj);
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
 
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
-        Intent intent = new Intent(getApplicationContext(), HomeScreenFirstLogin.class);
+        Intent intent = new Intent(getApplicationContext(), loginUi.class);
         startActivity(intent);
     }
 

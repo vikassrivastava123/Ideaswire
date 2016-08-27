@@ -1,9 +1,9 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,13 +18,13 @@ import com.fourway.ideaswire.request.LoginRequest;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class loginUi extends AppCompatActivity implements LoginRequest.LoginResponseCallback{
+public class loginUi extends Activity implements LoginRequest.LoginResponseCallback{
 
     private static final String TAG = "loginUi";
     private static final int REQUEST_SIGNUP = 0;
     public static String mLogintoken = null;
     static ProgressDialog mProgressDialog;
-
+    Button login_button;
     @InjectView(R.id.input_username)
     EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
@@ -38,7 +38,14 @@ public class loginUi extends AppCompatActivity implements LoginRequest.LoginResp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_ui);
 
-        ButterKnife.inject(this);
+        _loginButton = (Button) findViewById(R.id.btn_login);
+        _loginButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //Do stuff here
+                login();
+            }
+        });
+                ButterKnife.inject(this);
 
         _passwordText.setOnClickListener(new View.OnClickListener() {
 
