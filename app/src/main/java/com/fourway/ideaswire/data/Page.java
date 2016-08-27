@@ -23,6 +23,7 @@ public class Page {
     public  Page (String profile_id, String name){
         mProfileId = profile_id; mName = name;
         mId = profile_id + String.valueOf(mPageIdGenerator);
+        mAttributes = new ArrayList<>();
         mPageIdGenerator++;
 
     }

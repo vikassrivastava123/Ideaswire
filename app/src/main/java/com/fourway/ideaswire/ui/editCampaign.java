@@ -173,7 +173,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
             Log.v(Tag,"LoginToken" + loginUi.mLogintoken);
 
             CreateProfileData data = new CreateProfileData("Campaign Name",  "bussiness", "asASa", loginUi.mLogintoken, sendFile);
-            CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data);
+            CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
             req.executeRequest();
 
             //Intent inte = new Intent(this, CreateCampain_Sucess.class);

@@ -55,9 +55,10 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
     }
     private CreateProfileResponseCallback mCreateProfileResponseCallback;
 
-    public CreateProfileRequest(Context context, CreateProfileData data) {
+    public CreateProfileRequest(Context context, CreateProfileData data, CreateProfileResponseCallback cb) {
         mProfileRequestData = data;
         mContext = context;
+        mCreateProfileResponseCallback = cb;
     }
 
     public void executeRequest () {

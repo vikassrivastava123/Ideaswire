@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.request.helper.VolleyErrorHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_CONNECTION_TIMEOUT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_CONNECT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
 
 /**
@@ -27,20 +32,26 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
  */
 
 public class GetUserProfileRequest{
-    private String GET_USER_PROFILe_LIST_URL =
+    private String GET_USER_PROFILE_LIST_URL =
             "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
                     "/4ways/api/profile/search/user/profile/all";
 
+    public interface GetUserProfilesResponseCallback {
+        void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data);
+    }
+    private GetUserProfilesResponseCallback mOnUserProfileCallback;
+
+
     GetUserProfileRequestData mRequestData;
     Context mContext;
-    public GetUserProfileRequest (Context c, GetUserProfileRequestData data){
-        mContext = c; mRequestData = data;
+    public GetUserProfileRequest (Context c, GetUserProfileRequestData data, GetUserProfilesResponseCallback cb){
+        mContext = c; mRequestData = data; mOnUserProfileCallback = cb;
         Map<String, String> param = new HashMap<>();
         param.put("authorization", "bearer " + mRequestData.getAccessToken());
     }
 
     public void executeRequest(){
-        String url = GET_USER_PROFILe_LIST_URL;
+        String url = GET_USER_PROFILE_LIST_URL;
         Response.Listener<JSONObject> listner = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -75,7 +86,7 @@ public class GetUserProfileRequest{
     }
 
     private void parseAndAddProfileResults (JSONObject res) throws JSONException {
-        JSONArray profileList = res.getJSONArray("Data");
+        JSONArray profileList = res.getJSONArray("data");
         int size = profileList.length();
         for (int i=0; i<size; i++){
             JSONObject profile = profileList.getJSONObject(i);
@@ -101,11 +112,33 @@ public class GetUserProfileRequest{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //mSearchResponseCallback.onSearchResponse(COMMON_RES_SUCCESS, mImageData);
+        mOnUserProfileCallback.onResponse(COMMON_RES_SUCCESS, mRequestData);
     }
 
 
     public void onErrorHandler(VolleyError error) {
-        Toast.makeText(mContext, "failed", Toast.LENGTH_SHORT);
+        String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
+        Log.v("onErrorHandler","error is" + error);
+        CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
+        if (error.networkResponse.statusCode == 404) {
+            resCode = COMMON_RES_CONNECTION_TIMEOUT;
+            mOnUserProfileCallback.onResponse (resCode, mRequestData);
+        }
+        if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_TIMEOUT)
+        {
+            resCode = COMMON_RES_CONNECTION_TIMEOUT;
+        }
+        else if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_UNKNOWN){
+            resCode = COMMON_RES_INTERNAL_ERROR;
+        }
+        else if (errorMsg == VolleyErrorHelper.COMMON_NETWORK_ERROR_NO_INTERNET){
+            resCode = COMMON_RES_FAILED_TO_CONNECT;
+        }
+        else
+        {
+            resCode = COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
+            mRequestData.setErrorMessage(errorMsg);
+        }
+        mOnUserProfileCallback.onResponse (resCode, mRequestData);
     }
 }

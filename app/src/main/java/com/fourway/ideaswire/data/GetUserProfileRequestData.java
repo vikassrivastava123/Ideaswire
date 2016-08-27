@@ -14,11 +14,12 @@ public class GetUserProfileRequestData {
 
     public GetUserProfileRequestData (String token){
         mToken = token;
+        mProfileList = new ArrayList<>();
     }
 
     public String getAccessToken(){return mToken;}
-    public void setErrorString (String s) {mErrorString = s;}
-    public String getErrorString (){return mErrorString;}
+    public void setErrorMessage (String s) {mErrorString = s;}
+    public String getErrorMessage (){return mErrorString;}
     public ArrayList<Profile> getProfileList (){return mProfileList;}
     public void addProfile(Profile p) {mProfileList.add(mTotalNumberOfProfiles++, p);}
     public Profile getProfileAtIndex (int i) {return (i < mTotalNumberOfProfiles) ? mProfileList.get(i): null;}

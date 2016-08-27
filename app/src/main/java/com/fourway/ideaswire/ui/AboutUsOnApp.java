@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.Attribute;
@@ -79,6 +80,7 @@ public class AboutUsOnApp extends AppCompatActivity implements SaveProfileData.S
     public void aboutUsButtonAction(View view) {
 
         requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
+        requestToMakeProfile.addPage(mAbtUsPageObj);
         SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
         req.executeRequest();
 
@@ -88,6 +90,7 @@ public class AboutUsOnApp extends AppCompatActivity implements SaveProfileData.S
     public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
 
         Log.v(TAG,"ResponseCode = " + res);
+        Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
 
 
     }

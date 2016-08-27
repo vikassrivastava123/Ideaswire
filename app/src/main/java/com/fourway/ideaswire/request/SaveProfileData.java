@@ -50,9 +50,10 @@ public class SaveProfileData {
 
         JSONObject js = new JSONObject();
         try {
-            js.put("authorization", "bearer " + mAppKey);
-            js.put("x-image-profile-id", mProfileId);
-            js.put(Profile.PROFILE_PAGE_ARRAY_NAME, mProfile.createJSONArray());
+            js.put("contentType", "Text");
+            JSONObject jsData = new JSONObject();
+            jsData.put(Profile.PROFILE_DATA_JSON_TAG, mProfile.createJSONArray());
+            js.put(Profile.PROFILE_PAGE_ARRAY_NAME, jsData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,7 @@ public class SaveProfileData {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                Request.Method.PUT, url, js,listner, errorListner) {
+                Request.Method.POST, url, js,listner, errorListner) {
 
             /**
              * Passing some request headers
@@ -89,6 +90,8 @@ public class SaveProfileData {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization", "bearer " + mAppKey);
+                headers.put("x-image-profile-id", mProfileId);
                 headers.put("Content-Type", "application/json");
                 return headers;
             }

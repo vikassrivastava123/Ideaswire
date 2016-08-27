@@ -69,7 +69,8 @@ public class GetProfileRequest extends CommonRequest {
             p.setProfileDepartment(p_dept);
             p.setImageUrl(p_img_url);
 
-            JSONArray pages = profile.getJSONArray(Profile.PROFILE_PAGE_ARRAY_NAME);
+            JSONObject attr = profile.getJSONObject(Profile.PROFILE_PAGE_ARRAY_NAME);
+            JSONArray pages = attr.getJSONArray(Profile.PROFILE_DATA_JSON_TAG);
             p.addAllPagesToList(pages);
             mRequestData.setProfile(p);
             mGetProfileResponseCallback.onGetProfileResponse(COMMON_RES_SUCCESS, mRequestData);

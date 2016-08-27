@@ -13,21 +13,25 @@ import android.widget.Toast;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.LoginData;
+import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.LoginRequest;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
 
-public class loginUi extends Activity implements LoginRequest.LoginResponseCallback{
+public class loginUi extends Activity implements LoginRequest.LoginResponseCallback, GetUserProfileRequest.GetUserProfilesResponseCallback{
 
     private static final String TAG = "loginUi";
     private static final int REQUEST_SIGNUP = 0;
     public static String mLogintoken = null;
     static ProgressDialog mProgressDialog;
+    static ArrayList<Profile> mProfileList;
     Button login_button;
     @InjectView(R.id.input_username)
     EditText _usernameText;
@@ -120,7 +124,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
 
     private void requestProfileList (){
         GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
-        GetUserProfileRequest request = new GetUserProfileRequest(this, data);
+        GetUserProfileRequest request = new GetUserProfileRequest(this, data, this);
         request.executeRequest();
     }
 
@@ -182,5 +186,12 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
                 break;
         }
 
+    }
+
+    @Override
+    public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
+        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
+            mProfileList = data.getProfileList();
+        }
     }
 }

@@ -39,6 +39,7 @@ public class Profile {
         PROFILE_TEMPLATE_ID_END // WARNING: Add all request types above this line only
     }
     public static final String PROFILE_PAGE_ARRAY_NAME = "attributes";
+    public static final String PROFILE_DATA_JSON_TAG = "Profile_data";
 
 
     private static final String TEMPLATE_STRING_T1 = "t1";
@@ -63,6 +64,7 @@ public class Profile {
 
     public Profile (String profile_id, TemplateID template_Id){
         mId = profile_id; mTemplateId = template_Id; setTemplateString();
+        mPages = new ArrayList<>();
     }
 
     public void setProfileName (String s) {mProfileName =s;}
