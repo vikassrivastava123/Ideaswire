@@ -171,7 +171,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
             case COMMON_RES_SUCCESS:
                 mLogintoken = data.getAccessToken();
                 Log.v(TAG,"LoginToken" + mLogintoken);
-                onLoginSuccess();
+                     onLoginSuccess();
                 break;
             case COMMON_RES_INTERNAL_ERROR:
                 onLoginFailed("Login Failed ,Please try again");
