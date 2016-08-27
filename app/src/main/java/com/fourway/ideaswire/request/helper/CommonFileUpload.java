@@ -92,12 +92,12 @@ public class CommonFileUpload {
         VolleyMultipartRequest multipartRequest =
                 new VolleyMultipartRequest(Request.Method.POST, mUrl, mResponseListner, mErrorListner)
                 {
-                    @Override
+                    /*@Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        params.put("content-type", "multipart/form-data");
+                        params.put("Content-Type", "multipart/form-data");
                         return params;
-                    }
+                    }*/
 
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {

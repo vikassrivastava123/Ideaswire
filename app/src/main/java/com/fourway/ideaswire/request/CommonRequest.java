@@ -26,7 +26,7 @@ public abstract class CommonRequest {
     private static final String SIGN_UP_REQUEST_URL = DOMAIN + "/4ways/api/user/register";
     private static final String GET_PROFILE_DATA_URL =
             "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
-                    "/4ways/api/profile/search/profile/content";;
+                    "/4ways/api/profile/search/profile/content";
 
     public enum RequestType  {
         COMMON_REQUEST_LOGIN,
@@ -36,7 +36,7 @@ public abstract class CommonRequest {
 
         COMMON_REQUEST_GET_PROFILE_STATUS,
 
-        COMMON_REQUEST_GET_PROFILE, COMMON_REQUEST_END // WARNING: Add all request types above this line only
+        COMMON_REQUEST_GET_PROFILE, COMMON_REQUEST_GET_USER_PROFILE_LIST, COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }
 
     public enum ResponseCode  {

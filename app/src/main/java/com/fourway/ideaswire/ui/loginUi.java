@@ -11,8 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.LoginRequest;
 
 import butterknife.ButterKnife;
@@ -114,8 +116,16 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         moveTaskToBack(true);
     }
 
+    private void requestProfileList (){
+        GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
+        GetUserProfileRequest request = new GetUserProfileRequest(this, data);
+        request.executeRequest();
+    }
+
     public void onLoginSuccess() {
+
         _loginButton.setEnabled(true);
+        requestProfileList();
       //  finish();
 
         Intent intent = new Intent(getApplicationContext(), HomeScreenFirstLogin.class);
