@@ -1,8 +1,8 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +18,7 @@ import com.fourway.ideaswire.request.SignUpRequest;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class signupUi extends AppCompatActivity implements SignUpRequest.SignUpResponseCallback{
+public class signupUi extends Activity implements SignUpRequest.SignUpResponseCallback{
 
     private static final String TAG = "SignupActivity";
 
