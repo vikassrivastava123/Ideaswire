@@ -101,7 +101,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
 
        SignUpData data = new SignUpData(username,password,username,username,email,mobile_num);
        SignUpRequest req = new SignUpRequest(signupUi.this, data, this);
-       // req.executeRequest();
+        req.executeRequest();
     }
 
     public void onSignupSuccess() {
