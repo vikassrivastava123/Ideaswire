@@ -69,7 +69,7 @@ public class UpdateImageRequest {
         mFileUpload.setFileTag("image");
 
         Map<String, String> params = new HashMap<>();
-        params.put("content-type", "multipart/form-data");
+        //params.put("content-type", "multipart/form-data");
         params.put("authorization", "bearer "+ mImageData.getAccessToken());
         params.put("x-image-profile-id", mImageData.getProfileId());
 

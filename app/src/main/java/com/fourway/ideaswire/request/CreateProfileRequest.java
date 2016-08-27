@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.request;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -64,7 +65,7 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
 
         JSONObject js = new JSONObject();
         try {
-            js.put("authorization", "bearer " + mProfileRequestData.getAccessToken());
+            js.put("templateId", "t1");
 
             JSONObject profileAttributes = new JSONObject();
             profileAttributes.put("ProfileName", mProfileRequestData.getProfileName());
@@ -108,6 +109,7 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("authorization", "bearer "+ mProfileRequestData.getAccessToken());
                 headers.put("Content-Type", "application/json");
                 return headers;
             }

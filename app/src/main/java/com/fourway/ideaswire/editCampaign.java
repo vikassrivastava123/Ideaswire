@@ -22,9 +22,12 @@ import com.fourway.ideaswire.request.CreateProfileRequest;
 import com.fourway.ideaswire.ui.CreateCampain_Sucess;
 import com.fourway.ideaswire.ui.loginUi;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class editCampaign extends Activity implements CreateProfileRequest.CreateProfileResponseCallback {
 
@@ -119,7 +122,30 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
     }
 
-    public void createCamapignBtn(View view) {
+    private File getFileObjectFromBitmap (Bitmap b) throws IOException {
+        File f = new File(getApplicationContext().getCacheDir(), "Abc");
+
+//Convert bitmap to byte array
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
+    public void createCamapignBtn(View view) throws IOException {
         boolean liveCampain = false;
 
         RadioButton rbStatusOn = (RadioButton)findViewById(R.id.StatusOn);
@@ -130,7 +156,14 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         }
 
        // String CamapingName = mEtCampnName.getText().toString();
-        File sendFile = new File("Imaged");
+        FileInputStream in = null;
+        try {
+            in = openFileInput("Imaged");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(in);
+        File sendFile = getFileObjectFromBitmap (bitmap);
 
         if(sendFile == null){
             Log.v(Tag,"file data is null");
@@ -138,12 +171,12 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
             Log.v(Tag, "Make request Now to create templae");
             Log.v(Tag,"LoginToken" + loginUi.mLogintoken);
 
-            /*CreateProfileData data = new CreateProfileData(CreateProfileData.TemplateID.PROFILE_TEMPLATE_ID_T1, "default", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+            CreateProfileData data = new CreateProfileData("Campaign Name",  "bussiness", "asASa", loginUi.mLogintoken, sendFile);
             CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data);
-            req.executeRequest();*/
+            req.executeRequest();
 
-            Intent inte = new Intent(this, CreateCampain_Sucess.class);
-            startActivity(inte);
+            //Intent inte = new Intent(this, CreateCampain_Sucess.class);
+            //startActivity(inte);
         }
        //make request here
     }
