@@ -15,10 +15,12 @@
         android:id = "@+id/forbckgrnd"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:background="@color/backgrndAddCampaign"
         android:orientation="horizontal">
     <TextView
         android:id="@+id/HeaderCategory"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -35,7 +37,7 @@
         android:layout_below="@+id/forbckgrnd"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+
         android:columnWidth="100dp"
         android:drawSelectorOnTop="true"
         android:gravity="center"

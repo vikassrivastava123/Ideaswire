@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +26,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 
-public class CropedImage extends AppCompatActivity implements CropImageView.OnGetCroppedImageCompleteListener,  CropImageView.OnSetImageUriCompleteListener{
+public class CropedImage extends Activity implements CropImageView.OnGetCroppedImageCompleteListener,  CropImageView.OnSetImageUriCompleteListener{
 
-
+    Button b1,b2;
     private CropImageView mCropImageView;
 
     private View mProgressView;
@@ -47,8 +49,23 @@ public class CropedImage extends AppCompatActivity implements CropImageView.OnGe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_croped_image);
-        Log.v(TAG, "onCreate galleryStarted == " + galleryStarted);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                finish();
+                //Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
+                //startActivity(intent);
+            }
+        });
 
+        Log.v(TAG, "onCreate galleryStarted == " + galleryStarted);
+        b1 = (Button) findViewById(R.id.crop_done);
+        b2 = (Button) findViewById(R.id.crop_cancel);
+        b1.setTypeface(mycustomFont);
+        b2.setTypeface(mycustomFont);
         mCropImageView = (CropImageView)  findViewById(R.id.CropImageView);
         mProgressView =  findViewById(R.id.ProgressView);
         mProgressViewText = (TextView)  findViewById(R.id.ProgressViewText);

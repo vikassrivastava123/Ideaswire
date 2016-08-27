@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/backgrndAddCampaign">
+        android:background="#EEEEEE">
 
     </LinearLayout>
 
@@ -21,20 +21,22 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="#EEEEEE"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:paddingTop="5dp"
         android:singleLine="true"
         android:textColor="@color/text"
         android:text="\n\nWelcome to IdeasWire Community"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:textStyle="bold"/>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="17dp"
+
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/HeaderFirstLogin"
         android:layout_above="@+id/btn_start"
@@ -46,12 +48,14 @@
         android:id="@+id/btn_start"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:textSize="16dp"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:background="@drawable/loginbutton"
         android:textColor="@color/card"
         android:onClick="startNowBtn"
-        android:text="START NOW"/>
+        android:text="START NOW"
+        android:textStyle="bold"/>
 
 
 </RelativeLayout>

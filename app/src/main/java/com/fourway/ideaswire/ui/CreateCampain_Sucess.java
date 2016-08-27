@@ -1,31 +1,52 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class CreateCampain_Sucess extends AppCompatActivity {
+public class CreateCampain_Sucess extends Activity {
 
     ImageView selImage;
+    TextView t1,t2,t3,mTitle;
+    Button b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campain__sucess);
+        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle.setTypeface(mycustomFont);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        //setSupportActionBar(toolbar);
+        t1 = (TextView) findViewById(R.id.greatText);
+        t2 = (TextView) findViewById(R.id.greatTextFollowed);
+        t3 = (TextView) findViewById(R.id.textInfo);
+        b1 = (Button) findViewById(R.id.btn_addTemplate);
+        t1.setTypeface(mycustomFont);
+        t2.setTypeface(mycustomFont);
+        t3.setTypeface(mycustomFont);
+        b1.setTypeface(mycustomFont);
         selImage = (ImageView)findViewById(R.id.imageFinal);
         showImageCampaign();
     }

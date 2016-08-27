@@ -7,19 +7,27 @@
     android:fitsSystemWindows="true"
     tools:context="com.fourway.ideaswire.editCampaign">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/titleBar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:navigationIcon="@drawable/back_1"
+            android:visibility="visible">
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Campaign"
 
-    </android.support.design.widget.AppBarLayout>
+                 android:id="@+id/toolbar_title"
+                 android:textSize="18dp"
+                 android:textColor="#FFFFFF"/>
+    </android.support.v7.widget.Toolbar>
+
+
 
     <include layout="@layout/content_edit_campaign" />
 

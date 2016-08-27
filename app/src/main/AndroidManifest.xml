@@ -33,12 +33,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.EditPhotoSelectedUi"
-            android:label="@string/title_activity_edit_photo_selected_ui"
-            android:theme="@style/AppTheme.NoActionBar" />
+         />
         <activity
             android:name=".ui.HomeScreenFirstLogin"
             android:label="@string/title_activity_home_screen_first_login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+
+            />
         <activity
             android:name=".ui.CropedImage"
             android:label="@string/title_activity_croped_image"

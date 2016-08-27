@@ -25,19 +25,18 @@
 
     <ImageView
         android:id="@+id/footer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/homepage_footer"
         android:visibility="visible"
         android:layout_alignParentBottom="true"
        />
 
-    <ImageView
-        android:id="@+id/cameraImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-      />
+    <View android:id="@+id/fakeView"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"/>
 
        <ImageButton
         android:layout_width="wrap_content"
@@ -45,9 +44,11 @@
         android:id="@+id/galleryButton"
         android:src="@drawable/upload_photo"
         android:layout_marginLeft="57dp"
+        android:paddingLeft="11dp"
         android:layout_marginTop="14dp"
         android:layout_alignTop="@+id/footer"
         android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@id/fakeView"
         android:onClick="galleryButtonOnClick" android:background="@null"
          />
 
@@ -56,14 +57,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cameraButton"
+
         android:src="@drawable/take_photo"
         android:layout_marginTop="14dp"
-        android:layout_marginRight="90dp"
+        android:layout_marginLeft="57dp"
+        android:layout_marginRight="78dp"
+
         android:layout_alignTop="@+id/footer"
+        android:layout_alignRight="@id/fakeView"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:onClick="cameraButtonOnClick"
-        />
+        android:onClick="cameraButtonOnClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,8 +77,8 @@
         android:text="Upload Photo"
         android:textSize="19dp"
         android:textColor="@color/text"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="5dp"
         />
 
     <TextView
@@ -84,8 +88,8 @@
         android:layout_below="@+id/cameraButton"
         android:text="Capture Photo"
         android:textSize="19dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginRight="54dp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

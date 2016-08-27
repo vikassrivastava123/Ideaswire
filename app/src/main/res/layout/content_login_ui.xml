@@ -51,13 +51,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/card"
+                android:textColor="#FFFFFF"
                 android:hint="Password"
-                android:textColorHint = "@color/cardHint"
+                android:textColorHint = "#FFFFFF"
                 />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
@@ -65,9 +65,11 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:gravity="center"
+            android:onClick="login"
             android:background="@drawable/loginbutton"
             android:textColor="@color/card"
-            android:text="SIGN IN"/>
+            android:text="SIGN IN"
+            android:textSize="16dp" />
 
         <TextView android:id="@+id/link_forgotPassword"
             android:layout_width="fill_parent"
@@ -84,7 +86,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
             android:textColor="@color/card"
-            android:background="@android:color/transparent"
+            android:background="@drawable/dont_have_c"
             android:text="Dont't have an account yet? Sign Up"
             android:gravity="center"
             android:textSize="16dip"/>

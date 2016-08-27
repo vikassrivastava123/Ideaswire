@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/edit"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="10dp"
          android:background="@null"
         />
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtEdit"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp">
         <EditText android:id="@+id/etCampaignName"
             android:layout_width="match_parent"
@@ -34,8 +34,9 @@
             android:inputType="text"
             android:textColor="@color/text"
             android:hint="Campaign Name"
+            android:backgroundTint="#000000"
             android:textColorHint = "@color/textHintOnWhite"
-            />
+            android:textIsSelectable="false" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -84,7 +85,7 @@
         android:textColor="@color/card"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="@color/success"
+
 
         >
 
@@ -95,7 +96,8 @@
             android:onClick="onRadioButtonClicked"
             android:text="Active"
             android:textSize="25dp"
-            android:checked="true" />
+            android:checked="true"
+            android:buttonTint="#00FF00"/>
 
         <RadioButton
             android:id="@+id/StatusDraft"
@@ -104,7 +106,9 @@
             android:text="Draft"
             android:layout_marginLeft="75dp"
             android:onClick="onRadioButtonClicked"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:checked="true"
+            android:buttonTint="#00FF00"/>
 
     </RadioGroup>
 

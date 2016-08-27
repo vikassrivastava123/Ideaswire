@@ -3,18 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.fourway.ideaswire.ui.select_layout_of_template">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/titleBar"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
 
+        android:clickable="true"
+        android:contextClickable="true"
+        app:navigationIcon="@drawable/back_1"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose a Template"
+
+            android:id="@+id/toolbar_title"
+            android:textSize="18dp"
+            android:textColor="#FFFFFF"/>
+    </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:id = "@+id/forbckgrnd"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="@color/backgrndAddCampaign"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="59dp">
         <TextView
             android:id="@+id/HeaderOfSelectLAyout"
             android:layout_width="match_parent"
@@ -24,7 +41,7 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="10dp"
             android:textColor="@color/text"
-            android:text="\n\nChoose a Category"
+            android:text="\n\nChoose a Layout"
             android:textSize="18dp" />
     </RelativeLayout>
 

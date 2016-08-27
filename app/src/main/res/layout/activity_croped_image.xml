@@ -11,18 +11,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#444444"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+
+            android:clickable="true"
+            android:contextClickable="false"
+            app:navigationIcon="@drawable/back_1"
+            android:visibility="visible">
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="15dp"
+                android:layout_height="30dp"
+
+
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toolbar"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:id="@+id/showevents"
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/rot_3"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toolbar"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+
+                android:paddingLeft="10dp"
+                android:drawablePadding="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:id="@+id/showevents2"
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/crop_2"
+
+                android:layout_gravity="right"
+
+                />
+            </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_croped_image" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+
 
 </android.support.design.widget.CoordinatorLayout>

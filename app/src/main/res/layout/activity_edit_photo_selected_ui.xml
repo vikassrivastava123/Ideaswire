@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.fourway.ideaswire.ui.EditPhotoSelectedUi">
-   <include layout="@layout/content_edit_photo_selected_ui" />
 
+
+
+   <include layout="@layout/content_edit_photo_selected_ui" />
 
 </android.support.design.widget.CoordinatorLayout>
