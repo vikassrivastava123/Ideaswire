@@ -20,8 +20,6 @@ import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.CreateProfileData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.CreateProfileRequest;
-import com.fourway.ideaswire.ui.CreateCampain_Sucess;
-import com.fourway.ideaswire.ui.loginUi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -146,6 +144,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         return f;
     }
 
+    public static String mCampaignIdFromServer = null;
+
     public void createCamapignBtn(View view) throws IOException {
         boolean liveCampain = false;
 
@@ -190,6 +190,9 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
 
             Log.v(Tag,"Success ResponseCode : "+res);
+
+            mCampaignIdFromServer = data.getProfileId();
+
             Intent inte = new Intent(this, CreateCampain_Sucess.class);
             startActivity(inte);
 

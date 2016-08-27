@@ -20,11 +20,11 @@ public class Page {
     private ArrayList <Attribute> mAttributes;
     private int mIndex = 0;
 
-    public String page (String profile_id, String name){
+    public  Page (String profile_id, String name){
         mProfileId = profile_id; mName = name;
         mId = profile_id + String.valueOf(mPageIdGenerator);
         mPageIdGenerator++;
-        return mId;
+
     }
 
     public String getPageId () {return mId;}

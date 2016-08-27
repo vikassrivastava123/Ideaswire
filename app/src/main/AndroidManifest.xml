@@ -57,7 +57,7 @@
             android:label="@string/title_activity_create__campaign__enter_data"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".editCampaign"
+            android:name=".ui.editCampaign"
             android:label="@string/title_activity_edit_campaign"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
