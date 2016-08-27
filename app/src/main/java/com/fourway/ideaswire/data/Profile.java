@@ -38,7 +38,7 @@ public class Profile {
 
         PROFILE_TEMPLATE_ID_END // WARNING: Add all request types above this line only
     }
-    public static final String PROFILE_PAGE_ARRAY_NAME = "pages";
+    public static final String PROFILE_PAGE_ARRAY_NAME = "attributes";
 
 
     private static final String TEMPLATE_STRING_T1 = "t1";

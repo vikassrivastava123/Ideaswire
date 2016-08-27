@@ -13,12 +13,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.LoginRequest;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+
 
 public class loginUi extends Activity implements LoginRequest.LoginResponseCallback{
 
@@ -40,7 +44,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_ui);
 
-        _loginButton = (Button) findViewById(R.id.btn_login);
+         _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //Do stuff here
@@ -117,8 +121,16 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         moveTaskToBack(true);
     }
 
+    private void requestProfileList (){
+        GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
+        GetUserProfileRequest request = new GetUserProfileRequest(this, data);
+        request.executeRequest();
+    }
+
     public void onLoginSuccess() {
+
         _loginButton.setEnabled(true);
+        requestProfileList();
       //  finish();
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
