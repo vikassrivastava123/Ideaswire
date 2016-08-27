@@ -4,7 +4,7 @@ package com.fourway.ideaswire.data;
  * Created by Vikas on 8/27/2016.
  */
 
-public class ProfieFieldsEnum {
+public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_HOMEPAGE = "Homepage";
     public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
     public static final String PROFILE_PAGE_HOMEPAGE_FULL_IMAGE = "Homepage_Full_image";
