@@ -2,19 +2,27 @@ package com.fourway.ideaswire.ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,10 +31,38 @@ import android.widget.LinearLayout;
 import com.fourway.ideaswire.R;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+ final class FontsOverride {
+
+    public static void setDefaultFont(Context context,
+                                      String staticTypefaceFieldName, String fontAssetName) {
+        final Typeface regular = Typeface.createFromAsset(context.getAssets(),
+                fontAssetName);
+        replaceFont(staticTypefaceFieldName, regular);
+    }
+
+    protected static void replaceFont(String staticTypefaceFieldName,
+                                      final Typeface newTypeface) {
+        try {
+            final Field staticField = Typeface.class
+                    .getDeclaredField(staticTypefaceFieldName);
+            staticField.setAccessible(true);
+
+            staticField.set(null, newTypeface);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}
+
+public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageChangeListener, View.OnClickListener,NavigationView.OnNavigationItemSelectedListener {
 
     int currentPage = 0, NUM_PAGES = 5;
     ViewPager mViewPager;
@@ -42,26 +78,127 @@ public class HomepageBeforeLogin extends AppCompatActivity implements ViewPager.
     final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
     final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
 
+    NavigationView navigationView=null;
+    Toolbar toolbar=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_homepage_before_login);
-
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Montserrat-Regular.otf");
+        //mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mAdapter = new HomeScreenPagerAdapter(this);
-        mViewPager.setAdapter(mAdapter);
+//        mViewPager.setAdapter(mAdapter);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
-        mViewPager.setOnPageChangeListener(this);
+       // pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
+       // mViewPager.setOnPageChangeListener(this);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        startSlideShow();
-        setUiPageViewController();
-
-        initHomeResources();
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+//        startSlideShow();
+//        setUiPageViewController();
+//
+//        initHomeResources();
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+//            main_fragment fragment = new main_fragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+            Intent intent = new Intent(this,CreateCampaign_homePage.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(this,CreateCampaign_homePage.class);
+            startActivity(intent);
+//            GalleryFragment fragment = new GalleryFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+
+        } else if (id == R.id.nav_slideshow) {
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+
+        } //else if (id == R.id.Recent_searches) {}
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+
+         else if (id == R.id.Demo) {
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+
+        } else if (id == R.id.share_feedback) {
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+        }
+        else if (id == R.id.rate_us) {
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+        }
+        else if (id == R.id.terms_service) {
+//            SlidshowFrag fragment = new SlidshowFrag();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment);
+//            fragmentTransaction.commit();
+        }
+
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+        return true;
+    }
 
     void initHomeResources() {
 

@@ -3,7 +3,7 @@
     <style name="AppTheme.NoActionBar">
 
         <item name="android:textColorHint">@color/cardHint</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
         <item name="android:statusBarColor">@color/appBar</item>
     </style>
 

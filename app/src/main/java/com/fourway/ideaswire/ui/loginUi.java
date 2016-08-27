@@ -2,7 +2,9 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +34,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     Button _loginButton;
     @InjectView(R.id.link_signup)
     Button _signupLink;
-
+    String MyPREFERENCES = "app_prefs",username_level ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         mProgressDialog.show();
 
         String email = _usernameText.getText().toString();
+        username_level = email;
         String password = _passwordText.getText().toString();
 
         doLogin();
@@ -117,9 +120,23 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
       //  finish();
+        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
 
-        Intent intent = new Intent(getApplicationContext(), HomeScreenFirstLogin.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
+        int pageNumber=sharedpreferences.getInt(username_level, 1);
+
+        if (pageNumber ==1)
+        {
+            Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
+        }
+        else {
+            editor.putInt(username_level, 1);
+            editor.commit();
+
+        }
+
+
 
     }
 

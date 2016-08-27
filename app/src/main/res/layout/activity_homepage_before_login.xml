@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.fourway.ideaswire.ui.HomepageBeforeLogin">
+    android:id="@+id/listFirstLogin"
+    android:paddingTop="-1dp"
+    tools:context="com.fourway.ideaswire.ui.HomeScreenFirstLogin">
 
 
     <include layout="@layout/content_homepage_before_login" />
