@@ -20,6 +20,8 @@ import com.fourway.ideaswire.request.LoginRequest;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+
+
 public class loginUi extends Activity implements LoginRequest.LoginResponseCallback{
 
     private static final String TAG = "loginUi";
@@ -40,7 +42,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_ui);
 
-        _loginButton = (Button) findViewById(R.id.btn_login);
+         _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //Do stuff here
