@@ -139,16 +139,16 @@ public class select_layout_of_template extends Activity {
             Log.v("chooseLayoutAdapter", "position" + position + " " + values[position]);
             switch (position) {
                 case 0:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_banner1);
+                    holderObj.imgView.setImageResource(R.drawable.homepage_layout1);
                     break;
                 case 1:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_banner1);
+                    holderObj.imgView.setImageResource(R.drawable.homepage_layout2);
                     break;
                 case 2:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_banner1);
+                    holderObj.imgView.setImageResource(R.drawable.homepage_layout3);
                     break;
                 case 3:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_banner1);
+                    holderObj.imgView.setImageResource(R.drawable.homepage_layout4);
                     break;
             }
             return convertView;

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <group
+            android:id="@+id/group1"
+                android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+
+            android:title="About us" />
+        </group>
+        <group
+                android:id="@+id/group2"
+                android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gallery"
+
+            android:title="Create Portfolio" />
+        </group>
+
+
+        <group
+            android:id="@+id/group5"
+            android:checkableBehavior="single">
+        <item
+            android:id="@+id/Demo"
+
+            android:title="Demo" />
+        </group>
+        <group
+            android:id="@+id/group6"
+            android:checkableBehavior="single">
+        <item
+            android:id="@+id/share_feedback"
+
+            android:title="Share Your Feedback" />
+        </group>
+        <group
+            android:id="@+id/group7"
+            android:checkableBehavior="single">
+        <item
+            android:id="@+id/rate_us"
+
+            android:title="Rate Us" />
+        </group>
+        <group
+            android:id="@+id/group8"
+            android:checkableBehavior="single">
+        <item
+            android:id="@+id/terms_service"
+
+            android:title="Terms of Services" />
+        </group>
+
+
+
+
+</menu>

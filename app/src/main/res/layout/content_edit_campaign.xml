@@ -35,7 +35,7 @@
             android:textColor="@color/text"
             android:hint="Campaign Name"
             android:backgroundTint="#000000"
-            android:textColorHint = "@color/textHintOnWhite"
+
             android:textIsSelectable="false" />
     </android.support.design.widget.TextInputLayout>
 
