@@ -96,6 +96,16 @@
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
+        <!--Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:background="@drawable/spinner_background"
+
+            android:spinnerMode="dropdown"
+
+            /-->
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
             android:layout_width="fill_parent"

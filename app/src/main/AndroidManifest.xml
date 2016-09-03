@@ -31,15 +31,11 @@
             android:name=".ui.HomepageBeforeLogin"
             android:label="@string/title_activity_homepage_before_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.EditPhotoSelectedUi"
-         />
+        <activity android:name=".ui.EditPhotoSelectedUi" />
         <activity
             android:name=".ui.HomeScreenFirstLogin"
             android:label="@string/title_activity_home_screen_first_login"
-            android:theme="@style/AppTheme.NoActionBar"
-
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CropedImage"
             android:label="@string/title_activity_croped_image"
@@ -76,7 +72,17 @@
             android:name=".ui.HomePageUiTemplate1"
             android:label="@string/title_activity_home_page_ui_template1"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.select_layout_of_template"></activity>
+        <activity android:name=".ui.select_layout_of_template" />
+        <activity android:name=".ui.tn_text_name" />
+        <activity
+            android:name=".ui.activity_about_us_btn_cros"
+            android:label="@string/title_activity_activity_about_us_btn_cros"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.about_us_inside_menu"
+            android:label="@string/title_activity_about_us_inside_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.button_link"></activity>
     </application>
 
 </manifest>

@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -50,17 +49,17 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
         }
 
         GridView gv = (GridView) findViewById(R.id.profileGridView);
-        mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
-        gv.setAdapter(mProfileAdapter);
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Profile p = loginUi.mProfileList.get(position);
-                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId());
-                GetProfileRequest request =
-                        new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
-            }
-        });
+//        mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
+//        gv.setAdapter(mProfileAdapter);
+//        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Profile p = loginUi.mProfileList.get(position);
+//                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId());
+//                GetProfileRequest request =
+//                        new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+//            }
+//        });
     }
 
     public void createCamEditBtn(View view) {
