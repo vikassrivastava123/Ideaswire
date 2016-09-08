@@ -5,11 +5,11 @@ package com.fourway.ideaswire.templates;
  */
 public class HomePage extends pages {
 
-    AboutUsDataTemplate dataObj = null;
+    HomePageDataTemplate dataObj = null;
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
 
-        dataObj = new AboutUsDataTemplate(templateType);
+        dataObj = new HomePageDataTemplate(templateType, true);
         return dataObj;
     }
 }

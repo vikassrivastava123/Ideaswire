@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.fourway.ideaswire.ui.activity_about_us_btn_cros"
     tools:showIn="@layout/activity_activity_about_us_btn_cros">
@@ -152,21 +152,18 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
-        <Button
-            android:layout_width="wrap_content"
+        <EditText android:id="@+id/input_link"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:text="Button Text"
-            android:id="@+id/button5"
-            android:textAlignment="textStart"
-            android:background="@drawable/buttonstack"
+            android:inputType="text"
+            android:textColor="@color/card"
+            android:hint="link"
             android:layout_below="@+id/button4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:visibility = "gone"
+            android:textColorHint = "@color/cardHint"
             />
+
+
 
 
     </RelativeLayout>

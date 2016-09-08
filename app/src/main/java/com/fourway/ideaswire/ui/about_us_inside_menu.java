@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 
-public class about_us_inside_menu extends ListActivity {
+public class
+about_us_inside_menu extends ListActivity {
     TextView mTitle;
+    Button theme_changer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,16 @@ public class about_us_inside_menu extends ListActivity {
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        theme_changer = (Button) toolbar.findViewById(R.id.theme_change);
+        theme_changer.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //Do stuff here
+                setTheme(android.R.style.Theme_Holo_Light);
+                recreate();
+
+            }
+        });
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
