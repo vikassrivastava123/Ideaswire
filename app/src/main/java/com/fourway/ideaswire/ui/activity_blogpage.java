@@ -12,6 +12,11 @@ import com.fourway.ideaswire.templates.blogpageTemplate;
 public class activity_blogpage extends Activity {
     TextView mTitle,heading,subheading,textview,heading_belo,subheading_below,text_below;
 
+
+    public String name()
+    {
+        return "Blogs";
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

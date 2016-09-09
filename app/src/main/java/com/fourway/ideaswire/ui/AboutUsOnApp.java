@@ -33,6 +33,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     List<String> attName;
     TextView mTitle;
     Button b1,b2,b3,b4,submit_button;
+    public String name()
+    {
+        return "About us";
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

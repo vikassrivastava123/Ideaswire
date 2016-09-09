@@ -249,4 +249,8 @@
     <string name="title_activity_services_on_app">ServicesOnApp</string>
     <string name="title_activity_gridlayout">Gridlayout</string>
     <string name="title_activity_business_title">business_title</string>
+    <string name="title_activity_activity_blogpage">activity_blogpage</string>
+    <string name="title_activity_clients_onapp">ClientsOnapp</string>
+    <string name="title_activity_teamonapp">teamonapp</string>
+    <string name="title_activity_add_pages">AddPages</string>
 </resources>

@@ -14,4 +14,6 @@ public abstract class pages {
 
     }
     abstract dataOfTemplate getDataForTemplate(int templateType);
+
+    public abstract String nameis();
 }

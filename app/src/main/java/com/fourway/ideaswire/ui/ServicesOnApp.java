@@ -11,7 +11,10 @@ import com.fourway.ideaswire.templates.ServicesTemplate;
 
 public class ServicesOnApp extends Activity {
     TextView mTitle,heading,subheading,textview,heading_belo,subheading_below,text_below;
-
+    public String toString()
+    {
+        return "Services";
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

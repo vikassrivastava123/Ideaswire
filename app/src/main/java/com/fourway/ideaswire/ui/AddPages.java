@@ -32,7 +32,7 @@ public class AddPages extends ListActivity  {
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-
+        new select_layout_of_template().startModifyTemplate(1);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,22 +105,25 @@ public class AddPages extends ListActivity  {
             switch (position){
                 case 0:
                     //holderObj.imgView.setImageResource(R.drawable.create_campaign);
-
+                    holderObj.tvHeader.setText(select_layout_of_template.listOfTemplatePagesObj.get(0).nameis());
                     break;
                 case 1:
 
                     ///holderObj.imgView.setImageResource(R.drawable.choose_template);
+                    holderObj.tvHeader.setText(select_layout_of_template.listOfTemplatePagesObj.get(1).nameis());
                     break;
                 case 2:
 
                     //holderObj.imgView.setImageResource(R.drawable.edit_template);
+                    holderObj.tvHeader.setText(select_layout_of_template.listOfTemplatePagesObj.get(2).nameis());
                     break;
                 case 3:
+                    holderObj.tvHeader.setText(select_layout_of_template.listOfTemplatePagesObj.get(3).nameis());
 
                     //holderObj.imgView.setImageResource(R.drawable.preview);
                     break;
                 case 4:
-
+                    holderObj.tvHeader.setText(select_layout_of_template.listOfTemplatePagesObj.get(4).nameis());
                     //holderObj.imgView.setImageResource(R.drawable.makeitlive);
                     break;
             }

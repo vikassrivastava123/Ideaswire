@@ -102,6 +102,22 @@
         <activity
             android:name=".ui.business_title"
             android:label="@string/title_activity_business_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity_blogpage"
+            android:label="@string/title_activity_activity_blogpage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.ClientsOnapp"
+            android:label="@string/title_activity_clients_onapp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.teamonapp"
+            android:label="@string/title_activity_teamonapp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.AddPages"
+            android:label="@string/title_activity_add_pages"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
