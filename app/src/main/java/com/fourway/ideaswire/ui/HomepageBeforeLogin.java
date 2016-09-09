@@ -168,35 +168,35 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
 
-         else if (id == R.id.Demo) {
+         //else if (id == R.id.Demo) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
 
-        } else if (id == R.id.share_feedback) {
+        //} else if (id == R.id.share_feedback) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
-        }
-        else if (id == R.id.rate_us) {
+        //}
+        //else if (id == R.id.rate_us) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
-        }
-        else if (id == R.id.terms_service) {
+        //}
+        //else if (id == R.id.terms_service) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
-        }
+        //}
 
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
+        //drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

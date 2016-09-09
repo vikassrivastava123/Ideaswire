@@ -45,21 +45,22 @@ public class GetProfileRequest extends CommonRequest {
         Map <String, String> param = new HashMap<>();
         param.put("x-image-profile-id", mRequestData.getProfileId());
         param.put("authorization", "bearer " + mRequestData.getAppKey());
-        setParam(param);
+        setPostHeader(param);
     }
 
     @Override
     public void onResponseHandler(JSONObject response) {
         JSONObject profile = null;
         try {
-            profile = response.getJSONObject("data");
+            JSONArray data = response.getJSONArray("data");
+            profile = data.getJSONObject(0);
             String id = profile.getString("id");
             String templateId = profile.getString("templateId");
-            JSONObject data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
-            String p_name = data.getString(CREATE_PROFILE_JSON_TAG_NAME);
-            String p_cat = data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
-            String p_type = data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
-            String p_dept = data.getString(CREATE_PROFILE_JSON_TAG_DEPT);
+            JSONObject p_data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
+            String p_name = p_data.getString(CREATE_PROFILE_JSON_TAG_NAME);
+            String p_cat = p_data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
+            String p_type = p_data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
+            String p_dept = p_data.getString(CREATE_PROFILE_JSON_TAG_DEPT);
             String p_img_url = profile.getString("downloadUrl");
 
             Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));

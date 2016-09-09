@@ -59,6 +59,7 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
                 GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId());
                 GetProfileRequest request =
                         new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+                request.executeRequest();
             }
         });
     }
@@ -73,10 +74,12 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
 
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
-        Profile p = data.getProfile();
-        ArrayList<Page> pageList= p.getAllPages();
-        int num_of_pages = pageList.size();
+        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
+            Profile p = data.getProfile();
+            ArrayList<Page> pageList = p.getAllPages();
+            int num_of_pages = pageList.size();
 
-        ArrayList<Attribute> Page_0_attribute = pageList.get(0).getAttributes();
+            ArrayList<Attribute> Page_0_attribute = pageList.get(0).getAttributes();
+        }
     }
 }

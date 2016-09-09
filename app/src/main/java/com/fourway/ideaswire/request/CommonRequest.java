@@ -2,6 +2,7 @@ package com.fourway.ideaswire.request;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,6 +62,7 @@ public abstract class CommonRequest {
     private String mURL;
     private CommonRequestMethod mMethod;
     private Map<String, String> mParams;
+    private Map<String, String> mPostHeader;
     private JSONObject mJSONParams;
     private RequestType mRequestType;
     private Context mContext;
@@ -83,6 +85,7 @@ public abstract class CommonRequest {
     public void setParam (Map<String, String> params){
         mParams = params;
     }
+    public void setPostHeader (Map<String, String> h){mPostHeader = h;}
 
     public void setParam (JSONObject params){
         mJSONParams = params;
@@ -130,7 +133,12 @@ public abstract class CommonRequest {
 
         CustomRequest jsObjRequest;
         if (mMethod == CommonRequestMethod.COMMON_REQUEST_METHOD_GET){
-            jsObjRequest = new CustomRequest(mURL, null, listner, errorListner);
+            jsObjRequest = new CustomRequest(mURL, null, listner, errorListner){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return ((mPostHeader != null)? mPostHeader : super.getHeaders());
+                }
+            };
             requestQueue.add(jsObjRequest);
         }
         else
@@ -138,6 +146,11 @@ public abstract class CommonRequest {
             jsObjRequest = new CustomRequest(Request.Method.POST, mURL, mParams, listner, errorListner) {
                 public String getBodyContentType() {
                     return "application/json";
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return ((mPostHeader != null)? mPostHeader : super.getHeaders());
                 }
             };
             requestQueue.add(jsObjRequest);

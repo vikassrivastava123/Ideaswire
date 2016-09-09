@@ -61,7 +61,9 @@ public class MyProfileAdapter extends BaseAdapter {
 
         vh.nIv.setImageResource(R.drawable.ic_menu_manage);
         String url =  (mProfileList.get(position)).getImageUrl();
-        vh.nIv.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());
+        if (url != null && !url.equalsIgnoreCase("null")){
+            vh.nIv.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());
+        }
 
         return v;
     }
