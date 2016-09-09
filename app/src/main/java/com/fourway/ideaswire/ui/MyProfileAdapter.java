@@ -50,9 +50,9 @@ public class MyProfileAdapter extends BaseAdapter {
 
         if (v == null) {
             li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//           v = li.inflate(R.layout.design_profile_list, null);
-//            vh.nIv = (NetworkImageView) v.findViewById(R.id.imgViewProfile);
-//            v.setTag(vh);
+           v = li.inflate(R.layout.design_profile_list, null);
+            vh.nIv = (NetworkImageView) v.findViewById(R.id.imgViewProfile);
+            v.setTag(vh);
         }
         else
         {

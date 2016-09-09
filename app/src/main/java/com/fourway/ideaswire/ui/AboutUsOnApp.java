@@ -41,15 +41,15 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_us_template1_on_app);
-      // AboutUsDataTemplate dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
-        AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
-//        int seltemplate = dataObj.getTemplateSelected();
-//
-//        if(seltemplate == 1) {
-//            setContentView(R.layout.about_us_template1_on_app);
-//        }else{
-//            setContentView(R.layout.about_us_template1_on_app);
-//        }
+       AboutUsDataTemplate dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
+        //AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
+        int seltemplate = dataObj.getTemplateSelected();
+
+        if(seltemplate == 1) {
+           setContentView(R.layout.about_us_template1_on_app);
+        }else{
+            setContentView(R.layout.about_us_template1_on_app);
+       }
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
@@ -121,13 +121,13 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 //        Log.v(TAG, "setAdapter");
 //
         mProfileId = editCampaign.mCampaignIdFromServer;
-//        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
 //
         mAbtUsPageObj  = new Page(mProfileId,mPageName);
         mParentId = mAbtUsPageObj.getPageId();
 
        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.getHeader());
-//        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_profile_page_about_us_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_profile_page_about_us_heading());
 //
 
        // TextView test = (TextView)findViewById(R.id.tvHeaderAbtUstplte);

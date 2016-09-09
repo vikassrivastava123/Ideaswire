@@ -2,6 +2,7 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import com.fourway.ideaswire.templates.HomePage;
 import com.fourway.ideaswire.templates.ServicePage;
 import com.fourway.ideaswire.templates.blogpage;
 import com.fourway.ideaswire.templates.contactDetails;
+import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
@@ -50,13 +52,13 @@ public class select_layout_of_template extends Activity {
         listOfTemplatePagesObj.add(3, contactdetails);
         listOfTemplatePagesObj.add(4, ServicePage);
 
-//        dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
-//
-//        Class intenetToLaunch = data.getIntentToLaunchPage();
-//        Log.v(TAG, "5" + intenetToLaunch);
-//        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-//        intent.putExtra("data",data);
-//        startActivity(intent);
+        dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v(TAG, "5" + intenetToLaunch);
+        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        intent.putExtra("data",data);
+        startActivity(intent);
 
     }
 
