@@ -8,10 +8,15 @@ import com.fourway.ideaswire.ui.AboutUsOnApp;
 public class HomePageDataTemplate extends dataOfTemplate{
 
     int templateSelected = 1;
-
-    public HomePageDataTemplate(int templateSelected){
+    String header1;
+    String header2;
+    String text_view;
+    public HomePageDataTemplate(int templateSelected,boolean flag){
         setHeader("About All of Us");
         this.templateSelected = templateSelected;
+        header1 = "vaibhav custom header";
+        header2 = "This is some random heading custom";
+        text_view= "This is custom random para to generate space dont read ti its useless";
     }
 
     @Override
@@ -22,5 +27,15 @@ public class HomePageDataTemplate extends dataOfTemplate{
     @Override
     public int getTemplateSelected() {
         return templateSelected;
+    }
+
+    public String getheadingSelected() {
+        return header1;
+    }
+    public String getsubheadingSelected() {
+        return header2;
+    }
+    public String getparaSelected() {
+        return text_view;
     }
 }

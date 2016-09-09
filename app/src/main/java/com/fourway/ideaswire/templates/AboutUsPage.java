@@ -10,7 +10,12 @@ public class AboutUsPage extends pages {
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new AboutUsDataTemplate(templateType);
+        dataObj = new AboutUsDataTemplate(templateType,true);
         return dataObj;
+    }
+    @Override
+    public String nameis()
+    {
+        return "About Us 2";
     }
 }

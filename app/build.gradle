@@ -20,8 +20,10 @@ android {
 }
 
 dependencies {
+    compile 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(":volley")
+
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
@@ -32,4 +34,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.2.+'
+
 }

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_pages);
 
         /*listOfTemplatePagesObj = new ArrayList<pages>();
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
 
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        Intent intent = new Intent(getApplicationContext(), AddPages.class);
         startActivity(intent);
     }
 

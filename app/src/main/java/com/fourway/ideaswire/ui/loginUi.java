@@ -143,12 +143,14 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
 
         if (pageNumber ==1)
         {
-            Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
+            Intent intent = new Intent(getApplicationContext(),HomepageBeforeLogin.class);
             startActivityForResult(intent, REQUEST_SIGNUP);
         }
         else {
             editor.putInt(username_level, 1);
             editor.commit();
+            Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
 
         }
 
