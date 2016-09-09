@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.fourway.ideaswire.ui.ClientsOnapp"
+    tools:showIn="@layout/activity_clients_onapp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="This is the main heading"
+        android:id="@+id/textView25"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:text="This is some random sub heading"
+        android:id="@+id/textView26"
+        android:layout_below="@+id/textView25"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="fonts/Montserrat-SemiBold.otf"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:text="This is some random para dont read it is a dummy text."
+        android:id="@+id/textView27"
+        android:layout_below="@+id/textView26"
+        android:layout_centerHorizontal="true" />
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/textView27"
+        android:layout_marginTop="15dp"
+        android:columnWidth="100dp"
+        android:drawSelectorOnTop="true"
+        android:gravity="center"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:layout_centerInParent="true"
+        android:focusable="true"
+        android:clickable="true"/>
+</RelativeLayout>
