@@ -48,6 +48,7 @@ public abstract class CommonRequest {
         COMMON_RES_IMAGE_NOT_FOUND,
         COMMON_RES_SERVER_ERROR_WITH_MESSAGE,
         COMMON_RES_PROFILE_DATA_NO_CONTENT,
+        COMMON_RES_FAILED_TO_UPLOAD,
 
         COMMON_REQUEST_END // WARNING: Add all request types above this line only
     }

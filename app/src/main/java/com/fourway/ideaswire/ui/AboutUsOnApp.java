@@ -1,6 +1,8 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -18,14 +20,22 @@ import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.ProfileFieldsEnum;
+import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
+import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfileResponseCallback{
+public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfileResponseCallback, UploadImageForUrlRequest.UploadImageForUrlCallback{
 
     ViewPager mViewPager;
     PagerAdapter mAdapter;
@@ -157,6 +167,48 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
     }
 
+    public void AboutUsImageUpload (View view) throws IOException {
+
+        FileInputStream in = null;
+        try {
+            in = openFileInput("Imaged");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(in);
+        File sendFile = getFileObjectFromBitmap (bitmap);
+
+        int x = 5;
+        UploadImageForUrlData data =
+                new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About us banner", x);
+        UploadImageForUrlRequest req = new UploadImageForUrlRequest(this, data, this);
+        req.executeRequest();
+    }
+
+
+    private File getFileObjectFromBitmap (Bitmap b) throws IOException {
+        File f = new File(getApplicationContext().getCacheDir(), "Abc");
+
+//Convert bitmap to byte array
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
     @Override
     public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
 
@@ -164,5 +216,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
 
 
+    }
+
+    @Override
+    public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
     }
 }

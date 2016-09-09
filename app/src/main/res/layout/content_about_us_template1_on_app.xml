@@ -42,7 +42,8 @@
                 android:id="@+id/imageView2"
                 android:background="@drawable/about_category_"
                 android:focusable="true"
-                android:focusableInTouchMode="true"/>
+                android:focusableInTouchMode="true"
+                android:onClick="AboutUsImageUpload"/>
 
 <LinearLayout
     android:layout_width="match_parent"
