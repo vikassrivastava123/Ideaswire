@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.fourway.ideaswire.data.UpdateImageRequestData;
 import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.helper.CommonFileUpload;
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +53,7 @@ public class UploadImageForUrlRequest {
             @Override
             public void onResponse(NetworkResponse response) {
                 try {
-                    String jsonStr = response.toString();
+                    String jsonStr = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                     JSONObject json = new JSONObject(jsonStr);
                     int status = json.getInt("status");
                     if (status == 1){
@@ -67,6 +69,8 @@ public class UploadImageForUrlRequest {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     mUploadImageForUrlCallback.onUploadImageForUrlResponse(COMMON_RES_FAILED_TO_UPLOAD, mImageData);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
             }
         };
@@ -87,7 +91,7 @@ public class UploadImageForUrlRequest {
                 mImageData.getAccessToken(),
                 listner,
                 errorListner);
-        mFileUpload.setFileTag("name");
+        mFileUpload.setFileTag("content-document");
 
         Map<String, String> params = new HashMap<>();
         params.put("authorization", "bearer "+ mImageData.getAccessToken());
