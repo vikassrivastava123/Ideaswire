@@ -15,4 +15,5 @@
     <color name="cardHint">#90FFFFFF</color>
     <color name="backgrndAddCampaign">#201A2953</color>
     <color name="statusbarBckgrnd">#000000</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>

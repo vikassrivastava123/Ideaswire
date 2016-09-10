@@ -11,7 +11,7 @@
 
     <ImageView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:id="@+id/imageView6"
         android:layout_centerHorizontal="true"
 
@@ -22,22 +22,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/imageView6">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
-        android:layout_below="@+id/imageView6"
-        android:layout_marginBottom="15dp">
-        <Button
+        <LinearLayout
+            android:background="#ffffff"
+            android:id="@+id/backlyt"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonback"
-            android:layout_below="@+id/textView6"
-            android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/cross_1"
-            android:text="Button"
-            android:textStyle="bold"
-            android:background="@drawable/buttonstack"/>
+            android:layout_height="50dp"
+            android:weightSum="1"
+            android:layout_below="@+id/imageView6"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <Button
+
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+
+                android:drawableLeft="@drawable/back_black"
+                android:id="@+id/imageButton2"
+                android:background="#FFFFFF"
+
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                />
+
+            <TextView
+                android:textColor="#000000"
+                android:layout_marginTop="18dp"
+                android:text="Pages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
         <!--TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,12 +67,99 @@
             android:id="@+id/editname"
             android:layout_below="@+id/textView4"
             android:layout_centerHorizontal="true" /-->
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rel_layt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/backlyt"
+            >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:id="@+id/add_pages2"
+
+            android:layout_centerHorizontal="true"
+            android:textColor="#0000ff"
+            android:text="ADD Pages"
+
+            android:background="@drawable/buttonstack"/>
+        <LinearLayout
+            android:id="@+id/barlyt"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#1D2B36"
+            android:visibility="gone"
+            >
+
+            <Button
+
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#1D2B36"
+                android:id="@+id/imageButton3"
+                android:drawableLeft="@drawable/about"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_marginLeft="25dp"
+                android:background="#1D2B36"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+              android:drawableLeft="@drawable/services"
+                android:id="@+id/imageButton4"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_marginLeft="25dp"
+                android:background="#1D2B36"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               android:drawableLeft="@drawable/client"
+                android:id="@+id/imageButton5"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_marginLeft="25dp"
+                android:background="#1D2B36"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/blog"
+                android:id="@+id/imageButton6"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_marginLeft="25dp"
+                android:background="#1D2B36"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+              android:drawableLeft="@drawable/team"
+                android:id="@+id/imageButton8"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_marginLeft="25dp"
+                android:background="#1D2B36"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/contact"
+                android:id="@+id/imageButton9"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+        </RelativeLayout>
+
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@android:id/list"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/rel_layt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
