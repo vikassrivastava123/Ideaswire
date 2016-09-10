@@ -10,8 +10,8 @@ public class GetProfileRequestData {
     private Profile mProfile;
     private String mErrorMessage;
 
-    public GetProfileRequestData (String key, String profile_id){
-        mAppKey = key; mProfileId = profile_id;
+    public GetProfileRequestData (String key, String profile_id, Profile p){
+        mAppKey = key; mProfileId = profile_id; mProfile = p;
     }
 
     public void setErrorMessage (String s) {mErrorMessage = s;}

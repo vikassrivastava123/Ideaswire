@@ -56,25 +56,25 @@ public class GetProfileRequest extends CommonRequest {
             JSONArray data = response.getJSONArray("data");
             if (data.length() != 0) {
                 profile = data.getJSONObject(0);
-                String id = profile.getString("id");
+                /*String id = profile.getString("id");
                 String templateId = profile.getString("templateId");
                 JSONObject p_data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
                 String p_name = p_data.getString(CREATE_PROFILE_JSON_TAG_NAME);
                 String p_cat = p_data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
                 String p_type = p_data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
                 String p_dept = p_data.getString(CREATE_PROFILE_JSON_TAG_DEPT);
-                String p_img_url = profile.getString("downloadUrl");
+                String p_img_url = profile.getString("downloadUrl");*/
 
-                Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));
+                Profile p = mRequestData.getProfile();/*
                 p.setProfileName(p_name);
                 p.setProfileCategory(p_cat);
                 p.setProfileType(p_type);
                 p.setProfileDepartment(p_dept);
-                p.setImageUrl(p_img_url);
+                p.setImageUrl(p_img_url);*/
 
                 JSONObject attr = profile.getJSONObject(Profile.PROFILE_PAGE_ARRAY_NAME);
                 JSONArray pages = attr.getJSONArray(Profile.PROFILE_DATA_JSON_TAG);
-                p.addAllPagesToList(pages);
+                p.addAllPagesToList(pages, p);
                 mRequestData.setProfile(p);
                 mGetProfileResponseCallback.onGetProfileResponse(COMMON_RES_SUCCESS, mRequestData);
             }

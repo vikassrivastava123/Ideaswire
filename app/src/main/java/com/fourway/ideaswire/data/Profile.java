@@ -163,12 +163,13 @@ public class Profile {
         return ja;
     }
 
-    public static ArrayList<Page> createPageListFromJSONArray(JSONArray ja){
+    public static ArrayList<Page> createPageListFromJSONArray(JSONArray ja, Profile profile){
         ArrayList<Page> pages = new ArrayList<>();
         int size = ja.length();
         for (int i=0; i<size; i++){
             try {
-                Page p = Page.getPageDataFromJSONObject(ja.getJSONObject(i));
+                Page p = new Page(profile.getProfileId(), profile.getProfileName());
+                Page.getPageDataFromJSONObject(ja.getJSONObject(i), p);
                 pages.add(i, p);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -177,7 +178,7 @@ public class Profile {
         return pages;
     }
 
-    public void addAllPagesToList (JSONArray ja){
-        mPages = createPageListFromJSONArray(ja);
+    public void addAllPagesToList (JSONArray ja, Profile p){
+        mPages = createPageListFromJSONArray(ja, p);
     }
 }

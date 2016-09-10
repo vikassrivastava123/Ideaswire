@@ -52,7 +52,7 @@ public class Page {
         return page;
     }
 
-    public static Page getPageDataFromJSONObject (JSONObject js) throws JSONException {
+    public static Page getPageDataFromJSONObject (JSONObject js, Page p) throws JSONException {
         Page page = null;
         String name = js.getString(PAGE_JSON_TAG_NAME);
         JSONArray pageAttributes = js.getJSONArray(PAGE_JSON_TAG_PAGE_ATTRIBUTES);
@@ -60,7 +60,7 @@ public class Page {
         for (int i=0; i<size; i++)
         {
             Attribute attr = Attribute.getAttributeFromJSONObject(pageAttributes.getJSONObject(i));
-            page.mAttributes.add(i, attr);
+            p.mAttributes.add(i, attr);
         }
         return page;
     }

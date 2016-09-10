@@ -56,7 +56,7 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Profile p = loginUi.mProfileList.get(position);
-                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId());
+                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
                 GetProfileRequest request =
                         new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
                 request.executeRequest();
