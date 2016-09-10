@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoginRequest.Logi
 
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        Intent intent = new Intent(getApplicationContext(), AboutUsOnApp.class);
         startActivity(intent);
     }
 

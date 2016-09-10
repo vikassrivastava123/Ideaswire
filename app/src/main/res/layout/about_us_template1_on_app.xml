@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#0000FF"
+            android:background="#000000"
             app:popupTheme="@style/AppTheme.PopupOverlay"
 
             android:clickable="true"
@@ -26,14 +26,97 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="About us"
+
 
                 android:id="@+id/toolbar_title"
                 android:textSize="18dp"
                 android:textColor="#FFFFFF"/>
-        </android.support.v7.widget.Toolbar>
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="15dp"
+                android:layout_height="30dp"
 
+
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toolbar"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:id="@+id/showevents"
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/preview_about"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toolbar"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+
+                android:paddingLeft="10dp"
+                android:drawablePadding="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:id="@+id/showevents2"
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/theme"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+                android:paddingTop="30dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/toolbar"
+
+                android:layout_gravity="right"
+
+                />
+            <Button
+
+                android:paddingLeft="10dp"
+                android:drawablePadding="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:id="@+id/showevents3"
+
+                android:layout_alignParentRight="true"
+                android:background="@drawable/pages"
+
+                android:layout_gravity="right"
+
+                />
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
+
 
     <include layout="@layout/content_about_us_template1_on_app" />
 

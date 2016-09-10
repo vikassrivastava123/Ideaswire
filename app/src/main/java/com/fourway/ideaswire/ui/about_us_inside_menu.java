@@ -50,8 +50,8 @@ about_us_inside_menu extends ListActivity {
             }
         });
 
-        String[] values = new String[] { "Home", "About", "Services",
-                "Clients", "Blog","Team","Contact"};
+        String[] values = new String[] { "Remove URL", "Set Url",
+                "Link Page"};
 
         // use your custom layout
         ArrayAdapter<String> adapter = new fristScreenAdapter<String>(this,
@@ -115,20 +115,13 @@ about_us_inside_menu extends ListActivity {
                     break;
                 case 1:
 
-                    ///holderObj.imgView.setImageResource(R.drawable.choose_template);
+                    holderObj.imgView.setImageResource(R.drawable.arrow_right);
                     break;
                 case 2:
 
-                    //holderObj.imgView.setImageResource(R.drawable.edit_template);
+                    holderObj.imgView.setImageResource(R.drawable.arrow_right);
                     break;
-                case 3:
 
-                    //holderObj.imgView.setImageResource(R.drawable.preview);
-                    break;
-                case 4:
-
-                    //holderObj.imgView.setImageResource(R.drawable.makeitlive);
-                    break;
             }
             return convertView;
         }

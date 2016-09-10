@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -37,20 +38,24 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     {
         return "About us";
     }
+    public void delete(EditText e)
+    {
+        e.setVisibility(View.GONE);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_us_template1_on_app);
-       AboutUsDataTemplate dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
-        //AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
-        int seltemplate = dataObj.getTemplateSelected();
-
-        if(seltemplate == 1) {
-           setContentView(R.layout.about_us_template1_on_app);
-        }else{
-            setContentView(R.layout.about_us_template1_on_app);
-       }
-        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+      // AboutUsDataTemplate dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
+        AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
+//        int seltemplate = dataObj.getTemplateSelected();
+//
+//// if(seltemplate == 1) {
+//           setContentView(R.layout.about_us_template1_on_app);
+//        }else{
+//            setContentView(R.layout.about_us_template1_on_app);
+//       }
+      Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,11 +72,37 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         myedit.setText(dataObj.get_heading());
         myedit2 = (EditText) findViewById(R.id.pass2);
         myedit2.setText(dataObj.get_heading2());
+        myedit.setTypeface(mycustomFont);
+        myedit2.setTypeface(mycustomFont);
         b1 = (Button) findViewById(R.id.edit_text);
         b2 = (Button) findViewById(R.id.delete);
         b3 = (Button) findViewById(R.id.edit_text2);
         b4 = (Button) findViewById(R.id.delete2);
         submit_button = (Button) findViewById(R.id.button2);
+        b1.setTypeface(mycustomFont);
+        b2.setTypeface(mycustomFont);
+        b3.setTypeface(mycustomFont);
+        b4.setTypeface(mycustomFont);
+        submit_button.setTypeface(mycustomFont);
+        b2.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //Do stuff here
+                delete(myedit);
+            }
+        });
+        b4.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //Do stuff here
+                delete(myedit2);
+            }
+        });
+        submit_button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //Do stuff here
+                Intent intent = new Intent(getApplicationContext(), activity_about_us_btn_cros.class);
+                startActivity(intent);
+            }
+        });
 //        if(myedit.requestFocus()) {
 //            b1.setVisibility(View.VISIBLE);
 //            b2.setVisibility(View.VISIBLE);
