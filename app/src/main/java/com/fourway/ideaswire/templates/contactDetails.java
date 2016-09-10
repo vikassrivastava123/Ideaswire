@@ -12,4 +12,9 @@ public class contactDetails extends pages {
         dataObj = new contactDetailsTemplate(templateType,true);
         return dataObj;
     }
+    @Override
+     public String nameis ()
+    {
+        return "Contact DETAILS";
+    }
 }

@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
 import com.fourway.ideaswire.templates.HomePage;
+import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.blogpage;
+import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
@@ -30,7 +33,7 @@ public class select_layout_of_template extends Activity {
     private GridView gridView;
     private GridViewAdapter gridAdapter;
 
-    public static List<pages> listOfTemplatePagesObj;
+    public static List<pages> listOfTemplatePagesObj= new ArrayList<pages>();
 
     private final String TAG = "seleclayouttemplate";
     TextView mTitle,t;
@@ -40,9 +43,14 @@ public class select_layout_of_template extends Activity {
 
         pages abtusObj = new AboutUsPage();
         pages homeObj = new HomePage();
-
+        pages blogpage = new blogpage();
+        pages contactdetails = new contactDetails();
+        pages ServicePage = new ServicePage();
         listOfTemplatePagesObj.add(0, abtusObj);
         listOfTemplatePagesObj.add(1, homeObj);
+        listOfTemplatePagesObj.add(2, blogpage);
+        listOfTemplatePagesObj.add(3, contactdetails);
+        listOfTemplatePagesObj.add(4, ServicePage);
 
         dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
 

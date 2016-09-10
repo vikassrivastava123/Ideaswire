@@ -12,4 +12,9 @@ public class blogpage extends pages {
         dataObj = new blogpageTemplate(templateType,true);
         return dataObj;
     }
+    @Override
+    public String nameis ()
+    {
+        return "Blog Page";
+    }
 }

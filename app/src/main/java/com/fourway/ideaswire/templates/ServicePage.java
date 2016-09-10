@@ -12,4 +12,8 @@ public class ServicePage extends pages {
         dataObj = new ServicesTemplate(templateType,true);
         return dataObj;
     }
+    public String nameis ()
+    {
+        return "Service Page";
+    }
 }

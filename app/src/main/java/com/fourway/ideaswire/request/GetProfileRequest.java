@@ -19,6 +19,7 @@ import java.util.Map;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_CONNECTION_TIMEOUT;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_CONNECT;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_PROFILE_DATA_NO_CONTENT;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
 import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_ATTR;
@@ -45,35 +46,42 @@ public class GetProfileRequest extends CommonRequest {
         Map <String, String> param = new HashMap<>();
         param.put("x-image-profile-id", mRequestData.getProfileId());
         param.put("authorization", "bearer " + mRequestData.getAppKey());
-        setParam(param);
+        setPostHeader(param);
     }
 
     @Override
     public void onResponseHandler(JSONObject response) {
         JSONObject profile = null;
         try {
-            profile = response.getJSONObject("data");
-            String id = profile.getString("id");
-            String templateId = profile.getString("templateId");
-            JSONObject data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
-            String p_name = data.getString(CREATE_PROFILE_JSON_TAG_NAME);
-            String p_cat = data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
-            String p_type = data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
-            String p_dept = data.getString(CREATE_PROFILE_JSON_TAG_DEPT);
-            String p_img_url = profile.getString("downloadUrl");
+            JSONArray data = response.getJSONArray("data");
+            if (data.length() != 0) {
+                profile = data.getJSONObject(0);
+                String id = profile.getString("id");
+                String templateId = profile.getString("templateId");
+                JSONObject p_data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
+                String p_name = p_data.getString(CREATE_PROFILE_JSON_TAG_NAME);
+                String p_cat = p_data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
+                String p_type = p_data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
+                String p_dept = p_data.getString(CREATE_PROFILE_JSON_TAG_DEPT);
+                String p_img_url = profile.getString("downloadUrl");
 
-            Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));
-            p.setProfileName(p_name);
-            p.setProfileCategory(p_cat);
-            p.setProfileType(p_type);
-            p.setProfileDepartment(p_dept);
-            p.setImageUrl(p_img_url);
+                Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));
+                p.setProfileName(p_name);
+                p.setProfileCategory(p_cat);
+                p.setProfileType(p_type);
+                p.setProfileDepartment(p_dept);
+                p.setImageUrl(p_img_url);
 
-            JSONObject attr = profile.getJSONObject(Profile.PROFILE_PAGE_ARRAY_NAME);
-            JSONArray pages = attr.getJSONArray(Profile.PROFILE_DATA_JSON_TAG);
-            p.addAllPagesToList(pages);
-            mRequestData.setProfile(p);
-            mGetProfileResponseCallback.onGetProfileResponse(COMMON_RES_SUCCESS, mRequestData);
+                JSONObject attr = profile.getJSONObject(Profile.PROFILE_PAGE_ARRAY_NAME);
+                JSONArray pages = attr.getJSONArray(Profile.PROFILE_DATA_JSON_TAG);
+                p.addAllPagesToList(pages);
+                mRequestData.setProfile(p);
+                mGetProfileResponseCallback.onGetProfileResponse(COMMON_RES_SUCCESS, mRequestData);
+            }
+            else
+            {
+                mGetProfileResponseCallback.onGetProfileResponse(COMMON_RES_PROFILE_DATA_NO_CONTENT, mRequestData);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

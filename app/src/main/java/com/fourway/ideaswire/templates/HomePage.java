@@ -12,5 +12,9 @@ public class HomePage extends pages {
         dataObj = new HomePageDataTemplate(templateType, true);
         return dataObj;
     }
+    public String nameis ()
+    {
+        return "Home Page";
+    }
 }
 

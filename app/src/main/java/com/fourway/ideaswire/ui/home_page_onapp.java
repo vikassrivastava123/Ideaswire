@@ -16,6 +16,11 @@ import com.fourway.ideaswire.templates.HomePageDataTemplate;
 public class home_page_onapp extends Activity implements NavigationView.OnNavigationItemSelectedListener {
     TextView mTitle,heading,subheading,text_para;
     NavigationView navigationView;
+
+    public String name()
+    {
+        return "Home Page";
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

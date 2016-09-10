@@ -13,4 +13,9 @@ public class AboutUsPage extends pages {
         dataObj = new AboutUsDataTemplate(templateType,true);
         return dataObj;
     }
+    @Override
+    public String nameis()
+    {
+        return "About Us 2";
+    }
 }

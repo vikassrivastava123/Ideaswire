@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout"
-            android:layout_marginBottom="15dp">
+>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:text="Link"
             android:id="@+id/button4"
-            android:background="@drawable/buttonstack"
+            android:background="#ffffff"
             android:layout_below="@+id/linearLayout"
             android:textAlignment="textStart"
             android:drawableRight="@drawable/arrow_right"
@@ -156,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@color/card"
+            android:textColor="#000000"
             android:hint="link"
             android:layout_below="@+id/button4"
             android:visibility = "gone"

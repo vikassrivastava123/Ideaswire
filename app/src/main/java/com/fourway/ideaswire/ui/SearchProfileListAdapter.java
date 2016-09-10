@@ -7,20 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 
 import java.util.ArrayList;
-
 /**
- * Created by Vikas on 8/23/2016.
+ * Created by Vikas on 9/10/2016.
  */
 
-public class SearchProfileImageAdapter extends BaseAdapter {
+public class SearchProfileListAdapter extends BaseAdapter{
     private ArrayList<Profile> mProfileList;
     private Context mContext;
 
-    public SearchProfileImageAdapter (Context c, ArrayList<Profile> p){
+    public SearchProfileListAdapter (Context c, ArrayList<Profile> p){
         mContext = c; mProfileList = p;
     }
     @Override
@@ -38,18 +38,31 @@ public class SearchProfileImageAdapter extends BaseAdapter {
         return 0;
     }
 
+    private class ViewHolder{
+        NetworkImageView nIv;
+    }
+    LayoutInflater li;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater li;
         View v = convertView;
-        li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewHolder vh = new ViewHolder();
 
-        //TODO: Ashutosh: Please provide layout for single Image in search result
-       /* v = li.inflate(R.layout.search_result_single_image_layout, null);
-        NetworkImageView image = (NetworkImageView) v.findViewById(R.id.searchResultNetworkImage);
-        image.setImageResource(R.drawable.gallery_default_thumb);
+        if (v == null) {
+            li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = li.inflate(R.layout.design_profile_list, null);
+            vh.nIv = (NetworkImageView) v.findViewById(R.id.imgViewProfile);
+            v.setTag(vh);
+        }
+        else
+        {
+            vh = (ViewHolder) v.getTag();
+        }
+
+        vh.nIv.setImageResource(R.drawable.ic_menu_manage);
         String url =  (mProfileList.get(position)).getImageUrl();
-        image.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());*/
+        if (url != null && !url.equalsIgnoreCase("null")){
+            vh.nIv.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());
+        }
 
         return v;
     }

@@ -11,6 +11,10 @@ import com.fourway.ideaswire.templates.contactDetailsTemplate;
 
 public class contact_details extends Activity {
     TextView mTitle,heading,subheading,text_heading,address,email_add,number,website;
+    public String name()
+    {
+        return "Contact Details";
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,7 @@ public class activity_about_us_btn_cros extends Activity {
         });
         b1 = (Button) findViewById(R.id.button3);
         putlink = (EditText) findViewById(R.id.input_link);
+        putlink.setTypeface(mycustomFont);
         b1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //Do stuff here
@@ -43,6 +45,7 @@ public class activity_about_us_btn_cros extends Activity {
             }
         });
         b2 = (Button) findViewById(R.id.button4);
+        b2.setTypeface(mycustomFont);
         b2.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //Do stuff here
@@ -51,6 +54,7 @@ public class activity_about_us_btn_cros extends Activity {
         });
 
         b5 = (Button) findViewById(R.id.buttonback);
+        b5.setTypeface(mycustomFont);
         edit = (Button) findViewById(R.id.edit_text2);
         delete = (Button) findViewById(R.id.delete2);
 //        b5.setTypeface(mycustomFont);
@@ -73,7 +77,9 @@ public class activity_about_us_btn_cros extends Activity {
     }
     public void change_link()
     {
-        putlink.setVisibility(View.VISIBLE);
+        //putlink.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(getApplicationContext(), about_us_inside_menu.class);
+        startActivity(intent);
         //delete.setVisibility(View.VISIBLE);
     }
     }

@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourway.ideaswire.data.CreateProfileData;
@@ -20,13 +21,16 @@ import com.fourway.ideaswire.request.helper.VolleyErrorHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_CONNECTION_TIMEOUT;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_CONNECT;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_FAILED_TO_UPLOAD;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_INTERNAL_ERROR;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
+import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
 
 /**
  * Created by Vikas on 8/22/2016.
@@ -46,8 +50,20 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
 
     @Override
     public void onUpdateImageResponse(CommonRequest.ResponseCode res, UpdateImageRequestData data) {
-        mProfileRequestData.setErrorMessage(data.getErrorMessage());
-        mCreateProfileResponseCallback.onCreateProfileResponse(res, mProfileRequestData);
+        if (res != COMMON_RES_SUCCESS) {
+            mProfileRequestData.setErrorMessage(data.getErrorMessage());
+            mCreateProfileResponseCallback.onCreateProfileResponse(res, mProfileRequestData);
+        }
+        else {
+            if (mProfileRequestData.getVideoFile() != null){
+                uploadVideoFile();
+            }
+            else
+            {
+                mProfileRequestData.setErrorMessage(data.getErrorMessage());
+                mCreateProfileResponseCallback.onCreateProfileResponse(res, mProfileRequestData);
+            }
+        }
     }
 
     public interface CreateProfileResponseCallback {
@@ -126,6 +142,42 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
                 mProfileRequestData.getImageData());
         UpdateImageRequest req = new UpdateImageRequest(mContext,data, this);
         req.executeRequest();
+    }
+
+    private void uploadVideoFile(){
+        String url = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8090/4ways/api/image/content/upload/document";
+
+        Response.Listener<NetworkResponse> listner = new Response.Listener<NetworkResponse>() {
+
+            @Override
+            public void onResponse(NetworkResponse response) {
+               mCreateProfileResponseCallback.onCreateProfileResponse(COMMON_RES_FAILED_TO_UPLOAD, mProfileRequestData);
+            }
+        };
+
+        Response.ErrorListener errorListner = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onErrorResponse(error);
+            }
+        };
+
+
+        mFileUpload = new CommonFileUpload(mContext,
+                mProfileRequestData.getVideoFile(),
+                CommonFileUpload.FileType.COMMON_UPLOAD_FILE_TYPE_VIDEO,
+                mProfileRequestData.getProfileName(),
+                url,
+                mProfileRequestData.getAccessToken(),
+                listner,
+                errorListner);
+        mFileUpload.setFileTag("video-data");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("authorization", "bearer "+ mProfileRequestData.getAccessToken());
+        params.put("x-image-profile-id", mProfileRequestData.getProfileId());
+        mFileUpload.setHeader(params);
+        mFileUpload.uploadFile();
     }
 
     public void onErrorHandler(VolleyError error) {
