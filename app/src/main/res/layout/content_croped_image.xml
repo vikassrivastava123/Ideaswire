@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    tools:context="com.example.arthu.testandroidcropper.MainActivity">
+>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -47,6 +46,7 @@
         </LinearLayout>
 
     </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ProgressView2"
         android:layout_width="match_parent"
