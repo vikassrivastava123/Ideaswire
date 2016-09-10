@@ -83,6 +83,7 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
         JSONObject js = new JSONObject();
         try {
             js.put("templateId", "t1");
+            js.put("name", mProfileRequestData.getProfileName());
 
             JSONObject profileAttributes = new JSONObject();
             profileAttributes.put("ProfileName", mProfileRequestData.getProfileName());
