@@ -248,4 +248,9 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
 
     }
+
+    @Override
+    public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+    }
 }

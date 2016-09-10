@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.SearchProfileData;
+import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.SearchProfileRequest;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class EditPhotoSelectedUi extends Activity {
+public class EditPhotoSelectedUi extends Activity implements SearchProfileRequest.SearchResponseCallback {
 
     Uri imgUri;
     ImageView CroppedimageView;
@@ -83,13 +87,18 @@ public class EditPhotoSelectedUi extends Activity {
             return;
         }
 
-  /*      File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
+        File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
         SearchProfileData data = new SearchProfileData(sendToSearch,"test",loginUi.mLogintoken);
 
-        SearchProfileRequest req = new SearchProfileRequest(EditPhotoSelectedUi.this, data);
-        req.executeRequest();*/
+        SearchProfileRequest req = new SearchProfileRequest(this, data,this);
+        req.executeRequest();
 
 
 
+    }
+
+    @Override
+    public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
+        Log.d("sera resulr","res :"+res);
     }
 }

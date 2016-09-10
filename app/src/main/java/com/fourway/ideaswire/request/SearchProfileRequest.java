@@ -53,7 +53,7 @@ public class SearchProfileRequest {
     }
 
 
-    void executeRequest(){
+    public void executeRequest(){
         String url = IMAGE_UPLOAD_SEARCH_PROFILE_URL;
         Response.Listener<NetworkResponse> listner = new Response.Listener<NetworkResponse>() {
 
