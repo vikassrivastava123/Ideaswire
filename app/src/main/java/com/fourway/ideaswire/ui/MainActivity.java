@@ -15,7 +15,9 @@ import com.fourway.ideaswire.templates.HomePage;
 import com.fourway.ideaswire.templates.HomePageDataTemplate;
 import com.fourway.ideaswire.templates.ServicePage;
 import com.fourway.ideaswire.templates.blogpage;
+import com.fourway.ideaswire.templates.blogpageDataTemplate;
 import com.fourway.ideaswire.templates.contactDetails;
+import com.fourway.ideaswire.templates.contactDetailsDataTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
@@ -131,10 +133,10 @@ public class MainActivity extends AppCompatActivity{
         listOfTemplatePagesObj.add(homePageObj);
     }
 
-   /*
+
     static void setAttributesForBlogPage(ArrayList<Attribute> attributesFromServer){
         pages blogPageObj = new blogpage();
-        blogpageTemplate data = (blogpageTemplate)blogPageObj.getTemplateData(1);
+        blogpageDataTemplate data = (blogpageDataTemplate)blogPageObj.getTemplateData(1);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
@@ -180,8 +182,8 @@ public class MainActivity extends AppCompatActivity{
         }
         listOfTemplatePagesObj.add(blogPageObj);
     }
-*/
-   /* static void setAttributesForContactDetailPage(ArrayList<Attribute> attributesFromServer){
+
+    static void setAttributesForContactDetailPage(ArrayList<Attribute> attributesFromServer){
         pages contactDetailsPageObj = new contactDetails();
         contactDetailsDataTemplate data = (contactDetailsDataTemplate)contactDetailsPageObj.getTemplateData(1);
         for(Attribute atr : attributesFromServer) {
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity{
         }
         listOfTemplatePagesObj.add(contactDetailsPageObj);
     }
-*/
+
     public static void addPagesToList(ArrayList<Page> pageList){
       try{
            int pageNumber = 0;
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity{
                         setAttributesForAboutUsPage(attributesFromServer);
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
-                 //       setAttributesForBlogPage(attributesFromServer);
+                        setAttributesForBlogPage(attributesFromServer);
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
                         break;
@@ -270,7 +272,7 @@ public class MainActivity extends AppCompatActivity{
                         setAttributesForHomePage(attributesFromServer);
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
-               //         setAttributesForContactDetailPage(attributesFromServer);
+                        setAttributesForContactDetailPage(attributesFromServer);
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
                         pages ServicePage = new ServicePage();

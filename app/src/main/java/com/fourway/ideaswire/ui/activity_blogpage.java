@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.blogpageTemplate;
+import com.fourway.ideaswire.templates.blogpageDataTemplate;
 
 public class activity_blogpage extends Activity {
     TextView mTitle,heading,subheading,textview,heading_belo,subheading_below,text_below;
@@ -21,7 +21,7 @@ public class activity_blogpage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_on_app);
-        blogpageTemplate dataobj = new blogpageTemplate(1,true);
+        blogpageDataTemplate dataobj = new blogpageDataTemplate(1,true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

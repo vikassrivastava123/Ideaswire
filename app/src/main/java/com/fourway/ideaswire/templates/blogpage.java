@@ -4,12 +4,12 @@ package com.fourway.ideaswire.templates;
  * Created by Vaibhav Gusain on 9/9/2016.
  */
 public class blogpage extends pages {
-    blogpageTemplate dataObj = null;
+    blogpageDataTemplate dataObj = null;
     public int mTemplateType = 1;
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new blogpageTemplate(templateType,true);
+        dataObj = new blogpageDataTemplate(templateType,true);
         return dataObj;
     }
     @Override
@@ -19,7 +19,7 @@ public class blogpage extends pages {
     }
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
-        dataObj = new blogpageTemplate(1,false);
+        dataObj = new blogpageDataTemplate(1,false);
         return dataObj;
     }
 
