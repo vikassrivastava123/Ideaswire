@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AddPages">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.signupUi"
+
             android:label="@string/title_activity_signup_ui"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
