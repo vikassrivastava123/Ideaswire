@@ -17,4 +17,15 @@ public class contactDetails extends pages {
     {
         return "Contact DETAILS";
     }
+
+    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+        mTemplateType = 1;
+        dataObj = new contactDetailsTemplate(1,false);
+        return dataObj;
+    }
+
+    @Override
+    public void set_nameis(String nameOfpage) {
+
+    }
 }

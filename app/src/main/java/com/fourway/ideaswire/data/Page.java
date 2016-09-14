@@ -64,4 +64,9 @@ public class Page {
         }
         return page;
     }
+    public String getPageName(){
+        return mName;
+    }
+
+
 }

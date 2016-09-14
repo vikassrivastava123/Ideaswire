@@ -14,6 +14,8 @@ public abstract class pages {
 
     }
     abstract dataOfTemplate getDataForTemplate(int templateType);
+    abstract dataOfTemplate getDataForTemplateAsReceivedFromServer();
 
+    public abstract void set_nameis(String nameOfpage);
     public abstract String nameis();
 }

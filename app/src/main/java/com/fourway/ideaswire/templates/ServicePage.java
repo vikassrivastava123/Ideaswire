@@ -16,4 +16,14 @@ public class ServicePage extends pages {
     {
         return "Service Page";
     }
+    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+        mTemplateType = 1;
+        dataObj = new ServicesTemplate(1,false);
+        return dataObj;
+    }
+
+    @Override
+    public void set_nameis(String nameOfpage) {
+
+    }
 }

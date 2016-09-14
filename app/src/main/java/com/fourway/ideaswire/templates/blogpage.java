@@ -17,4 +17,14 @@ public class blogpage extends pages {
     {
         return "Blog Page";
     }
+    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+        mTemplateType = 1;
+        dataObj = new blogpageTemplate(1,false);
+        return dataObj;
+    }
+
+    @Override
+    public void set_nameis(String nameOfpage) {
+
+    }
 }

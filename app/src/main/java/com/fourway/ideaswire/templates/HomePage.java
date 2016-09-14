@@ -16,5 +16,15 @@ public class HomePage extends pages {
     {
         return "Home Page";
     }
+    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+
+        dataObj = new HomePageDataTemplate(1,false);
+        return dataObj;
+    }
+
+    @Override
+    public void set_nameis(String nameOfpage) {
+
+    }
 }
 

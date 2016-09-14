@@ -7,15 +7,32 @@ public class AboutUsPage extends pages {
 
     AboutUsDataTemplate dataObj = null;
     public int mTemplateType = 1;
+
+    public AboutUsPage(){
+         nameis = "About Us 2";
+    }
+
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = new AboutUsDataTemplate(templateType,true);
         return dataObj;
     }
+    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+        mTemplateType = 1;
+        dataObj = new AboutUsDataTemplate(1,false);
+        return dataObj;
+    }
+
+    String nameis;
+    @Override
+    public void set_nameis(String nameOfpage) {
+        nameis = nameOfpage;
+    }
+
     @Override
     public String nameis()
     {
-        return "About Us 2";
+        return nameis;
     }
 }

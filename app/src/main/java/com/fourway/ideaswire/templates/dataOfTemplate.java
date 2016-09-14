@@ -1,6 +1,6 @@
 package com.fourway.ideaswire.templates;
 
-import com.fourway.ideaswire.ui.select_layout_of_template;
+import com.fourway.ideaswire.ui.MainActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class dataOfTemplate implements Serializable {
 
-    transient List<pages> listOfFooter = select_layout_of_template.listOfTemplatePagesObj;
+    transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
 
     void setHeader(String header){
