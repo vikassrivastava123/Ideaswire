@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.contactDetailsTemplate;
+import com.fourway.ideaswire.templates.contactDetailsDataTemplate;
 
 public class contact_details extends Activity {
     TextView mTitle,heading,subheading,text_heading,address,email_add,number,website;
@@ -20,7 +20,7 @@ public class contact_details extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        contactDetailsTemplate dataobj = new contactDetailsTemplate(1,true);
+        contactDetailsDataTemplate dataobj = new contactDetailsDataTemplate(1,true);
 
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

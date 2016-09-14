@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.ServicesTemplate;
+import com.fourway.ideaswire.templates.ServicesDataTemplate;
 
 public class ServicesOnApp extends Activity {
     TextView mTitle,heading,subheading,textview,heading_belo,subheading_below,text_below;
@@ -19,7 +19,7 @@ public class ServicesOnApp extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_on_app);
-        ServicesTemplate dataobj = new ServicesTemplate(1,true);
+        ServicesDataTemplate dataobj = new ServicesDataTemplate(1,true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

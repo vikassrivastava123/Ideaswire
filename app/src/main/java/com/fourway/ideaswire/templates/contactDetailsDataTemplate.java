@@ -1,21 +1,21 @@
 package com.fourway.ideaswire.templates;
 
-import com.fourway.ideaswire.ui.ServicesOnApp;
+import com.fourway.ideaswire.ui.AboutUsOnApp;
 
 /**
  * Created by Vaibhav Gusain on 9/8/2016.
  */
-public class ServicesTemplate extends dataOfTemplate {
+public class contactDetailsDataTemplate extends dataOfTemplate{
     int templateSelected = 1;
     String about_us_heading;
     String heading= null;
     public String subheading_header =null;
     public String heading_text =null;
-    public String heading_below_image = null;
-    public String sub_heading_below_image =null;
-    public String text_below_image =null;
-    //public String website = null;
-    public ServicesTemplate(int templateSelected, boolean isDefaultData)
+    public String Address = null;
+    public String Email =null;
+    public String phonenumber =null;
+    public String website = null;
+    public contactDetailsDataTemplate(int templateSelected, boolean isDefaultData)
     {
         if(isDefaultData){
 
@@ -39,10 +39,10 @@ public class ServicesTemplate extends dataOfTemplate {
         header = new String("Heading one");
         subheading_header = "Below Image Heading";
         heading_text = "Subheading";
-        heading_below_image = "paragraph text is soo long man.what to do .";
-        sub_heading_below_image = "Button textc";
-        text_below_image = "+91-8800664433";
-
+        Address = "paragraph text is soo long man.what to do .";
+        Email = "Button textc";
+        phonenumber = "+91-8800664433";
+        website = "www.4wayTechnologies.com";
     }
 
 
@@ -63,27 +63,26 @@ public class ServicesTemplate extends dataOfTemplate {
     public String get_text_para(){
         return heading_text;
     }
-    public String get_heading_belowimg(){
-        return heading_below_image;
+    public String get_Address(){
+        return Address;
     }
-    public String get_subheading_below(){
-        return sub_heading_below_image;
+    public String get_email(){
+        return Email;
     }
-    public String get_text_below_image(){
-        return text_below_image;
+    public String get_phonenumber(){
+        return phonenumber;
     }
-    //public String get_website(){
-      //  return website;
-    //}
+    public String get_website(){
+        return website;
+    }
 
     @Override
     public Class getIntentToLaunchPage() {
-        return ServicesOnApp.class;
+        return AboutUsOnApp.class;
     }
 
     @Override
     public int getTemplateSelected() {
         return templateSelected;
     }
-
 }
