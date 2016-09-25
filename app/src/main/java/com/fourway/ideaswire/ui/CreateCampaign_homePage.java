@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class CreateCampaign_homePage extends Activity implements GetProfileRequest.GetProfileResponseCallback {
     TextView tf,mTitle;
     MyProfileAdapter mProfileAdapter;
-
+private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1);
 
         Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v("homePage", "5" + intenetToLaunch);
+        Log.v(TAG, "5" + intenetToLaunch);
         Intent intent = new Intent(this, intenetToLaunch);
         intent.putExtra("data",data);
         startActivity(intent);
