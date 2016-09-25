@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.Page;
@@ -60,7 +62,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     EditText editTitle = null,editHeader = null,editSubHeading = null,editParaGraphAboutUs = null;
     List<String> attName;
     TextView mTitle;
-    ImageView cardImage;
+    NetworkImageView cardImage;
     Button submit_button;
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
@@ -411,7 +413,15 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         }
 
         submit_button = (Button) findViewById(R.id.buttonMainAbtUs);
-        cardImage = (ImageView) findViewById(R.id.ABOUT_US_CARD_IMAGE);
+        cardImage = (NetworkImageView) findViewById(R.id.ABOUT_US_CARD_IMAGE);
+
+        String urlOfProfile = dataObj.get_url();
+
+        if(urlOfProfile != null){
+            Uri cardImageUri = Uri.parse(urlOfProfile);
+            cardImage.setImageURI(cardImageUri);
+        }
+
         showImageForBackround();
         submit_button.setTypeface(mycustomFont);
         submit_button.setOnClickListener(new Button.OnClickListener() {

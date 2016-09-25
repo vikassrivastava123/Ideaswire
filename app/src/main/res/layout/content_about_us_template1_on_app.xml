@@ -54,7 +54,7 @@
 
         android:id="@+id/relativeLayout">
 
-         <ImageView
+          <com.android.volley.toolbox.NetworkImageView
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:id="@+id/ABOUT_US_CARD_IMAGE"
