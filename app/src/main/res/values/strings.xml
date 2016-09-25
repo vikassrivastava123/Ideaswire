@@ -256,4 +256,5 @@
     <string name="title_activity_clients_onapp">ClientsOnapp</string>
     <string name="title_activity_teamonapp">teamonapp</string>
     <string name="title_activity_add_pages">AddPages</string>
+    <string name="title_activity_serach_results">serachResults</string>
 </resources>

@@ -6,15 +6,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-  <application
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +25,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.signupUi"
-
             android:label="@string/title_activity_signup_ui"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -122,6 +118,10 @@
         <activity
             android:name=".ui.AddPages"
             android:label="@string/title_activity_add_pages"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.searchResults"
+            android:label="@string/title_activity_serach_results"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
