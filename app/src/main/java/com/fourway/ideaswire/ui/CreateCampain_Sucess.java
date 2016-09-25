@@ -15,9 +15,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.templates.AboutUsPage;
+import com.fourway.ideaswire.templates.HomePage;
+import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.blogpage;
+import com.fourway.ideaswire.templates.contactDetails;
+import com.fourway.ideaswire.templates.dataOfTemplate;
+import com.fourway.ideaswire.templates.pages;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class CreateCampain_Sucess extends Activity {
 
@@ -65,10 +73,40 @@ public class CreateCampain_Sucess extends Activity {
 
     }
 
+    private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
+
+        MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
+
+        pages abtusObj = new AboutUsPage();
+        pages homeObj = new HomePage();
+        pages blogpage = new blogpage();
+        pages contactdetails = new contactDetails();
+        pages ServicePage = new ServicePage();
+        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
+        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
+        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
+        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
+        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v("Create homepage", "5" + intenetToLaunch);
+        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        intent.putExtra("data",data);
+        startActivity(intent);
+
+
+    }
+
+
     public void addTemplate(View view) {
 
         Log.v("CreateCampain_Sucess","Clicked to start choosing template");
-        Intent iny = new Intent(this,ChooseTemplate_Category.class);
-        startActivity(iny);
+
+        startCreateCampaignWithDefaultData(1);
+
+      //  Intent iny = new Intent(this,ChooseTemplate_Category.class);
+      //  startActivity(iny);
     }
 }

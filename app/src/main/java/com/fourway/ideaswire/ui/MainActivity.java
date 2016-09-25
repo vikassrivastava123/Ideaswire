@@ -62,7 +62,11 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
 
-        startCreateCampaignforDefaultData(1);
+        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        startActivity(intent);
+
+
+      //  startCreateCampaignforDefaultData(1);
     }
 
 

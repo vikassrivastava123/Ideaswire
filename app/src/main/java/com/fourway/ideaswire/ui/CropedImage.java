@@ -213,7 +213,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         break;
                     case MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN:
                         createImagefromBitmap(bitmap,MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
-                        editCampaignIntent = new Intent(this, CreateCampaign_EnterData.class);
+                        editCampaignIntent = new Intent(this, editCampaign.class);
                         startActivity(editCampaignIntent);
                         break;
                     case MainActivity.OPEN_PREVIOUS_ACTIVITY:
