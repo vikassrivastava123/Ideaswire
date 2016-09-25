@@ -566,7 +566,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
     public void GoLiveFloatingAbtUs(View view) {
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.getHeader());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_sub_heading());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
