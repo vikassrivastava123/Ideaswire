@@ -20,11 +20,11 @@ import java.util.Map;
 
 public abstract class CommonRequest {
     /*------------------------- Constant Fields Definition ----------------------------*/
-    private static final String DOMAIN = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8080";
-
     private static final String LOGIN_REQUEST_URL = "http://4ways:4wayssecret@ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8899"
             + "/4ways/userauth/oauth/token" + "?grant_type=password";
-    private static final String SIGN_UP_REQUEST_URL = DOMAIN + "/4ways/api/user/register";
+    private static final String SIGN_UP_REQUEST_URL =
+            "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8081" +
+                    "/4ways/api/user/register";
     private static final String GET_PROFILE_DATA_URL =
             "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
                     "/4ways/api/profile/search/profile/content";

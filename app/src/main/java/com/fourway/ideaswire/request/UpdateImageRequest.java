@@ -72,6 +72,8 @@ public class UpdateImageRequest {
         //params.put("content-type", "multipart/form-data");
         params.put("authorization", "bearer "+ mImageData.getAccessToken());
         params.put("x-image-profile-id", mImageData.getProfileId());
+        String type = (mImageData.getProfileType() == CreateProfileData.ProfileType.PROFILE_TYPE_LOGO) ? "LOGO" : "INDIVIDUAL";
+        params.put("x-image-profile-type", type);
 
         mFileUpload.setHeader(params);
 

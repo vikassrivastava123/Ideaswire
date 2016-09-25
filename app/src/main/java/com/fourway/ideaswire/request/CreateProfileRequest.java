@@ -140,7 +140,8 @@ public class CreateProfileRequest implements UpdateImageRequest.UpdateImageRespo
                 mProfileRequestData.getAccessToken(),
                 mProfileRequestData.getProfileId(),
                 mProfileRequestData.getProfileName(),
-                mProfileRequestData.getImageData());
+                mProfileRequestData.getImageData(),
+                mProfileRequestData.getProfileType());
         UpdateImageRequest req = new UpdateImageRequest(mContext,data, this);
         req.executeRequest();
     }
