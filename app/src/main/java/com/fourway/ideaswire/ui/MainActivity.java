@@ -92,9 +92,14 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);
         startActivity(intent);
-
-
     }
+
+
+
+
+
+
+
 
 
 
@@ -308,7 +313,9 @@ public class MainActivity extends AppCompatActivity{
         listOfTemplatePagesObj.add(contactDetailsPageObj);
     }
 
-    public static void addPagesToList(ArrayList<Page> pageList){
+    public static boolean addPagesToList(ArrayList<Page> pageList){
+        boolean bCanShowProfile = false;
+
       try{
            int pageNumber = 0;
            for(Page p: pageList){
@@ -317,29 +324,37 @@ public class MainActivity extends AppCompatActivity{
                if(pageName == null || pageName.equals("null") == true){
                    ArrayList<Attribute> attributesFromServer = p.getAttributes();
                    setAttributesForAboutUsPage(attributesFromServer);
-                return;
+                   bCanShowProfile = true;
+                return bCanShowProfile;
                }
                ArrayList<Attribute>attributesFromServer = p.getAttributes();
                 switch (pageName){
                     case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
                         setAttributesForAboutUsPage(attributesFromServer);
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
                         setAttributesForBlogPage(attributesFromServer);
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                         setAttributesForHomePage(attributesFromServer);
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
                         setAttributesForContactDetailPage(attributesFromServer);
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
                         pages ServicePage = new ServicePage();
                         listOfTemplatePagesObj.add(ServicePage);
+                        bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_TEAM:
+                        bCanShowProfile = true;
                         break;
 
                 }
@@ -348,7 +363,7 @@ public class MainActivity extends AppCompatActivity{
         }catch (NullPointerException e){
             Log.v(TAG,"listOfTemplatePagesObj is null");
         }
-
+         return bCanShowProfile;
     }
 
 

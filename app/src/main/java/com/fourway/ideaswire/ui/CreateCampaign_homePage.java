@@ -5,18 +5,20 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.GetProfileRequestData;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetProfileRequest;
+import com.fourway.ideaswire.templates.dataOfTemplate;
 
 import java.util.ArrayList;
 
@@ -72,14 +74,33 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
 
     }
 
+    private void shownLiveProfile(){
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v("homePage", "5" + intenetToLaunch);
+        Intent intent = new Intent(this, intenetToLaunch);
+        intent.putExtra("data",data);
+        startActivity(intent);
+
+    }
+
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             Profile p = data.getProfile();
             ArrayList<Page> pageList = p.getAllPages();
-            int num_of_pages = pageList.size();
 
-            ArrayList<Attribute> Page_0_attribute = pageList.get(0).getAttributes();
+            MainActivity.initListOfPages();
+            boolean bcanShowProfile = MainActivity.addPagesToList(pageList);
+
+            if(bcanShowProfile == true) {
+                shownLiveProfile();
+            }else{
+                Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 }
