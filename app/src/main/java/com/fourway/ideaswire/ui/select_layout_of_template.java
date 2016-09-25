@@ -26,39 +26,18 @@ import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class select_layout_of_template extends Activity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
 
-    public static List<pages> listOfTemplatePagesObj= new ArrayList<pages>();
+
 
     private final String TAG = "seleclayouttemplate";
     TextView mTitle,t;
     void startModifyTemplate(int typeOfTemplateSelected){
 
-        listOfTemplatePagesObj = new ArrayList<pages>();
-
-        pages abtusObj = new AboutUsPage();
-        pages homeObj = new HomePage();
-        pages blogpage = new blogpage();
-        pages contactdetails = new contactDetails();
-        pages ServicePage = new ServicePage();
-        listOfTemplatePagesObj.add(0, abtusObj);
-        listOfTemplatePagesObj.add(1, homeObj);
-        listOfTemplatePagesObj.add(2, blogpage);
-        listOfTemplatePagesObj.add(3, contactdetails);
-        listOfTemplatePagesObj.add(4, ServicePage);
-
-        dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
-
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v(TAG, "5" + intenetToLaunch);
-        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-        intent.putExtra("data",data);
-        startActivity(intent);
 
     }
 

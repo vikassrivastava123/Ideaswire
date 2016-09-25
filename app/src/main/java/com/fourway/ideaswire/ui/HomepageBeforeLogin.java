@@ -298,7 +298,9 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
     void startGallery(){
 
         Intent inf = new Intent (this,CropedImage.class);
+        inf.putExtra(MainActivity.OPEN_GALLERY_FOR ,MainActivity.OPEN_GALLERY_FOR_SEARCH );
         startActivity(inf);
+
       /*  Intent intent = new Intent();
         // Show only images, no videos or anything else
         intent.setType("image/*");

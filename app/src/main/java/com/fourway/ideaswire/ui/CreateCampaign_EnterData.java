@@ -57,6 +57,7 @@ public class CreateCampaign_EnterData extends Activity {
         Intent inf = new Intent (this,CropedImage.class);
         inf.putExtra("ScreenName","Create Campaign");
         inf.putExtra("CampaignName",campnName);
+        inf.putExtra(MainActivity.OPEN_GALLERY_FOR ,MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN );
         startActivity(inf);
 
       //  Intent intent = new Intent(this,editCampaign.class);

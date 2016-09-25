@@ -6,167 +6,197 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
+    android:background="@color/templateBackround"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.AboutUsOnApp"
     tools:showIn="@layout/about_us_template1_on_app">
-    <RelativeLayout
+
+    <EditText android:id="@+id/ABOUT_TITLE"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/card"
+        android:gravity="center"
+        android:hint="Title"
+        android:singleLine="true"
+        android:textColorHint = "@color/card"
+        android:background="@color/skyBlueBckgrnd"
+        android:onClick="changeTitleTextAbtUs"
+
+        ></EditText>
+
+    <ImageView
+        android:id="@+id/deleteTitleAboutUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteTitleAboutUs"
+        android:src="@drawable/close"
+        android:layout_below="@+id/txtEdit"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+
+        />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ABOUT_TITLE"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:id="@+id/relativeLayout">
 
-
-        <EditText android:id="@+id/input_password"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:textColor="#FFFFFF"
-            android:gravity="center"
-            android:hint="Password"
-            android:textColorHint = "#FFFFFF"
-            android:background="#00bbff"
-           ></EditText>
-
-
-        <RelativeLayout
-            android:id="@+id/shareLILayout"
-           android:layout_below="@+id/input_password"
-           android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:id="@+id/imageView2"
+         <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:id="@+id/ABOUT_US_CARD_IMAGE"
                 android:background="@drawable/home_banner_1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:onClick="AboutUsImageUpload"/>
+                android:scaleType="centerCrop"
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
+                android:onClick="uploadToAboutUsOnApp"/>
 
->
+          <ImageView
+              android:id="@+id/deleteCARD_IMAGE"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:onClick="deleteCardImageAboutUs"
+              android:src="@drawable/cross_1"
+              android:layout_below="@+id/txtEdit"
+              android:layout_alignParentRight="true"
+              android:layout_marginTop="8dp"
+              android:layout_marginRight="1dp"
+              android:background="@null"
 
-            <Button
-
-            android:id="@+id/edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-                android:textSize="14sp"
-
-                android:text="Edit"
-                android:visibility="gone"
-                android:layout_marginLeft="100dp"
-             />
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Delete"
-            android:layout_gravity="center_vertical"
-            android:textSize="14sp"
-            android:visibility="gone"/>
-</LinearLayout>
+              />
 
 
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/relativeLayout2"
-        android:layout_below = "@+id/relativeLayout">
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-
-        android:id="@+id/pass2"
-        android:layout_marginTop="5dp"
-        android:textColor="#000000"
-        android:gravity="center"
-        android:hint="Password"
-        android:textColorHint = "#000000"
-        android:background="#FFFFFF"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+             <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/ABOUT_US_HEADING"
+                android:layout_below="@+id/ABOUT_US_CARD_IMAGE"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text"
+                android:gravity="center"
+                android:hint="Heading"
+                android:textColorHint = "@color/text"
+                android:singleLine="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:onClick="changeHeadingTxtAbtUs"
         />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp"
-            android:layout_marginLeft="200dp"
 
-            >
+          <ImageView
+              android:id="@+id/deleteHeadingAboutUs"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:onClick="deleteHeadingAboutUs"
+              android:src="@drawable/close"
+              android:layout_below="@+id/ABOUT_US_CARD_IMAGE"
+              android:layout_alignParentRight="true"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="10dp"
+              android:background="@null"
 
-            <Button
+              />
 
-                android:id="@+id/edit_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Edit"
-                android:visibility="gone"
-                android:textSize="14sp"
-                />
 
-            <Button
-                android:id="@+id/delete2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_gravity="center_vertical"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="14sp"
-                android:visibility="gone"/>
-        </LinearLayout>
 
-        </RelativeLayout>
-
-    <TextView
+        <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="There are many variation of packagaes"
-        android:layout_below="@+id/relativeLayout2"
-        android:id="@+id/textView2"
-        android:textSize="20dp"
+        android:layout_below="@+id/ABOUT_US_HEADING"
+        android:id="@+id/ABOUT_US_SUBHEADING"
+        android:textSize="20sp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="none"
+        android:onClick="changeSubHeadingAbtUs"
+        />
 
-    <TextView
+          <ImageView
+              android:id="@+id/deleteSubHeaderAboutUs"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:onClick="deleteSubHeadingAboutUs"
+              android:src="@drawable/close"
+              android:layout_below="@+id/ABOUT_US_HEADING"
+              android:layout_alignParentRight="true"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="10dp"
+              android:background="@null"
+
+              />
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center"
-        android:text="There are many variation of passages of lorem ipsum available. but the majority have in some form by injected humor"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
+        android:text="There are many variation of passage"
+        android:id="@+id/paraGraphAboutUs"
+        android:layout_below="@+id/ABOUT_US_SUBHEADING"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="20dp"
+        android:onClick="changeParaAbtUs"
+        />
 
+          <ImageView
+              android:id="@+id/deleteParaAboutUs"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:onClick="deleteParaAboutUs"
+              android:src="@drawable/close"
+              android:layout_below="@+id/ABOUT_US_SUBHEADING"
+              android:layout_alignParentRight="true"
+              android:layout_marginTop="5dp"
+              android:layout_marginRight="10dp"
+              android:background="@null"
+              />
+      </RelativeLayout>
+    </ScrollView>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button Text"
+        android:text="Add Button Text"
+        android:onClick="showListOfPages"
 
-        android:id="@+id/button2"
-        android:background="#00bbff"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/buttonMainAbtUs"
+        android:background="@color/skyBlueBckgrnd"
+        android:layout_above="@+id/scrollViewPages"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:textColor="@color/card" />
 
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollViewPages"
+        >
+       <RelativeLayout
+            android:id="@+id/dynamicPages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal" >
+        </RelativeLayout>
 
-
+    </HorizontalScrollView>
 
 </RelativeLayout>
+

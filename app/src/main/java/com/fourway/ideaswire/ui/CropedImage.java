@@ -38,6 +38,8 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
     private String scrnName = null;
 
+    private int openGalleryForActivity;
+
     private final static String TAG = "CropedImage";
 
     private static boolean galleryStarted = false;
@@ -72,10 +74,12 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
         Intent intentScrn = getIntent();
         scrnName = intentScrn.getStringExtra("ScreenName");
+        openGalleryForActivity = intentScrn.getIntExtra(MainActivity.OPEN_GALLERY_FOR, 100);
         mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
 
 
         Log.v("","scrnName"+scrnName);
+        Log.v("","openGalleryForActivity"+openGalleryForActivity);
 
         if(galleryStarted == false) {
             galleryStarted = true;
@@ -149,32 +153,11 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         mProgressViewText.setText("Cropping...");
         mProgressView.setVisibility(View.VISIBLE);
 
-        Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
 
-        Log.e("Crop", "onCropImageClick to load image for cropping");
-        String uriString  = mCropImageUri.getPath();
-
-        Log.e("Crop", "onCropImageClick uri 1" + uriString);
-        String test = FileUtils.getPath(this,mCropImageUri);
-        Log.e("Crop", "onCropImageClick uri 2" + test);
-        if(test == null){
-            test = uriString;
-            Log.e("Crop", "onCropImageClick uri 3" + test);
-
-        }else {
-        }
-
-
-            if(scrnName != null && scrnName.equals("Create Campaign") == true) {
-
-            }else {
-             //   EditPhotoIntent.putExtra("imageUri", test);
-             //   startActivity(EditPhotoIntent);
-            }
     }
 
-    public void createImagefromBitmap(Bitmap bitmap){
-        String fileName = "Imaged";
+    public void createImagefromBitmap(Bitmap bitmap,String fileName){
+
         Log.v("createImagefromBitmap","start");
         try{
 
@@ -210,14 +193,35 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
             Log.e("Crop", "Success to crop image", error);
             if (bitmap != null) {
                // mCropImageView.setImageBitmap(bitmap);
-                createImagefromBitmap(bitmap);
-                Intent editCampaignIntent = new Intent(this, editCampaign.class);
-                editCampaignIntent.putExtra("imageUri", "test");
-                editCampaignIntent.putExtra("CampaignName",mCampaignNameReceived);
-                Log.e("Crop", "Call to Create Campaign");
-                startActivity(editCampaignIntent);
 
-             }else{
+
+                Intent editCampaignIntent;
+                Log.d("Crop", "openGalleryForActivity" + openGalleryForActivity);
+                switch(openGalleryForActivity){
+
+                    case MainActivity.OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP:
+                        createImagefromBitmap(bitmap,MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME);
+                       // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
+                        finish();
+                       // startActivity(editCampaignIntent);
+                        break;
+                    case MainActivity.OPEN_GALLERY_FOR_SEARCH:
+
+                        createImagefromBitmap(bitmap,MainActivity.SEARCH__IMAGE_CROPED_NAME);
+                        editCampaignIntent = new Intent(this, EditPhotoSelectedUi.class);
+                        startActivity(editCampaignIntent);
+                        break;
+                    case MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN:
+                        createImagefromBitmap(bitmap,MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+                        editCampaignIntent = new Intent(this, CreateCampaign_EnterData.class);
+                        startActivity(editCampaignIntent);
+                        break;
+                    case MainActivity.OPEN_PREVIOUS_ACTIVITY:
+                        finish();
+                        break;
+
+                }
+            }else{
                 Toast.makeText(this,  "Please Try again", Toast.LENGTH_LONG).show();
             }
         } else {

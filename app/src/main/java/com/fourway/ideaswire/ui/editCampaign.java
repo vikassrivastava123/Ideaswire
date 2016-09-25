@@ -80,13 +80,13 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
         Log.v("editCampaign", "showImageCampaign");
         try {
-            FileInputStream in = openFileInput("Imaged");
+            FileInputStream in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
 
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             selImage.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
 
         }catch (FileNotFoundException e){
-            Log.v("editCampaign","Imaged file not found");
+            Log.v("editCampaign","CREATE_CAMPAIGN_IMAGE_CROPED_NAME file not found");
         }
 
     }
@@ -159,7 +159,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
        // String CamapingName = mEtCampnName.getText().toString();
         FileInputStream in = null;
         try {
-            in = openFileInput("Imaged");
+            in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

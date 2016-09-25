@@ -20,6 +20,8 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_ABOUT_US_SUBHEADING = "About_Us_Subheading";
     public static final String PROFILE_PAGE_ABOUT_US_PARAGRAPH = "About_Us_Paragraph";
     public static final String PROFILE_PAGE_ABOUT_US_BUTTON_TEXT = "Button";
+    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE = "Button Sub Link";
+    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT = "url";
 
     public static final String PROFILE_PAGE_BLOG = "Blog";
     public static final String PROFILE_PAGE_BLOG_TITLE = "Blog_Title";

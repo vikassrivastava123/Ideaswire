@@ -55,12 +55,12 @@ public class CreateCampain_Sucess extends Activity {
 
         Log.v("CreateCampain_Sucess", "showImageCampaign");
         try {
-            FileInputStream in = openFileInput("Imaged");
+            FileInputStream in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             selImage.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
 
         }catch (FileNotFoundException e){
-            Log.v("CreateCampain_Sucess","Imaged file not found");
+            Log.v("CreateCampain_Sucess","CREATE_CAMPAIGN_IMAGE_CROPED_NAME file not found");
         }
 
     }

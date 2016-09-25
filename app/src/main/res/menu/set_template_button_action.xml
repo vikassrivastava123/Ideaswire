@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/connectUrl"
+        android:title="@string/connect_url"/>
+
+    <item
+        android:id="@+id/connectPage"
+        android:title="@string/connect_page"/>
+
+</menu>

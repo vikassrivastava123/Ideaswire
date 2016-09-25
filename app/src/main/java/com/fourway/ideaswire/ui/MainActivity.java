@@ -18,6 +18,7 @@ import com.fourway.ideaswire.templates.blogpage;
 import com.fourway.ideaswire.templates.blogpageDataTemplate;
 import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.contactDetailsDataTemplate;
+import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
@@ -26,6 +27,23 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity{
 
     public static List<pages> listOfTemplatePagesObj;
+
+
+    //Value of activity that is passed as putExtra to recognize
+    // which activity to open once gallery work finished
+    public static final String OPEN_GALLERY_FOR = "Open_gallery _for_which_act";
+
+    //intent value that will be passed for activity recog
+    public static final int OPEN_GALLERY_FOR_CREATE_CAMPAIGN = 0;
+    public static final int OPEN_GALLERY_FOR_SEARCH  = 1;
+    public static final int OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP  = 2;
+    public static final int OPEN_PREVIOUS_ACTIVITY  = 3;
+
+    //These are files names that will be saved locally
+    public static final String CREATE_CAMPAIGN_IMAGE_CROPED_NAME = "Imaged";
+    public static final String SEARCH__IMAGE_CROPED_NAME  = "searchedImage";
+    public static final String About_Us_TemplateImage_IMAGE_CROPED_NAME = "aboutUsTemplateImage";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +61,38 @@ public class MainActivity extends AppCompatActivity{
 
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
-        startActivity(intent);
+
+        startCreateCampaignforDefaultData(1);
     }
+
+
+    void startCreateCampaignforDefaultData(int typeOfTemplateSelected){
+
+        MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
+
+        pages abtusObj = new AboutUsPage();
+        pages homeObj = new HomePage();
+        pages blogpage = new blogpage();
+        pages contactdetails = new contactDetails();
+        pages ServicePage = new ServicePage();
+        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
+        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
+        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
+        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
+        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v(TAG, "5" + intenetToLaunch);
+        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        intent.putExtra("data",data);
+        startActivity(intent);
+
+
+    }
+
+
 
     public static void initListOfPages(){
 
@@ -74,7 +121,7 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING:
                     String heading2 = atr.getContentValue();
-                    data.set_heading2(heading2);
+                    data.set_heading(heading2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING:
                     String subHeading = atr.getContentValue();
@@ -84,10 +131,20 @@ public class MainActivity extends AppCompatActivity{
                     String para = atr.getContentValue();
                     data.set_text_para(para);
                     break;
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE:
+                    String linkPageNumber = atr.getContentValue();
+                    int pageNumber = Integer.parseInt(linkPageNumber);
+                    data.set_submit_button_link(pageNumber);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT:
                     String btnText = atr.getContentValue();
                     data.set_button_text(btnText);
                     break;
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT:
+                    String btnUrl = atr.getContentValue();
+                    data.set_buttonUrl(btnUrl);
+                    break;
+
 
             }
         }

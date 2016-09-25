@@ -68,7 +68,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 
         Log.v("EditPhotoSelectedUi","showImage");
         try {
-            FileInputStream in = openFileInput("ImagedA");
+            FileInputStream in = openFileInput(MainActivity.SEARCH__IMAGE_CROPED_NAME);
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             CroppedimageView.setImageDrawable(new BitmapDrawable(getResources(),bitmap));
         }catch (FileNotFoundException e){

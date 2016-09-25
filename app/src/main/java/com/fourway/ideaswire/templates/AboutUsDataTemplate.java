@@ -8,61 +8,54 @@ import com.fourway.ideaswire.ui.AboutUsOnApp;
 public class AboutUsDataTemplate extends dataOfTemplate{
 
     int templateSelected = 1;
-    String about_us_heading = null;
-    public String header =null;
+
+    public String headerAboutUs = null;
+    public String title =null;
     private String urlOfImage =null;
     public String header2 =null;
     public String sub_header = null;
     public String text_para =null;
     public String button_text =null;
+    public String link_button = null;
+    private int pageNumberInList = -1;
+    private String btnUrl = null;
 
+    boolean   ismDefaultData = false;
 
-    public AboutUsDataTemplate(int templateSelected, boolean isDefaultData)
-                                {
-                                    if(isDefaultData){
+    public AboutUsDataTemplate(int templateSelected, boolean isDefaultData){
 
-                                        initDeafultdata();
-
-                                    }else{
-
-                                        // when datasetis not installed
-                                    }
-
-
-
-        setHeader("About All of Us");
-        set_profile_page_about_us_heading("Profile_Page_About_US_Heading ");
+        if(isDefaultData){
+          initDeafultdata();
+        }else{
+        // when datasetis not installed
+        }
+        ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
 
     }
 
+    public boolean isDefaultDataToCreateCampaign(){
+
+        return ismDefaultData;
+    }
+
     void initDeafultdata(){
 
-        header = new String("Heading one");
-        header2 = "Below Image Heading";
-        sub_header = "Subheading";
+        title = new String("Edit title");
+        headerAboutUs = "Edit Heading";
+        sub_header = "There are many variation of packagaes";
         text_para = "paragraph text is soo long man.what to do .";
         button_text = "Button textc";
 
     }
 
 
-    public void set_profile_page_about_us_heading(String header){
-
-        about_us_heading = header;
+    public String get_title(){
+        return title;
     }
 
-    public String get_profile_page_about_us_heading(){
-            return about_us_heading;
-    }
-
-
-    public String get_heading(){
-        return header;
-    }
-
-    public void set_heading(String atr){
-        header = atr;
+    public void set_title(String atr){
+        title = atr;
     }
 
     public void set_url(String atr){
@@ -73,13 +66,14 @@ public class AboutUsDataTemplate extends dataOfTemplate{
         return  urlOfImage;
     }
 
-    public String get_heading2(){
-        return header2;
+    public String get_heading(){
+        return headerAboutUs;
     }
 
-    public void set_heading2(String atr){
-         header2 = atr;
+    public void set_heading(String atr){
+        headerAboutUs = atr;
     }
+
 
     public String get_sub_heading(){
         return sub_header;
@@ -104,6 +98,24 @@ public class AboutUsDataTemplate extends dataOfTemplate{
         button_text = atr;
     }
 
+    public void set_submit_button_link(int pageNumberInList){
+        this.pageNumberInList = pageNumberInList;
+
+    }
+
+    public int get_submit_button_link(){
+     //   dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(pageNumberInList).getTemplateData(1);
+        return pageNumberInList;
+
+    }
+
+    public void set_buttonUrl(String url){
+        btnUrl = url;
+    }
+
+    public String get_buttonUrl(){
+        return btnUrl;
+    }
 
     @Override
     public Class getIntentToLaunchPage() {
@@ -114,4 +126,7 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     public int getTemplateSelected() {
         return templateSelected;
     }
+
+
+
 }

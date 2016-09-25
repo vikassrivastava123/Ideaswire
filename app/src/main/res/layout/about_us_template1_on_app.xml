@@ -10,7 +10,10 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        >
+    <!-- android:theme="@style/AppTheme.AppBarOverlay" -->
+
+
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -18,7 +21,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#000000"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-
             android:clickable="true"
             android:contextClickable="true"
             app:navigationIcon="@drawable/back_1"
@@ -26,98 +28,58 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:id="@+id/toolbar_title"
                 android:textSize="18dp"
-                android:textColor="#FFFFFF"/>
-            <Button
+                android:textColor="@color/card"/>
+             <Button
                 android:paddingTop="30dp"
-                android:layout_width="15dp"
-                android:layout_height="30dp"
-
-
-
-                android:layout_alignParentRight="true"
-                android:background="@drawable/toolbar"
-
-                android:layout_gravity="right"
-
-                />
-            <Button
-                android:paddingTop="30dp"
+                android:layout_marginLeft="10dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
-                android:id="@+id/showevents"
-
+                android:id="@+id/showPreview"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/preview_about"
-
+                 android:onClick="previewTemplate"
                 android:layout_gravity="right"
-
                 />
-            <Button
-                android:paddingTop="30dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-
-
-
-                android:layout_alignParentRight="true"
-                android:background="@drawable/toolbar"
-
-                android:layout_gravity="right"
-
-                />
-            <Button
-
+             <Button
                 android:paddingLeft="10dp"
+                android:layout_marginLeft="16dp"
                 android:drawablePadding="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
-                android:id="@+id/showevents2"
-
+                android:id="@+id/setTheme"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/theme"
-
                 android:layout_gravity="right"
-
                 />
-            <Button
-                android:paddingTop="30dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-
-
-
-                android:layout_alignParentRight="true"
-                android:background="@drawable/toolbar"
-
-                android:layout_gravity="right"
-
-                />
-            <Button
-
+              <Button
                 android:paddingLeft="10dp"
+
                 android:drawablePadding="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
-                android:id="@+id/showevents3"
-
+                android:id="@+id/handlePages"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/pages"
-
                 android:layout_gravity="right"
 
                 />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-
-
-    <include layout="@layout/content_about_us_template1_on_app" />
+        <include layout="@layout/content_about_us_template1_on_app" />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="36dp"
+        android:layout_marginRight="36dp"
+        android:clickable="true"
+        android:text="Go Live"
+        android:onClick="GoLiveFloatingAbtUs"
+        android:id="@+id/floatingForPreview"
+        android:visibility="gone"
+        android:src="@drawable/choose_template" />
 
 </android.support.design.widget.CoordinatorLayout>
