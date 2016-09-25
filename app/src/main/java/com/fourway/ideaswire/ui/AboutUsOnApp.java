@@ -281,6 +281,8 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         super.onRestart();
 
         showImageForBackround();
+        PhotoAsyncTask obj = new PhotoAsyncTask();
+        obj.execute();
 
     }
 
@@ -450,8 +452,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         mAbtUsPageObj  = new Page(mProfileId,mPageName);
         mParentId = mAbtUsPageObj.getPageId();
 
-       setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.getHeader());
-       setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_sub_heading());
+
 
      if(dataObj.isDefaultDataToCreateCampaign() == false)
        init_viewCampaign();
@@ -554,15 +555,27 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     }
 
     public void GoLiveFloatingAbtUs(View view) {
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.getHeader());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_sub_heading());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE, dataObj.get_url());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+
         requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
         requestToMakeProfile.addPage(mAbtUsPageObj);
         SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
         req.executeRequest();
     }
-
+  ProgressDialog pbImage = null;
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
     {
-        ProgressDialog pbImage = null;
+
 
         public void AboutUsImageUpload () throws IOException {
 
@@ -586,8 +599,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         @Override
         protected Void doInBackground(Void... params) {
-            pbImage = new ProgressDialog(AboutUsOnApp.this);
-            pbImage.setMessage("Uploading Image...");
+
             try {
                 AboutUsImageUpload();
             } catch (IOException e) {
@@ -597,8 +609,18 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pbImage = new ProgressDialog(AboutUsOnApp.this);
+            pbImage.setMessage("Uploading Image...");
+
+        }
+
+        @Override
         protected void onPostExecute(Void result) {
-            pbImage.hide();
+
+
         }
     }
 
@@ -670,6 +692,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
 
+        pbImage.hide();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();
             dataObj.set_url(imageUrl);
