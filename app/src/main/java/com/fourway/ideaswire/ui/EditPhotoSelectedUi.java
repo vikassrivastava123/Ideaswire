@@ -15,9 +15,12 @@ import com.fourway.ideaswire.data.SearchProfileData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SearchProfileRequest;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class EditPhotoSelectedUi extends Activity implements SearchProfileRequest.SearchResponseCallback {
 
@@ -44,24 +47,6 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
         Log.v("EditPhotoSelectedUi","start");
         CroppedimageView = (ImageView) findViewById(R.id.capturedImage);
         showImage();
-        /*if (CroppedimageView != null && image_path != null) {
-            imgUri=Uri.parse(image_path);
-            if(imgUri != null) {
-
-                Log.v("EditPhotoSelectedUi", "image_path" + image_path);
-                Log.v("EditPhotoSelectedUi","imgUri" + imgUri);
-
-                CroppedimageView.setImageURI(null);
-                CroppedimageView.setImageURI(imgUri);
-            }else{
-                Log.v("EditPhotoSelectedUi","imageView not available");
-            }
-        }else{
-            Log.v("EditPhotoSelectedUi","imageView not available");
-
-        }*/
-
-
     }
 
     void showImage(){
@@ -71,30 +56,59 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
             FileInputStream in = openFileInput(MainActivity.SEARCH__IMAGE_CROPED_NAME);
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             CroppedimageView.setImageDrawable(new BitmapDrawable(getResources(),bitmap));
+            in.close();
         }catch (FileNotFoundException e){
             Log.v("EditPhotoSelectedUi","Imaged file not found");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
+    private File getFileObjectFromBitmap (Bitmap b) throws IOException {
+        File f = new File(getApplicationContext().getCacheDir(), "Abc");
+//Convert bitmap to byte array
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
 
-    public void TestSearch(View view) {
-
-        Log.v("TestSearch","start");
-
-        if(imgUri == null){
-            Log.v("TestSearch","imgUri is null");
-            return;
+//write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        File sendToSearch = FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
-        SearchProfileData data = new SearchProfileData(sendToSearch,"test",loginUi.mLogintoken);
+        return f;
+    }
 
+
+    public void TestSearch(View view) {
+        Log.v("TestSearch", "start");
+       /* if(imgUri == null){
+            Log.v("TestSearch","imgUri is null");
+            return;
+        }*/
+        //File sendToSearch = new File()   //FileUtils.getFile(EditPhotoSelectedUi.this,imgUri);
+        FileInputStream in = null;
+        File fileObj = null;
+        try {
+            in = openFileInput(MainActivity.SEARCH__IMAGE_CROPED_NAME);
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            fileObj = getFileObjectFromBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Bitmap bitmap = BitmapFactory.decodeStream(in);
+        SearchProfileData data = new SearchProfileData(fileObj,"test",loginUi.mLogintoken);
         SearchProfileRequest req = new SearchProfileRequest(this, data,this);
         req.executeRequest();
-
-
-
     }
 
     @Override
