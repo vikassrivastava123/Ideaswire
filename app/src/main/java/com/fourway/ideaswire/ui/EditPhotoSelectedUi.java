@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -114,5 +115,16 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
     @Override
     public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
         Log.d("sera resulr","res :"+res);
+
+        if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
+            loginUi.mProfileList = data.getProfileList();
+            int numberOfProfiles = loginUi.mProfileList.size();
+            Log.v("SearchProfile","number of profiles searched"+numberOfProfiles);
+            if(numberOfProfiles > 0) {
+                Intent intent = new Intent(getApplicationContext(), searchResults.class);
+                startActivity(intent);
+            }
+        }
+
     }
 }
