@@ -17,7 +17,7 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     public String text_para =null;
     public String button_text =null;
     public String link_button = null;
-    private int pageNumberInList = -1;
+    private int pageNumberInList = 0;
     private String btnUrl = null;
 
     boolean   ismDefaultData = false;

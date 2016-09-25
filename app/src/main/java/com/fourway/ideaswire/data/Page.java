@@ -55,6 +55,7 @@ public class Page {
     public static Page getPageDataFromJSONObject (JSONObject js, Page p) throws JSONException {
         Page page = null;
         String name = js.getString(PAGE_JSON_TAG_NAME);
+        p.setPageName(name);
         JSONArray pageAttributes = js.getJSONArray(PAGE_JSON_TAG_PAGE_ATTRIBUTES);
         int size = pageAttributes.length();
         for (int i=0; i<size; i++)
@@ -64,9 +65,9 @@ public class Page {
         }
         return page;
     }
-    public String getPageName(){
-        return mName;
-    }
+    public String getPageName(){return mName;}
+
+    public void setPageName (String name){mName = name;}
 
 
 }

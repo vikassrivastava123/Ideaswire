@@ -67,7 +67,7 @@ public class ProfileStatusRequest extends CommonRequest {
     public void onVolleyErrorHandler(VolleyError error) {
         String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
         CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
-        if (error.networkResponse.statusCode == 404) {
+        if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
             resCode = COMMON_RES_IMAGE_NOT_FOUND;
             mProfileStatuscb.onProfileStatusResponse (resCode, mRequestData);
         }

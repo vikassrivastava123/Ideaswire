@@ -41,7 +41,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
     Button _signupButton;
     @InjectView(R.id.link_login)
     TextView _loginLink;
-    Spinner spinner;
+    //Spinner spinner;
     String count_code;
     private String[] states;
     String mobile_num_new;
@@ -84,7 +84,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         };
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(dataAdapter);
+        /*spinner.setAdapter(dataAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -102,7 +102,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
             public void onNothingSelected(AdapterView<?> arg0) {
 
             }
-        });
+        });*/
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +138,8 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
+        doSignUp();
+
 
         // TODO: Implement your own signup logic here.
 

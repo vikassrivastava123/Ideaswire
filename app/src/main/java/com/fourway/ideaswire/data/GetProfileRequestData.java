@@ -13,6 +13,9 @@ public class GetProfileRequestData {
     public GetProfileRequestData (String key, String profile_id, Profile p){
         mAppKey = key; mProfileId = profile_id; mProfile = p;
     }
+    public GetProfileRequestData (String profile_id, Profile p){
+        mAppKey = null; mProfileId = profile_id; mProfile = p;
+    }
 
     public void setErrorMessage (String s) {mErrorMessage = s;}
     public String getErrorMessage () {return mErrorMessage;}

@@ -45,7 +45,9 @@ public class GetProfileRequest extends CommonRequest {
         mRequestData = data; mGetProfileResponseCallback = cb; mContext = context;
         Map <String, String> param = new HashMap<>();
         param.put("x-image-profile-id", mRequestData.getProfileId());
-        param.put("authorization", "bearer " + mRequestData.getAppKey());
+        if (mRequestData.getAppKey() != null) {
+            param.put("authorization", "bearer " + mRequestData.getAppKey());
+        }
         setPostHeader(param);
     }
 
@@ -93,7 +95,7 @@ public class GetProfileRequest extends CommonRequest {
         String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
         Log.v("onErrorHandler","error is" + error);
         CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
-        if (error.networkResponse.statusCode == 404) {
+        if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
             resCode = COMMON_RES_CONNECTION_TIMEOUT;
             mGetProfileResponseCallback.onGetProfileResponse (resCode, mRequestData);
         }

@@ -36,7 +36,7 @@ import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_
 public class SearchProfileRequest {
     private static final String IMAGE_UPLOAD_SEARCH_PROFILE_URL =
             "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
-            "/4ways/api/profile/search/profile/exists";
+            "/4ways/api/profile/search/profile/search";
     Context mContext;
     SearchProfileData mImageData;
     CommonFileUpload mFileUpload;
@@ -120,7 +120,7 @@ public class SearchProfileRequest {
     public void onErrorHandler(VolleyError error) {
         String errorMsg = VolleyErrorHelper.getMessage(error, mContext);
         CommonRequest.ResponseCode resCode = COMMON_RES_INTERNAL_ERROR;
-        if (error.networkResponse.statusCode == 404) {
+        if (error.networkResponse!= null && error.networkResponse.statusCode == 404) {
             resCode = COMMON_RES_IMAGE_NOT_FOUND;
             mSearchResponseCallback.onSearchResponse (resCode, mImageData);
         }
