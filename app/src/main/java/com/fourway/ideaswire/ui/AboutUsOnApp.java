@@ -434,7 +434,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                    int posInListOfPage = dataObj.get_submit_button_link();
 
                    if(posInListOfPage >= 0) {
-                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1);
+                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
 
                        Class intenetToLaunch = data.getIntentToLaunchPage();
                        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
@@ -475,8 +475,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
     private void setAttribute(String name, String value){
 
-        Attribute atrbtObj = new Attribute(mProfileId,mParentId,name,value);
-        mAbtUsPageObj.addAttribute(atrbtObj);
+        if(name != null && value != null) {
+            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            mAbtUsPageObj.addAttribute(atrbtObj);
+        }
    }
 
      Profile requestToMakeProfile;

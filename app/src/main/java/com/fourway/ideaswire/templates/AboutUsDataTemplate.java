@@ -39,6 +39,10 @@ public class AboutUsDataTemplate extends dataOfTemplate{
         return ismDefaultData;
     }
 
+    void setDataReceivedServer(){
+
+    }
+
     void initDeafultdata(){
 
         title = new String("Edit title");

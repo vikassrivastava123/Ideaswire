@@ -62,8 +62,9 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
 
+   //     Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         Intent intent = new Intent(getApplicationContext(), loginUi.class);
-        startActivity(intent);
+         startActivity(intent);
 
 
       //  startCreateCampaignforDefaultData(1);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
         MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected);
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected,true);
 
         Class intenetToLaunch = data.getIntentToLaunchPage();
         Log.v(TAG, "5" + intenetToLaunch);
@@ -115,18 +116,18 @@ public class MainActivity extends AppCompatActivity{
 
     static void setAttributesForAboutUsPage(ArrayList<Attribute> attributesFromServer){
         pages abtusObj = new AboutUsPage();
-        AboutUsDataTemplate data = (AboutUsDataTemplate)abtusObj.getTemplateData(1);
+        AboutUsDataTemplate data = (AboutUsDataTemplate)abtusObj.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
-                    data.set_heading(abtTitle);
+                    data.set_title(abtTitle);
 
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE:
                     String url = atr.getContentValue();
-                    data.set_heading(url);
+                    data.set_url(url);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING:
                     String heading2 = atr.getContentValue();
@@ -159,12 +160,16 @@ public class MainActivity extends AppCompatActivity{
         }
 
         listOfTemplatePagesObj.add(abtusObj);
+        int index = listOfTemplatePagesObj.indexOf(abtusObj);
+        listOfTemplatePagesObj.get(index).setDataObj(data);
+
+
     }
 
 
     static void setAttributesForHomePage(ArrayList<Attribute> attributesFromServer){
         pages homePageObj = new HomePage();
-        HomePageDataTemplate data = (HomePageDataTemplate)homePageObj.getTemplateData(1);
+        HomePageDataTemplate data = (HomePageDataTemplate)homePageObj.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
@@ -202,7 +207,7 @@ public class MainActivity extends AppCompatActivity{
 
     static void setAttributesForBlogPage(ArrayList<Attribute> attributesFromServer){
         pages blogPageObj = new blogpage();
-        blogpageDataTemplate data = (blogpageDataTemplate)blogPageObj.getTemplateData(1);
+        blogpageDataTemplate data = (blogpageDataTemplate)blogPageObj.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
@@ -251,7 +256,7 @@ public class MainActivity extends AppCompatActivity{
 
     static void setAttributesForContactDetailPage(ArrayList<Attribute> attributesFromServer){
         pages contactDetailsPageObj = new contactDetails();
-        contactDetailsDataTemplate data = (contactDetailsDataTemplate)contactDetailsPageObj.getTemplateData(1);
+        contactDetailsDataTemplate data = (contactDetailsDataTemplate)contactDetailsPageObj.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){

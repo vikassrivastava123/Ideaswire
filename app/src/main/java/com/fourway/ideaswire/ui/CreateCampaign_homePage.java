@@ -51,19 +51,24 @@ private static String TAG = "CreateCampaign_homePage";
            // setSupportActionBar(toolbar);
         }
 
-        GridView gv = (GridView) findViewById(R.id.profileGridView);
-        mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
-        gv.setAdapter(mProfileAdapter);
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Profile p = loginUi.mProfileList.get(position);
-                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-                GetProfileRequest request =
-                        new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
-                request.executeRequest();
-            }
-        });
+        try {
+            GridView gv = (GridView) findViewById(R.id.profileGridView);
+            mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
+            gv.setAdapter(mProfileAdapter);
+            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Profile p = loginUi.mProfileList.get(position);
+                    GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+                    GetProfileRequest request =
+                            new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+                    request.executeRequest();
+                }
+            });
+        }catch(Exception e){
+            Log.d(TAG,"Error in showing profile data"+e);
+            Toast.makeText(this,"No data received for your Profile this time",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void createCamEditBtn(View view) {
@@ -76,7 +81,7 @@ private static String TAG = "CreateCampaign_homePage";
 
     private void shownLiveProfile(){
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1);
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1,false);
 
         Class intenetToLaunch = data.getIntentToLaunchPage();
         Log.v(TAG, "5" + intenetToLaunch);

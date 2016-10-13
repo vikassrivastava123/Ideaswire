@@ -7,15 +7,22 @@ public abstract class pages {
 
    dataOfTemplate dataObj;
 
-    public dataOfTemplate getTemplateData(int type){
+    public dataOfTemplate getTemplateData(int type,boolean defaultData){
 
-        dataObj = getDataForTemplate(type);
+        if(defaultData == true) {
+            dataObj = getDataForTemplate(type);
+        }else{
+            dataObj = getDataForTemplateAsReceivedFromServer();
+        }
         return dataObj;
 
     }
     abstract dataOfTemplate getDataForTemplate(int templateType);
     abstract dataOfTemplate getDataForTemplateAsReceivedFromServer();
 
+    public void setDataObj(dataOfTemplate argDataObj){
+        dataObj = argDataObj;
+    }
     public abstract void set_nameis(String nameOfpage);
     public abstract String nameis();
 }

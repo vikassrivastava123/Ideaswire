@@ -12,6 +12,11 @@ public class AboutUsPage extends pages {
          nameis = "About Us 2";
     }
 
+
+    public void setDataObj(AboutUsDataTemplate dataObj) {
+        this.dataObj = dataObj;
+    }
+
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;

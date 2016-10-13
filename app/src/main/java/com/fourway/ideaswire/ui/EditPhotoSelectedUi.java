@@ -114,7 +114,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 
     @Override
     public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
-        Log.d("sera resulr","res :"+res);
+        Log.v("search results","res :"+res);
 
         if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
             loginUi.mProfileList = data.getProfileList();
