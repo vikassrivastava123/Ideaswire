@@ -98,7 +98,7 @@ public class SearchProfileRequest {
     }
 
     private void parseAndAddProfileResults (JSONObject res) throws JSONException {
-        JSONArray profileList = res.getJSONArray("Data");
+        JSONArray profileList = res.getJSONArray("data");
         int size = profileList.length();
         for (int i=0; i<size; i++){
             JSONObject profile = profileList.getJSONObject(i);

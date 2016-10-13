@@ -16,6 +16,7 @@ public class SearchProfileData {
     private int mTotalNumberOfProfiles = 0;
 
     public SearchProfileData(File img, String filename, String token){
+        mProfileList = new ArrayList<Profile>();
         mImageFile = img; mToken = token; mFileName = filename;
     }
 
