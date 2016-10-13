@@ -97,6 +97,7 @@ public class UploadImageForUrlRequest {
         params.put("authorization", "bearer "+ mImageData.getAccessToken());
         params.put("x-image-profile-id", mImageData.getCampaignId());
         params.put("x-sequence-number", String.valueOf(mImageData.getUniqueSequenceNumber()));
+        params.put("x-content-id", "no_id_available"); //Server do not accept null for this field. so a dummy id is needed
         mFileUpload.setHeader(params);
 
         mFileUpload.uploadFile();
