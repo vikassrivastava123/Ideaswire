@@ -53,23 +53,28 @@ private static String TAG = "CreateCampaign_homePage";
 
         try {
             GridView gv = (GridView) findViewById(R.id.profileGridView);
-            mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
-            gv.setAdapter(mProfileAdapter);
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Profile p = loginUi.mProfileList.get(position);
-                    GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-                    GetProfileRequest request =
-                            new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
-                    request.executeRequest();
-                }
-            });
-        }catch(Exception e){
-            Log.d(TAG,"Error in showing profile data"+e);
-            Toast.makeText(this,"No data received for your Profile this time",Toast.LENGTH_LONG).show();
+            if(loginUi.mProfileList!=null) {
+                mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
+
+
+                gv.setAdapter(mProfileAdapter);
+                gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Profile p = loginUi.mProfileList.get(position);
+                        GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+                        GetProfileRequest request =
+                                new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+                        request.executeRequest();
+                    }
+                });
+            }
+        }catch(NullPointerException e){
+            Toast.makeText(getApplicationContext(), "no profile data received", Toast.LENGTH_SHORT).show();
         }
-    }
+        }
+
+
 
     public void createCamEditBtn(View view) {
 

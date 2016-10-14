@@ -1,7 +1,9 @@
 package com.fourway.ideaswire.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,12 +15,14 @@ import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetProfileRequest;
+import com.fourway.ideaswire.templates.dataOfTemplate;
 
 import java.util.ArrayList;
 
 public class searchResults extends AppCompatActivity implements GetProfileRequest.GetProfileResponseCallback{
 
     SearchProfileListAdapter msearchProfileAdapter;
+    private static String TAG = "SearchResults";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,21 @@ public class searchResults extends AppCompatActivity implements GetProfileReques
 
     }
 
+    private void shownLiveProfile(){
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1,false);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v(TAG, "5" + intenetToLaunch);
+        Intent intent = new Intent(this, intenetToLaunch);
+        intent.putExtra("data",data);
+        startActivity(intent);
+
+    }
+
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
-        /*if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
+        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             Profile p = data.getProfile();
             ArrayList<Page> pageList = p.getAllPages();
 
@@ -59,6 +75,6 @@ public class searchResults extends AppCompatActivity implements GetProfileReques
                 Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
             }
 
-        }*/
+        }
     }
 }

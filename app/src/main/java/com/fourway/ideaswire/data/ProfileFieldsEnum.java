@@ -35,6 +35,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_BLOG_BUTTON = "Blog_Button";
 
     public static final String PROFILE_PAGE_CLIENT = "Client";
+    public static final String PROFILE_PAGE_CLIENT_TITLE = "Client_Title";
     public static final String PROFILE_PAGE_CLIENT_HEADING = "Client_Heading";
     public static final String PROFILE_PAGE_CLIENT_SUBHEADING = "Client_Subheading";
     public static final String PROFILE_PAGE_CLIENT_PARAGRAPH = "Client_Paragraph";
@@ -60,6 +61,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_CONTACT_US_PARAGRAPH_5 = "Contact_Us_Paragraph_5";
 
     public static final String PROFILE_PAGE_SERVICES = "Services";
+    public static final String PROFILE_PAGE_SERVICES_TITLE = "Services_Title";
     public static final String PROFILE_PAGE_SERVICES_HEADING_1 = "Services_Heading_1";
     public static final String PROFILE_PAGE_SERVICES_SUBHEADING_1 = "Services_Subheading_1";
     public static final String PROFILE_PAGE_SERVICES_PARAGRAPH_1 = "Services_Paragraph_1";
@@ -69,6 +71,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_SERVICES_PARAGRAPH_2 = "Services_Paragraph_2";
 
     public static final String PROFILE_PAGE_TEAM = "Team";
+    public static final String PROFILE_PAGE_TEAM_TITLE = "Team_Title";
     public static final String PROFILE_PAGE_TEAM_HEADING = "Team_Heading";
     public static final String PROFILE_PAGE_TEAM_SUBHEADING = "Team_Subheading";
     public static final String PROFILE_PAGE_TEAM_PARAGRAPH = "Team_Paragraph";

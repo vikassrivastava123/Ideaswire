@@ -4,84 +4,273 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/card"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fourway.ideaswire.ui.ServicesOnApp"
-    tools:showIn="@layout/activity_services_on_app">
+    tools:context="com.fourway.ideaswire.ui.activity_blogpage"
+    tools:showIn="@layout/activity_activity_blogpage">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Heading"
-        android:id="@+id/service_heading"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="This is some random sub heading"
-        android:layout_marginTop="5dp"
-        android:id="@+id/service_subheading"
-        android:layout_below="@+id/service_heading"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Writing some random paragraph so as to fill the spacethis is the random text."
+    <EditText android:id="@+id/BLOG_TITLE"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/card"
         android:gravity="center"
-        android:textAlignment="center"
-        android:id="@+id/textView23"
-        android:layout_below="@+id/service_subheading"
-        android:layout_centerHorizontal="true" />
+        android:hint="Title"
+        android:singleLine="true"
+        android:textColorHint = "@color/card"
+        android:background="@color/skyBlueBckgrnd"
+        android:onClick="changeTitleTextBlog"/>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:id="@+id/imageView4"
-        android:layout_below="@+id/textView23"
-        android:background="@drawable/blog_category"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
+        android:id="@+id/deleteTitleBlog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="deleteTitleBlog"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/txtEdit"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+
+        />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BLOG_TITLE"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/relativeLayout">
+
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text"
+        android:text="Heading"
+        android:gravity="center"
+        android:id="@+id/blog_heading"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeHeadingTxtBlog"/>
+    <ImageView
+        android:id="@+id/deleteHeadingBlogPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteHeadingBlogPage"
+        android:src="@drawable/close_"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+
+        />
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/text"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="This is some random sub heading"
+        android:layout_marginTop="14dp"
+        android:id="@+id/blog_subheading"
+        android:layout_below="@+id/blog_heading"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeSubHeadingBlog"/>
+
+    <ImageView
+        android:id="@+id/deleteSubHeaderBlogPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteSubHeadingBlogPage"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/blog_heading"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null" />
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:textSize="14sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Writing some random paragraph so as to fill the spacethis is the random text"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/blog_paraGraph"
+        android:layout_below="@+id/blog_subheading"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeParaBlog"/>
+    <ImageView
+        android:id="@+id/deleteParaBlogPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteParaBlog"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/blog_subheading"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null" />
+
+        <RelativeLayout
+            android:layout_below="@+id/blog_paraGraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardImageLayout">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/Blog_CARD_IMAGE"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scaleType="centerCrop"
+        android:onClick="uploadToBlogOnApp"
+        android:background="@drawable/blog_banner"
+        android:layout_centerHorizontal="true" />
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:id="@+id/Blog_STATIC_IMAGE"
+
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scaleType="centerCrop"
+
+                android:onClick="uploadToBlogOnApp"/>
+
+    <ImageView
+        android:id="@+id/deleteCARD_IMAGE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteCardImageBlogPage"
+        android:src="@drawable/cross_1"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="1dp"
+        android:background="@null"
+
+        />
+
+            </RelativeLayout>
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="14dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Heading below image view"
         android:textStyle="bold"
-        android:id="@+id/service_heading_belowimg"
-        android:layout_below="@+id/imageView4"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
+        android:textSize="20sp"
+        android:textColor="@color/text"
+        android:id="@+id/blog_heading_belowing"
+        android:layout_below="@+id/cardImageLayout"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeHeadingTxtBelowBlog"/>
+    <ImageView
+        android:id="@+id/deleteHeadingBelowimgBlogPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_below="@+id/cardImageLayout"
+        android:onClick="deleteHeadingBelowimgBlogPage"
+        android:src="@drawable/close_"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null" />
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/text"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Some random funny sub-heading."
-        android:id="@+id/service_subheading_belowimg"
-        android:layout_below="@+id/service_heading_belowimg"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/blog_subheading_belowing"
+        android:layout_below="@+id/blog_heading_belowing"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeSubHeadingTxtBelowBlog"/>
 
-    <TextView
+    <ImageView
+        android:id="@+id/deleteSubHeaderBelowimgBlog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:onClick="deleteSubHeadingBelowimgBlogPage"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/blog_heading_belowing"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+
+        />
+
+
+
+    <EditText
+        android:background="@color/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:textSize="14sp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="This is the random para to tet the text view put your own text re."
         android:textAlignment="center"
-        android:id="@+id/service_text_belowimg"
-        android:layout_below="@+id/service_subheading_belowimg"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/blog_paraGraph_belowing"
+        android:layout_below="@+id/blog_subheading_belowing"
+        android:layout_centerHorizontal="true"
+        android:onClick="changeParaTxtBelowBlog"/>
+    <ImageView
+        android:id="@+id/deleteParaBelowimgBlogPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteParaBelowingBlog"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/blog_subheading_belowing"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        />
+
+            </RelativeLayout>
+    </ScrollView>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollViewPages"
+        >
+        <RelativeLayout
+            android:id="@+id/dynamicPages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal" >
+        </RelativeLayout>
+
+    </HorizontalScrollView>
+
 </RelativeLayout>

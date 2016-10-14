@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
+import com.fourway.ideaswire.templates.ClientPage;
 import com.fourway.ideaswire.templates.HomePage;
 import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.TeamPage;
 import com.fourway.ideaswire.templates.blogpage;
 import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.dataOfTemplate;
@@ -77,11 +79,17 @@ public class CreateCampain_Sucess extends Activity {
 
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
 
+
         pages abtusObj = new AboutUsPage();
         pages homeObj = new HomePage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
         pages ServicePage = new ServicePage();
+        pages clientobj = new ClientPage();
+        pages teamPages =new TeamPage();
+
+
+
         MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
         MainActivity.listOfTemplatePagesObj.add(1, homeObj);
         MainActivity.listOfTemplatePagesObj.add(2, blogpage);
@@ -103,10 +111,13 @@ public class CreateCampain_Sucess extends Activity {
     public void addTemplate(View view) {
 
         Log.v("CreateCampain_Sucess","Clicked to start choosing template");
-
+//todo tempLoad Vijay
         startCreateCampaignWithDefaultData(1);
 
-      //  Intent iny = new Intent(this,ChooseTemplate_Category.class);
-      //  startActivity(iny);
+        //Intent iny = new Intent(this,TempActivity.class);
+
+
+     //  Intent iny = new Intent(this,ChooseTemplate_Category.class);
+       // startActivity(iny);
     }
 }

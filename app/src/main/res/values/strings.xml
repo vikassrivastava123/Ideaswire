@@ -257,4 +257,6 @@
     <string name="title_activity_teamonapp">teamonapp</string>
     <string name="title_activity_add_pages">AddPages</string>
     <string name="title_activity_serach_results">serachResults</string>
+    <string name="title_activity_about_us_page_tamplate">about_us_page_tamplate</string>
+    <string name="title_activity_contact_detail_on_app">ContactDetailOnApp</string>
 </resources>

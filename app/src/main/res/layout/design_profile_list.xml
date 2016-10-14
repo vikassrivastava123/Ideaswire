@@ -8,10 +8,11 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/imgViewProfile"
-        android:layout_width="60dp"
+        android:layout_width="120dp"
         android:layout_gravity="center"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="120dp"
+       />
+    <!-- android:scaleType="centerCrop"-->
 
 
 </LinearLayout>

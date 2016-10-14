@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.ui.home_page_onapp;
 
 /**
  * Created by Ritika on 8/24/2016.
@@ -8,20 +9,44 @@ import com.fourway.ideaswire.ui.AboutUsOnApp;
 public class HomePageDataTemplate extends dataOfTemplate{
 
     int templateSelected = 1;
-    String header1;
-    String header2;
-    String text_view;
-    public HomePageDataTemplate(int templateSelected,boolean flag){
-        setHeader("About All of Us");
+
+
+
+    private String title=null;
+    private String heading=null;
+    private String subHeading=null;
+    private String paraGraph=null;
+    private String urlOfImage =null;
+
+    boolean   ismDefaultData = false;
+    public HomePageDataTemplate(int templateSelected,boolean isDefaultData){
+
+        if(isDefaultData){
+            initDeafultdata();
+        }else{
+            // when datasetis not installed
+        }
+        ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
-        header1 = "vaibhav custom header";
-        header2 = "This is some random heading custom";
-        text_view= "This is custom random para to generate space dont read ti its useless";
+
+
+    }
+
+    public boolean isDefaultDataToCreateCampaign(){
+
+        return ismDefaultData;
+    }
+
+    void initDeafultdata(){
+        title="Home";
+        heading = "Toatam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph= "This is custom random para to generate space dont read ti its useless";
     }
 
     @Override
     public Class getIntentToLaunchPage() {
-        return AboutUsOnApp.class;
+        return home_page_onapp.class;
     }
 
     @Override
@@ -29,63 +54,45 @@ public class HomePageDataTemplate extends dataOfTemplate{
         return templateSelected;
     }
 
-    public String getheadingSelected() {
-        return header1;
-    }
-    public String getsubheadingSelected() {
-        return header2;
-    }
-    public String getparaSelected() {
-        return text_view;
-    }
-
-    String title,url,heading,subheading,paragraph,buttontext;
-
-    public String get_homepage_title(){
+    public String getTitle() {
         return title;
     }
-    public void set_homepage_title(String arg){
-        title = arg;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String get_homepage_image_url(){
-        return url;
-    }
-    public void set_homepage_image_url(String arg){
-        url = arg;
-    }
-
-    public String get_homepage_heading(){
+    public String getHeading() {
         return heading;
     }
-    public void set_homepage_heading(String arg){
-        heading = arg;
+
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
-    public String get_homepage_subheasing(){
-        return subheading;
-    }
-    public void set_homepage_subeading(String arg){
-        subheading = arg;
-    }
-    public String get_homepage_paragraph(){
-        return paragraph;
-    }
-    public void set_homepage_paragraph(String arg)
-    {
-        paragraph = arg;
+    public String getSubHeading() {
+        return subHeading;
     }
 
-    public String get_homepage_button_text(){
-        return buttontext;
-    }
-    public void set_homepage_button_text(String arg){
-        buttontext = arg;
+    public void setSubHeading(String subHeading) {
+        this.subHeading = subHeading;
     }
 
+    public String getParaGraph() {
+        return paraGraph;
+    }
 
+    public void setParaGraph(String paraGraph) {
+        this.paraGraph = paraGraph;
+    }
 
+    public String getUrlOfImage() {
+        return urlOfImage;
+    }
 
+    public void setUrlOfImage(String urlOfImage) {
+        this.urlOfImage = urlOfImage;
+    }
 
 
 }

@@ -26,7 +26,12 @@ public class MyProfileAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return mProfileList.size();
+
+        int size = 0;
+        if(mProfileList != null) {
+            size = mProfileList.size();
+        }
+        return size;
     }
 
     @Override

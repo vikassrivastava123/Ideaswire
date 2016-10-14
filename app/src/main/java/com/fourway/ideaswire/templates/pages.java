@@ -17,8 +17,8 @@ public abstract class pages {
         return dataObj;
 
     }
-    abstract dataOfTemplate getDataForTemplate(int templateType);
-    abstract dataOfTemplate getDataForTemplateAsReceivedFromServer();
+    public abstract dataOfTemplate getDataForTemplate(int templateType);
+    public abstract dataOfTemplate getDataForTemplateAsReceivedFromServer();
 
     public void setDataObj(dataOfTemplate argDataObj){
         dataObj = argDataObj;
@@ -31,4 +31,7 @@ public abstract class pages {
 
     public abstract void set_nameis(String nameOfpage);
     public abstract String nameis();
+
+    public abstract void set_iconis(int iconOfpage);
+    public abstract int iconis();
 }

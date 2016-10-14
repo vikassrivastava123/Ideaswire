@@ -17,9 +17,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +43,7 @@ import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
+import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
@@ -50,6 +54,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -63,7 +68,9 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     List<String> attName;
     TextView mTitle;
     NetworkImageView cardImage;
+    ImageView cardImageCrop;
     Button submit_button;
+    int cropRestart=0;
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
@@ -113,13 +120,18 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 AboutUsOnApp.this);
 
         builderInner.setTitle("Enter Url to Link");
-        final EditText addUrl = new EditText(AboutUsOnApp.this);
+
+        View v= LayoutInflater.from(AboutUsOnApp.this).inflate(R.layout.url_to_link,null);
+        final EditText addUrl = (EditText)v.findViewById(R.id.editTextAddUrl);
+        final EditText addNameToButton = (EditText)v.findViewById(R.id.editTextButtonName);
+        builderInner.setView(v);
+        /*final EditText addUrl = new EditText(AboutUsOnApp.this);
         addUrl.setHint("Add Url");
         builderInner.setView(addUrl);
 
         final EditText addNameToButton = new EditText(AboutUsOnApp.this);
         addNameToButton.setHint("Edit Button Name");
-        builderInner.setView(addNameToButton);
+        builderInner.setView(addNameToButton);*/
 
         builderInner.setPositiveButton(
                 "Ok",
@@ -282,9 +294,12 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     protected void onRestart() {
         super.onRestart();
 
-        showImageForBackround();
-        PhotoAsyncTask obj = new PhotoAsyncTask();
-        obj.execute();
+        if(cropRestart==1) {
+            showImageForBackround();
+            PhotoAsyncTask obj = new PhotoAsyncTask();
+            obj.execute();
+            cropRestart=0;
+        }
 
     }
 
@@ -311,28 +326,44 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 int i = 0;
                 final LinearLayout row = new LinearLayout(AboutUsOnApp.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                for(pages obj: MainActivity.listOfTemplatePagesObj){
+                for(pages obj: MainActivity.listOfTemplatePagesObj) {
                     String name = obj.nameis();
+
+
+
+                  float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+                    float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
+
                     LinearLayout.LayoutParams buttonLayoutParams =
                             new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
-                                    200,
-                                    150));
-                    buttonLayoutParams.setMargins(2,0, 0, 0);
+                                    (int)x,
+                                    (int)y));
+                    buttonLayoutParams.setMargins(2,2, 0, 0);
                     btn[i] = new Button(AboutUsOnApp.this);
 
                     btn[i].setLayoutParams(buttonLayoutParams);
                     btn[i].setText(name);
+                    btn[i].setId(i);
                     btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            Toast.makeText(getApplicationContext(),
-                                    "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),
+                             //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+
+                            Class intenetToLaunch = data.getIntentToLaunchPage();
+                            Log.v(TAG, "5" + intenetToLaunch);
+                            Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+                            intent.putExtra("data",data);
+                            startActivity(intent);
                         }
                     });
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
+                btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                btn[0].setFocusable(true);
             // When adding another view, make sure you do it on the UI
             // thread.
             layout.post(new Runnable() {
@@ -343,10 +374,11 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 }
             });
         }
-    }, 500);
+    }, 1000);
 
 
-          dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
+          //dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplateDataObj;//
+        dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
 
 //        int seltemplate = dataObj.getTemplateSelected();
 //
@@ -404,7 +436,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         }
 
         String paraGraphAboutUs =  dataObj.get_text_para();
-        editParaGraphAboutUs = (EditText) findViewById(R.id.ABOUT_US_SUBHEADING);
+        editParaGraphAboutUs = (EditText) findViewById(R.id.paraGraphAboutUs);
         if(paraGraphAboutUs != null){
             editParaGraphAboutUs.setText(paraGraphAboutUs);
             editParaGraphAboutUs.setTypeface(mycustomFont);
@@ -414,15 +446,24 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         submit_button = (Button) findViewById(R.id.buttonMainAbtUs);
         cardImage = (NetworkImageView) findViewById(R.id.ABOUT_US_CARD_IMAGE);
+        cardImageCrop = (ImageView)findViewById(R.id.ABOUT_US_STATIC_IMAGE);
 
         String urlOfProfile = dataObj.get_url();
 
-        if(urlOfProfile != null){
-            Uri cardImageUri = Uri.parse(urlOfProfile);
-            cardImage.setImageURI(cardImageUri);
+        if(urlOfProfile != null && !urlOfProfile.equalsIgnoreCase("null")){
+            //Uri cardImageUri = Uri.parse(urlOfProfile);
+            //cardImage.setImageURI(cardImageUri);
+            cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(this).getImageLoader());
+            cardImageCrop.setVisibility(View.GONE);
+
+        }else{
+            cardImage.setVisibility(View.GONE);
+            cardImageCrop.setImageResource(R.drawable.about_banner_1);
+
         }
 
-        showImageForBackround();
+        //TODO Vijay
+        //showImageForBackround();
         submit_button.setTypeface(mycustomFont);
         submit_button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -465,7 +506,9 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
 
      if(dataObj.isDefaultDataToCreateCampaign() == false)
-       init_viewCampaign();
+         toolbar.setVisibility(View.GONE);
+         init_viewCampaign();
+        showPreview=false;
   }
 
     Page  mAbtUsPageObj;
@@ -528,17 +571,20 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
 
     public void previewTemplate(View view) {
+        TextView textViewShowPreview = (TextView)findViewById(R.id.textShow_preview);
 
         FloatingActionButton btn  = (FloatingActionButton)findViewById(R.id.floatingForPreview);
         Button showPreviewBtn  = (Button)findViewById(R.id.showPreview);
 
 
       if(showPreview == false) {
+          textViewShowPreview.setText("Edit");
           btn.show();
-          showPreviewBtn.setBackgroundResource(R.drawable.edit_template);
+          showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
           init_viewCampaign();
           showPreview = true;
       }else {
+          textViewShowPreview.setText("Preview");
           btn.hide();
           showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
           init_editCampaign();
@@ -548,6 +594,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
      //   RelativeLayout previewLayout = (RelativeLayout)findViewById(R.id.previewLayout);
        // previewLayout.setVisibility(View.VISIBLE);
 
+    }
+
+    public void pageTemplate(View view) {
+        startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
     }
 
     public void goLiveAbtUs(View view) {
@@ -566,10 +616,16 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
     }
 
+    ProgressDialog pd;
     public void GoLiveFloatingAbtUs(View view) {
+        pd=new ProgressDialog(this);
+        pd.setMessage("please wait");
+        pd.show();
+
+        changeText();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_sub_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE, dataObj.get_url());
@@ -599,7 +655,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            final Bitmap bitmap = BitmapFactory.decodeStream(in);
             File sendFile = getFileObjectFromBitmap (bitmap);
 
 
@@ -607,6 +663,19 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                     new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About us banner", 1);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(AboutUsOnApp.this, data, AboutUsOnApp.this);
             req.executeRequest();
+
+            //todo set image
+       /*     runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    cardImage.setVisibility(View.GONE);
+                    cardImageCrop.setVisibility(View.VISIBLE);
+                    cardImageCrop.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+                }
+            });*/
+
+
         }
 
         @Override
@@ -642,8 +711,12 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         try {
             FileInputStream in = openFileInput(MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME);
 
+            cardImage.setVisibility(View.GONE);
+            cardImageCrop.setVisibility(View.VISIBLE);
+
             Bitmap bitmap = BitmapFactory.decodeStream(in);
-            cardImage.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+            cardImageCrop.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
 
         }catch (FileNotFoundException e){
             Log.v("editCampaign","About_Us_TemplateImage_IMAGE_CROPED_NAME file not found");
@@ -667,7 +740,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP);
 
            inf.putExtra("CampaignName", "Choose Image");
+           cropRestart=1;
            startActivity(inf);
+
+
        }
 
     }
@@ -699,8 +775,14 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
         Log.v(TAG,"ResponseCode = " + res);
         Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
+        pd.dismiss();
     }
 
+
+    /*
+    *
+    * set Url on receiving from server
+    * */
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
 
@@ -765,15 +847,38 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         popup.show();//showing popup menu
         }
 
+    void changeText(){
+
+        String title = String.valueOf(editTitle.getText());
+        Log.d(TAG, "changeTitleTextAbtUs" + title);
+        if (title != null) {
+            dataObj.set_title(title);
+        }
+
+        String header = String.valueOf(editHeader.getText());
+        Log.d(TAG, "changeHeadingTxtAbtUs" + header);
+        if (header != null) {
+            dataObj.set_heading(header);
+        }
+
+        String subheader = String.valueOf(editSubHeading.getText());
+        Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
+        if (subheader != null) {
+            dataObj.set_sub_heading(subheader);
+        }
+
+        String para = String.valueOf(editParaGraphAboutUs.getText());
+
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (para != null) {
+            dataObj.set_text_para(para);
+        }
+    }
             public void changeTitleTextAbtUs(View view) {
 
                 //if (showPreview == false)
                 {
-                    String title = String.valueOf(editTitle.getText());
-                    Log.d(TAG, "changeTitleTextAbtUs" + title);
-                    if (title != null) {
-                        dataObj.set_title(title);
-                    }
+
                 }
             }
 
@@ -781,22 +886,14 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
                 //if (showPreview == false)
                 {
-                    String header = String.valueOf(editHeader.getText());
-                    Log.d(TAG, "changeHeadingTxtAbtUs" + header);
-                    if (header != null) {
-                        dataObj.set_heading(header);
-                    }
+
                 }
             }
 
             public void changeSubHeadingAbtUs(View view) {
                 //if (showPreview == false)
                 {
-                    String subheader = String.valueOf(editSubHeading.getText());
-                    Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
-                    if (subheader != null) {
-                        dataObj.set_sub_heading(subheader);
-                    }
+
                 }
 
             }
@@ -804,13 +901,9 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
             public void changeParaAbtUs(View view) {
                 //if (showPreview == false)
                 {
-                    String para = String.valueOf(editParaGraphAboutUs.getText());
 
-                    Log.d(TAG, "changeParaAbtUs" + para);
-                    if (para != null) {
-                        dataObj.set_sub_heading(para);
-                    }
                 }
 
             }
+
         }

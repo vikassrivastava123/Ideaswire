@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="@color/templateBackround"
+    android:background="@color/card"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.AboutUsOnApp"
     tools:showIn="@layout/about_us_template1_on_app">
 
     <EditText android:id="@+id/ABOUT_TITLE"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
@@ -22,16 +22,14 @@
         android:singleLine="true"
         android:textColorHint = "@color/card"
         android:background="@color/skyBlueBckgrnd"
-        android:onClick="changeTitleTextAbtUs"
-
-        ></EditText>
+        android:onClick="changeTitleTextAbtUs" />
 
     <ImageView
         android:id="@+id/deleteTitleAboutUs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="deleteTitleAboutUs"
-        android:src="@drawable/close"
+        android:src="@drawable/close_"
         android:layout_below="@+id/txtEdit"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
@@ -41,11 +39,12 @@
         />
 
     <ScrollView
+        android:layout_above="@+id/buttonMainAbtUs"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ABOUT_TITLE"
-        android:padding="16dp"
+        android:focusable="true"
         android:fillViewport="true">
 
       <RelativeLayout
@@ -54,46 +53,72 @@
 
         android:id="@+id/relativeLayout">
 
-          <com.android.volley.toolbox.NetworkImageView
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:id="@+id/ABOUT_US_CARD_IMAGE"
-                android:background="@drawable/home_banner_1"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scaleType="centerCrop"
-
-                android:onClick="uploadToAboutUsOnApp"/>
-
-          <ImageView
-              android:id="@+id/deleteCARD_IMAGE"
+          <RelativeLayout
+              android:layout_alignParentTop="true"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:onClick="deleteCardImageAboutUs"
-              android:src="@drawable/cross_1"
-              android:layout_below="@+id/txtEdit"
-              android:layout_alignParentRight="true"
-              android:layout_marginTop="8dp"
-              android:layout_marginRight="1dp"
-              android:background="@null"
+              android:id="@+id/cardImageLayout">
 
-              />
+              <com.android.volley.toolbox.NetworkImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="230dp"
+                  android:id="@+id/ABOUT_US_CARD_IMAGE"
+                  android:background="@drawable/home_banner_1"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  android:scaleType="centerCrop"
+
+                  android:onClick="uploadToAboutUsOnApp"/>
+
+
+
+              <ImageView
+
+                  android:layout_width="match_parent"
+                  android:layout_height="230dp"
+                  android:id="@+id/ABOUT_US_STATIC_IMAGE"
+
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  android:scaleType="centerCrop"
+
+                  android:onClick="uploadToAboutUsOnApp"/>
+
+
+
+              <ImageView
+                  android:id="@+id/deleteCARD_IMAGE"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="deleteCardImageAboutUs"
+                  android:src="@drawable/cross_1"
+                  android:layout_below="@+id/txtEdit"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginRight="1dp"
+                  android:background="@null"
+                  />
+
+          </RelativeLayout>
+
 
 
              <EditText
-                android:layout_width="match_parent"
+                 android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                 android:background="@color/card"
                 android:layout_height="40dp"
                 android:id="@+id/ABOUT_US_HEADING"
-                android:layout_below="@+id/ABOUT_US_CARD_IMAGE"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/text"
-                android:gravity="center"
-                android:hint="Heading"
-                android:textColorHint = "@color/text"
-                android:singleLine="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:onClick="changeHeadingTxtAbtUs"
+                android:layout_below="@+id/cardImageLayout"
+                 android:layout_marginTop="5dp"
+                 android:textColor="@color/text"
+                 android:gravity="center"
+                 android:hint="Heading"
+                 android:textColorHint = "@color/text"
+                 android:singleLine="true"
+                 android:focusable="true"
+                 android:focusableInTouchMode="true"
+                 android:onClick="changeHeadingTxtAbtUs"
         />
 
           <ImageView
@@ -101,8 +126,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:onClick="deleteHeadingAboutUs"
-              android:src="@drawable/close"
-              android:layout_below="@+id/ABOUT_US_CARD_IMAGE"
+              android:src="@drawable/close_"
+              android:layout_below="@+id/cardImageLayout"
               android:layout_alignParentRight="true"
               android:layout_marginTop="5dp"
               android:layout_marginRight="10dp"
@@ -112,18 +137,21 @@
 
 
 
-        <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="There are many variation of packagaes"
-        android:layout_below="@+id/ABOUT_US_HEADING"
-        android:id="@+id/ABOUT_US_SUBHEADING"
-        android:textSize="20sp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:inputType="none"
-        android:onClick="changeSubHeadingAbtUs"
+        <EditText android:background="@color/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="There are many variation of packagaes "
+            android:layout_below="@+id/ABOUT_US_HEADING"
+            android:id="@+id/ABOUT_US_SUBHEADING"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:inputType="none"
+            android:onClick="changeSubHeadingAbtUs"
         />
 
           <ImageView
@@ -131,15 +159,17 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:onClick="deleteSubHeadingAboutUs"
-              android:src="@drawable/close"
+              android:src="@drawable/close_"
               android:layout_below="@+id/ABOUT_US_HEADING"
               android:layout_alignParentRight="true"
-              android:layout_marginTop="5dp"
+              android:layout_marginLeft="5dp"
               android:layout_marginRight="10dp"
               android:background="@null"
-
               />
     <EditText
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -150,7 +180,7 @@
         android:id="@+id/paraGraphAboutUs"
         android:layout_below="@+id/ABOUT_US_SUBHEADING"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:onClick="changeParaAbtUs"
         />
 
@@ -159,21 +189,22 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:onClick="deleteParaAboutUs"
-              android:src="@drawable/close"
+              android:src="@drawable/close_"
               android:layout_below="@+id/ABOUT_US_SUBHEADING"
               android:layout_alignParentRight="true"
-              android:layout_marginTop="5dp"
               android:layout_marginRight="10dp"
+              android:layout_marginLeft="5dp"
               android:background="@null"
               />
       </RelativeLayout>
     </ScrollView>
     <Button
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Button Text"
         android:onClick="showListOfPages"
-
         android:id="@+id/buttonMainAbtUs"
         android:background="@color/skyBlueBckgrnd"
         android:layout_above="@+id/scrollViewPages"
@@ -182,6 +213,7 @@
 
 
     <HorizontalScrollView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/card"

@@ -11,9 +11,14 @@ import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.AboutUsPage;
+import com.fourway.ideaswire.templates.ClientDataTemplate;
+import com.fourway.ideaswire.templates.ClientPage;
 import com.fourway.ideaswire.templates.HomePage;
 import com.fourway.ideaswire.templates.HomePageDataTemplate;
 import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.ServicesDataTemplate;
+import com.fourway.ideaswire.templates.TeamDataTemplate;
+import com.fourway.ideaswire.templates.TeamPage;
 import com.fourway.ideaswire.templates.blogpage;
 import com.fourway.ideaswire.templates.blogpageDataTemplate;
 import com.fourway.ideaswire.templates.contactDetails;
@@ -38,11 +43,18 @@ public class MainActivity extends AppCompatActivity{
     public static final int OPEN_GALLERY_FOR_SEARCH  = 1;
     public static final int OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP  = 2;
     public static final int OPEN_PREVIOUS_ACTIVITY  = 3;
+    public static final int OPEN_GALLERY_FOR_BLOG_ON_APP  = 4;
+    public static final int OPEN_GALLERY_FOR_SERVICE_ON_APP  = 5;
+    public static final int OPEN_GALLERY_FOR_HOME_PAGE_ON_APP=6;
+
 
     //These are files names that will be saved locally
     public static final String CREATE_CAMPAIGN_IMAGE_CROPED_NAME = "Imaged";
     public static final String SEARCH__IMAGE_CROPED_NAME  = "searchedImage";
     public static final String About_Us_TemplateImage_IMAGE_CROPED_NAME = "aboutUsTemplateImage";
+    public static final String Home_TemplateImage_IMAGE_CROPED_NAME = "homeTemplateImage";
+    public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
+    public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
 
 
     @Override
@@ -62,9 +74,8 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
 
-   //     Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         Intent intent = new Intent(getApplicationContext(), loginUi.class);
-         startActivity(intent);
+        startActivity(intent);
 
 
       //  startCreateCampaignforDefaultData(1);
@@ -79,12 +90,20 @@ public class MainActivity extends AppCompatActivity{
         pages homeObj = new HomePage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
+        pages clientobj = new ClientPage();
         pages ServicePage = new ServicePage();
+        pages teamPages =new TeamPage();
+
+
+
+
         MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
         MainActivity.listOfTemplatePagesObj.add(1, homeObj);
         MainActivity.listOfTemplatePagesObj.add(2, blogpage);
         MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+        MainActivity.listOfTemplatePagesObj.add(5,clientobj);
+        MainActivity.listOfTemplatePagesObj.add(6,teamPages);
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected,true);
 
@@ -123,7 +142,6 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.set_title(abtTitle);
-
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE:
                     String url = atr.getContentValue();
@@ -154,8 +172,6 @@ public class MainActivity extends AppCompatActivity{
                     String btnUrl = atr.getContentValue();
                     data.set_buttonUrl(btnUrl);
                     break;
-
-
             }
         }
 
@@ -175,34 +191,30 @@ public class MainActivity extends AppCompatActivity{
             switch (attrName){
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
                     String abtTitle = atr.getContentValue();
-                    data.set_homepage_title(abtTitle);
+                    data.setTitle(abtTitle);
 
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_FULL_IMAGE:
                     String url = atr.getContentValue();
-                    data.set_homepage_image_url(url);
+                    data.setUrlOfImage(url);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING:
-                    String heading2 = atr.getContentValue();
-                    data.set_homepage_heading(heading2);
+                    String heading= atr.getContentValue();
+                    data.setHeading(heading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING:
                     String subHeading = atr.getContentValue();
-                    data.set_homepage_subeading(subHeading);
+                    data.setSubHeading(subHeading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH:
                     String para = atr.getContentValue();
-                    data.set_homepage_paragraph(para);
+                    data.setParaGraph(para);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON:
-                    String btnText = atr.getContentValue();
-                    data.set_homepage_button_text(btnText);
-                    break;
-
             }
         }
         listOfTemplatePagesObj.add(homePageObj);
     }
+
 
 
     static void setAttributesForBlogPage(ArrayList<Attribute> attributesFromServer){
@@ -213,46 +225,47 @@ public class MainActivity extends AppCompatActivity{
             switch (attrName){
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE:
                     String abtTitle = atr.getContentValue();
-                    data.set_blogpage_title(abtTitle);
+                    data.setTitle(abtTitle);
 
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_CARD_IMAGE:
                     String url = atr.getContentValue();
-                    data.set_blogpage_image_url(url);
+                    data.setUrlOfImage(url);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1:
                     String heading = atr.getContentValue();
-                    data.set_blogpage_heading(heading);
+                    data.setHeaderBlog(heading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_1:
                     String subHeading = atr.getContentValue();
-                    data.set_blogpage_subheading(subHeading);
+                    data.setSubHeader(subHeading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_1:
                     String para = atr.getContentValue();
-                    data.set_blogpage_paragraph(para);
+                    data.setText_Para(para);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_BLOG_BUTTON:
+                /*case ProfileFieldsEnum.PROFILE_PAGE_BLOG_BUTTON:
                     String btnText = atr.getContentValue();
                     data.set_blogpage_button_text(btnText);
-                    break;
+                    break;*/
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_2:
                     String heading2 = atr.getContentValue();
-                    data.set_blogpage_heading2(heading2);
+                    data.setHeaderBlogBlowing(heading2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_2:
                     String subHeading2 = atr.getContentValue();
-                    data.set_blogpage_subheading2(subHeading2);
+                    data.setSubHeaderBlowing(subHeading2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_2:
                     String para2 = atr.getContentValue();
-                    data.set_blogpage_paragraph2(para2);
+                    data.setText_ParaBlowing(para2);
                     break;
 
             }
         }
         listOfTemplatePagesObj.add(blogPageObj);
     }
+
 
     static void setAttributesForContactDetailPage(ArrayList<Attribute> attributesFromServer){
         pages contactDetailsPageObj = new contactDetails();
@@ -318,6 +331,214 @@ public class MainActivity extends AppCompatActivity{
         listOfTemplatePagesObj.add(contactDetailsPageObj);
     }
 
+    static void setAttributesForServicePage(ArrayList<Attribute> attributesFromServer){
+        pages servicePageObj = new ServicePage();
+        ServicesDataTemplate data = (ServicesDataTemplate) servicePageObj.getTemplateData(1,false);
+        for(Attribute atr : attributesFromServer) {
+            String attrName = atr.getContentNme();
+            switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_TITLE:
+                    String abtTitle = atr.getContentValue();
+                    data.setTitle(abtTitle);
+
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_CARD_IMAGE:
+                    String url = atr.getContentValue();
+                    data.setUrlOfImage(url);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_1:
+                    String heading = atr.getContentValue();
+                    data.setHeading(heading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_1:
+                    String subHeading = atr.getContentValue();
+                    data.setSubHeading(subHeading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_1:
+                    String para = atr.getContentValue();
+                    data.setParaGraph(para);
+                    break;
+                /*case ProfileFieldsEnum.PROFILE_PAGE_BLOG_BUTTON:
+                    String btnText = atr.getContentValue();
+                    data.set_blogpage_button_text(btnText);
+                    break;*/
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_2:
+                    String heading2 = atr.getContentValue();
+                    data.setHeading_below(heading2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_SUBHEADING_2:
+                    String subHeading2 = atr.getContentValue();
+                    data.setSubHeading_below(subHeading2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_2:
+                    String para2 = atr.getContentValue();
+                    data.setGetParaGraph_below(para2);
+                    break;
+
+            }
+        }
+        listOfTemplatePagesObj.add(servicePageObj);
+    }
+
+    static void setAttributesForClientPage(ArrayList<Attribute> attributesFromServer){
+        pages clientPage = new ClientPage();
+        ClientDataTemplate data = (ClientDataTemplate) clientPage.getTemplateData(1,false);
+        for(Attribute atr : attributesFromServer) {
+            String attrName = atr.getContentNme();
+            switch (attrName){
+
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_TITLE:
+                    String title = atr.getContentValue();
+                    data.setTitle(title);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_HEADING:
+                    String heading = atr.getContentValue();
+                    data.setHeaderClient(heading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_SUBHEADING:
+                    String subHeading = atr.getContentValue();
+                    data.setSubHeaderClient(subHeading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_PARAGRAPH:
+                    String para = atr.getContentValue();
+                    data.setParaClient(para);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_1:
+                    String logo_1 = atr.getContentValue();
+                    data.setClient_logo_1(logo_1);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_2:
+                    String logo_2 = atr.getContentValue();
+                    data.setClient_logo_2(logo_2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_3:
+                    String logo_3 = atr.getContentValue();
+                    data.setClient_logo_3(logo_3);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_4:
+                    String logo_4 = atr.getContentValue();
+                    data.setClient_logo_4(logo_4);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_5:
+                    String logo_5 = atr.getContentValue();
+                    data.setClient_logo_5(logo_5);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_6:
+                    String logo_6 = atr.getContentValue();
+                    data.setClient_logo_6(logo_6);
+                    break;
+
+            }
+        }
+        listOfTemplatePagesObj.add(clientPage);
+    }
+
+    static void setAttributesForTeamPage(ArrayList<Attribute> attributesFromServer){
+        pages teamPage = new TeamPage();
+        TeamDataTemplate data = (TeamDataTemplate) teamPage.getTemplateData(1,false);
+        for(Attribute atr : attributesFromServer) {
+            String attrName = atr.getContentNme();
+            switch (attrName){
+
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_TITLE:
+                    String title = atr.getContentValue();
+                    data.setTitle(title);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_HEADING:
+                    String heading = atr.getContentValue();
+                    data.setHeader(heading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_SUBHEADING:
+                    String subHeading = atr.getContentValue();
+                    data.setSubheading_header(subHeading);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_PARAGRAPH:
+                    String para = atr.getContentValue();
+                    data.setHeading_text(para);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE:
+                    String img_1 = atr.getContentValue();
+                    data.setTeam_1_image(img_1);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_IMAGE:
+                    String img_2 = atr.getContentValue();
+                    data.setTeam_2_image(img_2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_IMAGE:
+                    String img_3 = atr.getContentValue();
+                    data.setTeam_3_image(img_3);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_IMAGE:
+                    String img_4 = atr.getContentValue();
+                    data.setTeam_4_image(img_4);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_IMAGE:
+                    String img_5 = atr.getContentValue();
+                    data.setTeam_5_image(img_5);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_IMAGE:
+                    String img_6 = atr.getContentValue();
+                    data.setTeam_6_image(img_6);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_NAME:
+                    String name_1 = atr.getContentValue();
+                    data.setTeam_1_name(name_1);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_NAME:
+                    String name_2 = atr.getContentValue();
+                    data.setTeam_2_name(name_2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_NAME:
+                    String name_3 = atr.getContentValue();
+                    data.setTeam_3_name(name_3);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_NAME:
+                    String name_4 = atr.getContentValue();
+                    data.setTeam_4_name(name_4);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_NAME:
+                    String name_5 = atr.getContentValue();
+                    data.setTeam_5_name(name_5);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_NAME:
+                    String name_6 = atr.getContentValue();
+                    data.setTeam_6_name(name_6);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_TITLE:
+                    String title_1 = atr.getContentValue();
+                    data.setTeam_1_title(title_1);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_TITLE:
+                    String title_2 = atr.getContentValue();
+                    data.setTeam_2_title(title_2);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_TITLE:
+                    String title_3 = atr.getContentValue();
+                    data.setTeam_3_title(title_3);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_TITLE:
+                    String title_4 = atr.getContentValue();
+                    data.setTeam_4_title(title_4);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_TITLE:
+                    String title_5 = atr.getContentValue();
+                    data.setTeam_5_title(title_5);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE:
+                    String title_6 = atr.getContentValue();
+                    data.setTeam_6_title(title_6);
+                    break;
+
+
+            }
+        }
+        listOfTemplatePagesObj.add(teamPage);
+    }
+
+
+
     public static boolean addPagesToList(ArrayList<Page> pageList){
         boolean bCanShowProfile = false;
 
@@ -343,6 +564,7 @@ public class MainActivity extends AppCompatActivity{
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
+                        setAttributesForClientPage(attributesFromServer);
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
@@ -354,11 +576,11 @@ public class MainActivity extends AppCompatActivity{
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
-                        pages ServicePage = new ServicePage();
-                        listOfTemplatePagesObj.add(ServicePage);
+                        setAttributesForServicePage(attributesFromServer);
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_TEAM:
+                        setAttributesForTeamPage(attributesFromServer);
                         bCanShowProfile = true;
                         break;
 

@@ -65,6 +65,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         Log.v(TAG, "onCreate galleryStarted == " + galleryStarted);
         b1 = (Button) findViewById(R.id.crop_done);
         b2 = (Button) findViewById(R.id.crop_cancel);
+
         b1.setTypeface(mycustomFont);
         b2.setTypeface(mycustomFont);
         mCropImageView = (CropImageView)  findViewById(R.id.CropImageView);
@@ -205,6 +206,28 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         finish();
                        // startActivity(editCampaignIntent);
                         break;
+
+                    case MainActivity.OPEN_GALLERY_FOR_HOME_PAGE_ON_APP:
+                        createImagefromBitmap(bitmap,MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME);
+                        // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
+                        finish();
+                        // startActivity(editCampaignIntent);
+                        break;
+
+                    case MainActivity.OPEN_GALLERY_FOR_BLOG_ON_APP:
+                        createImagefromBitmap(bitmap,MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+                        // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
+                        finish();
+                        // startActivity(editCampaignIntent);
+                        break;
+
+                    case MainActivity.OPEN_GALLERY_FOR_SERVICE_ON_APP:
+                        createImagefromBitmap(bitmap,MainActivity.Service_TemplateImage_IMAGE_CROPED_NAME);
+                        // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
+                        finish();
+                        // startActivity(editCampaignIntent);
+                        break;
+
                     case MainActivity.OPEN_GALLERY_FOR_SEARCH:
 
                         createImagefromBitmap(bitmap,MainActivity.SEARCH__IMAGE_CROPED_NAME);
@@ -269,5 +292,9 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
     public void onRotateImageClick(View view) {
         mCropImageView.rotateImage(90);
+    }
+
+    public void onCancelImageClick(View view){
+        finish();
     }
 }

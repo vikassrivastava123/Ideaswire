@@ -34,6 +34,9 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
     }
 
+
+
+
     public boolean isDefaultDataToCreateCampaign(){
 
         return ismDefaultData;
@@ -45,11 +48,13 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
     void initDeafultdata(){
 
-        title = new String("Edit title");
-        headerAboutUs = "Edit Heading";
-        sub_header = "There are many variation of packagaes";
-        text_para = "paragraph text is soo long man.what to do .";
-        button_text = "Button textc";
+        title = "Business";
+        headerAboutUs = "Toatam Aperiam Consect";
+        sub_header = "There are many variation of passages";
+        text_para = "There are many variation of passage " +
+                "Lorem Ipsum available but the majority have" +
+                " in some form bye inject humour";
+        button_text = "BUTTON TEXT";
 
     }
 

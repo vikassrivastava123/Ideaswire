@@ -7,13 +7,21 @@ import com.fourway.ideaswire.ui.ServicesOnApp;
  */
 public class ServicesDataTemplate extends dataOfTemplate {
     int templateSelected = 1;
-    String about_us_heading;
-    String heading= null;
-    public String subheading_header =null;
-    public String heading_text =null;
-    public String heading_below_image = null;
-    public String sub_heading_below_image =null;
-    public String text_below_image =null;
+
+    public String title=null;
+    public String heading =null;
+    public String subHeading =null;
+    public String paraGraph = null;
+    public String heading_below =null;
+    public String subHeading_below =null;
+    public String getParaGraph_below=null;
+    private String urlOfImage =null;
+
+    boolean   ismDefaultData = false;
+
+
+
+
     //public String website = null;
     public ServicesDataTemplate(int templateSelected, boolean isDefaultData)
     {
@@ -26,55 +34,97 @@ public class ServicesDataTemplate extends dataOfTemplate {
             // when datasetis not installed
         }
 
-
-
-        setHeader("About All of Us");
-        set_profile_page_about_us_heading("Profile_Page_About_US_Heading ");
+        ismDefaultData= isDefaultData;
         this.templateSelected = templateSelected;
 
     }
 
+    public boolean isDefaultDataToCreateCampaign(){
+
+        return ismDefaultData;
+    }
+
     void initDeafultdata(){
 
-        header = new String("Heading one");
-        subheading_header = "Below Image Heading";
-        heading_text = "Subheading";
-        heading_below_image = "paragraph text is soo long man.what to do .";
-        sub_heading_below_image = "Button textc";
-        text_below_image = "+91-8800664433";
+        title="Service";
+        heading = "Totam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";
+
+        heading_below = "Totam Aperiam Consect";
+        subHeading_below = "There are many variation of passages";
+        getParaGraph_below = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";
 
     }
 
-
-    public void set_profile_page_about_us_heading(String header){
-
-        about_us_heading = header;
+    public String getTitle() {
+        return title;
     }
 
-    public String get_profile_page_about_us_heading(){
-        return about_us_heading;
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public String get_heading(){
-        return header;
+
+    public String getHeading() {
+        return heading;
     }
-    public String get_subheading(){
-        return subheading_header;
+
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
-    public String get_text_para(){
-        return heading_text;
+
+    public String getSubHeading() {
+        return subHeading;
     }
-    public String get_heading_belowimg(){
-        return heading_below_image;
+
+    public void setSubHeading(String subHeading) {
+        this.subHeading = subHeading;
     }
-    public String get_subheading_below(){
-        return sub_heading_below_image;
+
+    public String getParaGraph() {
+        return paraGraph;
     }
-    public String get_text_below_image(){
-        return text_below_image;
+
+    public void setParaGraph(String paraGraph) {
+        this.paraGraph = paraGraph;
     }
-    //public String get_website(){
-      //  return website;
-    //}
+
+    public String getHeading_below() {
+        return heading_below;
+    }
+
+    public void setHeading_below(String heading_below) {
+        this.heading_below = heading_below;
+    }
+
+    public String getSubHeading_below() {
+        return subHeading_below;
+    }
+
+    public void setSubHeading_below(String subHeading_below) {
+        this.subHeading_below = subHeading_below;
+    }
+
+    public String getGetParaGraph_below() {
+        return getParaGraph_below;
+    }
+
+    public void setGetParaGraph_below(String getParaGraph_below) {
+        this.getParaGraph_below = getParaGraph_below;
+    }
+
+    public String getUrlOfImage() {
+        return urlOfImage;
+    }
+
+    public void setUrlOfImage(String urlOfImage) {
+        this.urlOfImage = urlOfImage;
+    }
+
 
     @Override
     public Class getIntentToLaunchPage() {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/team_img_layout">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/member_1"
+        android:id="@+id/memberImage" />
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Team_STATIC_img"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scaleType="centerCrop"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        android:hint="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/memberName"
+        android:layout_below="@id/team_img_layout"/>
+
+    <TextView
+        android:hint="Title"
+        android:layout_below="@id/memberName"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Title"
+        android:id="@+id/memberPostion"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/deleteTeamImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross_1"
+        android:background="@null"
+        android:layout_alignRight="@id/team_img_layout" />
+
+</RelativeLayout>

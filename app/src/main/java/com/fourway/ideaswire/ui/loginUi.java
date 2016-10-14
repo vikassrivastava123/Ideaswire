@@ -141,7 +141,9 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
 
         int pageNumber=sharedpreferences.getInt(username_level, 1);
 
-        if (pageNumber ==25)
+
+
+       if (pageNumber ==25)
         {
             Intent intent = new Intent(getApplicationContext(),HomepageBeforeLogin.class);
             startActivityForResult(intent, REQUEST_SIGNUP);
@@ -153,6 +155,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
             startActivityForResult(intent, REQUEST_SIGNUP);
 
         }
+       // startActivity(new Intent(getApplicationContext(),TempActivity.class));
 
 
 

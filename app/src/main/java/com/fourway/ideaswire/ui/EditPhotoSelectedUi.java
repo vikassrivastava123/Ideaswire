@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.SearchProfileData;
@@ -112,11 +113,17 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
         req.executeRequest();
     }
 
+    public void onCancel(View view){
+        finish();
+    }
+
     @Override
     public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
         Log.v("search results","res :"+res);
 
         if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
+
+            //Toast.makeText(getApplicationContext(), "Search waas sucess :)", Toast.LENGTH_SHORT).show();
             loginUi.mProfileList = data.getProfileList();
             int numberOfProfiles = loginUi.mProfileList.size();
             Log.v("SearchProfile","number of profiles searched"+numberOfProfiles);
@@ -124,7 +131,20 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
                 Intent intent = new Intent(getApplicationContext(), searchResults.class);
                 startActivity(intent);
             }
+
+
+        }else{
+
+            Toast.makeText(getApplicationContext(), "Fail to find ):", Toast.LENGTH_SHORT).show();
         }
+
+
+        //TODO Vijay
+        ///Intent iny = new Intent(this,TempActivity.class);
+
+        //   Intent iny = new Intent(this,ChooseTemplate_Category.class);
+       // startActivity(iny);
+
 
     }
 }

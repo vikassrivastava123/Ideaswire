@@ -1,6 +1,6 @@
 package com.fourway.ideaswire.templates;
 
-import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.ui.contact_details;
 
 /**
  * Created by Vaibhav Gusain on 9/8/2016.
@@ -14,6 +14,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
     public String Email =null;
     public String phonenumber =null;
     public String website = null;
+
     public contactDetailsDataTemplate(int templateSelected, boolean isDefaultData)
     {
         if(isDefaultData){
@@ -27,7 +28,6 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
 
 
-        setHeader("About All of Us");
         set_profile_page_about_us_heading("Profile_Page_About_US_Heading ");
         this.templateSelected = templateSelected;
 
@@ -35,11 +35,16 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
     void initDeafultdata(){
 
-        header = new String("Heading one");
-        subheading_header = "Below Image Heading";
-        heading_text = "Subheading";
-        Address = "paragraph text is soo long man.what to do .";
-        Email = "Button textc";
+        title="Contact";
+        header = "Totam Aperiam Consect";
+        subheading_header = "There are many variation of passages";
+        heading_text = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";
+        Address = "Variation Passages Repetition,\n" +
+                " 5462 Distracted" +
+                "\nSimple Random - 1100083";
+        Email = "dummy254@gmail.com";
         phonenumber = "+91-8800664433";
         website = "www.4wayTechnologies.com";
     }
@@ -77,7 +82,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
     @Override
     public Class getIntentToLaunchPage() {
-        return AboutUsOnApp.class;
+        return contact_details.class;
     }
 
     @Override

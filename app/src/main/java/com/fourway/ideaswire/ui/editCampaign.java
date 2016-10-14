@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,7 +44,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_campaign);
         Typeface mycustomFont= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
-       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         mTitle.setTypeface(mycustomFont);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -146,7 +147,11 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
     public static String mCampaignIdFromServer = null;
 
+    ProgressDialog pd;
     public void createCamapignBtn(View view) throws IOException {
+        pd=new ProgressDialog(this);
+        pd.setMessage("please wait");
+
         boolean liveCampain = false;
 
         RadioButton rbStatusOn = (RadioButton)findViewById(R.id.StatusOn);
@@ -176,6 +181,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
             CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
             req.executeRequest();
 
+            pd.show();
+
             //Intent inte = new Intent(this, CreateCampain_Sucess.class);
             //startActivity(inte);
         }
@@ -188,6 +195,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         Log.v(Tag,"ResponseCode : "+res);
 
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
+
+            pd.dismiss();
 
             Log.v(Tag,"Success ResponseCode : "+res);
 

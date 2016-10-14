@@ -19,19 +19,15 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
 
             android:clickable="true"
-            android:contextClickable="false"
+            android:contextClickable="true"
             app:navigationIcon="@drawable/back_1"
             android:visibility="visible">
             <Button
                 android:paddingTop="30dp"
                 android:layout_width="15dp"
                 android:layout_height="30dp"
-
-
-
                 android:layout_alignParentRight="true"
                 android:background="@drawable/toolbar"
-
                 android:layout_gravity="right"
 
                 />
@@ -39,7 +35,7 @@
                 android:paddingTop="30dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
+                android:onClick="onRotateImageClick"
                 android:id="@+id/showevents"
 
                 android:layout_alignParentRight="true"
@@ -52,12 +48,8 @@
                 android:paddingTop="30dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
-
-
                 android:layout_alignParentRight="true"
                 android:background="@drawable/toolbar"
-
                 android:layout_gravity="right"
 
                 />

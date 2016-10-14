@@ -1,16 +1,20 @@
 package com.fourway.ideaswire.templates;
 
+import com.fourway.ideaswire.R;
+
 /**
  * Created by Ritika on 8/24/2016.
  */
+
 public class AboutUsPage extends pages {
 
     AboutUsDataTemplate dataObj = null;
     public int mTemplateType = 1;
 
     public AboutUsPage(){
-         nameis = "About Us 2";
+         nameis = "About";
     }
+
 
 
     public void setDataObj(AboutUsDataTemplate dataObj) {
@@ -18,12 +22,13 @@ public class AboutUsPage extends pages {
     }
 
     @Override
-    dataOfTemplate getDataForTemplate(int templateType) {
+   public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = new AboutUsDataTemplate(templateType,true);
         return dataObj;
     }
-    dataOfTemplate getDataForTemplateAsReceivedFromServer(){
+
+    public dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
         dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
         if(dataObj == null) {
@@ -43,5 +48,16 @@ public class AboutUsPage extends pages {
     public String nameis()
     {
         return nameis;
+    }
+
+    @Override
+    public void set_iconis(int iconOfpage) {
+    }
+
+    @Override
+    public int iconis() {
+
+
+        return R.drawable.about;
     }
 }

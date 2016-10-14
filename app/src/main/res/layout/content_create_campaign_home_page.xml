@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:background="@color/backgrndAddCampaign"
         android:layout_marginBottom="10dp"
         android:id="@+id/dummyLayout"
@@ -24,9 +24,9 @@
         android:id="@+id/imageButton"
         android:src="@drawable/add_photo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="60dp"
         android:background="@null"
-android:onClick="createCamEditBtn"
+        android:onClick="createCamEditBtn"
         />
 
     <TextView
@@ -46,8 +46,9 @@ android:onClick="createCamEditBtn"
         android:layout_height="wrap_content"
         android:id="@+id/profileGridView"
         android:background="@color/backgrndAddCampaign"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+
         android:numColumns="2"
         android:layout_gravity="center"
         android:layout_below="@+id/dummyLayout"

@@ -181,12 +181,12 @@ public class ChooseTemplate_Category extends Activity {
 /*
  class ImageItem {
     private Bitmap image;
-    private String title;
+    private String editTitle;
 
-    public ImageItem(Bitmap image, String title) {
+    public ImageItem(Bitmap image, String editTitle) {
         super();
         this.image = image;
-        this.title = title;
+        this.editTitle = editTitle;
     }
 
     public Bitmap getImage() {
@@ -198,11 +198,11 @@ public class ChooseTemplate_Category extends Activity {
     }
 
     public String getTitle() {
-        return title;
+        return editTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String editTitle) {
+        this.editTitle = editTitle;
     }
 }
 
