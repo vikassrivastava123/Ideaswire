@@ -6,6 +6,7 @@ package com.fourway.ideaswire.templates;
 public class HomePage extends pages {
 
     HomePageDataTemplate dataObj = null;
+    public int mTemplateType = 1;
     @Override
     dataOfTemplate getDataForTemplate(int templateType) {
 
@@ -18,7 +19,12 @@ public class HomePage extends pages {
     }
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
 
-        dataObj = new HomePageDataTemplate(1,false);
+        mTemplateType = 1;
+        dataObj = (HomePageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new HomePageDataTemplate(1, false);
+
+        }
         return dataObj;
     }
 

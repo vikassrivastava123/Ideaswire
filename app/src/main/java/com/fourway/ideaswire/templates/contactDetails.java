@@ -20,7 +20,11 @@ public class contactDetails extends pages {
 
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
-        dataObj = new contactDetailsDataTemplate(1,false);
+        dataObj = (contactDetailsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new contactDetailsDataTemplate(1, false);
+
+        }
         return dataObj;
     }
 

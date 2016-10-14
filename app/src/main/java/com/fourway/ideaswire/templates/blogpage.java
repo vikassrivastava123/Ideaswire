@@ -19,7 +19,11 @@ public class blogpage extends pages {
     }
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
-        dataObj = new blogpageDataTemplate(1,false);
+        dataObj = (blogpageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new blogpageDataTemplate(1, false);
+
+        }
         return dataObj;
     }
 

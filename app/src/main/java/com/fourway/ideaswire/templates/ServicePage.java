@@ -18,7 +18,11 @@ public class ServicePage extends pages {
     }
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
-        dataObj = new ServicesDataTemplate(1,false);
+        dataObj = (ServicesDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new ServicesDataTemplate(1, false);
+
+        }
         return dataObj;
     }
 
