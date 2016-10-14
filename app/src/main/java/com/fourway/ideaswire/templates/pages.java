@@ -5,7 +5,7 @@ package com.fourway.ideaswire.templates;
  */
 public abstract class pages {
 
-   dataOfTemplate dataObj;
+   dataOfTemplate dataObj = null;
 
     public dataOfTemplate getTemplateData(int type,boolean defaultData){
 
@@ -23,6 +23,12 @@ public abstract class pages {
     public void setDataObj(dataOfTemplate argDataObj){
         dataObj = argDataObj;
     }
+
+    public dataOfTemplate getAlreadyCreatedDataObj(){
+
+        return dataObj;
+    }
+
     public abstract void set_nameis(String nameOfpage);
     public abstract String nameis();
 }

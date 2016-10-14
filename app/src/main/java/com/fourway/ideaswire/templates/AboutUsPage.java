@@ -25,7 +25,11 @@ public class AboutUsPage extends pages {
     }
     dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;
-        dataObj = new AboutUsDataTemplate(1,false);
+        dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new AboutUsDataTemplate(1, false);
+
+        }
         return dataObj;
     }
 
