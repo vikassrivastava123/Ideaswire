@@ -1,5 +1,7 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
 import com.fourway.ideaswire.ui.ClientsOnapp;
 
 /**
@@ -58,6 +60,11 @@ public class ClientDataTemplate extends dataOfTemplate {
     @Override
     public Class getIntentToLaunchPage() {
         return ClientsOnapp.class;
+    }
+
+    @Override
+    public Fragment getFragmentToLaunchPage() {
+        return null;
     }
 
     @Override

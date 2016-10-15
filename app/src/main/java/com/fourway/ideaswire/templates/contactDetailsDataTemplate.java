@@ -1,5 +1,7 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
 import com.fourway.ideaswire.ui.contact_details;
 
 /**
@@ -14,6 +16,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
     public String Email =null;
     public String phonenumber =null;
     public String website = null;
+    boolean   ismDefaultData = false;
 
     public contactDetailsDataTemplate(int templateSelected, boolean isDefaultData)
     {
@@ -25,12 +28,8 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
             // when datasetis not installed
         }
-
-
-
-        set_profile_page_about_us_heading("Profile_Page_About_US_Heading ");
+        ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
-
     }
 
     void initDeafultdata(){
@@ -83,6 +82,16 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
     @Override
     public Class getIntentToLaunchPage() {
         return contact_details.class;
+    }
+
+    @Override
+    public Fragment getFragmentToLaunchPage() {
+        return null;
+    }
+
+    @Override
+    public boolean isDefaultDataToCreateCampaign() {
+         return ismDefaultData;
     }
 
     @Override

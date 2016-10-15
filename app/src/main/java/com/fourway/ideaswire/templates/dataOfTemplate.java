@@ -1,5 +1,7 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
 import com.fourway.ideaswire.ui.MainActivity;
 
 import java.io.Serializable;
@@ -22,6 +24,8 @@ public abstract class dataOfTemplate implements Serializable {
     }
 
     abstract public Class getIntentToLaunchPage();
+    abstract public Fragment getFragmentToLaunchPage();
+    abstract public boolean isDefaultDataToCreateCampaign();
     abstract public int getTemplateSelected();
 
 }

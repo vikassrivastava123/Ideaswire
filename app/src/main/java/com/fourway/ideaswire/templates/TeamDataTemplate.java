@@ -1,5 +1,7 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
 import com.fourway.ideaswire.ui.teamonapp;
 
 /**
@@ -33,6 +35,7 @@ public class TeamDataTemplate extends dataOfTemplate {
     public String team_4_image=null;
     public String team_5_image=null;
     public String team_6_image=null;
+    boolean   ismDefaultData = false;
 
     public TeamDataTemplate(int templateSelected, boolean isDefaultData) {
         if (isDefaultData) {
@@ -44,7 +47,7 @@ public class TeamDataTemplate extends dataOfTemplate {
             // when datasetis not installed
         }
 
-
+        this.ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
     }
 
@@ -63,6 +66,11 @@ public class TeamDataTemplate extends dataOfTemplate {
         @Override
     public Class getIntentToLaunchPage() {
         return teamonapp.class;
+    }
+
+    @Override
+    public Fragment getFragmentToLaunchPage() {
+        return null;
     }
 
     @Override
@@ -246,5 +254,10 @@ public class TeamDataTemplate extends dataOfTemplate {
 
     public void setTeam_6_image(String team_6_image) {
         this.team_6_image = team_6_image;
+    }
+
+    @Override
+    public boolean isDefaultDataToCreateCampaign() {
+        return ismDefaultData;
     }
 }

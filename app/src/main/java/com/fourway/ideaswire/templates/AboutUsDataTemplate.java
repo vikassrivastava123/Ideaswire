@@ -1,6 +1,9 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
 import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.ui.FragmentAboutUsOnApp;
 
 /**
  * Created by Ritika on 8/24/2016.
@@ -26,6 +29,7 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
         if(isDefaultData){
           initDeafultdata();
+
         }else{
         // when datasetis not installed
         }
@@ -129,6 +133,12 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     @Override
     public Class getIntentToLaunchPage() {
        return AboutUsOnApp.class;
+    }
+
+    @Override
+
+    public Fragment getFragmentToLaunchPage() {
+        return  new FragmentAboutUsOnApp();
     }
 
     @Override

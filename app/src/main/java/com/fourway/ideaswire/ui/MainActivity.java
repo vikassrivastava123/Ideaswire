@@ -1,5 +1,6 @@
 package com.fourway.ideaswire.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -77,8 +78,9 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), loginUi.class);
         startActivity(intent);
 
+        //startActivity(new Intent(getApplicationContext(), FragmenMainActivity.class));
 
-      //  startCreateCampaignforDefaultData(1);
+        //startCreateCampaignforDefaultData(1);
     }
 
 
@@ -116,7 +118,9 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
+  public Context getAppContxt(){
+      return getApplicationContext();
+  }
 
 
 

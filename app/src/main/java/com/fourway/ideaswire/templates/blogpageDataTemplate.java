@@ -1,11 +1,16 @@
 package com.fourway.ideaswire.templates;
 
+import android.app.Fragment;
+
+import com.fourway.ideaswire.ui.FragmentAboutUsOnApp;
+import com.fourway.ideaswire.ui.FrgmentBlogOnApp;
 import com.fourway.ideaswire.ui.ServicesOnApp;
 import com.fourway.ideaswire.ui.activity_blogpage;
 
 /**
  * Created by Vaibhav Gusain on 9/8/2016.
  */
+
 public class blogpageDataTemplate extends dataOfTemplate {
     int templateSelected = 1;
 
@@ -129,6 +134,11 @@ public class blogpageDataTemplate extends dataOfTemplate {
     @Override
     public Class getIntentToLaunchPage() {
         return activity_blogpage.class;
+    }
+
+    @Override
+    public Fragment getFragmentToLaunchPage() {
+        return  new FrgmentBlogOnApp();
     }
 
     @Override
