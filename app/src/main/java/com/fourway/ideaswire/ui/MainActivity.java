@@ -9,6 +9,7 @@ import android.util.Log;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.Page;
+import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.AboutUsPage;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
     public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
 
+    public static Profile requestToMakeProfile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -590,6 +592,10 @@ public class MainActivity extends AppCompatActivity{
 
                 }
 
+
+
+
+
            }
         }catch (NullPointerException e){
             Log.v(TAG,"listOfTemplatePagesObj is null");
@@ -617,10 +623,23 @@ public class MainActivity extends AppCompatActivity{
             listOfTemplatePagesObj.add(3, contactdetails);
             listOfTemplatePagesObj.add(4, ServicePage);
         }catch(NullPointerException e){
-            Log.d(TAG,"listOfTemplatePagesObj is null");
+            Log.d(TAG, "listOfTemplatePagesObj is null");
         }
     }
 
+    public static void makeRequestToaddTemplateData(){
+
+
+    }
+
+    public static Profile getProfileObject(){
+        if(requestToMakeProfile == null){
+            requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
+        }
+
+        return requestToMakeProfile;
+
+    }
 
 
 }

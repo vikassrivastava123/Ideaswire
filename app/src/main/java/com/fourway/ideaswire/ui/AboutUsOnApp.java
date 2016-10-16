@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +52,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -326,47 +323,47 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 int i = 0;
                 final LinearLayout row = new LinearLayout(AboutUsOnApp.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                if (size>1)
                 for(pages obj: MainActivity.listOfTemplatePagesObj) {
                     String name = obj.nameis();
 
-                   // float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics());
+
+
                   float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
                     float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
-
 
                     LinearLayout.LayoutParams buttonLayoutParams =
                             new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
                                     (int)x,
                                     (int)y));
                     buttonLayoutParams.setMargins(2,2, 0, 0);
+                    btn[i] = new Button(AboutUsOnApp.this);
 
-                    if (i!=0) {
-                        btn[i] = new Button(AboutUsOnApp.this);
-                        btn[i].setLayoutParams(buttonLayoutParams);
-                        btn[i].setText(name);
-                        btn[i].setId(i);
-                        btn[i].setBackgroundColor(getResources().getColor(R.color.card));
-                        btn[i].setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                //Toast.makeText(getApplicationContext(),
-                                //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                                dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+                    btn[i].setLayoutParams(buttonLayoutParams);
+                    btn[i].setText(name);
+                    btn[i].setId(i);
+                    btn[i].setBackgroundColor(getResources().getColor(R.color.card));
+                    btn[i].setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
 
-                                Class intenetToLaunch = data.getIntentToLaunchPage();
-                                Log.v(TAG, "5" + intenetToLaunch);
-                                Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-                                intent.putExtra("data", data);
-                                startActivity(intent);
-                            }
-                        });
-                        row.addView(btn[i]);
-                    }
+                            addPageToRequest();//ToDo Add DialogBox here to tell user if it want to add this page
+
+                            //Toast.makeText(getApplicationContext(),
+                             //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+
+                            Class intenetToLaunch = data.getIntentToLaunchPage();
+                            Log.v(TAG, "5" + intenetToLaunch);
+                            Intent intent = new Intent(AboutUsOnApp.this, intenetToLaunch);
+                            intent.putExtra("data",data);
+                            startActivity(intent);
+                        }
+                    });
+                    row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-               // btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                //btn[0].setFocusable(true);
+                btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                btn[0].setFocusable(true);
             // When adding another view, make sure you do it on the UI
             // thread.
             layout.post(new Runnable() {
@@ -528,14 +525,35 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         }
    }
 
-     Profile requestToMakeProfile;
     private static String TAG = "AboutUsOnApp";
-    public void aboutUsButtonAction(View view) {
 
-        requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
-        requestToMakeProfile.addPage(mAbtUsPageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
-        req.executeRequest();
+    private void addPageToRequest(){
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+
+        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+            reqToMakeProfile.addPage(mAbtUsPageObj);
+        }
+    }
+
+    private void aboutUsButtonAction() {
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
+
+        if(numOfPages > 0) {
+
+            addPageToRequest(); //This function has check that ensures page is not added duplicate
+                                //Todo Need to show user popup to get his confirmation that this page will be added
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            req.executeRequest();
+        }else{
+            Toast.makeText(this,"No page was added to your campaign",Toast.LENGTH_LONG).show();
+
+            addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            req.executeRequest();
+        }
 
     }
 
@@ -604,14 +622,17 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
     }
 
-    public void goLiveAbtUs(View view) {
+    //public void goLiveAbtUs(View view) {
 
-        requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
-        requestToMakeProfile.addPage(mAbtUsPageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
-        req.executeRequest();
+        //requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
+        //requestToMakeProfile.addPage(mAbtUsPageObj);
 
-    }
+     //   aboutUsButtonAction();
+
+    //    SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
+     //   req.executeRequest();
+
+//    }
 
     public void hidePreviewAbtUs(View view) {
 
@@ -639,10 +660,13 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
 
-        requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
-        requestToMakeProfile.addPage(mAbtUsPageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
-        req.executeRequest();
+        aboutUsButtonAction();
+
+
+      //  requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
+     //   requestToMakeProfile.addPage(mAbtUsPageObj);
+      //  SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
+       // req.executeRequest();
     }
   ProgressDialog pbImage = null;
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>

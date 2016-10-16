@@ -3,13 +3,11 @@ package com.fourway.ideaswire.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
@@ -30,6 +27,7 @@ public class FragmenMainActivity extends AppCompatActivity {
     Fragment fragment;
     dataOfTemplate dataObj;
     private static String TAG = "FragmenMainActivity";
+    private boolean showPreview = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +35,22 @@ public class FragmenMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragmen_main);
 
         dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
+        if(false == dataObj.isDefaultDataToCreateCampaign()){
+            showPreview = true;
+
+        }
+
         showBaseMenu();
 
         Fragment fragmentToLaunch = dataObj.getFragmentToLaunchPage();
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
+
+        Bundle args = new Bundle();
+        args.putSerializable("dataKey", dataObj);
+        args.putBoolean("showPreviewKey", showPreview);
+        fragmentToLaunch.setArguments(args);
+
         transaction.add(R.id.mainRLayout,fragmentToLaunch);
         transaction.commit();
 
@@ -57,6 +66,14 @@ public class FragmenMainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public dataOfTemplate getDatObject(){
+
+        return dataObj;
+    }
+
+
 
 
     void showBaseMenu(){
@@ -99,13 +116,14 @@ public class FragmenMainActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     //Toast.makeText(getApplicationContext(),
                                     //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                                    dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
-                                    Fragment fragmentToLaunch = data.getFragmentToLaunchPage();
+                                    dataObj = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+                                    Fragment fragmentToLaunch = dataObj.getFragmentToLaunchPage();
                                     FragmentManager fragmentManager=getFragmentManager();
                                     FragmentTransaction transaction=fragmentManager.beginTransaction();
 
                                     Bundle args = new Bundle();
-                                    args.putSerializable("dataKey", data);
+                                    args.putSerializable("dataKey", dataObj);
+                                    args.putBoolean("showPreviewKey", showPreview);
                                     fragmentToLaunch.setArguments(args);
 
                                     transaction.replace(R.id.mainRLayout,fragmentToLaunch);
