@@ -96,11 +96,13 @@ public class CreateCampain_Sucess extends Activity {
         MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected,true);
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
 
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v("Create homepage", "5" + intenetToLaunch);
-        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+       // Class intenetToLaunch = data.getIntentToLaunchPage();
+      //  Log.v("Create homepage", "5" + intenetToLaunch);
+      //  Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+
+        Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
 

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -189,6 +188,8 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
                     btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+
+                            blogPageToRequest();
                             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
 
                             Class intenetToLaunch = data.getIntentToLaunchPage();
@@ -358,7 +359,6 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         Attribute atrbtObj = new Attribute(mProfileId,mParentId,name,value);
         mBlogPageObj.addAttribute(atrbtObj);
     }
-    Profile requestToMakeProfile;
 
     void init_editCampaign(){
 
@@ -452,10 +452,42 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
 
 
-        requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
-        requestToMakeProfile.addPage(mBlogPageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
-        req.executeRequest();
+        //requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
+        //requestToMakeProfile.addPage(mBlogPageObj);
+        //SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
+        //req.executeRequest();
+
+        blogButtonAction();
+    }
+
+    private void blogPageToRequest(){
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+
+        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+            reqToMakeProfile.addPage(mBlogPageObj);
+        }
+    }
+
+    private void blogButtonAction() {
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
+
+        if(numOfPages > 0) {
+
+            blogPageToRequest(); //This function has check that ensures page is not added duplicate
+            //Todo Need to show user popup to get his confirmation that this page will be added
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            req.executeRequest();
+        }else{
+            Toast.makeText(this,"No page was added to your campaign",Toast.LENGTH_LONG).show();
+
+            blogPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            req.executeRequest();
+        }
+
     }
 
     ProgressDialog pbImage = null;

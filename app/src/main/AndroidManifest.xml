@@ -134,7 +134,7 @@
             android:name=".ui.about_us_page_template"
             android:label="@string/title_activity_about_us_page_tamplate"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.TempActivity"></activity>
+        <activity android:name=".ui.FragmenMainActivity"></activity>
     </application>
 
 </manifest>

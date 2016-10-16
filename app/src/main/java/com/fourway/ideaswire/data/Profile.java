@@ -2,7 +2,6 @@ package com.fourway.ideaswire.data;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -85,6 +84,20 @@ public class Profile {
     public void addPage (Page p){
         mPages.add(mTotalNumberOfPages, p);
         mTotalNumberOfPages++;
+    }
+
+    public int getTotalNumberOfPagesAdded(){
+        return mTotalNumberOfPages;
+    }
+
+    public boolean checkIfPageExist(String page_id){
+        for (int i=0; i< mTotalNumberOfPages; i++){
+            Page p = mPages.get(i);
+            if (p.getPageId().equals(page_id)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removePage(String page_id){
