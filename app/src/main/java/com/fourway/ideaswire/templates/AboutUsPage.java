@@ -24,7 +24,10 @@ public class AboutUsPage extends pages {
     @Override
    public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new AboutUsDataTemplate(templateType,true);
+        dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new AboutUsDataTemplate(templateType, true);
+        }
         return dataObj;
     }
 
@@ -33,7 +36,6 @@ public class AboutUsPage extends pages {
         dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
         if(dataObj == null) {
             dataObj = new AboutUsDataTemplate(1, false);
-
         }
         return dataObj;
     }

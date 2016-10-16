@@ -25,12 +25,12 @@ import android.widget.PopupMenu;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.CommonRequest;
-import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.AboutUsDataTemplate;
@@ -49,7 +49,7 @@ import java.io.IOException;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FragmentAboutUsOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback{
+public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback{
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
@@ -71,7 +71,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements SaveProfileData.S
     String mPageName = null;
     String mParentId = null;
 
-
+    int indexInList = -1;
 
     private static String TAG = "FragmentAboutUsOnApp";
     @Override
@@ -79,9 +79,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements SaveProfileData.S
         View view=inflater.inflate(R.layout.fragment_about, container, false);
 
         dataObj = (AboutUsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
-       if(dataObj.isDefaultDataToCreateCampaign() == false){
+
+        if(dataObj.isDefaultDataToCreateCampaign() == false){
            showPreview = true;
-       }
+       }else{
+            indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+        }
 
         deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
         deleteCARD_IMAGEBtnView = (ImageView)view.findViewById(R.id.deleteCARD_IMAGE);
@@ -271,16 +274,47 @@ public class FragmentAboutUsOnApp extends Fragment  implements SaveProfileData.S
     }
 
 
+    private void addPageToRequest(){
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE, dataObj.get_url());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+
+        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+            reqToMakeProfile.addPage(mAbtUsPageObj);
+        }
+    }
+
+
     ProgressDialog pbImage = null;
 
-    @Override
-    public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
+     @Override
+    public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+
+        pbImage.hide();
+        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
+            String imageUrl = data.getResponseUrl();
+            dataObj.set_url(imageUrl);
+            Log.v(TAG,"Url received" + imageUrl);
+        }
 
     }
 
-    @Override
-    public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+    public void setAttribute(String name, String value){
 
+        if(name != null && value != null) {
+            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            mAbtUsPageObj.addAttribute(atrbtObj);
+        }
     }
 
 
@@ -576,9 +610,68 @@ public class FragmentAboutUsOnApp extends Fragment  implements SaveProfileData.S
 
     }
 
+    void changeText(){
+
+        String title = String.valueOf(editTitle.getText());
+        Log.d(TAG, "changeTitleTextAbtUs" + title);
+        if (title != null) {
+            dataObj.set_title(title);
+        }
+
+        String header = String.valueOf(editHeader.getText());
+        Log.d(TAG, "changeHeadingTxtAbtUs" + header);
+        if (header != null) {
+            dataObj.set_heading(header);
+        }
+
+        String subheader = String.valueOf(editSubHeading.getText());
+        Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
+        if (subheader != null) {
+            dataObj.set_sub_heading(subheader);
+        }
+
+        String para = String.valueOf(editParaGraphAboutUs.getText());
+
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (para != null) {
+            dataObj.set_text_para(para);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //if(indexInList >=0 )
+        {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            changeText();
+            addPageToRequest();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        } else {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
 
 
-
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        } else {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
 
 }

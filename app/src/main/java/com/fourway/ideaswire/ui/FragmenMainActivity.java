@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -14,20 +13,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.Attribute;
+import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FragmenMainActivity extends AppCompatActivity {
+public class FragmenMainActivity extends AppCompatActivity implements SaveProfileData.SaveProfileResponseCallback{
     Button abtBtn,blogBtn;
     Fragment fragment;
     dataOfTemplate dataObj;
     private static String TAG = "FragmenMainActivity";
     private boolean showPreview = false;
+    int IndexKey = 0;
+    Fragment fragmentToLaunch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +48,14 @@ public class FragmenMainActivity extends AppCompatActivity {
 
         showBaseMenu();
 
-        Fragment fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+         fragmentToLaunch = dataObj.getFragmentToLaunchPage();
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
 
         Bundle args = new Bundle();
         args.putSerializable("dataKey", dataObj);
+        IndexKey =0;
+        args.putInt("IndexKey", 0);
         args.putBoolean("showPreviewKey", showPreview);
         fragmentToLaunch.setArguments(args);
 
@@ -61,16 +69,72 @@ public class FragmenMainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+
+                aboutUsButtonAction();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                  //      .setAction("Action", null).show();
+
+/*                if(test == 0)
+                    test = 2;
+                else {
+                    test = 0;
+                }
+
+                dataObj = MainActivity.listOfTemplatePagesObj.get(test).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+
+                FragmentManager fragmentManager=getFragmentManager();
+                FragmentTransaction transaction=fragmentManager.beginTransaction();
+                transaction.hide(fragmentToLaunch);
+                fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+
+                Bundle args = new Bundle();
+                args.putSerializable("dataKey", dataObj);
+                args.putInt("IndexKey", 0);
+                IndexKey = test;
+                args.putBoolean("showPreviewKey", showPreview);
+                fragmentToLaunch.setArguments(args);
+
+                transaction.replace(R.id.mainRLayout,fragmentToLaunch);
+                transaction.commit();
+         */   }
+
         });
     }
+
+
+
+
+    private void aboutUsButtonAction() {
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
+
+        if(numOfPages > 0) {
+
+            //addPageToRequest(); //This function has check that ensures page is not added duplicate
+            //Todo Need to show user popup to get his confirmation that this page will be added
+            SaveProfileData req = new SaveProfileData(FragmenMainActivity.this, reqToMakeProfile, loginUi.mLogintoken,FragmenMainActivity.this);
+            req.executeRequest();
+        }else{
+            Toast.makeText(this, "No page was added to your campaign", Toast.LENGTH_LONG).show();
+
+            //addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            req.executeRequest();
+        }
+
+    }
+
 
 
     public dataOfTemplate getDatObject(){
 
         return dataObj;
+    }
+
+    public int getIndexOfPresentview(){
+
+        return IndexKey;
     }
 
 
@@ -117,12 +181,17 @@ public class FragmenMainActivity extends AppCompatActivity {
                                     //Toast.makeText(getApplicationContext(),
                                     //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
                                     dataObj = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
-                                    Fragment fragmentToLaunch = dataObj.getFragmentToLaunchPage();
-                                    FragmentManager fragmentManager=getFragmentManager();
-                                    FragmentTransaction transaction=fragmentManager.beginTransaction();
 
+                                    FragmentManager fragmentManager=getFragmentManager();
+
+
+                                    FragmentTransaction transaction=fragmentManager.beginTransaction();
+                                    transaction.hide(fragmentToLaunch);
+                                    fragmentToLaunch = dataObj.getFragmentToLaunchPage();
                                     Bundle args = new Bundle();
                                     args.putSerializable("dataKey", dataObj);
+                                    args.putInt("IndexKey", v.getId());
+                                    IndexKey = v.getId();
                                     args.putBoolean("showPreviewKey", showPreview);
                                     fragmentToLaunch.setArguments(args);
 
@@ -152,5 +221,34 @@ public class FragmenMainActivity extends AppCompatActivity {
 
     }
 
+static int test = 0;
+    public void testApp(View v) {
 
+        if(test == 0)
+            test = 2;
+
+        dataObj = MainActivity.listOfTemplatePagesObj.get(test).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.hide(fragmentToLaunch);
+
+        fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+        Bundle args = new Bundle();
+        args.putSerializable("dataKey", dataObj);
+        args.putInt("IndexKey", 0);
+        IndexKey = test;
+        args.putBoolean("showPreviewKey", showPreview);
+        fragmentToLaunch.setArguments(args);
+
+
+        transaction.replace(R.id.mainRLayout,fragmentToLaunch);
+        transaction.commit();
+
+    }
+
+    @Override
+    public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
+        Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
+    }
 }

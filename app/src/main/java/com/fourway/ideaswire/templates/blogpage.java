@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vaibhav Gusain on 9/9/2016.
@@ -12,7 +11,11 @@ public class blogpage extends pages {
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new blogpageDataTemplate(templateType,true);
+        dataObj = (blogpageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new blogpageDataTemplate(templateType, true);
+
+        }
         return dataObj;
     }
     @Override

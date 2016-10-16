@@ -91,10 +91,15 @@ public class CreateCampain_Sucess extends Activity {
 
 
         MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
+        abtusObj.setPageIndex(0);
         MainActivity.listOfTemplatePagesObj.add(1, homeObj);
+        abtusObj.setPageIndex(1);
         MainActivity.listOfTemplatePagesObj.add(2, blogpage);
+        abtusObj.setPageIndex(2);
         MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
+        abtusObj.setPageIndex(3);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+        abtusObj.setPageIndex(4);
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
 
