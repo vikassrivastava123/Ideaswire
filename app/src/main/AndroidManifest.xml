@@ -133,8 +133,11 @@
         <activity
             android:name=".ui.about_us_page_template"
             android:label="@string/title_activity_about_us_page_tamplate"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.TempActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.FragmenMainActivity"
+            android:label="@string/title_activity_fragmen_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

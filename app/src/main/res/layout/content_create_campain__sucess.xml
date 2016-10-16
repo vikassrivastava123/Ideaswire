@@ -21,6 +21,12 @@
         android:background="@null"
         />
 
+    <RelativeLayout
+        android:layout_above="@+id/btn_addTemplate"
+        android:layout_below="@id/imageFinal"
+        android:id="@+id/rLayoutSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/doneImg"
         android:layout_width="wrap_content"
@@ -28,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/theme_selection_tick"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/imageFinal"/>
+        />
 
     <TextView
         android:id="@+id/greatText"
@@ -63,8 +69,10 @@
       android:layout_marginTop="10dp"
       android:text="You are just few minute away from your app"
       />
+        </RelativeLayout>
 
     <Button
+
         android:id="@+id/btn_addTemplate"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -72,7 +80,7 @@
         android:gravity="center"
         android:background="@drawable/loginbutton"
         android:textColor="@color/card"
-        android:text="Now Choose Template"
+        android:text="ADD DATA TO CAMPAIGN"
         android:onClick="addTemplate"
         />
 

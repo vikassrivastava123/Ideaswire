@@ -22,6 +22,7 @@
             android:contextClickable="true"
             app:navigationIcon="@drawable/back_1"
             android:visibility="visible">
+            <!--
             <Button
                 android:paddingTop="30dp"
                 android:layout_width="15dp"
@@ -67,7 +68,7 @@
 
                 android:layout_gravity="right"
 
-                />
+                />-->
             </android.support.v7.widget.Toolbar>
 
 

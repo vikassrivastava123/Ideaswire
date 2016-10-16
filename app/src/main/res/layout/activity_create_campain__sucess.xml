@@ -16,7 +16,6 @@
             android:background="@color/titleBar"
             app:popupTheme="@style/AppTheme.PopupOverlay"
 
-            app:navigationIcon="@drawable/back_1"
             android:visibility="visible">
             <TextView
                 android:layout_width="wrap_content"

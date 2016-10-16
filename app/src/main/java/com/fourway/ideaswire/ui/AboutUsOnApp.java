@@ -65,7 +65,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     ViewPager mViewPager;
     PagerAdapter mAdapter;
     EditText editTitle = null,editHeader = null,editSubHeading = null,editParaGraphAboutUs = null;
-    List<String> attName;
+
     TextView mTitle;
     NetworkImageView cardImage;
     ImageView cardImageCrop;
@@ -326,44 +326,47 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 int i = 0;
                 final LinearLayout row = new LinearLayout(AboutUsOnApp.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
+                if (size>1)
                 for(pages obj: MainActivity.listOfTemplatePagesObj) {
                     String name = obj.nameis();
 
-
-
+                   // float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics());
                   float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
                     float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
+
 
                     LinearLayout.LayoutParams buttonLayoutParams =
                             new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
                                     (int)x,
                                     (int)y));
                     buttonLayoutParams.setMargins(2,2, 0, 0);
-                    btn[i] = new Button(AboutUsOnApp.this);
 
-                    btn[i].setLayoutParams(buttonLayoutParams);
-                    btn[i].setText(name);
-                    btn[i].setId(i);
-                    btn[i].setBackgroundColor(getResources().getColor(R.color.card));
-                    btn[i].setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            //Toast.makeText(getApplicationContext(),
-                             //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+                    if (i!=0) {
+                        btn[i] = new Button(AboutUsOnApp.this);
+                        btn[i].setLayoutParams(buttonLayoutParams);
+                        btn[i].setText(name);
+                        btn[i].setId(i);
+                        btn[i].setBackgroundColor(getResources().getColor(R.color.card));
+                        btn[i].setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                //Toast.makeText(getApplicationContext(),
+                                //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                                dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
 
-                            Class intenetToLaunch = data.getIntentToLaunchPage();
-                            Log.v(TAG, "5" + intenetToLaunch);
-                            Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-                            intent.putExtra("data",data);
-                            startActivity(intent);
-                        }
-                    });
-                    row.addView(btn[i]);
+                                Class intenetToLaunch = data.getIntentToLaunchPage();
+                                Log.v(TAG, "5" + intenetToLaunch);
+                                Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+                                intent.putExtra("data", data);
+                                startActivity(intent);
+                            }
+                        });
+                        row.addView(btn[i]);
+                    }
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-                btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                btn[0].setFocusable(true);
+               // btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[0].setFocusable(true);
             // When adding another view, make sure you do it on the UI
             // thread.
             layout.post(new Runnable() {
@@ -374,7 +377,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 }
             });
         }
-    }, 1000);
+    }, 500);
 
 
           //dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplateDataObj;//
@@ -407,7 +410,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 //startActivity(intent);
             }
         });
-        attName = new ArrayList<String>();
+
         String title = dataObj.get_title();
         editTitle = (EditText) findViewById(R.id.ABOUT_TITLE);
         if(title != null) {
@@ -505,10 +508,11 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
 
 
-     if(dataObj.isDefaultDataToCreateCampaign() == false)
+     if(dataObj.isDefaultDataToCreateCampaign() == false) {
          toolbar.setVisibility(View.GONE);
          init_viewCampaign();
-        showPreview=false;
+         showPreview = true;
+     }
   }
 
     Page  mAbtUsPageObj;

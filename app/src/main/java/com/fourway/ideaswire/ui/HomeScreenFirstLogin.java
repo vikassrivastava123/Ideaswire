@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,8 +25,22 @@ public class HomeScreenFirstLogin extends ListActivity {
 
 
     public void startNowBtn(View view) {
-        Intent intent = new Intent(this,CreateCampaign_homePage.class);
-        startActivity(intent);
+        final ProgressDialog dialog=new ProgressDialog(this);
+        dialog.setMessage("Starting");
+        dialog.show();
+        new Thread(){
+            public void run(){
+                try {
+                    sleep(2000);
+                    dialog.dismiss();
+                    Intent intent = new Intent(HomeScreenFirstLogin.this,CreateCampaign_homePage.class);
+                    startActivity(intent);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
 
     }
 

@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#000000"
-            app:navigationIcon="@drawable/back_1"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:visibility="visible">
 

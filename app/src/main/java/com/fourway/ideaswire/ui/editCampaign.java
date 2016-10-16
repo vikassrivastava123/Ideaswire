@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.CreateProfileData;
@@ -61,9 +62,9 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         btn1 = (Button) findViewById(R.id.btn_createCampaign);
         btn1.setTypeface(mycustomFont);
 //        t1_new.setTypeface(mycustomFont);
-//        Intent intentScrn = getIntent();
-//        mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
-//        mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
+        Intent intentScrn = getIntent();
+       mCampaignNameReceived = getIntent().getStringExtra("CampaignName");
+        mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
         if(mEtCampnName != null){
             mEtCampnName.setText(mCampaignNameReceived);
         }
@@ -149,42 +150,46 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
     ProgressDialog pd;
     public void createCamapignBtn(View view) throws IOException {
-        pd=new ProgressDialog(this);
-        pd.setMessage("please wait");
+        if (!mEtCampnName.getText().toString().equals("")) {
+            pd = new ProgressDialog(this);
+            pd.setMessage("please wait");
 
-        boolean liveCampain = false;
+            boolean liveCampain = false;
 
-        RadioButton rbStatusOn = (RadioButton)findViewById(R.id.StatusOn);
-        RadioButton rbDraftOn = (RadioButton)findViewById(R.id.StatusDraft);
+            RadioButton rbStatusOn = (RadioButton) findViewById(R.id.StatusOn);
+            RadioButton rbDraftOn = (RadioButton) findViewById(R.id.StatusDraft);
 
-        if(rbStatusOn.isChecked() == true){
-            liveCampain = true;
-        }
+            if (rbStatusOn.isChecked() == true) {
+                liveCampain = true;
+            }
 
-       // String CamapingName = mEtCampnName.getText().toString();
-        FileInputStream in = null;
-        try {
-            in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(in);
-        File sendFile = getFileObjectFromBitmap (bitmap);
+            // String CamapingName = mEtCampnName.getText().toString();
+            FileInputStream in = null;
+            try {
+                in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            File sendFile = getFileObjectFromBitmap(bitmap);
 
-        if(sendFile == null){
-            Log.v(Tag,"file data is null");
+            if (sendFile == null) {
+                Log.v(Tag, "file data is null");
+            } else {
+                Log.v(Tag, "Make request Now to create templae");
+                Log.v(Tag, "LoginToken" + loginUi.mLogintoken);
+
+                CreateProfileData data = new CreateProfileData("Campaign Name", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+                CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
+                req.executeRequest();
+
+                pd.show();
+
+                //Intent inte = new Intent(this, CreateCampain_Sucess.class);
+                //startActivity(inte);
+            }
         }else {
-            Log.v(Tag, "Make request Now to create templae");
-            Log.v(Tag,"LoginToken" + loginUi.mLogintoken);
-
-            CreateProfileData data = new CreateProfileData("Campaign Name",  "bussiness", "asASa", loginUi.mLogintoken, sendFile);
-            CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
-            req.executeRequest();
-
-            pd.show();
-
-            //Intent inte = new Intent(this, CreateCampain_Sucess.class);
-            //startActivity(inte);
+            Toast.makeText(editCampaign.this, "Please Fill Campaign Name", Toast.LENGTH_SHORT).show();
         }
        //make request here
     }
@@ -204,6 +209,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
             Intent inte = new Intent(this, CreateCampain_Sucess.class);
             startActivity(inte);
+            finish();
 
 
         }else

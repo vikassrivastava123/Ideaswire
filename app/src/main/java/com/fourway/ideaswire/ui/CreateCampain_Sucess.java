@@ -120,4 +120,10 @@ public class CreateCampain_Sucess extends Activity {
      //  Intent iny = new Intent(this,ChooseTemplate_Category.class);
        // startActivity(iny);
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(CreateCampain_Sucess.this,CreateCampaign_homePage.class));
+        finish();
+    }
 }

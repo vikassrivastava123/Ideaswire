@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 
@@ -42,10 +43,11 @@ public class CreateCampaign_EnterData extends Activity {
     }
 
     public void uploadToCreateCampaign(View view) {
-        String campnName = null;
-        if(etCampignName !=null){
-            campnName = etCampignName.getText().toString();
-        }
+        if (!etCampignName.getText().toString().equals("")) {
+            String campnName = null;
+            if (etCampignName != null) {
+                campnName = etCampignName.getText().toString();
+            }
 
         /*
         * Need to open gallery directly from here
@@ -54,15 +56,18 @@ public class CreateCampaign_EnterData extends Activity {
         * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
         * */
 
-        Intent inf = new Intent (this,CropedImage.class);
-        inf.putExtra("ScreenName","Create Campaign");
-        inf.putExtra("CampaignName",campnName);
-        inf.putExtra(MainActivity.OPEN_GALLERY_FOR ,MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN );
-        startActivity(inf);
+            Intent inf = new Intent(this, CropedImage.class);
+            inf.putExtra("ScreenName", "Create Campaign");
+            inf.putExtra("CampaignName", campnName);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN);
+            startActivity(inf);
 
-      //  Intent intent = new Intent(this,editCampaign.class);
-      //  startActivity(intent);
+            //  Intent intent = new Intent(this,editCampaign.class);
+            //  startActivity(intent);
 
+        }else {
+            Toast.makeText(CreateCampaign_EnterData.this, "Please Fill Campaign Name", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

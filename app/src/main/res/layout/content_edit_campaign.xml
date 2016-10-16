@@ -9,19 +9,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fourway.ideaswire.editCampaign"
+    tools:context="com.fourway.ideaswire.ui.editCampaign"
     tools:showIn="@layout/activity_edit_campaign">
 
-    <ImageView
-        android:id="@+id/closeCamapign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="10dp"
-         android:background="@null"
-        />
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,18 +41,7 @@
         android:background="@null"
        />
 
-    <ImageView
-        android:id="@+id/editCamapignPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit"
-        android:layout_below="@+id/txtEdit"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:background="@null"
 
-        />
 
 
         />
@@ -77,6 +57,7 @@
 </TextView>
 
     <RadioGroup
+        android:layout_above="@+id/btn_createCampaign"
         android:id="@+id/radiogrp"
         android:layout_below="@+id/tvStatus"
         android:layout_width="fill_parent"

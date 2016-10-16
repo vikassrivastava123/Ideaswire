@@ -235,9 +235,12 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         startActivity(editCampaignIntent);
                         break;
                     case MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN:
+                        String campnName=getIntent().getStringExtra("CampaignName");
                         createImagefromBitmap(bitmap,MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
                         editCampaignIntent = new Intent(this, editCampaign.class);
+                        editCampaignIntent.putExtra("CampaignName",campnName);
                         startActivity(editCampaignIntent);
+                        finish();
                         break;
                     case MainActivity.OPEN_PREVIOUS_ACTIVITY:
                         finish();
@@ -276,6 +279,9 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                 mProgressViewText.setText("Loading...");
                 mProgressView.setVisibility(View.VISIBLE);
             }
+        }
+        else {
+            finish();
         }
     }
 
