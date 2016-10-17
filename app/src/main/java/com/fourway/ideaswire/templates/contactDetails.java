@@ -14,18 +14,31 @@ public class contactDetails extends pages {
 
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
-        return null;
+
+        mTemplateType = templateType;
+        dataObj = (contactDetailsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new contactDetailsDataTemplate(templateType, true);
+
+        }
+        return dataObj;
+
     }
 
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer() {
-        return null;
+        mTemplateType = 1;
+        dataObj = (contactDetailsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new contactDetailsDataTemplate(1, false);
+
+        }
+        return dataObj;
     }
 
      public String nameis ()
     {
-        return "Contact\n" +
-                "    @Override";
+        return "Contact";
     }
 
     @Override

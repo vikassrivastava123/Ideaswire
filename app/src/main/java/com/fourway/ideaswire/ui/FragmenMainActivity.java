@@ -1,5 +1,6 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -10,9 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
@@ -26,7 +29,7 @@ import com.fourway.ideaswire.templates.pages;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FragmenMainActivity extends AppCompatActivity implements SaveProfileData.SaveProfileResponseCallback{
+public class FragmenMainActivity extends Activity implements SaveProfileData.SaveProfileResponseCallback{
     Button abtBtn,blogBtn;
     Fragment fragment;
     dataOfTemplate dataObj;
@@ -34,6 +37,7 @@ public class FragmenMainActivity extends AppCompatActivity implements SaveProfil
     private boolean showPreview = false;
     int IndexKey = 0;
     Fragment fragmentToLaunch;
+    TextView mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class FragmenMainActivity extends AppCompatActivity implements SaveProfil
         transaction.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

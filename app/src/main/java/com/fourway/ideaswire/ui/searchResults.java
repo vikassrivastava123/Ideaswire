@@ -1,5 +1,6 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.fourway.ideaswire.templates.dataOfTemplate;
 
 import java.util.ArrayList;
 
-public class searchResults extends AppCompatActivity implements GetProfileRequest.GetProfileResponseCallback{
+public class searchResults extends Activity implements GetProfileRequest.GetProfileResponseCallback{
 
     SearchProfileListAdapter msearchProfileAdapter;
     private static String TAG = "SearchResults";

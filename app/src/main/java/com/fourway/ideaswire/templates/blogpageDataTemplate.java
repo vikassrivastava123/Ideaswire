@@ -58,7 +58,7 @@ public class blogpageDataTemplate extends dataOfTemplate {
 
         headerBlogBlowing = "Totam Aperiam Consect";
         subHeaderBlowing = "There are many variation of passages";
-        text_Para = "There are many variation of passage of Lorem" +
+        text_ParaBlowing = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
                 "alternation in some form by injected humour";
 

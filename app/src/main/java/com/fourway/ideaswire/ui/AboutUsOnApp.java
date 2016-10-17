@@ -326,9 +326,15 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                 for(pages obj: MainActivity.listOfTemplatePagesObj) {
                     String name = obj.nameis();
 
+                    float x=0;
+                    float btnWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics());
+                    if(size<5)
+                    {
+                       x= btnWidth/size-1;
 
-
-                  float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+                    }else {
+                        x = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+                    }
                     float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
 
                     LinearLayout.LayoutParams buttonLayoutParams =
@@ -344,6 +350,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                     btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+                            changeText();
 
                             addPageToRequest();//ToDo Add DialogBox here to tell user if it want to add this page
 
@@ -358,12 +365,13 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                             startActivity(intent);
                         }
                     });
+                    if (!name.equals("About"))
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-                btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                btn[0].setFocusable(true);
+                //btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[0].setFocusable(true);
             // When adding another view, make sure you do it on the UI
             // thread.
             layout.post(new Runnable() {
@@ -475,7 +483,8 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                    int posInListOfPage = dataObj.get_submit_button_link();
 
                    if(posInListOfPage >= 0) {
-                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
+                      // dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
+                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
 
                        Class intenetToLaunch = data.getIntentToLaunchPage();
                        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
@@ -644,11 +653,13 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     ProgressDialog pd;
     public void GoLiveFloatingAbtUs(View view) {
         pd=new ProgressDialog(this);
-        pd.setMessage("please wait");
+        pd.setMessage("Please wait");
         pd.show();
 
         changeText();
 
+        //TODO  below method called from changeText()
+        /*
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
 
@@ -659,6 +670,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+         */
 
         aboutUsButtonAction();
 
@@ -826,6 +838,8 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         cardImage.setVisibility(View.GONE);
         deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+        cardImageCrop.setVisibility(View.GONE);
+
 
     }
 
@@ -901,6 +915,18 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         if (para != null) {
             dataObj.set_text_para(para);
         }
+
+        //For Testing
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE, dataObj.get_url());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
     }
             public void changeTitleTextAbtUs(View view) {
 

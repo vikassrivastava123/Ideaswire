@@ -88,9 +88,10 @@ private static String TAG = "CreateCampaign_homePage";
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1,false);
 
-     //   Class intenetToLaunch = data.getIntentToLaunchPage();
-      //  Log.v(TAG, "5" + intenetToLaunch);
-        Intent intent = new Intent(this, FragmenMainActivity.class);
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v(TAG, "5" + intenetToLaunch);
+        //Intent intent = new Intent(this, FragmenMainActivity.class);
+        Intent intent = new Intent(this, intenetToLaunch);
         intent.putExtra("data",data);
         startActivity(intent);
 

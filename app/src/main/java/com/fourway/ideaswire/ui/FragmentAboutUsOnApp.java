@@ -638,6 +638,37 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
     }
 
+
+    public void deleteCardImageAboutUs(View view) {
+
+        cardImage.setVisibility(View.GONE);
+        deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+
+    }
+
+    public void deleteTitleAboutUs(View view) {
+
+        editTitle.setVisibility(View.GONE);
+        deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+
+    }
+
+    public void deleteHeadingAboutUs(View view) {
+
+        editHeader.setVisibility(View.GONE);
+        deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
+    }
+
+    public void deleteSubHeadingAboutUs(View view) {
+        editSubHeading.setVisibility(View.GONE);
+        deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
+    }
+
+    public void deleteParaAboutUs(View view) {
+        editParaGraphAboutUs.setVisibility(View.GONE);
+        deleteParaAboutUsBtnView.setVisibility(View.GONE);
+    }
+
     @Override
     public void onPause() {
         super.onPause();

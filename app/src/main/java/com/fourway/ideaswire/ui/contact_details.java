@@ -157,13 +157,13 @@ public class contact_details extends Activity {
                         public void onClick(View v) {
                             //Toast.makeText(getApplicationContext(),
                             //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                        /*    dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataobj.isDefaultDataToCreateCampaign());
 
                             Class intenetToLaunch = data.getIntentToLaunchPage();
                             Log.v(TAG, "5" + intenetToLaunch);
                             Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
                             intent.putExtra("data",data);
-                            startActivity(intent);*/
+                            startActivity(intent);
                         }
                     });
                     row.addView(btn[i]);
@@ -188,7 +188,7 @@ public class contact_details extends Activity {
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        dataobj = new contactDetailsDataTemplate(1,true);
+        dataobj = (contactDetailsDataTemplate)getIntent().getSerializableExtra("data");
 
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

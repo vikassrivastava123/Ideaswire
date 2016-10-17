@@ -152,7 +152,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     public void createCamapignBtn(View view) throws IOException {
         if (!mEtCampnName.getText().toString().equals("")) {
             pd = new ProgressDialog(this);
-            pd.setMessage("please wait");
+            pd.setMessage("Please wait");
 
             boolean liveCampain = false;
 

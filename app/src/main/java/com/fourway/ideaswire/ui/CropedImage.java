@@ -83,7 +83,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
         if (galleryStarted == false) {
             galleryStarted = true;
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
         }
 

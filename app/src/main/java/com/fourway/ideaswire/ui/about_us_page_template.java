@@ -1,5 +1,6 @@
 package com.fourway.ideaswire.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class about_us_page_template extends AppCompatActivity {
+public class about_us_page_template extends Activity {
     ListView listView;
     List<String> list=new ArrayList<>();
 
@@ -39,7 +40,7 @@ public class about_us_page_template extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         listView=(ListView)findViewById(R.id.listView);
 

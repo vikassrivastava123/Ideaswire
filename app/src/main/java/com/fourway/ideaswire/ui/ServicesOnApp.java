@@ -203,6 +203,7 @@ public class ServicesOnApp extends Activity implements SaveProfileData.SaveProfi
                             startActivity(intent);
                         }
                     });
+                    if (!name.equals("Service"))
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;

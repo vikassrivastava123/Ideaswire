@@ -71,6 +71,8 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
     ImageView deleteSubHeaderBelowimgBlogBtnView = null;
     ImageView deleteParaBlogBelowimgBtnView = null;
 
+    RelativeLayout cardRelativeLayout=null;
+
     blogpageDataTemplate dataObj;
     private boolean showPreview = false;
 
@@ -180,6 +182,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
                                     (int)x,
                                     (int)y));
                     buttonLayoutParams.setMargins(2,2, 0, 0);
+
                     btn[i] = new Button(activity_blogpage.this);
 
                     btn[i].setLayoutParams(buttonLayoutParams);
@@ -188,6 +191,8 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
                     btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+
+                            changeText();
 
                             blogPageToRequest();
                             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
@@ -199,6 +204,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
                             startActivity(intent);
                         }
                     });
+                    if (!name.equals("Blog"))
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
@@ -231,6 +237,8 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         deleteHeadingBelowimgBlogBtnView=(ImageView)findViewById(R.id.deleteHeadingBelowimgBlogPage);
         deleteSubHeaderBelowimgBlogBtnView=(ImageView)findViewById(R.id.deleteSubHeaderBelowimgBlog);
         deleteParaBlogBelowimgBtnView=(ImageView)findViewById(R.id.deleteParaBelowimgBlogPage);
+
+        cardRelativeLayout = (RelativeLayout)findViewById(R.id.cardImageLayout);
 
         cardImage = (NetworkImageView) findViewById(R.id.Blog_CARD_IMAGE);
         cardImageCrop =(ImageView) findViewById(R.id.Blog_STATIC_IMAGE);
@@ -345,6 +353,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         if(dataObj.isDefaultDataToCreateCampaign() == false) {
             toolbar.setVisibility(View.GONE);
             init_viewCampaign();
+            showPreview=true;
         }
 
     }
@@ -437,6 +446,8 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
         changeText();
 
+        //TODO  below method called from changeText()
+        /*
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1, dataObj.getHeaderBlog());
@@ -450,6 +461,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_1, dataObj.getText_Para());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_2, dataObj.getText_ParaBlowing());
 
+        */
 
 
         //requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
@@ -631,6 +643,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
         cardImage.setVisibility(View.GONE);
         deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+        cardRelativeLayout.setVisibility(View.GONE);
 
     }
 
@@ -715,6 +728,20 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         if (paraBelow != null) {
             dataObj.setText_ParaBlowing(paraBelow);
         }
+
+        //For testing
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE, dataObj.getTitle());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1, dataObj.getHeaderBlog());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_2, dataObj.getHeaderBlogBlowing());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_1, dataObj.getSubHeader());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_2, dataObj.getSubHeaderBlowing());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_CARD_IMAGE, dataObj.getUrlOfImage());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_1, dataObj.getText_Para());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_PARAGRAPH_2, dataObj.getText_ParaBlowing());
     }
 
     /*
