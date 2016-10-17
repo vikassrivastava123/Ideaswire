@@ -124,7 +124,7 @@
 
 
 
-        </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/content_about_us_template1_on_app" />

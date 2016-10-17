@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
 
     <EditText android:id="@+id/ABOUT_TITLE"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
@@ -91,6 +93,8 @@
 
 
             <EditText
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:background="@color/card"
@@ -125,6 +129,8 @@
 
 
             <EditText android:background="@color/card"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -154,6 +160,7 @@
                 android:background="@null"
                 />
             <EditText
+                android:inputType="textMultiLine"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/card"

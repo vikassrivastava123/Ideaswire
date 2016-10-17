@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -78,11 +79,19 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         openGalleryForActivity = intentScrn.getIntExtra(MainActivity.OPEN_GALLERY_FOR, 100);
         mCampaignNameReceived = intentScrn.getStringExtra("CampaignName");
 
+    if(scrnName != null && scrnName.equals(MainActivity.OPEN_CAMERA_FOR_SEARCH) == true){
 
-        Log.v("","scrnName"+scrnName);
-        Log.v("","openGalleryForActivity"+openGalleryForActivity);
+        if (galleryStarted == false) {
+            galleryStarted = true;
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+        }
 
-        if(galleryStarted == false) {
+    }else {
+        Log.v("", "scrnName" + scrnName);
+        Log.v("", "openGalleryForActivity" + openGalleryForActivity);
+
+        if (galleryStarted == false) {
             galleryStarted = true;
             Intent intent = new Intent();
             // Show only images, no videos or anything else
@@ -92,6 +101,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
             // Always show the chooser (if there are multiple options available)
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_IMAGE_SELECTOR);
         }
+    }
 
     }
 
@@ -233,6 +243,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         createImagefromBitmap(bitmap,MainActivity.SEARCH__IMAGE_CROPED_NAME);
                         editCampaignIntent = new Intent(this, EditPhotoSelectedUi.class);
                         startActivity(editCampaignIntent);
+                        finish();
                         break;
                     case MainActivity.OPEN_GALLERY_FOR_CREATE_CAMPAIGN:
                         String campnName=getIntent().getStringExtra("CampaignName");
@@ -260,8 +271,14 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
     @Override
     protected void onActivityResult(int  requestCode, int resultCode, Intent data) {
         galleryStarted = false;
+        Uri imageUri = null;
         if (resultCode == Activity.RESULT_OK) {
-            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+            if (requestCode == MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR) {
+                imageUri = CropImage.getPickImageResultUri(this, null);
+            } else{
+                imageUri = CropImage.getPickImageResultUri(this, data);
+            }
 
             // For API >= 23 we need to check specifically that we have permissions to read external storage,
             // but we don't know if we need to for the URI so the simplest is to try open the stream and see if we get error.

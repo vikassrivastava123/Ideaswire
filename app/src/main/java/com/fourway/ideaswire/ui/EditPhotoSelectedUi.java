@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,8 +44,8 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 //                //startActivity(intent);
 //            }
 //        });
-//        Intent intent = getIntent();
-//        String image_path= intent.getStringExtra("imageUri");
+        Intent intent = getIntent();
+        String image_path= intent.getStringExtra("imageUri");
 
         Log.v("EditPhotoSelectedUi","start");
         CroppedimageView = (ImageView) findViewById(R.id.capturedImage);
@@ -89,7 +90,11 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
     }
 
 
+    ProgressDialog pd;
     public void TestSearch(View view) {
+        pd=new ProgressDialog(this);
+        pd.setMessage("Searching...");
+        pd.show();
         Log.v("TestSearch", "start");
        /* if(imgUri == null){
             Log.v("TestSearch","imgUri is null");
@@ -121,6 +126,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
     public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
         Log.v("search results","res :"+res);
 
+        pd.dismiss();
         if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
 
             //Toast.makeText(getApplicationContext(), "Search waas sucess :)", Toast.LENGTH_SHORT).show();

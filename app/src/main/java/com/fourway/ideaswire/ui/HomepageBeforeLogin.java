@@ -74,9 +74,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     private File mCurrentPhoto;
 
-    final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
-    final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
-    final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
+
 
     NavigationView navigationView=null;
     Toolbar toolbar=null;
@@ -279,7 +277,15 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     public void cameraButtonOnClick(View view) {
 
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent inf = new Intent (this,CropedImage.class);
+        inf.putExtra(MainActivity.OPEN_GALLERY_FOR ,MainActivity.OPEN_GALLERY_FOR_SEARCH );
+
+        inf.putExtra("ScreenName",MainActivity.OPEN_CAMERA_FOR_SEARCH );
+        startActivity(inf);
+
+
+
+     /*   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 //            try {
@@ -288,11 +294,13 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //                // Error occurred while creating the File
 //            }
             // Continue only if the File was successfully created
-            if (mCurrentPhoto != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCurrentPhoto));
+            //if (mCurrentPhoto != null)
+            {
+             //   takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCurrentPhoto));
                 startActivityForResult(takePictureIntent, REQUEST_CAMERA_IMAGE_SELECTOR);
             }
         }
+        */
     }
 
     void startGallery(){
@@ -393,12 +401,19 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
         Log.d("onActivityResult", "start :");
 
-        if (requestCode == REQUEST_GALLERY_IMAGE_SELECTOR && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
             Log.d("onActivityResult", "URI :" + imageUri);
             String uriString = null;
             uriString = FileUtils.getPath(this, imageUri);
             Log.d("onActivityResult", "URI :" + uriString);
+
+          //  Intent inf = new Intent (this,CropedImage.class);
+          //  inf.putExtra(MainActivity.OPEN_GALLERY_FOR ,MainActivity.OPEN_GALLERY_FOR_SEARCH );
+          //  startActivity(inf);
+
+
+
             Intent EditPhotoIntent = new Intent(this, EditPhotoSelectedUi.class);
             EditPhotoIntent.putExtra("imageUri", uriString);
             startActivity(EditPhotoIntent);

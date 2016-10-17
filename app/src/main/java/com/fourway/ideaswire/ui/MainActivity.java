@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity{
     public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
     public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
 
+    public static final String OPEN_CAMERA_FOR_SEARCH = "openCameraSearch";
+
+    public static final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
+    public static final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
+    public static final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
+
+
     public static Profile requestToMakeProfile = null;
 
     @Override
@@ -77,7 +84,8 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
 
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        //Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         startActivity(intent);
 
         //startActivity(new Intent(getApplicationContext(), FragmenMainActivity.class));

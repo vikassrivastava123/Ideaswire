@@ -136,8 +136,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.FragmenMainActivity"
-           
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
