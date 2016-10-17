@@ -136,7 +136,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.FragmenMainActivity"
-            android:label="@string/title_activity_fragmen_main"
+           
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
