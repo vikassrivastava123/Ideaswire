@@ -133,11 +133,16 @@
         <activity
             android:name=".ui.about_us_page_template"
             android:label="@string/title_activity_about_us_page_tamplate"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.FragmenMainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.SplashScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" ></activity>
     </application>
 
 </manifest>
