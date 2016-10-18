@@ -15,6 +15,7 @@
 
 
     <ImageView
+        android:layout_marginBottom="-25dp"
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,9 +35,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/galleryButton"
         android:src="@drawable/upload_photo"
-        android:layout_marginLeft="31.5dp"
+        android:layout_marginLeft="42dp"
         android:paddingLeft="11dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="36dp"
         android:layout_alignTop="@+id/footer"
         android:layout_alignParentLeft="true"
         android:layout_alignLeft="@id/fakeView"
@@ -50,9 +51,8 @@
         android:id="@+id/cameraButton"
 
         android:src="@drawable/take_photo"
-        android:layout_marginTop="41dp"
-        android:layout_marginLeft="57dp"
-        android:layout_marginRight="52dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="62dp"
 
         android:layout_alignTop="@+id/footer"
         android:layout_alignRight="@id/fakeView"

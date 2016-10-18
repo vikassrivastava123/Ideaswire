@@ -154,7 +154,10 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        }else if (id==R.id.nav_login) {
+            startActivity(new Intent(this,loginUi.class));
+
+        }else if (id == R.id.nav_slideshow) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
