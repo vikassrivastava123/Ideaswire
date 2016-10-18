@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +47,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
     private String mCampaignNameReceived = null;
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +84,17 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
         if (galleryStarted == false) {
             galleryStarted = true;
-            Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+
+            if (CropImage.isExplicitCameraPermissionRequired(this)) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                //CropImage.startPickImageActivity(this);
+                Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+            }
+
+
+
         }
 
     }else {
@@ -95,7 +105,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
             galleryStarted = true;
             Intent intent = new Intent();
             // Show only images, no videos or anything else
-            intent.setType("image/*");
+            intent.setType("image/*"); //MediaStore.ACTION_IMAGE_CAPTURE
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             // Always show the chooser (if there are multiple options available)
@@ -169,7 +179,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
     public void createImagefromBitmap(Bitmap bitmap,String fileName){
 
-        Log.v("createImagefromBitmap","start");
+        Log.v("createImagefromBitmap", "start");
         try{
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -267,6 +277,20 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
          }
     }
 
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .start(this);
+    }
+
+    @SuppressLint("NewApi")
+    public void onSelectImageClick(View view) {
+        if (CropImage.isExplicitCameraPermissionRequired(this)) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            CropImage.startPickImageActivity(this);
+        }
+    }
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int  requestCode, int resultCode, Intent data) {
@@ -275,7 +299,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         if (resultCode == Activity.RESULT_OK) {
 
             if (requestCode == MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR) {
-                imageUri = CropImage.getPickImageResultUri(this, null);
+                imageUri = CropImage.getPickImageResultUri(this, data);
             } else{
                 imageUri = CropImage.getPickImageResultUri(this, data);
             }
@@ -288,13 +312,19 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                 // request permissions and handle the result in onRequestPermissionsResult()
                 requirePermissions = true;
                 mCropImageUri = imageUri;
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
             }
 
             if (!requirePermissions) {
-                mCropImageView.setImageUriAsync(imageUri);
-                mProgressViewText.setText("Loading...");
-                mProgressView.setVisibility(View.VISIBLE);
+                  mCropImageView.setImageUriAsync(imageUri);
+                  mProgressViewText.setText("Loading...");
+                  mProgressView.setVisibility(View.VISIBLE);
+                              // CropImage.startPickImageActivity(this);
+
+                //   startCropImageActivity(imageUri);
+                //CropImage.startPickImageActivity(this);
+
+
             }
         }
         else {
@@ -304,10 +334,25 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+               // CropImage.startPickImageActivity(this);
+
+                Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
         if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             mCropImageView.setImageUriAsync(mCropImageUri);
             mProgressViewText.setText("Loading...");
             mProgressView.setVisibility(View.VISIBLE);
+            CropImage.startPickImageActivity(this);
         } else {
             Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
@@ -320,4 +365,5 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
     public void onCancelImageClick(View view){
         finish();
     }
+
 }
