@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 public class CreateCampaign_homePage extends Activity implements GetProfileRequest.GetProfileResponseCallback {
     TextView tf,mTitle;
     MyProfileAdapter mProfileAdapter;
+    Boolean campaignEditMode;
+    int profilePosition;
 private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,23 @@ private static String TAG = "CreateCampaign_homePage";
 
         try {
             GridView gv = (GridView) findViewById(R.id.profileGridView);
+            final ProgressDialog pd=new ProgressDialog(this);
+            pd.setMessage("Profile Loading...");
+            pd.show();
+            new Thread(){
+                public void run()
+                {
+                    try {
+                        sleep(2000);
+                        if (loginUi.mProfileList==null){
+                            sleep(2000);
+                            pd.dismiss();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
             if(loginUi.mProfileList!=null) {
                 mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
 
@@ -61,11 +81,26 @@ private static String TAG = "CreateCampaign_homePage";
                 gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Profile p = loginUi.mProfileList.get(position);
-                        GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-                        GetProfileRequest request =
-                                new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
-                        request.executeRequest();
+                        campaignEditMode =true;
+                        if(view.getId()==R.id.imgViewProfile) {
+                            Profile p = loginUi.mProfileList.get(position);
+                            GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+                            GetProfileRequest request =
+                                    new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+                            request.executeRequest();
+
+                        }
+
+                        if(view.getId()==R.id.editCampaign) {
+                            campaignEditMode = false;
+                            profilePosition = position;
+                            Profile p = loginUi.mProfileList.get(position);
+                            GetProfileRequestData profileRequestData = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+                            GetProfileRequest request =
+                                    new GetProfileRequest(CreateCampaign_homePage.this, profileRequestData, CreateCampaign_homePage.this);
+                            request.executeRequest();
+                        }
+
                     }
                 });
             }
@@ -86,14 +121,24 @@ private static String TAG = "CreateCampaign_homePage";
 
     private void shownLiveProfile(){
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1,false);
+        if (campaignEditMode) {
+            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
 
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v(TAG, "5" + intenetToLaunch);
-        //Intent intent = new Intent(this, FragmenMainActivity.class);
-        Intent intent = new Intent(this, intenetToLaunch);
-        intent.putExtra("data",data);
-        startActivity(intent);
+            Class intenetToLaunch = data.getIntentToLaunchPage();
+            Log.v(TAG, "5" + intenetToLaunch);
+            //Intent intent = new Intent(this, FragmenMainActivity.class);
+            Intent intent = new Intent(this, intenetToLaunch);
+            intent.putExtra("data", data);
+            intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
+            startActivity(intent);
+        }else {
+
+            Intent intent = new Intent(this, EditCampaignNew.class);
+            intent.putExtra("profilePosition",profilePosition);
+            intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
+            startActivity(intent);
+
+        }
 
     }
 
