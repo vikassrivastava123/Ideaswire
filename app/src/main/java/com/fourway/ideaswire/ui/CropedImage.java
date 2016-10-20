@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -88,12 +89,13 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
             if (CropImage.isExplicitCameraPermissionRequired(this)) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
             } else {
-                //CropImage.startPickImageActivity(this);
-                Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Uri outputFileUri = CropImage.getCaptureImageOutputUri(this);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cameraIntent, CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE);
+                }
             }
-
-
 
         }
 
@@ -298,11 +300,9 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         Uri imageUri = null;
         if (resultCode == Activity.RESULT_OK) {
 
-            if (requestCode == MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR) {
-                imageUri = CropImage.getPickImageResultUri(this, data);
-            } else{
-                imageUri = CropImage.getPickImageResultUri(this, data);
-            }
+
+             imageUri = CropImage.getPickImageResultUri(this, data);
+
 
             // For API >= 23 we need to check specifically that we have permissions to read external storage,
             // but we don't know if we need to for the URI so the simplest is to try open the stream and see if we get error.
@@ -319,11 +319,6 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                   mCropImageView.setImageUriAsync(imageUri);
                   mProgressViewText.setText("Loading...");
                   mProgressView.setVisibility(View.VISIBLE);
-                              // CropImage.startPickImageActivity(this);
-
-                //   startCropImageActivity(imageUri);
-                //CropImage.startPickImageActivity(this);
-
 
             }
         }
@@ -337,24 +332,26 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
 
         if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-               // CropImage.startPickImageActivity(this);
-
-                Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePictureIntent, MainActivity.REQUEST_CAMERA_IMAGE_SELECTOR);
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Uri outputFileUri = CropImage.getCaptureImageOutputUri(this);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cameraIntent, CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE);
+                }
 
             } else {
                 Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
             }
         }
+       else if(requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mCropImageView.setImageUriAsync(mCropImageUri);
+                mProgressViewText.setText("Loading...");
+                mProgressView.setVisibility(View.VISIBLE);
 
-
-        if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            mCropImageView.setImageUriAsync(mCropImageUri);
-            mProgressViewText.setText("Loading...");
-            mProgressView.setVisibility(View.VISIBLE);
-            CropImage.startPickImageActivity(this);
-        } else {
-            Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
