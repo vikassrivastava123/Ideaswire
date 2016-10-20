@@ -130,6 +130,10 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
         return super.onOptionsItemSelected(item);
     }
 
+    public void backButtonHandler(View view){
+
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
