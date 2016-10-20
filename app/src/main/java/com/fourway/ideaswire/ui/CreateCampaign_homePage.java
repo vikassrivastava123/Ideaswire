@@ -91,7 +91,7 @@ private static String TAG = "CreateCampaign_homePage";
 
                         }
 
-                        if(view.getId()==R.id.editCampaign) {
+                       /* if(view.getId()==R.id.editCampaign) {
                             campaignEditMode = false;
                             profilePosition = position;
                             Profile p = loginUi.mProfileList.get(position);
@@ -99,7 +99,7 @@ private static String TAG = "CreateCampaign_homePage";
                             GetProfileRequest request =
                                     new GetProfileRequest(CreateCampaign_homePage.this, profileRequestData, CreateCampaign_homePage.this);
                             request.executeRequest();
-                        }
+                        }*/
 
                     }
                 });
@@ -121,7 +121,7 @@ private static String TAG = "CreateCampaign_homePage";
 
     private void shownLiveProfile(){
 
-        if (campaignEditMode) {
+      //  if (campaignEditMode) {
             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
 
             Class intenetToLaunch = data.getIntentToLaunchPage();
@@ -129,16 +129,17 @@ private static String TAG = "CreateCampaign_homePage";
             //Intent intent = new Intent(this, FragmenMainActivity.class);
             Intent intent = new Intent(this, intenetToLaunch);
             intent.putExtra("data", data);
-            intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
+         //   intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);
-        }else {
+       // }
+        /*else {
 
             Intent intent = new Intent(this, EditCampaignNew.class);
             intent.putExtra("profilePosition",profilePosition);
             intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);
 
-        }
+        }*/
 
     }
 

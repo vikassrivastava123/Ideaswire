@@ -10,11 +10,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -85,14 +83,14 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
         setContentView(R.layout.activity_homepage_before_login);
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Montserrat-Regular.otf");
-        //mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mAdapter = new HomeScreenPagerAdapter(this);
-//        mViewPager.setAdapter(mAdapter);
+        mViewPager.setAdapter(mAdapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-       // pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
-       // mViewPager.setOnPageChangeListener(this);
+        pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
+        mViewPager.setOnPageChangeListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,10 +99,10 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        startSlideShow();
-//        setUiPageViewController();
+        startSlideShow();
+        setUiPageViewController();
 //
-//        initHomeResources();
+      // initHomeResources();
     }
 
 
