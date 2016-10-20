@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -52,8 +53,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -75,6 +74,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     ImageView deleteParaAboutUsBtnView = null;
 
     AboutUsDataTemplate dataObj;
+    boolean inPreviewMode = false;
     private boolean showPreview = false;
 
     void init_viewCampaign(){
@@ -296,6 +296,8 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
             PhotoAsyncTask obj = new PhotoAsyncTask();
             obj.execute();
             cropRestart=0;
+        }else {
+            loadPageTemplate();
         }
 
     }
@@ -307,87 +309,19 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
     }
 
+    RelativeLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_us_template1_on_app);
         // AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
-        final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
-        Timer timing = new Timer();
-        timing.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        layout = (RelativeLayout) findViewById(R.id.dynamicPages);
 
-                int size = MainActivity.listOfTemplatePagesObj.size();
-                Button[] btn = new Button[size];
-                int i = 0;
-                final LinearLayout row = new LinearLayout(AboutUsOnApp.this);
-                row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                for(pages obj: MainActivity.listOfTemplatePagesObj) {
-                    String name = obj.nameis();
-
-                    float x=0;
-                    float btnWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics());
-                    if(size<5)
-                    {
-                       x= btnWidth/size-1;
-
-                    }else {
-                        x = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
-                    }
-                    float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
-
-                    LinearLayout.LayoutParams buttonLayoutParams =
-                            new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
-                                    (int)x,
-                                    (int)y));
-                    buttonLayoutParams.setMargins(2,2, 0, 0);
-                    btn[i] = new Button(AboutUsOnApp.this);
-
-                    btn[i].setLayoutParams(buttonLayoutParams);
-                    btn[i].setText(name);
-                    btn[i].setId(i);
-                    btn[i].setBackgroundColor(getResources().getColor(R.color.card));
-                    btn[i].setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            changeText();
-
-                            addPageToRequest();//ToDo Add DialogBox here to tell user if it want to add this page
-
-                            //Toast.makeText(getApplicationContext(),
-                             //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
-
-                            Class intenetToLaunch = data.getIntentToLaunchPage();
-                            Log.v(TAG, "5" + intenetToLaunch);
-                            Intent intent = new Intent(AboutUsOnApp.this, intenetToLaunch);
-                            intent.putExtra("data",data);
-                            startActivity(intent);
-                        }
-                    });
-                    if (!name.equals("About"))
-                    row.addView(btn[i]);
-                    // Add the LinearLayout element to the ScrollView
-                    i++;
-                }
-                //btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                //btn[0].setFocusable(true);
-            // When adding another view, make sure you do it on the UI
-            // thread.
-            layout.post(new Runnable() {
-
-                public void run() {
-
-                    layout.addView(row);
-                }
-            });
-        }
-    }, 500);
-
+        loadPageTemplate();
 
           //dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplateDataObj;//
         dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
-
+        inPreviewMode =getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey,false);
 //        int seltemplate = dataObj.getTemplateSelected();
 //
 //// if(seltemplate == 1) {
@@ -418,38 +352,42 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         String title = dataObj.get_title();
         editTitle = (EditText) findViewById(R.id.ABOUT_TITLE);
-        if(title != null) {
+        if(title != null && !title.equals("")) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
             editTitle.setVisibility(View.GONE);
+            deleteTitleAboutUsBtnView.setVisibility(View.GONE);
         }
 
         String header = dataObj.get_heading();
         editHeader = (EditText) findViewById(R.id.ABOUT_US_HEADING);
-        if(header != null) {
+        if(header != null && !header.equals("")) {
             editHeader.setText(header);
             editHeader.setTypeface(mycustomFont);
         }else{
             editHeader.setVisibility(View.GONE  );
+            deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
         }
 
         String subHeading = dataObj.get_sub_heading();
         editSubHeading = (EditText) findViewById(R.id.ABOUT_US_SUBHEADING);
-        if(subHeading != null) {
+        if(subHeading != null && !subHeading.equals("")) {
             editSubHeading.setText(subHeading);
             editSubHeading.setTypeface(mycustomFont);
         }else{
             editSubHeading.setVisibility(View.GONE);
+            deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
         }
 
         String paraGraphAboutUs =  dataObj.get_text_para();
         editParaGraphAboutUs = (EditText) findViewById(R.id.paraGraphAboutUs);
-        if(paraGraphAboutUs != null){
+        if(paraGraphAboutUs != null && !paraGraphAboutUs.equals("")){
             editParaGraphAboutUs.setText(paraGraphAboutUs);
             editParaGraphAboutUs.setTypeface(mycustomFont);
         }else{
             editParaGraphAboutUs.setVisibility(View.GONE);
+            deleteParaAboutUsBtnView.setVisibility(View.GONE);
         }
 
         submit_button = (Button) findViewById(R.id.buttonMainAbtUs);
@@ -482,14 +420,23 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
                    int posInListOfPage = dataObj.get_submit_button_link();
 
-                   if(posInListOfPage >= 0) {
+                   if(posInListOfPage >0) {
                       // dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
-                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+                       dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,showPreview);
 
                        Class intenetToLaunch = data.getIntentToLaunchPage();
                        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
                        intent.putExtra("data", data);
                        startActivity(intent);
+                   }else {
+                       String btnUrl= dataObj.get_buttonUrl();
+                       if (btnUrl!=null) {
+                           if (!btnUrl.startsWith("http://") && !btnUrl.startsWith("https://"))
+                               btnUrl = "http://" + btnUrl;
+
+                           Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(btnUrl));
+                           startActivity(browserIntent);
+                       }
                    }
                }
 
@@ -514,12 +461,113 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
 
 
+        //if(dataObj.isDefaultDataToCreateCampaign() == false && inPreviewMode == true)
      if(dataObj.isDefaultDataToCreateCampaign() == false) {
          toolbar.setVisibility(View.GONE);
          init_viewCampaign();
          showPreview = true;
      }
   }
+
+
+    void loadPageTemplate()
+    {
+        Timer timing = new Timer();
+        timing.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                int size = MainActivity.listOfTemplatePagesObj.size();
+                final Button[] btn = new Button[size];
+                int i = 0;
+                final LinearLayout row = new LinearLayout(AboutUsOnApp.this);
+                row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
+                for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                    String name = obj.nameis();
+
+
+                     float   x = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+
+                    float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
+
+                    LinearLayout.LayoutParams buttonLayoutParams =
+                            new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
+                                    (int)x,
+                                    (int)y));
+                    buttonLayoutParams.setMargins(2,2, 0, 0);
+                    btn[i] = new Button(AboutUsOnApp.this);
+
+                    btn[i].setLayoutParams(buttonLayoutParams);
+                    btn[i].setText(name);
+                    btn[i].setId(i);
+                    btn[i].setBackgroundColor(getResources().getColor(R.color.card));
+                    btn[i].setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            if (!btn[v.getId()].getText().toString().equals("About")) {
+                                changeText();
+
+                                dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+
+
+                                Class intenetToLaunch = data.getIntentToLaunchPage();
+                                Log.v(TAG, "5" + intenetToLaunch);
+                                final Intent intent = new Intent(AboutUsOnApp.this, intenetToLaunch);
+                                intent.putExtra("data", data);
+
+                                AlertDialog.Builder dialog=new AlertDialog.Builder(AboutUsOnApp.this);
+                                dialog.setMessage("Want to add this page?");
+
+                                dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        addPageToRequest();
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                if (dataObj.isDefaultDataToCreateCampaign() == true) {
+                                    dialog.show();
+                                }else {
+                                    startActivity(intent);
+                                }
+
+
+                                //Toast.makeText(getApplicationContext(),
+                                //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+
+
+
+                            }
+                        }
+                    });
+                    if (btn[i].getText().toString().equals("About"))
+                        btn[i].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+
+                        row.addView(btn[i]);
+                    // Add the LinearLayout element to the ScrollView
+                    i++;
+                }
+                //btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[0].setFocusable(true);
+                // When adding another view, make sure you do it on the UI
+                // thread.
+                layout.post(new Runnable() {
+
+                    public void run() {
+
+                        layout.addView(row);
+                    }
+                });
+            }
+        }, 500);
+    }
 
     Page  mAbtUsPageObj;
     String mProfileId = null;
@@ -846,6 +894,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     public void deleteTitleAboutUs(View view) {
 
         editTitle.setVisibility(View.GONE);
+        editTitle.setText(null);
         deleteTitleAboutUsBtnView.setVisibility(View.GONE);
 
     }
@@ -853,16 +902,19 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     public void deleteHeadingAboutUs(View view) {
 
         editHeader.setVisibility(View.GONE);
+        editHeader.setText(null);
         deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
     }
 
     public void deleteSubHeadingAboutUs(View view) {
         editSubHeading.setVisibility(View.GONE);
+        editSubHeading.setText(null);
         deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
     }
 
     public void deleteParaAboutUs(View view) {
         editParaGraphAboutUs.setVisibility(View.GONE);
+        editParaGraphAboutUs.setText(null);
         deleteParaAboutUsBtnView.setVisibility(View.GONE);
     }
 
@@ -925,6 +977,8 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT, dataObj.get_buttonUrl());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
     }
