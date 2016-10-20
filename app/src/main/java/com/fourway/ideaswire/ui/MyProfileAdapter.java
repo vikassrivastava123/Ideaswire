@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
@@ -46,10 +49,12 @@ public class MyProfileAdapter extends BaseAdapter {
 
     private class ViewHolder{
         NetworkImageView nIv;
+        TextView campaignName;
+        ImageButton editImageButton;
     }
     LayoutInflater li;
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         View v = convertView;
         ViewHolder vh = new ViewHolder();
 
@@ -57,6 +62,8 @@ public class MyProfileAdapter extends BaseAdapter {
             li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            v = li.inflate(R.layout.design_profile_list, null);
             vh.nIv = (NetworkImageView) v.findViewById(R.id.imgViewProfile);
+            vh.campaignName = (TextView) v.findViewById(R.id.campaignName);
+            vh.editImageButton = (ImageButton) v.findViewById(R.id.editCampaign);
             v.setTag(vh);
         }
         else
@@ -64,11 +71,33 @@ public class MyProfileAdapter extends BaseAdapter {
             vh = (ViewHolder) v.getTag();
         }
 
-        vh.nIv.setImageResource(R.drawable.ic_menu_manage);
+        vh.nIv.setImageResource(R.drawable.image_loader);
         String url =  (mProfileList.get(position)).getImageUrl();
         if (url != null && !url.equalsIgnoreCase("null")){
             vh.nIv.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());
         }
+
+        String cName = (mProfileList.get(position)).getProfileName();
+        if (cName !=null && cName.equalsIgnoreCase("null")){
+            vh.campaignName.setText(cName);
+        }
+
+        vh.nIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((GridView) parent).performItemClick(v, position, 0);
+            }
+        });
+
+        vh.editImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((GridView) parent).performItemClick(v, position, 0);
+
+            }
+        });
+
+
 
         return v;
     }

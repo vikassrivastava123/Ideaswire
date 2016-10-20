@@ -28,4 +28,15 @@ public abstract class dataOfTemplate implements Serializable {
     abstract public boolean isDefaultDataToCreateCampaign();
     abstract public int getTemplateSelected();
 
+    public int getPositionInList(){
+        int test = 0;
+        int size = MainActivity.listOfTemplatePagesObj.size();
+        for(test = 0;test<size;test++){
+            if(this.equals(MainActivity.listOfTemplatePagesObj.get(test).getDataForTemplate(1)) == true){
+                return test;
+            }
+       }
+        return -1;
+    }
+
 }

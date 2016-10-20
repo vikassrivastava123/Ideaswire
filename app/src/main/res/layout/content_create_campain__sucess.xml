@@ -12,6 +12,13 @@
     tools:context="com.fourway.ideaswire.ui.CreateCampain_Sucess"
     tools:showIn="@layout/activity_create_campain__sucess">
 
+    <!-- TODO: remove below code after testing-->
+
+
+
+    <!-- TODO: remove above code after testing-->
+
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"

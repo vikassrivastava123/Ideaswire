@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int REQUEST_GALLERY_IMAGE_SELECTOR = 101;
     public static final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
     public static final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
+    public static final String ExplicitEditModeKey = "ExplicitEditMode";
 
 
     public static Profile requestToMakeProfile = null;
@@ -85,8 +86,9 @@ public class MainActivity extends AppCompatActivity{
         intent.putExtra("data",data);*/
 
         //Intent intent = new Intent(getApplicationContext(), loginUi.class);
-        Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
+        //startActivity(intent);
+        startActivity(new Intent(this,SplashScreen.class));
 
         //startActivity(new Intent(getApplicationContext(), FragmenMainActivity.class));
 
@@ -109,13 +111,13 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
-        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
-        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
-        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
-        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
-        MainActivity.listOfTemplatePagesObj.add(5,clientobj);
-        MainActivity.listOfTemplatePagesObj.add(6,teamPages);
+        MainActivity.listOfTemplatePagesObj.add(abtusObj);
+        MainActivity.listOfTemplatePagesObj.add(homeObj);
+        MainActivity.listOfTemplatePagesObj.add(blogpage);
+        MainActivity.listOfTemplatePagesObj.add(contactdetails);
+        MainActivity.listOfTemplatePagesObj.add(ServicePage);
+        MainActivity.listOfTemplatePagesObj.add(clientobj);
+        MainActivity.listOfTemplatePagesObj.add(teamPages);
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected,true);
 

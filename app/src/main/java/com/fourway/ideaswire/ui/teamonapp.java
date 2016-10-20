@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.TeamDataTemplate;
-import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
@@ -177,8 +176,8 @@ public class teamonapp extends Activity {
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-                btn[6].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                btn[6].setFocusable(true);
+                //btn[6].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[6].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
                 layout.post(new Runnable() {

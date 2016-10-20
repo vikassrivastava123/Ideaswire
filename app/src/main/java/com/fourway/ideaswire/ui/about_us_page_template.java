@@ -2,14 +2,11 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,6 +24,7 @@ import java.util.TimerTask;
 public class about_us_page_template extends Activity {
     ListView listView;
     List<String> list=new ArrayList<>();
+    PageTemplateArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class about_us_page_template extends Activity {
             @Override
             public void run() {
 
-                int size = MainActivity.listOfTemplatePagesObj.size();
+                final int size = MainActivity.listOfTemplatePagesObj.size();
                 ImageButton[] btn = new ImageButton[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(about_us_page_template.this);
@@ -71,14 +69,18 @@ public class about_us_page_template extends Activity {
 
                     btn[i].setLayoutParams(buttonLayoutParams);
                     btn[i].setImageResource(icon);
-                    //btn[i].setText(name);
+                    btn[i].setId(i);
                     btn[i].setBackgroundColor(getResources().getColor(android.R.color.black));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            Toast.makeText(getApplicationContext(),
-                                    "button is clicked" + v.getId(), Toast.LENGTH_SHORT).show();
+                            String pageName = MainActivity.listOfTemplatePagesObj.get(v.getId()).nameis();
+                            MainActivity.listOfTemplatePagesObj.add(size,MainActivity.listOfTemplatePagesObj.get(v.getId()));
+                            list.add(pageName);
+                            listView.setAdapter(adapter);
+                            Toast.makeText(about_us_page_template.this, pageName + " Added... " , Toast.LENGTH_SHORT).show();
                         }
                     });
+                    if(i<7)
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
@@ -101,8 +103,22 @@ public class about_us_page_template extends Activity {
         }
 
 
-        PageTemplateArrayAdapter adapter=new PageTemplateArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+        adapter=new PageTemplateArrayAdapter(this,android.R.layout.simple_list_item_1,list);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(view.getId()==R.id.imageButton7)
+                {
+                    String pageName = MainActivity.listOfTemplatePagesObj.get(position).nameis();
+                    MainActivity.listOfTemplatePagesObj.remove(position);
+                    list.remove(position);
+                    listView.setAdapter(adapter);
+                    Toast.makeText(about_us_page_template.this, pageName + "delete", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //setSupportActionBar(toolbar);
     }

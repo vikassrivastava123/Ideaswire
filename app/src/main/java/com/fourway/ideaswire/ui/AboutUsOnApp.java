@@ -319,8 +319,16 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         loadPageTemplate();
 
-          //dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplateDataObj;//
+
         dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
+
+        int pos = dataObj.getPositionInList();
+        //if(pos > -1)
+        if(dataObj.isDefaultDataToCreateCampaign() == true){
+                dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+        }
+
+
         inPreviewMode =getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey,false);
 //        int seltemplate = dataObj.getTemplateSelected();
 //
@@ -503,11 +511,12 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                     btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+
                             if (!btn[v.getId()].getText().toString().equals("About")) {
                                 changeText();
 
                                 dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
-
+                                final int indexInList =  0;//data.getPositionInList();
 
                                 Class intenetToLaunch = data.getIntentToLaunchPage();
                                 Log.v(TAG, "5" + intenetToLaunch);
@@ -521,6 +530,11 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         addPageToRequest();
+
+                                        if(indexInList >=0 ){
+                                            changeText();
+                                            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+                                        }
                                         startActivity(intent);
                                     }
                                 });
@@ -536,6 +550,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
                                     dialog.show();
                                 }else {
                                     startActivity(intent);
+                                    finish();
                                 }
 
 
@@ -600,14 +615,14 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         if(numOfPages > 0) {
 
-            addPageToRequest(); //This function has check that ensures page is not added duplicate
+            //addPageToRequest(); //This function has check that ensures page is not added duplicate
                                 //Todo Need to show user popup to get his confirmation that this page will be added
             SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
             req.executeRequest();
         }else{
             Toast.makeText(this,"No page was added to your campaign",Toast.LENGTH_LONG).show();
 
-            addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
+            //addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
             SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
             req.executeRequest();
         }
@@ -720,7 +735,26 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
          */
 
-        aboutUsButtonAction();
+        AlertDialog.Builder dialog=new AlertDialog.Builder(AboutUsOnApp.this);
+        dialog.setMessage("Want to add this page?");
+
+        dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                addPageToRequest();
+                aboutUsButtonAction();
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                aboutUsButtonAction();
+            }
+        });
+
+        dialog.show();
+        
 
 
       //  requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);

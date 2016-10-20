@@ -3,7 +3,6 @@ package com.fourway.ideaswire.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,11 +37,14 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Profile p = loginUi.mProfileList.get(position);
-                GetProfileRequestData data = new GetProfileRequestData(p.getProfileId(), p);
-                GetProfileRequest request =
-                        new GetProfileRequest(searchResults.this, data, searchResults.this);
-                request.executeRequest();
+
+                if(view.getId()==R.id.imgViewProfile) {
+                    Profile p = loginUi.mProfileList.get(position);
+                    GetProfileRequestData data = new GetProfileRequestData(p.getProfileId(), p);
+                    GetProfileRequest request =
+                            new GetProfileRequest(searchResults.this, data, searchResults.this);
+                    request.executeRequest();
+                }
             }
         });
 
@@ -56,6 +58,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
         Class intenetToLaunch = data.getIntentToLaunchPage();
         Log.v(TAG, "5" + intenetToLaunch);
         Intent intent = new Intent(this, intenetToLaunch);
+        intent.putExtra(MainActivity.ExplicitEditModeKey, true);
         intent.putExtra("data",data);
         startActivity(intent);
 

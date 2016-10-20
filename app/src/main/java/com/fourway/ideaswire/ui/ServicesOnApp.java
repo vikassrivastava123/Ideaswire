@@ -208,9 +208,9 @@ public class ServicesOnApp extends Activity implements SaveProfileData.SaveProfi
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-                btn[4].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                btn[4].setFocusable(true);
-                btn[4].setFocusableInTouchMode(true);
+               // btn[4].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[4].setFocusable(true);
+                //btn[4].setFocusableInTouchMode(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
                 layout.post(new Runnable() {

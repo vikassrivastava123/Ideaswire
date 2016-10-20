@@ -2,6 +2,7 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -166,7 +168,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
             public void run() {
 
                 int size = MainActivity.listOfTemplatePagesObj.size();
-                Button[] btn = new Button[size];
+                final Button[] btn = new Button[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(activity_blogpage.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -192,19 +194,54 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            changeText();
+                            if (!btn[v.getId()].getText().toString().equals("Blog")) {
 
-                            blogPageToRequest();
-                            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1,dataObj.isDefaultDataToCreateCampaign());
+                                changeText();
 
-                            Class intenetToLaunch = data.getIntentToLaunchPage();
-                            Log.v(TAG, "5" + intenetToLaunch);
-                            Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-                            intent.putExtra("data",data);
-                            startActivity(intent);
+                                dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+                                final int indexInList =  2;//data.getPositionInList();
+                                Class intenetToLaunch = data.getIntentToLaunchPage();
+                                Log.v(TAG, "5" + intenetToLaunch);
+                                final Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+                                intent.putExtra("data", data);
+
+                                AlertDialog.Builder dialog=new AlertDialog.Builder(activity_blogpage.this);
+                                dialog.setMessage("Want to add this page?");
+
+                                dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        blogPageToRequest();
+
+                                        if(indexInList >=0 ){
+                                            changeText();
+                                            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+                                        }
+
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                if (dataObj.isDefaultDataToCreateCampaign() == true) {
+                                    dialog.show();
+                                }else {
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
                         }
                     });
-                    if (!name.equals("Blog"))
+
+                    if (btn[i].getText().toString().equals("Blog"))
+                        btn[i].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+
                     row.addView(btn[i]);
                     // Add the LinearLayout element to the ScrollView
                     i++;
@@ -224,9 +261,15 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         }, 500);
 
 
-        //dataObj = new blogpageDataTemplate(1,true);
-        //dataObj = (blogpageDataTemplate)MainActivity.listOfTemplateDataObj;//
+
         dataObj=(blogpageDataTemplate) getIntent().getSerializableExtra("data");
+
+        int pos = dataObj.getPositionInList();
+        //if(pos > -1)
+        if(dataObj.isDefaultDataToCreateCampaign() == true){
+            dataObj = (blogpageDataTemplate) MainActivity.listOfTemplatePagesObj.get(2).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+        }
+
 
         deleteTitleBlogBtnView=(ImageView)findViewById(R.id.deleteTitleBlog);
         deleteCARD_IMAGEBtnView=(ImageView)findViewById(R.id.deleteCARD_IMAGE);
@@ -278,67 +321,74 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
         String title = dataObj.getTitle();
         editTitle = (EditText) findViewById(R.id.BLOG_TITLE);
-        if(title != null) {
+        if(title != null && !title.equals("")) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
             editTitle.setVisibility(View.GONE);
+            deleteTitleBlogBtnView.setVisibility(View.GONE);
         }
 
         String header = dataObj.getHeaderBlog();
         heading = (EditText) findViewById(R.id.blog_heading);
-        if(header != null) {
+        if(header != null && !header.equals("")) {
             heading.setText(header);
             heading.setTypeface(mycustomFont);
         }else{
             heading.setVisibility(View.GONE  );
+            deleteHeadingBlogBtnView.setVisibility(View.GONE);
         }
 
         String subHeading = dataObj.getSubHeader();
         subheading = (EditText) findViewById(R.id.blog_subheading);
-        if(subHeading != null) {
+        if(subHeading != null && !subHeading.equals("")) {
             subheading.setText(subHeading);
             subheading.setTypeface(mycustomFont);
         }else{
             subheading.setVisibility(View.GONE);
+            deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
         }
 
         String paraGraph =  dataObj.getText_Para();
         paraGraphBlog = (EditText) findViewById(R.id.blog_paraGraph);
-        if(paraGraph != null){
+        if(paraGraph != null && !paraGraph.equals("")){
             paraGraphBlog.setText(paraGraph);
             paraGraphBlog.setTypeface(mycustomFont);
         }else{
             paraGraphBlog.setVisibility(View.GONE);
+            deleteParaBlogBtnView.setVisibility(View.GONE);
         }
 
         String headingBelow = dataObj.getHeaderBlogBlowing();
         heading_belo = (EditText) findViewById(R.id.blog_heading_belowing);
-        if(headingBelow != null)
+        if(headingBelow != null && !headingBelow.equals(""))
         {
             heading_belo.setText(headingBelow);
             heading_belo.setTypeface(mycustomFont);
         }
         else{
             heading_belo.setVisibility(View.GONE);
+            deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
         }
 
         String subheadingBlow = dataObj.getSubHeaderBlowing();
         subheading_below = (EditText) findViewById(R.id.blog_subheading_belowing);
-        if(subheadingBlow != null){
+        if(subheadingBlow != null && !subheadingBlow.equals("")){
             subheading_below.setText(subheadingBlow);
             subheading_below.setTypeface(mycustomFont);
         }else {
             subheading_below.setVisibility(View.GONE);
+            deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
         }
 
         paraGraphBlog_below = (EditText) findViewById(R.id.blog_paraGraph_belowing);
         String paraGraphBelow = dataObj.getText_ParaBlowing();
-        if(paraGraphBelow != null){
+        if(paraGraphBelow != null && !paraGraphBelow.equals("")){
             paraGraphBlog_below.setText(paraGraphBelow);
             paraGraphBlog_below.setTypeface(mycustomFont);
         }else{
             paraGraphBlog_below.setVisibility(View.GONE);
+            deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
         }
 
         // /setSupportActionBar(toolbar);
@@ -364,9 +414,11 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
     String mParentId = null;
 
     private void setAttribute(String name, String value){
+        if(name != null && value != null) {
 
-        Attribute atrbtObj = new Attribute(mProfileId,mParentId,name,value);
-        mBlogPageObj.addAttribute(atrbtObj);
+            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            mBlogPageObj.addAttribute(atrbtObj);
+        }
     }
 
     void init_editCampaign(){
@@ -469,7 +521,27 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
         //SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
         //req.executeRequest();
 
-        blogButtonAction();
+        AlertDialog.Builder dialog=new AlertDialog.Builder(activity_blogpage.this);
+        dialog.setMessage("Want to add this page?");
+
+        dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                blogPageToRequest();
+                blogButtonAction();
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                blogButtonAction();
+            }
+        });
+
+        dialog.show();
+
+
     }
 
     private void blogPageToRequest(){
@@ -488,14 +560,14 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
         if(numOfPages > 0) {
 
-            blogPageToRequest(); //This function has check that ensures page is not added duplicate
+            //blogPageToRequest(); //This function has check that ensures page is not added duplicate
             //Todo Need to show user popup to get his confirmation that this page will be added
             SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
             req.executeRequest();
         }else{
             Toast.makeText(this,"No page was added to your campaign",Toast.LENGTH_LONG).show();
 
-            blogPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
+            //blogPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
             SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
             req.executeRequest();
         }
@@ -650,6 +722,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
     public void deleteTitleBlog(View view) {
 
         editTitle.setVisibility(View.GONE);
+        editTitle.setText(null);
         deleteTitleBlogBtnView.setVisibility(View.GONE);
 
     }
@@ -657,31 +730,37 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
     public void deleteHeadingBlogPage(View view) {
 
         heading.setVisibility(View.GONE);
+        heading.setText(null);
         deleteHeadingBlogBtnView.setVisibility(View.GONE);
     }
 
     public void deleteSubHeadingBlogPage(View view) {
         subheading.setVisibility(View.GONE);
+        subheading.setText(null);
         deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
     }
 
     public void deleteParaBlog(View view) {
         paraGraphBlog.setVisibility(View.GONE);
+        paraGraphBlog.setText(null);
         deleteParaBlogBtnView.setVisibility(View.GONE);
     }
 
     public void deleteHeadingBelowimgBlogPage(View view) {
         heading_belo.setVisibility(View.GONE);
+        heading_belo.setText(null);
         deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
     }
 
     public void deleteSubHeadingBelowimgBlogPage(View view) {
         subheading_below.setVisibility(View.GONE);
+        subheading_below.setText(null);
         deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
     }
 
     public void deleteParaBelowingBlog(View view) {
         paraGraphBlog_below.setVisibility(View.GONE);
+        paraGraphBlog_below.setText(null);
         deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
     }
 

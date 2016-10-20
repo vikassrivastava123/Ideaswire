@@ -205,8 +205,8 @@ public class ClientsOnapp extends Activity implements SaveProfileData.SaveProfil
                     // Add the LinearLayout element to the ScrollView
                     i++;
                 }
-                btn[5].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
-                btn[5].setFocusable(true);
+                //btn[5].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                //btn[5].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
                 layout.post(new Runnable() {

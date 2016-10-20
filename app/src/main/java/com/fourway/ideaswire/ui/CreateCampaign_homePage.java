@@ -58,21 +58,7 @@ private static String TAG = "CreateCampaign_homePage";
             GridView gv = (GridView) findViewById(R.id.profileGridView);
             final ProgressDialog pd=new ProgressDialog(this);
             pd.setMessage("Profile Loading...");
-            pd.show();
-            new Thread(){
-                public void run()
-                {
-                    try {
-                        sleep(2000);
-                        if (loginUi.mProfileList==null){
-                            sleep(2000);
-                            pd.dismiss();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+
             if(loginUi.mProfileList!=null) {
                 mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
 

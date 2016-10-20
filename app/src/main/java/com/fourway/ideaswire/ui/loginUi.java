@@ -146,6 +146,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
        if (pageNumber ==25)
         {
             Intent intent = new Intent(getApplicationContext(),HomepageBeforeLogin.class);
+            //Intent intent = new Intent(getApplicationContext(),CreateCampaign_homePage.class);
             startActivityForResult(intent, REQUEST_SIGNUP);
         }
         else {

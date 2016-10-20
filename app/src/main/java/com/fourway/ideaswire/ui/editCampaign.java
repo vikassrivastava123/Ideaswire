@@ -163,7 +163,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
                 liveCampain = true;
             }
 
-            // String CamapingName = mEtCampnName.getText().toString();
+             String CamapingName = mEtCampnName.getText().toString();
             FileInputStream in = null;
             try {
                 in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
@@ -179,7 +179,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
                 Log.v(Tag, "Make request Now to create templae");
                 Log.v(Tag, "LoginToken" + loginUi.mLogintoken);
 
-                CreateProfileData data = new CreateProfileData("Campaign Name", "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+                CreateProfileData data = new CreateProfileData(CamapingName, "bussiness", "asASa", loginUi.mLogintoken, sendFile);
                 CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
                 req.executeRequest();
 
