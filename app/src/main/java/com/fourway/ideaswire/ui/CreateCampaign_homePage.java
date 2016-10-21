@@ -7,9 +7,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +31,13 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
     MyProfileAdapter mProfileAdapter;
     Boolean campaignEditMode;
     int profilePosition;
+    ImageButton menuButton;
 private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_campaign_home_page);
+        menuButton = (ImageButton)findViewById(R.id.menu_button);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
@@ -93,7 +98,14 @@ private static String TAG = "CreateCampaign_homePage";
         }catch(NullPointerException e){
             Toast.makeText(getApplicationContext(), "no profile data received", Toast.LENGTH_SHORT).show();
         }
-        }
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickMenu();
+            }
+        });
+    }
 
 
 
@@ -128,6 +140,26 @@ private static String TAG = "CreateCampaign_homePage";
         }*/
 
     }
+
+
+    void onClickMenu(){
+        PopupMenu popup = new PopupMenu(this,menuButton);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.menu_search, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId()==R.id.search_menu){
+                    startActivity(new Intent(CreateCampaign_homePage.this,HomepageBeforeLogin.class));
+                }
+                return false;
+            }
+        });
+
+        popup.show();
+    }
+
 
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
