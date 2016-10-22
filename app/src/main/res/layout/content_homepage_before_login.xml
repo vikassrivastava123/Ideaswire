@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:id="@+id/captureText"
-            android:text="Capture Photo"
+            android:text="Take Photo"
             android:textSize="19dp"
             android:textColor="@color/text"
             android:layout_alignParentRight="true"

@@ -264,7 +264,7 @@ public class activity_blogpage extends Activity implements SaveProfileData.SaveP
 
         dataObj=(blogpageDataTemplate) getIntent().getSerializableExtra("data");
 
-        int pos = dataObj.getPositionInList();
+        //int pos = dataObj.getPositionInList();
         //if(pos > -1)
         if(dataObj.isDefaultDataToCreateCampaign() == true){
             dataObj = (blogpageDataTemplate) MainActivity.listOfTemplatePagesObj.get(2).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());

@@ -6,12 +6,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
@@ -38,14 +35,17 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     int IndexKey = 0;
     Fragment fragmentToLaunch;
     TextView mTitle;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragmen_main);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
 
         dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
         if(false == dataObj.isDefaultDataToCreateCampaign()){
+            toolbar.setVisibility(View.GONE);
             showPreview = true;
 
         }

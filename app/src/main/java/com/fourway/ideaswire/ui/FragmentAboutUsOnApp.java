@@ -49,7 +49,7 @@ import java.io.IOException;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback{
+public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback , View.OnClickListener{
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
@@ -91,6 +91,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         deleteHeadingAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteHeadingAboutUs);
         deleteSubHeaderAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteSubHeaderAboutUs);
         deleteParaAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteParaAboutUs);
+
+        deleteTitleAboutUsBtnView.setOnClickListener(this);
+        deleteCARD_IMAGEBtnView .setOnClickListener(this);
+        deleteHeadingAboutUsBtnView.setOnClickListener(this);
+        deleteSubHeaderAboutUsBtnView.setOnClickListener(this);
+        deleteParaAboutUsBtnView.setOnClickListener(this);
 
 
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
@@ -197,7 +203,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
        if(showPreview == true) {
-           init_viewCampaign();
+           //init_viewCampaign();
        }else{
            //init_editCampaign();
        }
@@ -525,6 +531,32 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         popup.show();//showing popup menu
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.deleteTitleAboutUs:
+                editTitle.setVisibility(View.GONE);
+                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteCARD_IMAGE:
+                editTitle.setVisibility(View.GONE);
+                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingAboutUs:
+                editHeader.setVisibility(View.GONE);
+                deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderAboutUs:
+                editSubHeading.setVisibility(View.GONE);
+                deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaAboutUs:
+                editParaGraphAboutUs.setVisibility(View.GONE);
+                deleteParaAboutUsBtnView.setVisibility(View.GONE);
+                break;
+
+        }
+    }
 
 
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
@@ -639,40 +671,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     }
 
 
-    public void deleteCardImageAboutUs(View view) {
-
-        cardImage.setVisibility(View.GONE);
-        deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
-
-    }
-
-    public void deleteTitleAboutUs(View view) {
-
-        editTitle.setVisibility(View.GONE);
-        deleteTitleAboutUsBtnView.setVisibility(View.GONE);
-
-    }
-
-    public void deleteHeadingAboutUs(View view) {
-
-        editHeader.setVisibility(View.GONE);
-        deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
-    }
-
-    public void deleteSubHeadingAboutUs(View view) {
-        editSubHeading.setVisibility(View.GONE);
-        deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
-    }
-
-    public void deleteParaAboutUs(View view) {
-        editParaGraphAboutUs.setVisibility(View.GONE);
-        deleteParaAboutUsBtnView.setVisibility(View.GONE);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
-        //if(indexInList >=0 )
+        if(indexInList >=0 )
         {
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
@@ -682,13 +684,15 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            changeText();
-            addPageToRequest();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
-        } else {
-            changeText();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        if (indexInList >=0) {
+            if (hidden) {
+                changeText();
+                addPageToRequest();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            } else {
+                changeText();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            }
         }
     }
 

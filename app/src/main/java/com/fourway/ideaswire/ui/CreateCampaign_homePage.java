@@ -124,8 +124,8 @@ private static String TAG = "CreateCampaign_homePage";
 
             Class intenetToLaunch = data.getIntentToLaunchPage();
             Log.v(TAG, "5" + intenetToLaunch);
-            //Intent intent = new Intent(this, FragmenMainActivity.class);
-            Intent intent = new Intent(this, intenetToLaunch);
+            Intent intent = new Intent(this, FragmenMainActivity.class);
+            //Intent intent = new Intent(this, intenetToLaunch);
             intent.putExtra("data", data);
          //   intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);

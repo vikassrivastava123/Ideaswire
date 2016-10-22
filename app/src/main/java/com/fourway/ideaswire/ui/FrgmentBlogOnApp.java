@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback {
+public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener {
 
     EditText heading=null,subheading=null,paraGraphBlog=null,heading_belo=null,subheading_below=null,paraGraphBlog_below=null;
     List<String> attName;
@@ -93,6 +93,17 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         deleteHeadingBelowimgBlogBtnView=(ImageView)view.findViewById(R.id.deleteHeadingBelowimgBlogPage);
         deleteSubHeaderBelowimgBlogBtnView=(ImageView)view.findViewById(R.id.deleteSubHeaderBelowimgBlog);
         deleteParaBlogBelowimgBtnView=(ImageView)view.findViewById(R.id.deleteParaBelowimgBlogPage);
+
+        deleteTitleBlogBtnView.setOnClickListener(this);
+        deleteCARD_IMAGEBtnView.setOnClickListener(this);
+        deleteHeadingBlogBtnView.setOnClickListener(this);
+        deleteSubHeaderBlogBtnView.setOnClickListener(this);
+        deleteParaBlogBtnView.setOnClickListener(this);
+        deleteHeadingBelowimgBlogBtnView.setOnClickListener(this);
+        deleteSubHeaderBelowimgBlogBtnView.setOnClickListener(this);
+        deleteParaBlogBelowimgBtnView.setOnClickListener(this);
+
+
 
         cardImage = (NetworkImageView) view.findViewById(R.id.Blog_CARD_IMAGE);
         cardImageCrop =(ImageView) view.findViewById(R.id.Blog_STATIC_IMAGE);
@@ -296,6 +307,52 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     }
 
     ProgressDialog pbImage = null;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.deleteTitleBlog:
+                editTitle.setVisibility(View.GONE);
+                editTitle.setText(null);
+                deleteTitleBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingBlogPage:
+                heading.setVisibility(View.GONE);
+                heading.setText(null);
+                deleteHeadingBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderBlogPage:
+                subheading.setVisibility(View.GONE);
+                subheading.setText(null);
+                deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaBlogPage:
+                paraGraphBlog.setVisibility(View.GONE);
+                paraGraphBlog.setText(null);
+                deleteParaBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteCARD_IMAGE:
+                cardImage.setVisibility(View.GONE);
+                deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+                //cardRelativeLayout.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingBelowimgBlogPage:
+                heading_belo.setVisibility(View.GONE);
+                heading_belo.setText(null);
+                deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderBelowimgBlog:
+                subheading_below.setVisibility(View.GONE);
+                subheading_below.setText(null);
+                deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaBelowimgBlogPage:
+                paraGraphBlog_below.setVisibility(View.GONE);
+                paraGraphBlog_below.setText(null);
+                deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
+                break;
+        }
+    }
 
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
     {
