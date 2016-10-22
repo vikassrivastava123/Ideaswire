@@ -13,10 +13,10 @@ import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -69,6 +69,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
     PagerAdapter mAdapter;
     ImageButton mGalleryBtn;
     ImageButton mCameraBtn;
+    ImageButton naveButton;
 
     private File mCurrentPhoto;
 
@@ -76,6 +77,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     NavigationView navigationView=null;
     Toolbar toolbar=null;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
         setContentView(R.layout.activity_homepage_before_login);
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Montserrat-Regular.otf");
+        naveButton = (ImageButton)findViewById(R.id.nave_button);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mAdapter = new HomeScreenPagerAdapter(this);
         mViewPager.setAdapter(mAdapter);
@@ -91,11 +94,11 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
         pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
         mViewPager.setOnPageChangeListener(this);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -103,6 +106,13 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
         setUiPageViewController();
 //
       // initHomeResources();
+
+        naveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backButtonHandler();
+            }
+        });
     }
 
 
@@ -128,8 +138,8 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
         return super.onOptionsItemSelected(item);
     }
 
-    public void backButtonHandler(View view){
-
+    public void backButtonHandler(){
+        drawer.openDrawer(GravityCompat.END);
     }
 
 
@@ -205,8 +215,8 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     void initHomeResources() {
 
-        mGalleryBtn = (ImageButton) findViewById(R.id.galleryButton);
-        mCameraBtn = (ImageButton) findViewById(R.id.cameraButton);
+       // mGalleryBtn = (ImageButton) findViewById(R.id.galleryButton);
+       // mCameraBtn = (ImageButton) findViewById(R.id.cameraButton);
 
     }
 
