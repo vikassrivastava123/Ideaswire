@@ -50,7 +50,7 @@ import java.io.IOException;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback , View.OnClickListener{
+public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback , View.OnClickListener, FragmenMainActivity.viewCampaign {
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
@@ -587,6 +587,17 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 uploadToAboutUsOnApp();
                 break;
 
+        }
+    }
+
+    @Override
+    public void init_ViewCampaign() {
+        if (showPreview==false){
+            init_viewCampaign();
+            showPreview = true;
+        }else {
+            init_editCampaign();
+            showPreview = false;
         }
     }
 

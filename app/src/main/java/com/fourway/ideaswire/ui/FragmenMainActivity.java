@@ -38,6 +38,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     Toolbar toolbar;
     FloatingActionButton fab;
 
+    private viewCampaign previewCampaign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +161,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 int i = 0;
                 final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                if (size>1)
+                //if (size>1)
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
                         String name = obj.nameis();
 
@@ -228,6 +230,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
 
     public void previewTemplate(View view) {
+        previewCampaign = (viewCampaign)fragmentToLaunch ;//dataObj.getFragmentToLaunchPage();
         TextView textViewShowPreview = (TextView)findViewById(R.id.textShow_preview);
 
         Button showPreviewBtn  = (Button)findViewById(R.id.showPreview);
@@ -237,12 +240,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             textViewShowPreview.setText("Edit");
             fab.show();
             showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
+            previewCampaign.init_ViewCampaign();
             //init_viewCampaign();
             showPreview = true;
         }else {
             textViewShowPreview.setText("Preview");
             fab.hide();
             showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
+            previewCampaign.init_ViewCampaign();
             //init_editCampaign();
             showPreview = false;
         }
@@ -281,5 +286,9 @@ static int test = 0;
     @Override
     public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
         Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
+    }
+
+    public abstract interface viewCampaign{
+        abstract void init_ViewCampaign();
     }
 }

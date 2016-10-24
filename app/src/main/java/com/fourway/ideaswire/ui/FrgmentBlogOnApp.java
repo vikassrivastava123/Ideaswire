@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener {
+public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener, FragmenMainActivity.viewCampaign{
 
     EditText heading=null,subheading=null,paraGraphBlog=null,heading_belo=null,subheading_below=null,paraGraphBlog_below=null;
     List<String> attName;
@@ -413,6 +413,17 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         }
     }
 
+    @Override
+    public void init_ViewCampaign() {
+        if (showPreview==false){
+            init_viewCampaign();
+            showPreview = true;
+        }else {
+            init_editCampaign();
+            showPreview = false;
+        }
+    }
+
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
     {
 
@@ -601,8 +612,6 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             cropRestart=1;
             startActivity(inf);
 
-
-            //setImage for card  T
 
         }
 
