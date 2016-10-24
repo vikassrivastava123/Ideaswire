@@ -61,7 +61,8 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
-                    android:onClick="uploadToAboutUsOnApp"/>
+                    />
+                <!-- android:onClick="uploadToAboutUsOnApp"-->
 
                 <ImageView
 
@@ -70,8 +71,7 @@
                     android:id="@+id/ABOUT_US_STATIC_IMAGE"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:scaleType="centerCrop"
-                    android:onClick="uploadToAboutUsOnApp"/>
+                    android:scaleType="centerCrop" />
 
 
 

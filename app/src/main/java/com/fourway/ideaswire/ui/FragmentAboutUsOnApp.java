@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -72,6 +73,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     String mParentId = null;
 
     int indexInList = -1;
+    int cropRestart=0;
 
     private static String TAG = "FragmentAboutUsOnApp";
     @Override
@@ -141,6 +143,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         cardImage = (NetworkImageView)  view.findViewById(R.id.ABOUT_US_CARD_IMAGE);
         cardImageCrop = (ImageView) view.findViewById(R.id.ABOUT_US_STATIC_IMAGE);
 
+        cardImageCrop.setOnClickListener(this);
+
         String urlOfProfile = dataObj.get_url();
         if(urlOfProfile != null && !urlOfProfile.equalsIgnoreCase("null")){
             cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
@@ -203,9 +207,9 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
        if(showPreview == true) {
-           //init_viewCampaign();
+           init_viewCampaign();
        }else{
-           //init_editCampaign();
+           init_editCampaign();
        }
 
 
@@ -298,6 +302,31 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
             reqToMakeProfile.addPage(mAbtUsPageObj);
         }
+    }
+
+
+    public void uploadToAboutUsOnApp() {
+
+        if(showPreview == false) {
+            String campnName = null;
+         /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
+
+            Intent inf = new Intent(getActivity(), CropedImage.class);
+            inf.putExtra("ScreenName", MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP);
+
+            inf.putExtra("CampaignName", "Choose Image");
+            cropRestart=1;
+            startActivity(inf);
+
+
+        }
+
     }
 
 
@@ -554,6 +583,9 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 editParaGraphAboutUs.setVisibility(View.GONE);
                 deleteParaAboutUsBtnView.setVisibility(View.GONE);
                 break;
+            case R.id.ABOUT_US_STATIC_IMAGE:
+                uploadToAboutUsOnApp();
+                break;
 
         }
     }
@@ -678,6 +710,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         {
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(cropRestart==1) {
+            showImageForBackround();
+            PhotoAsyncTask obj = new PhotoAsyncTask();
+            obj.execute();
+            cropRestart=0;
+        }else {
+            //showBaseMenu();
         }
     }
 

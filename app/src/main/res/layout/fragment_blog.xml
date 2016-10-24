@@ -5,7 +5,7 @@
 
     <EditText android:id="@+id/BLOG_TITLE"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
@@ -130,7 +130,6 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
-                    android:onClick="uploadToBlogOnApp"
                     android:background="@drawable/blog_banner"
                     android:layout_centerHorizontal="true" />
 
@@ -143,8 +142,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
-
-                    android:onClick="uploadToBlogOnApp"/>
+                    />
 
                 <ImageView
                     android:id="@+id/deleteCARD_IMAGE"

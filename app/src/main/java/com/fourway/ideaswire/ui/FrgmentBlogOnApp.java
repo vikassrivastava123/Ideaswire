@@ -2,9 +2,11 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,6 +110,8 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         cardImage = (NetworkImageView) view.findViewById(R.id.Blog_CARD_IMAGE);
         cardImageCrop =(ImageView) view.findViewById(R.id.Blog_STATIC_IMAGE);
 
+        cardImageCrop.setOnClickListener(this);
+
 
         String urlOfProfile = dataObj.getUrlOfImage();
 
@@ -199,6 +203,14 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
 
 
+        if(showPreview == true) {
+            init_viewCampaign();
+        }else{
+            init_editCampaign();
+        }
+
+
+
         return view;
     }
 
@@ -257,10 +269,54 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         mBlogPageObj  = new Page(mProfileId,mPageName);
         mParentId = mBlogPageObj.getPageId();
 
-        if(showPreview == true) {
-            init_viewCampaign();
-        }else{
-            //init_editCampaign();
+
+
+    }
+
+    void init_editCampaign(){
+
+        try {
+            deleteTitleBlogBtnView.setVisibility(View.VISIBLE);
+            deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
+            deleteHeadingBlogBtnView.setVisibility(View.VISIBLE);
+            deleteSubHeaderBlogBtnView.setVisibility(View.VISIBLE);
+            deleteParaBlogBtnView.setVisibility(View.VISIBLE);
+        }catch (NullPointerException e){
+            Log.v(TAG,"Null in init_viewCampaign");
+        }
+        if(editTitle !=null){
+            editTitle.setEnabled(true);
+            editTitle.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(heading !=null){
+            heading.setEnabled(true);
+            heading.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(subheading !=null){
+            subheading.setEnabled(true);
+            subheading.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(paraGraphBlog !=null){
+            paraGraphBlog.setEnabled(true);
+            paraGraphBlog.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(heading_belo != null){
+            heading_belo.setEnabled(true);
+            heading_belo.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(subheading_below != null){
+            subheading_below.setEnabled(true);
+            subheading_below.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(paraGraphBlog_below !=null){
+            paraGraphBlog_below.setEnabled(true);
+            paraGraphBlog_below.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
         }
 
     }
@@ -351,6 +407,9 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
                 paraGraphBlog_below.setText(null);
                 deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
                 break;
+            case R.id.Blog_STATIC_IMAGE:
+                uploadToBlogOnApp();
+                break;
         }
     }
 
@@ -415,6 +474,24 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
 
         }
+    }
+
+    private void showImageForBackround(){
+        Log.v("editCampaign", "showImageCampaign");
+        try {
+            FileInputStream in = getActivity().openFileInput(MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+
+            cardImage.setVisibility(View.GONE);
+            cardImageCrop.setVisibility(View.VISIBLE);
+
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            cardImageCrop.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+
+        }catch (FileNotFoundException e){
+            Log.v("editCampaign","Blog_TemplateImage_IMAGE_CROPED_NAME file not found");
+        }
+
     }
 
     @Override
@@ -505,6 +582,34 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         }
     }
 
+    public void uploadToBlogOnApp() {
+
+        if(showPreview == false) {
+            String campnName = null;
+         /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
+
+            Intent inf = new Intent(getActivity(), CropedImage.class);
+            inf.putExtra("ScreenName", MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_BLOG_ON_APP);
+
+            inf.putExtra("CampaignName", "Choose Image");
+            cropRestart=1;
+            startActivity(inf);
+
+
+            //setImage for card  T
+
+        }
+
+    }
+
+
+
 
     @Override
     public void onPause() {
@@ -512,6 +617,19 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         if(indexInList >=0 ){
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(cropRestart==1) {
+            showImageForBackround();
+            PhotoAsyncTask obj = new PhotoAsyncTask();
+            obj.execute();
+            cropRestart=0;
+        }else {
+            //showBaseMenu();
         }
     }
 
@@ -530,13 +648,15 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            changeText();
-            addPageToRequest();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
-        } else {
-            changeText();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        if (indexInList >=0) {
+            if (hidden) {
+                changeText();
+                addPageToRequest();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            } else {
+                changeText();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            }
         }
     }
 

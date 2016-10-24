@@ -36,6 +36,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     Fragment fragmentToLaunch;
     TextView mTitle;
     Toolbar toolbar;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,6 +224,31 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             }
         }, 500);
 
+
+    }
+
+    public void previewTemplate(View view) {
+        TextView textViewShowPreview = (TextView)findViewById(R.id.textShow_preview);
+
+        Button showPreviewBtn  = (Button)findViewById(R.id.showPreview);
+
+
+        if(showPreview == false) {
+            textViewShowPreview.setText("Edit");
+            fab.show();
+            showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
+            //init_viewCampaign();
+            showPreview = true;
+        }else {
+            textViewShowPreview.setText("Preview");
+            fab.hide();
+            showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
+            //init_editCampaign();
+            showPreview = false;
+        }
+
+        //   RelativeLayout previewLayout = (RelativeLayout)findViewById(R.id.previewLayout);
+        // previewLayout.setVisibility(View.VISIBLE);
 
     }
 
