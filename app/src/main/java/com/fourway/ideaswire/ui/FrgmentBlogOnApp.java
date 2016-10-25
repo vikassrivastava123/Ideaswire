@@ -201,6 +201,12 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             paraGraphBlog_below.setVisibility(View.GONE);
         }
 
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
+
+        mBlogPageObj  = new Page(mProfileId,mPageName);
+        mParentId = mBlogPageObj.getPageId();
+
 
 
         if(showPreview == true) {
@@ -262,13 +268,6 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             paraGraphBlog_below.setEnabled(false);
             paraGraphBlog_below.setKeyListener(null);
         }
-
-        mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
-
-        mBlogPageObj  = new Page(mProfileId,mPageName);
-        mParentId = mBlogPageObj.getPageId();
-
 
 
     }
@@ -422,6 +421,12 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             init_editCampaign();
             showPreview = false;
         }
+    }
+
+    @Override
+    public void addLastPage() {
+        changeText();
+        addPageToRequest();
     }
 
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>

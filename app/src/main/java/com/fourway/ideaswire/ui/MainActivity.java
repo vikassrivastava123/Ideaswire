@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
         intent.putExtra("data",data);*/
 
-        Intent intent = new Intent(getApplicationContext(), loginUi.class);
+        //Intent intent = new Intent(getApplicationContext(), loginUi.class);
         //Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
-        startActivity(intent);
-        //startActivity(new Intent(this,SplashScreen.class));
+        //startActivity(intent);
+        startActivity(new Intent(this,SplashScreen.class));
 
         //startActivity(new Intent(getApplicationContext(), FragmenMainActivity.class));
 

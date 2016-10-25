@@ -2,6 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
+import com.fourway.ideaswire.ui.FragmentServiceOnApp;
 import com.fourway.ideaswire.ui.ServicesOnApp;
 
 /**
@@ -135,7 +136,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentServiceOnApp();
     }
 
     @Override

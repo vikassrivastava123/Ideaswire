@@ -2,7 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
-import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.ui.FragmentHomeOnApp;
 import com.fourway.ideaswire.ui.home_page_onapp;
 
 /**
@@ -53,7 +53,7 @@ public class HomePageDataTemplate extends dataOfTemplate{
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentHomeOnApp();
     }
 
     @Override

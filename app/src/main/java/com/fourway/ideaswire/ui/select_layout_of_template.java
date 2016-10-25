@@ -18,8 +18,10 @@ import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
+import com.fourway.ideaswire.templates.ClientPage;
 import com.fourway.ideaswire.templates.HomePage;
 import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.TeamPage;
 import com.fourway.ideaswire.templates.blogpage;
 import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.dataOfTemplate;
@@ -77,12 +79,54 @@ public class select_layout_of_template extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.v(TAG, "CL hi"+position);
-                startModifyTemplate(position);
+                //TODO: uncomment code after test
+                //startModifyTemplate(position);
                 //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
+
+                startCreateCampaignWithDefaultData(1);
 
             }});
 
         ////
+
+    }
+
+    private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
+
+        MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
+
+
+        pages abtusObj = new AboutUsPage();
+        pages homeObj = new HomePage();
+        pages blogpage = new blogpage();
+        pages contactdetails = new contactDetails();
+        pages ServicePage = new ServicePage();
+        pages clientobj = new ClientPage();
+        pages teamPages =new TeamPage();
+
+
+
+        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
+        abtusObj.setPageIndex(0);
+        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
+        abtusObj.setPageIndex(1);
+        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
+        abtusObj.setPageIndex(2);
+        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
+        abtusObj.setPageIndex(3);
+        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+        abtusObj.setPageIndex(4);
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
+
+        Class intenetToLaunch = data.getIntentToLaunchPage();
+        Log.v("Create homepage", "5" + intenetToLaunch);
+        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+
+        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+        intent.putExtra("data",data);
+        startActivity(intent);
+
 
     }
 

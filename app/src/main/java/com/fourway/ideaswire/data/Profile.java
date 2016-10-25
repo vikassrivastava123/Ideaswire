@@ -86,6 +86,21 @@ public class Profile {
         mTotalNumberOfPages++;
     }
 
+    //For page override if already exist
+    public void replacePage(int pageIndex, Page p){
+        mPages.add(pageIndex, p);
+    }
+
+    public int getIndexOfPage(String page_id){
+        for (int i=0; i< mTotalNumberOfPages;i++){
+            Page p = mPages.get(i);
+            if (p.getPageId().equals(page_id)){
+                return i;
+            }
+        }
+        return mTotalNumberOfPages;
+    }
+
     public int getTotalNumberOfPagesAdded(){
         return mTotalNumberOfPages;
     }

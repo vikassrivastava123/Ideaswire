@@ -70,7 +70,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     Page  mAbtUsPageObj;
     String mProfileId = null;
     String mPageName = null;
-    String mParentId = null;
+    String mPageId = null;
 
     int indexInList = -1;
     int cropRestart=0;
@@ -202,7 +202,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
 
         mAbtUsPageObj  = new Page(mProfileId,mPageName);
-        mParentId = mAbtUsPageObj.getPageId();
+        mPageId = mAbtUsPageObj.getPageId();
 
 
 
@@ -299,7 +299,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+        if(reqToMakeProfile.checkIfPageExist(mPageId)) {
+            int index = reqToMakeProfile.getIndexOfPage(mPageId);
+            reqToMakeProfile.replacePage(index, mAbtUsPageObj);
+        }else {
             reqToMakeProfile.addPage(mAbtUsPageObj);
         }
     }
@@ -347,7 +350,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     public void setAttribute(String name, String value){
 
         if(name != null && value != null) {
-            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            Attribute atrbtObj = new Attribute(mProfileId, mPageId, name, value);
             mAbtUsPageObj.addAttribute(atrbtObj);
         }
     }
@@ -599,6 +602,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             init_editCampaign();
             showPreview = false;
         }
+    }
+
+    @Override
+    public void addLastPage() {
+        changeText();
+        addPageToRequest();
     }
 
 

@@ -114,6 +114,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     private void aboutUsButtonAction() {
 
+        previewCampaign = (viewCampaign)fragmentToLaunch ;
+        previewCampaign.addLastPage();
+
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
 
@@ -290,5 +293,6 @@ static int test = 0;
 
     public abstract interface viewCampaign{
         abstract void init_ViewCampaign();
+        abstract void addLastPage();
     }
 }
