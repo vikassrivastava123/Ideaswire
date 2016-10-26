@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -74,6 +75,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     int indexInList = -1;
     int cropRestart=0;
+    pages mthispage = null;
 
     private static String TAG = "FragmentAboutUsOnApp";
     @Override
@@ -86,6 +88,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
            showPreview = true;
        }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+            mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+            //mPageName = mthispage.nameis();
         }
 
         deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
@@ -167,7 +171,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
                     int posInListOfPage = dataObj.get_submit_button_link();
 
-                    if(posInListOfPage >= 0) {
+                    if(posInListOfPage > 0) {
                         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
 
                         Fragment fragmentToLaunch = data.getFragmentToLaunchPage();
@@ -184,6 +188,15 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                       //  Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
                       //  intent.putExtra("data", data);
                       //  startActivity(intent);
+                    }else {
+                        String btnUrl= dataObj.get_buttonUrl();
+                        if (btnUrl!=null) {
+                            if (!btnUrl.startsWith("http://") && !btnUrl.startsWith("https://"))
+                                btnUrl = "http://" + btnUrl;
+
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(btnUrl));
+                            startActivity(browserIntent);
+                        }
                     }
                 }
 
@@ -198,11 +211,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }else{
             submit_button.setVisibility(View.GONE);
         }
-        mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
 
-        mAbtUsPageObj  = new Page(mProfileId,mPageName);
-        mPageId = mAbtUsPageObj.getPageId();
 
 
 
@@ -214,6 +223,16 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
         return view;
+    }
+
+    void init_aboutUsPage_request(){
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
+        mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        if(mAbtUsPageObj == null){
+            mAbtUsPageObj = new Page(mProfileId, mPageName);
+        }
+        mPageId = mAbtUsPageObj.getPageId();
     }
 
 
@@ -286,6 +305,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     private void addPageToRequest(){
 
+        init_aboutUsPage_request();
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
+
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
 
@@ -295,11 +318,15 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
 
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT, dataObj.get_buttonUrl());
+
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(reqToMakeProfile.checkIfPageExist(mPageId)) {
+        //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
+        if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
             int index = reqToMakeProfile.getIndexOfPage(mPageId);
             reqToMakeProfile.replacePage(index, mAbtUsPageObj);
         }else {

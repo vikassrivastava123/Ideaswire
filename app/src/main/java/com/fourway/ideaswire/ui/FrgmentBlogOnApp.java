@@ -30,6 +30,7 @@ import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.blogpageDataTemplate;
+import com.fourway.ideaswire.templates.pages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,6 +56,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
     NetworkImageView cardImage;
     ImageView cardImageCrop;
+    pages mthispage = null;
 
     private static String TAG = "BlogOnApp";
 
@@ -73,7 +75,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     Page mBlogPageObj;
     String mProfileId = null;
     String mPageName = null;
-    String mParentId = null;
+    String mPageId = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             showPreview = true;
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+            mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
         }
 
         deleteTitleBlogBtnView=(ImageView)view.findViewById(R.id.deleteTitleBlog);
@@ -201,11 +204,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             paraGraphBlog_below.setVisibility(View.GONE);
         }
 
-        mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
 
-        mBlogPageObj  = new Page(mProfileId,mPageName);
-        mParentId = mBlogPageObj.getPageId();
 
 
 
@@ -218,6 +217,16 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
 
         return view;
+    }
+
+    void init_blogPage_request(){
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
+        mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
+        if (mBlogPageObj==null) {
+            mBlogPageObj = new Page(mProfileId, mPageName);
+        }
+        mPageId = mBlogPageObj.getPageId();
     }
 
     void init_viewCampaign(){
@@ -290,32 +299,32 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         if(heading !=null){
             heading.setEnabled(true);
-            heading.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            heading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
         if(subheading !=null){
             subheading.setEnabled(true);
-            subheading.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            subheading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
         if(paraGraphBlog !=null){
             paraGraphBlog.setEnabled(true);
-            paraGraphBlog.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            paraGraphBlog.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
         if(heading_belo != null){
             heading_belo.setEnabled(true);
-            heading_belo.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            heading_belo.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
         if(subheading_below != null){
             subheading_below.setEnabled(true);
-            subheading_below.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            subheading_below.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
         if(paraGraphBlog_below !=null){
             paraGraphBlog_below.setEnabled(true);
-            paraGraphBlog_below.setKeyListener(new TextView(getActivity().getApplicationContext()).getKeyListener());
+            paraGraphBlog_below.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
     }
@@ -567,15 +576,16 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     public void setAttribute(String name, String value){
 
         if(name != null && value != null) {
-            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            Attribute atrbtObj = new Attribute(mProfileId, mPageId, name, value);
             mBlogPageObj.addAttribute(atrbtObj);
         }
     }
 
 
     private void addPageToRequest(){
+        init_blogPage_request();
 
-
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG, mthispage.nameis());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1, dataObj.getHeaderBlog());
@@ -593,7 +603,10 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+        if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
+            int index = reqToMakeProfile.getIndexOfPage(mPageId);
+            reqToMakeProfile.replacePage(index, mBlogPageObj);
+        }else {
             reqToMakeProfile.addPage(mBlogPageObj);
         }
     }
