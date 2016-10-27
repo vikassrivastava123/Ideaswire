@@ -219,13 +219,16 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         return view;
     }
 
+    int lastPositionInList = -1;
     void init_blogPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
         mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
         if (mBlogPageObj==null) {
-            mBlogPageObj = new Page(mProfileId, mPageName);
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
+        mBlogPageObj = new Page(mProfileId, mPageName);
         mPageId = mBlogPageObj.getPageId();
     }
 
@@ -603,11 +606,17 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
+        /*if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
             int index = reqToMakeProfile.getIndexOfPage(mPageId);
             reqToMakeProfile.replacePage(index, mBlogPageObj);
         }else {
             reqToMakeProfile.addPage(mBlogPageObj);
+        }*/
+
+        if (lastPositionInList == -1){
+            reqToMakeProfile.addPage(mBlogPageObj);
+        }else {
+            reqToMakeProfile.addPageAtPosition(mBlogPageObj, lastPositionInList);
         }
     }
 

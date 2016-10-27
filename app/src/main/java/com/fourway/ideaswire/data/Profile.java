@@ -86,6 +86,11 @@ public class Profile {
         mTotalNumberOfPages++;
     }
 
+    public void addPageAtPosition (Page p,int pos){
+        mPages.add(pos, p);
+        mTotalNumberOfPages++;
+    }
+
     //For page override if already exist
     public void replacePage(int pageIndex, Page p){
          mPages.set(pageIndex, p);
@@ -149,6 +154,22 @@ public class Profile {
         }
         return null;
     }
+
+    public void deletePageByName(String name){
+        if(name !=null) {
+            for (int i = 0; i < mTotalNumberOfPages; i++) {
+                Page p = mPages.get(i);
+                if (p.getPageName().equals(name)) {
+                    mPages.remove(i);
+                    mTotalNumberOfPages--;
+                    return;
+                }
+            }
+        }
+
+    }
+
+
 
     public Page getPageAtIndex (int i){
         if (i >= mTotalNumberOfPages) {

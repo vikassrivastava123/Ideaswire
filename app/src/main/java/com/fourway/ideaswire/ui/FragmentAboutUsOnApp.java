@@ -225,13 +225,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         return view;
     }
 
+    int lastPositionInList = -1;
     void init_aboutUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
         mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        if(mAbtUsPageObj == null){
-            mAbtUsPageObj = new Page(mProfileId, mPageName);
+
+        if(mAbtUsPageObj != null)
+        {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
+
+        mAbtUsPageObj = new Page(mProfileId, mPageName);
         mPageId = mAbtUsPageObj.getPageId();
     }
 
@@ -307,6 +313,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         init_aboutUsPage_request();
 
+
+
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
@@ -326,11 +334,17 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
-        if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
+        /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
             int index = reqToMakeProfile.getIndexOfPage(mPageId);
             reqToMakeProfile.replacePage(index, mAbtUsPageObj);
-        }else {
-            reqToMakeProfile.addPage(mAbtUsPageObj);
+        }else*/
+        {
+            if(lastPositionInList == -1){
+                reqToMakeProfile.addPage(mAbtUsPageObj);
+            }else {
+                reqToMakeProfile.addPageAtPosition(mAbtUsPageObj, lastPositionInList);
+            }
+
         }
     }
 

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText android:id="@+id/Home_TITLE"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/card"
+        android:gravity="center"
+        android:hint="Title"
+        android:singleLine="true"
+        android:textColorHint = "@color/card"
+        android:background="@color/skyBlueBckgrnd"
+        android:onClick="changeTitleTextHome" />
+
+    <ImageView
+        android:id="@+id/deleteTitlehome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_"
+        android:layout_below="@+id/txtEdit"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+
+        />
+
+    <ScrollView
+        android:layout_above="@+id/buttonMainAbtUs"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Home_TITLE"
+        android:focusable="true"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cardImageLayout1">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Home_CARD_IMAGE_1"
+                    android:background="@drawable/about_banner_1"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scaleType="centerCrop"
+
+                    android:onClick="uploadToHomeOnApp"/>
+
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:id="@+id/Home_STATIC_IMAGE_1"
+
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scaleType="centerCrop"
+
+                    android:onClick="uploadToHomeOnApp"/>
+
+                <ImageView
+                    android:id="@+id/deleteCARD_IMAGE_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/close"
+                    android:layout_below="@+id/txtEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null" />
+            </RelativeLayout>
+
+            <EditText
+                android:background="@color/card"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Hrading"
+                android:onClick="changeHeadingTextHome"
+                android:id="@+id/headingHome"
+                android:layout_below="@+id/cardImageLayout1"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp"
+                />
+            <ImageView
+                android:id="@+id/deleteHeadingHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close_"
+                android:layout_below="@+id/cardImageLayout1"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null" />
+
+            <EditText
+                android:layout_marginTop="14dp"
+                android:background="@color/card"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="changeSubHeadingTextHome"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="This is some random heading"
+                android:id="@+id/subHeadingHome"
+                android:layout_below="@+id/headingHome"
+                android:layout_centerHorizontal="true" />
+            <ImageView
+                android:id="@+id/deleteSubHeadingHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close_"
+                android:layout_below="@+id/headingHome"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@null" />
+
+            <EditText
+                android:layout_marginTop="14dp"
+                android:background="@color/card"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="changeparaGraphTextHome"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Some random para so as to fill the space lol.You actually reading it.come on man do some work."
+                android:textAlignment="center"
+                android:id="@+id/paraGraphHome"
+                android:layout_below="@+id/subHeadingHome"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:id="@+id/deleteParaHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close_"
+                android:layout_below="@+id/subHeadingHome"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@null" />
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Home_CARD_IMAGE_2"
+                android:background="@drawable/about_banner_1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_below="@+id/paraGraphHome"
+                android:scaleType="centerCrop"
+
+                android:onClick="uploadToAboutUsOnApp"/>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:id="@+id/Home_STATIC_IMAGE_2"
+                android:layout_below="@+id/paraGraphHome"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scaleType="centerCrop"
+                android:onClick="uploadToHomeOnApp"/>
+
+            <ImageView
+                android:id="@+id/deleteCARD_IMAGE_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close"
+                android:layout_below="@+id/paraGraphHome"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

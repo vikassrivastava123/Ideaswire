@@ -87,7 +87,7 @@
         android:gravity="center"
         android:background="@drawable/loginbutton"
         android:textColor="@color/card"
-        android:text="ADD DATA TO CAMPAIGN"
+        android:text="NOW CHOOSE TEMPLATE"
         android:onClick="addTemplate"
         />
 
