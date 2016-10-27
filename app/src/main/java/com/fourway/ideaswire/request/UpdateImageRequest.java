@@ -73,7 +73,9 @@ public class UpdateImageRequest {
         params.put("authorization", "bearer "+ mImageData.getAccessToken());
         params.put("x-image-profile-id", mImageData.getProfileId());
         String type = (mImageData.getProfileType() == CreateProfileData.ProfileType.PROFILE_TYPE_LOGO) ? "LOGO" : "INDIVIDUAL";
+        String status = (mImageData.getProfileStatus() == CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE) ? "ACTIVE" : "DRAFT";
         params.put("x-image-profile-type", type);
+        params.put("x-profile-status", status);
 
         mFileUpload.setHeader(params);
 
