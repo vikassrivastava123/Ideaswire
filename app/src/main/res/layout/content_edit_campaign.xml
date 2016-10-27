@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Active"
+            android:text="Individual"
             android:textSize="25dp"
             android:checked="true"
             android:buttonTint="#00FF00"/>
@@ -84,7 +84,7 @@
             android:id="@+id/StatusDraft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Draft"
+            android:text="Logo"
             android:layout_marginLeft="75dp"
             android:onClick="onRadioButtonClicked"
             android:textSize="25dp"

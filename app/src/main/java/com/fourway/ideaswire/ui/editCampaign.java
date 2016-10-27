@@ -93,7 +93,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
     }
 
-
+    CreateProfileData.ProfileStatus  mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+    CreateProfileData.ProfileType mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
     public void onRadioButtonClicked(View view) {
 
         // Is the button now checked?
@@ -102,21 +103,21 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.StatusOn:
-                if (checked) {
-                    // Pirates are the best
-                }
                 Log.v(Tag,"StausOn"+checked);
                 statusOn.toggle();
+                if (checked) {
+                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
+                }
                 Log.v(Tag,"StatusOn after toggle"+statusOn.isChecked());
                     break;
             case R.id.StatusDraft:
-                if (checked) {
-                    // Ninjas rule
-                }
-
-
                 Log.v(Tag,"statusDraft"+checked);
                 statusDraft.toggle();
+                if (checked) {
+                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
+                }
                 Log.v(Tag, "StatusOn after toggle" + statusDraft.isChecked());
                     break;
         }
@@ -179,7 +180,15 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
                 Log.v(Tag, "Make request Now to create templae");
                 Log.v(Tag, "LoginToken" + loginUi.mLogintoken);
 
-                CreateProfileData data = new CreateProfileData(CamapingName, "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+                CreateProfileData data = new CreateProfileData (CamapingName, "bussiness", "profile_department",
+                        loginUi.mLogintoken, sendFile, mProfileType,mSetStatus );
+                        //null;//new CreateProfileData(CamapingName, "bussiness", "asASa", loginUi.mLogintoken, sendFile);
+
+
+
+
+
+
                 CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
                 req.executeRequest();
 
