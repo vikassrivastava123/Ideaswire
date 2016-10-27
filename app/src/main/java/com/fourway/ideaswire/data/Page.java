@@ -32,6 +32,7 @@ public class Page {
 
     public void addAttribute (Attribute attr){
         mAttributes.add(mIndex, attr);
+        mIndex++;
     }
 
     public ArrayList<Attribute> getAttributes (){return mAttributes;}

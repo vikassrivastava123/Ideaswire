@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity{
     public static final String CREATE_CAMPAIGN_IMAGE_CROPED_NAME = "Imaged";
     public static final String SEARCH__IMAGE_CROPED_NAME  = "searchedImage";
     public static final String About_Us_TemplateImage_IMAGE_CROPED_NAME = "aboutUsTemplateImage";
-    public static final String Home_TemplateImage_IMAGE_CROPED_NAME = "homeTemplateImage";
+    public static final String Home_TemplateImage_IMAGE_CROPED_NAME_1 = "homeTemplateImage_1";
+    public static final String Home_TemplateImage_IMAGE_CROPED_NAME_2 = "homeTemplateImage_2";
     public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
     public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
 
@@ -191,6 +192,7 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
+
         listOfTemplatePagesObj.add(abtusObj);
         int index = listOfTemplatePagesObj.indexOf(abtusObj);
         listOfTemplatePagesObj.get(index).setDataObj(data);
@@ -210,9 +212,13 @@ public class MainActivity extends AppCompatActivity{
                     data.setTitle(abtTitle);
 
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_FULL_IMAGE:
-                    String url = atr.getContentValue();
-                    data.setUrlOfImage(url);
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1:
+                    String url_1 = atr.getContentValue();
+                    data.setUrlOfImage_1(url_1);
+                    break;
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2:
+                    String url_2 = atr.getContentValue();
+                    data.setUrlOfImage_2(url_2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING:
                     String heading= atr.getContentValue();

@@ -18,10 +18,10 @@
         android:background="@color/skyBlueBckgrnd"
         />
     <ImageView
+        android:clickable="true"
         android:id="@+id/deleteTitleAboutUs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="deleteTitleAboutUs"
         android:src="@drawable/close_"
         android:layout_below="@+id/txtEdit"
         android:layout_alignParentRight="true"
@@ -61,7 +61,8 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
-                    android:onClick="uploadToAboutUsOnApp"/>
+                    />
+                <!-- android:onClick="uploadToAboutUsOnApp"-->
 
                 <ImageView
 
@@ -70,8 +71,7 @@
                     android:id="@+id/ABOUT_US_STATIC_IMAGE"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:scaleType="centerCrop"
-                    android:onClick="uploadToAboutUsOnApp"/>
+                    android:scaleType="centerCrop" />
 
 
 
@@ -79,7 +79,6 @@
                     android:id="@+id/deleteCARD_IMAGE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="deleteCardImageAboutUs"
                     android:src="@drawable/cross_1"
                     android:layout_below="@+id/txtEdit"
                     android:layout_alignParentRight="true"
@@ -116,7 +115,6 @@
                 android:id="@+id/deleteHeadingAboutUs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="deleteHeadingAboutUs"
                 android:src="@drawable/close_"
                 android:layout_below="@+id/cardImageLayout"
                 android:layout_alignParentRight="true"
@@ -151,7 +149,6 @@
                 android:id="@+id/deleteSubHeaderAboutUs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="deleteSubHeadingAboutUs"
                 android:src="@drawable/close_"
                 android:layout_below="@+id/ABOUT_US_HEADING"
                 android:layout_alignParentRight="true"
@@ -182,7 +179,6 @@
                 android:id="@+id/deleteParaAboutUs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="deleteParaAboutUs"
                 android:src="@drawable/close_"
                 android:layout_below="@+id/ABOUT_US_SUBHEADING"
                 android:layout_alignParentRight="true"

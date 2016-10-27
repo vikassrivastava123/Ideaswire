@@ -2,9 +2,11 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.blogpageDataTemplate;
+import com.fourway.ideaswire.templates.pages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,7 +44,7 @@ import java.util.List;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback {
+public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener, FragmenMainActivity.viewCampaign{
 
     EditText heading=null,subheading=null,paraGraphBlog=null,heading_belo=null,subheading_below=null,paraGraphBlog_below=null;
     List<String> attName;
@@ -53,6 +56,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
     NetworkImageView cardImage;
     ImageView cardImageCrop;
+    pages mthispage = null;
 
     private static String TAG = "BlogOnApp";
 
@@ -71,7 +75,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     Page mBlogPageObj;
     String mProfileId = null;
     String mPageName = null;
-    String mParentId = null;
+    String mPageId = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +86,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             showPreview = true;
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+            mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
         }
 
         deleteTitleBlogBtnView=(ImageView)view.findViewById(R.id.deleteTitleBlog);
@@ -94,8 +99,21 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         deleteSubHeaderBelowimgBlogBtnView=(ImageView)view.findViewById(R.id.deleteSubHeaderBelowimgBlog);
         deleteParaBlogBelowimgBtnView=(ImageView)view.findViewById(R.id.deleteParaBelowimgBlogPage);
 
+        deleteTitleBlogBtnView.setOnClickListener(this);
+        deleteCARD_IMAGEBtnView.setOnClickListener(this);
+        deleteHeadingBlogBtnView.setOnClickListener(this);
+        deleteSubHeaderBlogBtnView.setOnClickListener(this);
+        deleteParaBlogBtnView.setOnClickListener(this);
+        deleteHeadingBelowimgBlogBtnView.setOnClickListener(this);
+        deleteSubHeaderBelowimgBlogBtnView.setOnClickListener(this);
+        deleteParaBlogBelowimgBtnView.setOnClickListener(this);
+
+
+
         cardImage = (NetworkImageView) view.findViewById(R.id.Blog_CARD_IMAGE);
         cardImageCrop =(ImageView) view.findViewById(R.id.Blog_STATIC_IMAGE);
+
+        cardImageCrop.setOnClickListener(this);
 
 
         String urlOfProfile = dataObj.getUrlOfImage();
@@ -188,7 +206,30 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
 
 
+
+
+        if(showPreview == true) {
+            init_viewCampaign();
+        }else{
+            init_editCampaign();
+        }
+
+
+
         return view;
+    }
+
+    int lastPositionInList = -1;
+    void init_blogPage_request(){
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
+        mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
+        if (mBlogPageObj==null) {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
+        }
+        mBlogPageObj = new Page(mProfileId, mPageName);
+        mPageId = mBlogPageObj.getPageId();
     }
 
     void init_viewCampaign(){
@@ -240,16 +281,53 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             paraGraphBlog_below.setKeyListener(null);
         }
 
-        mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
 
-        mBlogPageObj  = new Page(mProfileId,mPageName);
-        mParentId = mBlogPageObj.getPageId();
+    }
 
-        if(showPreview == true) {
-            init_viewCampaign();
-        }else{
-            //init_editCampaign();
+    void init_editCampaign(){
+
+        try {
+            deleteTitleBlogBtnView.setVisibility(View.VISIBLE);
+            deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
+            deleteHeadingBlogBtnView.setVisibility(View.VISIBLE);
+            deleteSubHeaderBlogBtnView.setVisibility(View.VISIBLE);
+            deleteParaBlogBtnView.setVisibility(View.VISIBLE);
+        }catch (NullPointerException e){
+            Log.v(TAG,"Null in init_viewCampaign");
+        }
+        if(editTitle !=null){
+            editTitle.setEnabled(true);
+            editTitle.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(heading !=null){
+            heading.setEnabled(true);
+            heading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(subheading !=null){
+            subheading.setEnabled(true);
+            subheading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(paraGraphBlog !=null){
+            paraGraphBlog.setEnabled(true);
+            paraGraphBlog.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(heading_belo != null){
+            heading_belo.setEnabled(true);
+            heading_belo.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(subheading_below != null){
+            subheading_below.setEnabled(true);
+            subheading_below.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(paraGraphBlog_below !=null){
+            paraGraphBlog_below.setEnabled(true);
+            paraGraphBlog_below.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
         }
 
     }
@@ -296,6 +374,72 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     }
 
     ProgressDialog pbImage = null;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.deleteTitleBlog:
+                editTitle.setVisibility(View.GONE);
+                editTitle.setText(null);
+                deleteTitleBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingBlogPage:
+                heading.setVisibility(View.GONE);
+                heading.setText(null);
+                deleteHeadingBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderBlogPage:
+                subheading.setVisibility(View.GONE);
+                subheading.setText(null);
+                deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaBlogPage:
+                paraGraphBlog.setVisibility(View.GONE);
+                paraGraphBlog.setText(null);
+                deleteParaBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteCARD_IMAGE:
+                cardImage.setVisibility(View.GONE);
+                deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+                //cardRelativeLayout.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingBelowimgBlogPage:
+                heading_belo.setVisibility(View.GONE);
+                heading_belo.setText(null);
+                deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderBelowimgBlog:
+                subheading_below.setVisibility(View.GONE);
+                subheading_below.setText(null);
+                deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaBelowimgBlogPage:
+                paraGraphBlog_below.setVisibility(View.GONE);
+                paraGraphBlog_below.setText(null);
+                deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.Blog_STATIC_IMAGE:
+                uploadToBlogOnApp();
+                break;
+        }
+    }
+
+    @Override
+    public void init_ViewCampaign() {
+        if (showPreview==false){
+            init_viewCampaign();
+            showPreview = true;
+        }else {
+            init_editCampaign();
+            showPreview = false;
+        }
+    }
+
+    @Override
+    public void addLastPage() {
+        changeText();
+        addPageToRequest();
+    }
 
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
     {
@@ -360,6 +504,24 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         }
     }
 
+    private void showImageForBackround(){
+        Log.v("editCampaign", "showImageCampaign");
+        try {
+            FileInputStream in = getActivity().openFileInput(MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+
+            cardImage.setVisibility(View.GONE);
+            cardImageCrop.setVisibility(View.VISIBLE);
+
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            cardImageCrop.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+
+        }catch (FileNotFoundException e){
+            Log.v("editCampaign","Blog_TemplateImage_IMAGE_CROPED_NAME file not found");
+        }
+
+    }
+
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
@@ -417,15 +579,16 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     public void setAttribute(String name, String value){
 
         if(name != null && value != null) {
-            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            Attribute atrbtObj = new Attribute(mProfileId, mPageId, name, value);
             mBlogPageObj.addAttribute(atrbtObj);
         }
     }
 
 
     private void addPageToRequest(){
+        init_blogPage_request();
 
-
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG, mthispage.nameis());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1, dataObj.getHeaderBlog());
@@ -443,10 +606,45 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
+        /*if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
+            int index = reqToMakeProfile.getIndexOfPage(mPageId);
+            reqToMakeProfile.replacePage(index, mBlogPageObj);
+        }else {
             reqToMakeProfile.addPage(mBlogPageObj);
+        }*/
+
+        if (lastPositionInList == -1){
+            reqToMakeProfile.addPage(mBlogPageObj);
+        }else {
+            reqToMakeProfile.addPageAtPosition(mBlogPageObj, lastPositionInList);
         }
     }
+
+    public void uploadToBlogOnApp() {
+
+        if(showPreview == false) {
+            String campnName = null;
+         /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
+
+            Intent inf = new Intent(getActivity(), CropedImage.class);
+            inf.putExtra("ScreenName", MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_BLOG_ON_APP);
+
+            inf.putExtra("CampaignName", "Choose Image");
+            cropRestart=1;
+            startActivity(inf);
+
+
+        }
+
+    }
+
+
 
 
     @Override
@@ -455,6 +653,19 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         if(indexInList >=0 ){
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(cropRestart==1) {
+            showImageForBackround();
+            PhotoAsyncTask obj = new PhotoAsyncTask();
+            obj.execute();
+            cropRestart=0;
+        }else {
+            //showBaseMenu();
         }
     }
 
@@ -473,13 +684,15 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            changeText();
-            addPageToRequest();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
-        } else {
-            changeText();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        if (indexInList >=0) {
+            if (hidden) {
+                changeText();
+                addPageToRequest();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            } else {
+                changeText();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            }
         }
     }
 

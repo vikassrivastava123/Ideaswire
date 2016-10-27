@@ -297,7 +297,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
             obj.execute();
             cropRestart=0;
         }else {
-            loadPageTemplate();
+            showBaseMenu();
         }
 
     }
@@ -317,7 +317,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
         // AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
         layout = (RelativeLayout) findViewById(R.id.dynamicPages);
 
-        loadPageTemplate();
+        showBaseMenu();
 
 
         dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
@@ -478,7 +478,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
   }
 
 
-    void loadPageTemplate()
+    void showBaseMenu()
     {
         Timer timing = new Timer();
         timing.schedule(new TimerTask() {

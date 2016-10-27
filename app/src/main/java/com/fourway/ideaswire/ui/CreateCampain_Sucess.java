@@ -105,9 +105,9 @@ public class CreateCampain_Sucess extends Activity {
 
         Class intenetToLaunch = data.getIntentToLaunchPage();
         Log.v("Create homepage", "5" + intenetToLaunch);
-        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        //Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
 
-        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
 

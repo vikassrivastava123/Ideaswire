@@ -230,7 +230,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         break;
 
                     case MainActivity.OPEN_GALLERY_FOR_HOME_PAGE_ON_APP:
-                        createImagefromBitmap(bitmap,MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME);
+                        createImagefromBitmap(bitmap,scrnName);
                         // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
                         finish();
                         // startActivity(editCampaignIntent);

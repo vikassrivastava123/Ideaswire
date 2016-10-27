@@ -5,10 +5,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -49,7 +51,7 @@ import java.io.IOException;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback{
+public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback , View.OnClickListener, FragmenMainActivity.viewCampaign {
 
     ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
@@ -69,9 +71,11 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     Page  mAbtUsPageObj;
     String mProfileId = null;
     String mPageName = null;
-    String mParentId = null;
+    String mPageId = null;
 
     int indexInList = -1;
+    int cropRestart=0;
+    pages mthispage = null;
 
     private static String TAG = "FragmentAboutUsOnApp";
     @Override
@@ -84,6 +88,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
            showPreview = true;
        }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+            mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+            //mPageName = mthispage.nameis();
         }
 
         deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
@@ -91,6 +97,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         deleteHeadingAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteHeadingAboutUs);
         deleteSubHeaderAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteSubHeaderAboutUs);
         deleteParaAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteParaAboutUs);
+
+        deleteTitleAboutUsBtnView.setOnClickListener(this);
+        deleteCARD_IMAGEBtnView .setOnClickListener(this);
+        deleteHeadingAboutUsBtnView.setOnClickListener(this);
+        deleteSubHeaderAboutUsBtnView.setOnClickListener(this);
+        deleteParaAboutUsBtnView.setOnClickListener(this);
 
 
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
@@ -135,6 +147,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         cardImage = (NetworkImageView)  view.findViewById(R.id.ABOUT_US_CARD_IMAGE);
         cardImageCrop = (ImageView) view.findViewById(R.id.ABOUT_US_STATIC_IMAGE);
 
+        cardImageCrop.setOnClickListener(this);
+
         String urlOfProfile = dataObj.get_url();
         if(urlOfProfile != null && !urlOfProfile.equalsIgnoreCase("null")){
             cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
@@ -157,7 +171,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
                     int posInListOfPage = dataObj.get_submit_button_link();
 
-                    if(posInListOfPage >= 0) {
+                    if(posInListOfPage > 0) {
                         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
 
                         Fragment fragmentToLaunch = data.getFragmentToLaunchPage();
@@ -174,6 +188,15 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                       //  Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
                       //  intent.putExtra("data", data);
                       //  startActivity(intent);
+                    }else {
+                        String btnUrl= dataObj.get_buttonUrl();
+                        if (btnUrl!=null) {
+                            if (!btnUrl.startsWith("http://") && !btnUrl.startsWith("https://"))
+                                btnUrl = "http://" + btnUrl;
+
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(btnUrl));
+                            startActivity(browserIntent);
+                        }
                     }
                 }
 
@@ -188,22 +211,34 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }else{
             submit_button.setVisibility(View.GONE);
         }
-        mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
 
-        mAbtUsPageObj  = new Page(mProfileId,mPageName);
-        mParentId = mAbtUsPageObj.getPageId();
 
 
 
        if(showPreview == true) {
            init_viewCampaign();
        }else{
-           //init_editCampaign();
+           init_editCampaign();
        }
 
 
         return view;
+    }
+
+    int lastPositionInList = -1;
+    void init_aboutUsPage_request(){
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
+        mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+
+        if(mAbtUsPageObj != null)
+        {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
+        }
+
+        mAbtUsPageObj = new Page(mProfileId, mPageName);
+        mPageId = mAbtUsPageObj.getPageId();
     }
 
 
@@ -276,6 +311,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     private void addPageToRequest(){
 
+        init_aboutUsPage_request();
+
+
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
+
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
 
@@ -285,13 +326,51 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
 
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT, dataObj.get_buttonUrl());
+
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+
 
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
-        if(reqToMakeProfile.checkIfPageExist(mParentId) == false) {
-            reqToMakeProfile.addPage(mAbtUsPageObj);
+        //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
+        /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
+            int index = reqToMakeProfile.getIndexOfPage(mPageId);
+            reqToMakeProfile.replacePage(index, mAbtUsPageObj);
+        }else*/
+        {
+            if(lastPositionInList == -1){
+                reqToMakeProfile.addPage(mAbtUsPageObj);
+            }else {
+                reqToMakeProfile.addPageAtPosition(mAbtUsPageObj, lastPositionInList);
+            }
+
         }
+    }
+
+
+    public void uploadToAboutUsOnApp() {
+
+        if(showPreview == false) {
+            String campnName = null;
+         /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
+
+            Intent inf = new Intent(getActivity(), CropedImage.class);
+            inf.putExtra("ScreenName", MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP);
+
+            inf.putExtra("CampaignName", "Choose Image");
+            cropRestart=1;
+            startActivity(inf);
+
+
+        }
+
     }
 
 
@@ -312,7 +391,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     public void setAttribute(String name, String value){
 
         if(name != null && value != null) {
-            Attribute atrbtObj = new Attribute(mProfileId, mParentId, name, value);
+            Attribute atrbtObj = new Attribute(mProfileId, mPageId, name, value);
             mAbtUsPageObj.addAttribute(atrbtObj);
         }
     }
@@ -525,6 +604,52 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         popup.show();//showing popup menu
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.deleteTitleAboutUs:
+                editTitle.setVisibility(View.GONE);
+                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteCARD_IMAGE:
+                editTitle.setVisibility(View.GONE);
+                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteHeadingAboutUs:
+                editHeader.setVisibility(View.GONE);
+                deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteSubHeaderAboutUs:
+                editSubHeading.setVisibility(View.GONE);
+                deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.deleteParaAboutUs:
+                editParaGraphAboutUs.setVisibility(View.GONE);
+                deleteParaAboutUsBtnView.setVisibility(View.GONE);
+                break;
+            case R.id.ABOUT_US_STATIC_IMAGE:
+                uploadToAboutUsOnApp();
+                break;
+
+        }
+    }
+
+    @Override
+    public void init_ViewCampaign() {
+        if (showPreview==false){
+            init_viewCampaign();
+            showPreview = true;
+        }else {
+            init_editCampaign();
+            showPreview = false;
+        }
+    }
+
+    @Override
+    public void addLastPage() {
+        changeText();
+        addPageToRequest();
+    }
 
 
     private class PhotoAsyncTask extends AsyncTask<Void, Void, Void>
@@ -639,40 +764,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     }
 
 
-    public void deleteCardImageAboutUs(View view) {
-
-        cardImage.setVisibility(View.GONE);
-        deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
-
-    }
-
-    public void deleteTitleAboutUs(View view) {
-
-        editTitle.setVisibility(View.GONE);
-        deleteTitleAboutUsBtnView.setVisibility(View.GONE);
-
-    }
-
-    public void deleteHeadingAboutUs(View view) {
-
-        editHeader.setVisibility(View.GONE);
-        deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
-    }
-
-    public void deleteSubHeadingAboutUs(View view) {
-        editSubHeading.setVisibility(View.GONE);
-        deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
-    }
-
-    public void deleteParaAboutUs(View view) {
-        editParaGraphAboutUs.setVisibility(View.GONE);
-        deleteParaAboutUsBtnView.setVisibility(View.GONE);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
-        //if(indexInList >=0 )
+        if(indexInList >=0 )
         {
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
@@ -680,15 +775,30 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if(cropRestart==1) {
+            showImageForBackround();
+            PhotoAsyncTask obj = new PhotoAsyncTask();
+            obj.execute();
+            cropRestart=0;
+        }else {
+            //showBaseMenu();
+        }
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            changeText();
-            addPageToRequest();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
-        } else {
-            changeText();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+        if (indexInList >=0) {
+            if (hidden) {
+                changeText();
+                addPageToRequest();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            } else {
+                changeText();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+            }
         }
     }
 

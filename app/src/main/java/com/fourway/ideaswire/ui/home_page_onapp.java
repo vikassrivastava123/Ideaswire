@@ -291,7 +291,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
             editParaGraph.setVisibility(View.GONE);
         }
 
-        String urlOfProfile = dataObj.getUrlOfImage();
+        String urlOfProfile = dataObj.getUrlOfImage_1();
 
         if(urlOfProfile != null){
             Uri cardImageUri = Uri.parse(urlOfProfile);
@@ -435,7 +435,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
         pbImage.hide();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();
-            dataObj.setUrlOfImage(imageUrl);
+            dataObj.setUrlOfImage_1(imageUrl);
             Log.v(TAG,"Url received" + imageUrl);
         }
     }
@@ -450,7 +450,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.getSubHeading());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE, dataObj.getTitle());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_FULL_IMAGE, dataObj.getUrlOfImage());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1, dataObj.getUrlOfImage_1());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH, dataObj.getParaGraph());
 
@@ -472,7 +472,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
 
 
             try {
-                in = openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME);
+                in = openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -531,7 +531,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
     private void showImageForBackround(){
         Log.v("editCampaign", "showImageCampaign");
         try {
-            FileInputStream in = openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME);
+            FileInputStream in = openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1);
 
             cardImage_1.setVisibility(View.GONE);
             cardImageCrop_1.setVisibility(View.VISIBLE);
@@ -558,7 +558,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
         * */
 
             Intent inf = new Intent(this, CropedImage.class);
-            inf.putExtra("ScreenName", MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME);
+            inf.putExtra("ScreenName", MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1);
             inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_HOME_PAGE_ON_APP);
 
             inf.putExtra("CampaignName", "Choose Image");

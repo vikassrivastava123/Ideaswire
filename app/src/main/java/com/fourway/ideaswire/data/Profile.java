@@ -86,6 +86,38 @@ public class Profile {
         mTotalNumberOfPages++;
     }
 
+    public void addPageAtPosition (Page p,int pos){
+        mPages.add(pos, p);
+        mTotalNumberOfPages++;
+    }
+
+    //For page override if already exist
+    public void replacePage(int pageIndex, Page p){
+         mPages.set(pageIndex, p);
+
+    }
+
+    public int getIndexOfPage(String page_id){
+        for (int i=0; i< mTotalNumberOfPages;i++){
+            Page p = mPages.get(i);
+            if (p.getPageId().equals(page_id)){
+                return i;
+            }
+        }
+        return mTotalNumberOfPages;
+    }
+
+    public int getIndexOfPageFromName(String page_name){
+        for (int i=0; i< mTotalNumberOfPages;i++){
+            Page p = mPages.get(i);
+            if (p.getPageName().equals(page_name)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
     public int getTotalNumberOfPagesAdded(){
         return mTotalNumberOfPages;
     }
@@ -110,6 +142,34 @@ public class Profile {
             }
         }
     }
+
+    public Page getPageByName(String name){
+        if(name !=null) {
+            for (int i = 0; i < mTotalNumberOfPages; i++) {
+                Page p = mPages.get(i);
+                if (p.getPageName().equals(name)) {
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deletePageByName(String name){
+        if(name !=null) {
+            for (int i = 0; i < mTotalNumberOfPages; i++) {
+                Page p = mPages.get(i);
+                if (p.getPageName().equals(name)) {
+                    mPages.remove(i);
+                    mTotalNumberOfPages--;
+                    return;
+                }
+            }
+        }
+
+    }
+
+
 
     public Page getPageAtIndex (int i){
         if (i >= mTotalNumberOfPages) {

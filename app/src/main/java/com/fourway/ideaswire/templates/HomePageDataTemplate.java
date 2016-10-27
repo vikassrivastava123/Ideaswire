@@ -2,7 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
-import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.ui.FragmentHomeOnApp;
 import com.fourway.ideaswire.ui.home_page_onapp;
 
 /**
@@ -18,7 +18,8 @@ public class HomePageDataTemplate extends dataOfTemplate{
     private String heading=null;
     private String subHeading=null;
     private String paraGraph=null;
-    private String urlOfImage =null;
+    private String urlOfImage_1 =null;
+    private String urlOfImage_2 =null;
 
     boolean   ismDefaultData = false;
     public HomePageDataTemplate(int templateSelected,boolean isDefaultData){
@@ -53,7 +54,7 @@ public class HomePageDataTemplate extends dataOfTemplate{
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentHomeOnApp();
     }
 
     @Override
@@ -93,12 +94,18 @@ public class HomePageDataTemplate extends dataOfTemplate{
         this.paraGraph = paraGraph;
     }
 
-    public String getUrlOfImage() {
-        return urlOfImage;
+    public String getUrlOfImage_1() {
+        return urlOfImage_1;
+    }
+    public String getUrlOfImage_2() {
+        return urlOfImage_2;
     }
 
-    public void setUrlOfImage(String urlOfImage) {
-        this.urlOfImage = urlOfImage;
+    public void setUrlOfImage_1(String urlOfImage_1) {
+        this.urlOfImage_1 = urlOfImage_1;
+    }
+    public void setUrlOfImage_2(String urlOfImage_2) {
+        this.urlOfImage_2 = urlOfImage_2;
     }
 
 

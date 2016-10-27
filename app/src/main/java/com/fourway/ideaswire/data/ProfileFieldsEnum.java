@@ -7,7 +7,8 @@ package com.fourway.ideaswire.data;
 public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_HOMEPAGE = "Homepage";
     public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
-    public static final String PROFILE_PAGE_HOMEPAGE_FULL_IMAGE = "Homepage_Full_image";
+    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1 = "Homepage_Card_image_1";
+    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2 = "Homepage_Card_image_2";
     public static final String PROFILE_PAGE_HOMEPAGE_HEADING = "Homepage_Heading";
     public static final String PROFILE_PAGE_HOMEPAGE_SUBHEADING = "Homepage_Subheading";
     public static final String PROFILE_PAGE_HOMEPAGE_PARAGRAPH = "Homepage_Paragraph";

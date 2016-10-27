@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     android:id="@+id/listFirstLogin"
     android:paddingTop="-1dp"
+    android:background="@drawable/login_reg_bg"
     tools:context="com.fourway.ideaswire.ui.HomepageBeforeLogin">
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
@@ -33,18 +34,17 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="#00000000"
+                    android:background="#161e3e"
                     app:popupTheme="@style/AppTheme.PopupOverlay"
-
                     android:clickable="true"
                     android:contextClickable="true"
 
                     android:visibility="visible">
                     <ImageButton
+                        android:id="@+id/nave_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:onClick="backButtonHandler"
                         android:background="@drawable/more_vert"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -81,8 +81,8 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:layout_marginTop="25dp"
             android:fitsSystemWindows="false"
             app:itemTextAppearance="@style/NavigationDrawerStyle"

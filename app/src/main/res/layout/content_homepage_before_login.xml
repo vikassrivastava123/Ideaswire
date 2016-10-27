@@ -2,8 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_reg_bg"
-
     >
         <LinearLayout
         android:id="@+id/viewPagerCountDots"
@@ -14,6 +12,7 @@
         android:orientation="horizontal" />
 
     <android.support.v4.view.ViewPager
+        android:layout_marginTop="50dp"
         android:id="@+id/viewpager"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -21,77 +20,72 @@
         android:layout_above="@+id/footer"
         />
 
-    <ImageView
-        android:layout_marginBottom="-25dp"
+    <LinearLayout
         android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/homepage_footer"
-        android:visibility="visible"
+        android:layout_marginBottom="-20dp"
         android:layout_alignParentBottom="true"
-        />
-
-    <View android:id="@+id/fakeView"
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/galleryButton"
-        android:src="@drawable/upload_photo"
-        android:layout_marginLeft="42dp"
-        android:paddingLeft="11dp"
-        android:layout_marginTop="36dp"
-        android:layout_alignTop="@+id/footer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignLeft="@id/fakeView"
-        android:onClick="galleryButtonOnClick" android:background="@null"
-        />
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:onClick="galleryButtonOnClick"
+            android:background="@drawable/homepage_footer_gallary"/>
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:onClick="cameraButtonOnClick"
+            android:background="@drawable/homepage_footer_camera"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cameraButton"
+        android:orientation="horizontal">
 
-        android:src="@drawable/take_photo"
-        android:layout_marginTop="36dp"
-        android:layout_marginRight="62dp"
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:id="@+id/uploadText"
+            android:text="Upload Photo"
+            android:textSize="19dp"
+            android:textColor="@color/text"
+            />
 
-        android:layout_alignTop="@+id/footer"
-        android:layout_alignRight="@id/fakeView"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:onClick="cameraButtonOnClick" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:id="@+id/captureText"
+            android:text="Take Photo"
+            android:textSize="19dp"
+            android:textColor="@color/text"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/uploadText"
-        android:layout_below="@+id/galleryButton"
-        android:text="Upload Photo"
-        android:textSize="19dp"
-        android:textColor="@color/text"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="5dp"
-        />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/captureText"
-        android:layout_below="@+id/cameraButton"
-        android:text="Capture Photo"
-        android:textSize="19dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/text"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
+
+
+
+
+
+
+
+
+
+
 
 
 
