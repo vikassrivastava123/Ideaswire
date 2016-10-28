@@ -147,7 +147,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String header=dataObj.getHeading();
-        if(header!=null){
+        if(header!=null && !header.equals("")){
             editHeader.setText(header);
             editHeader.setTypeface(mycustomFont);
         }else{
@@ -155,7 +155,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String subHeading=dataObj.getSubHeading();
-        if(subHeading!=null){
+        if(subHeading!=null && !subHeading.equals("")){
             editSubheading.setText(subHeading);
             editSubheading.setTypeface(mycustomFont);
         }else{
@@ -163,7 +163,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String paraGraph=dataObj.getParaGraph();
-        if(paraGraph!=null){
+        if(paraGraph!=null && paraGraph.equals("")){
             editParaGraph.setText(paraGraph);
             editParaGraph.setTypeface(mycustomFont);
         }else{
@@ -201,7 +201,9 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             init_editCampaign();
         }
 
-        showPreview();
+        if (dataObj.isDefaultDataToCreateCampaign()) {
+            showPreview();
+        }
         return view;
     }
 
@@ -221,6 +223,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         switch (v.getId()){
             case R.id.deleteTitlehome:
                 editTitle.setVisibility(View.GONE);
+                editTitle.setText("");
                 deleteTitle.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE_1:
@@ -230,14 +233,17 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 break;
             case R.id.deleteHeadingHome:
                 editHeader.setVisibility(View.GONE);
+                editHeader.setText("");
                 deleteHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeadingHome:
                 editSubheading.setVisibility(View.GONE);
+                editSubheading.setText("");
                 deleteSubHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaHome:
                 editParaGraph.setVisibility(View.GONE);
+                editParaGraph.setText("");
                 deletePara.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE_2:

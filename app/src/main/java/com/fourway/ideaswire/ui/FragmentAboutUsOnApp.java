@@ -224,7 +224,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
            init_editCampaign();
        }
 
-        showPreview();
+        if (dataObj.isDefaultDataToCreateCampaign()){
+            showPreview();
+        }
+
 
 
         return view;
@@ -627,6 +630,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         switch (v.getId()){
             case R.id.deleteTitleAboutUs:
                 editTitle.setVisibility(View.GONE);
+                editTitle.setText(null);
                 deleteTitleAboutUsBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE:
@@ -635,14 +639,17 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 break;
             case R.id.deleteHeadingAboutUs:
                 editHeader.setVisibility(View.GONE);
+                editHeader.setText(null);
                 deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeaderAboutUs:
                 editSubHeading.setVisibility(View.GONE);
+                editSubHeading.setText(null);
                 deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaAboutUs:
                 editParaGraphAboutUs.setVisibility(View.GONE);
+                editParaGraphAboutUs.setText(null);
                 deleteParaAboutUsBtnView.setVisibility(View.GONE);
                 break;
             case R.id.ABOUT_US_STATIC_IMAGE:
@@ -760,25 +767,25 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextAbtUs" + title);
-        if (title != null) {
+        if (title != null && !title.equals("")) {
             dataObj.set_title(title);
         }
 
         String header = String.valueOf(editHeader.getText());
         Log.d(TAG, "changeHeadingTxtAbtUs" + header);
-        if (header != null) {
+        if (header != null && !header.equals("")) {
             dataObj.set_heading(header);
         }
 
         String subheader = String.valueOf(editSubHeading.getText());
         Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
-        if (subheader != null) {
+        if (subheader != null && subheader.equals("")) {
             dataObj.set_sub_heading(subheader);
         }
 
         String para = String.valueOf(editParaGraphAboutUs.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (para != null) {
+        if (para != null && !para.equals("")) {
             dataObj.set_text_para(para);
         }
 

@@ -143,7 +143,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String title = dataObj.getTitle();
         editTitle = (EditText) view.findViewById(R.id.BLOG_TITLE);
-        if(title != null) {
+        if(title != null && !title.equals("")) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
@@ -152,7 +152,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String header = dataObj.getHeaderBlog();
         heading = (EditText) view.findViewById(R.id.blog_heading);
-        if(header != null) {
+        if(header != null && !header.equals("")) {
             heading.setText(header);
             heading.setTypeface(mycustomFont);
         }else{
@@ -161,7 +161,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String subHeading = dataObj.getSubHeader();
         subheading = (EditText) view.findViewById(R.id.blog_subheading);
-        if(subHeading != null) {
+        if(subHeading != null && !subHeading.equals("")) {
             subheading.setText(subHeading);
             subheading.setTypeface(mycustomFont);
         }else{
@@ -170,7 +170,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String paraGraph =  dataObj.getText_Para();
         paraGraphBlog = (EditText) view.findViewById(R.id.blog_paraGraph);
-        if(paraGraph != null){
+        if(paraGraph != null && !paraGraph.equals("")){
             paraGraphBlog.setText(paraGraph);
             paraGraphBlog.setTypeface(mycustomFont);
         }else{
@@ -179,7 +179,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String headingBelow = dataObj.getHeaderBlogBlowing();
         heading_belo = (EditText) view.findViewById(R.id.blog_heading_belowing);
-        if(headingBelow != null)
+        if(headingBelow != null && !headingBelow.equals(""))
         {
             heading_belo.setText(headingBelow);
             heading_belo.setTypeface(mycustomFont);
@@ -190,7 +190,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         String subheadingBlow = dataObj.getSubHeaderBlowing();
         subheading_below = (EditText) view.findViewById(R.id.blog_subheading_belowing);
-        if(subheadingBlow != null){
+        if(subheadingBlow != null && !subheadingBlow.equals("")){
             subheading_below.setText(subheadingBlow);
             subheading_below.setTypeface(mycustomFont);
         }else {
@@ -199,7 +199,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         paraGraphBlog_below = (EditText) view.findViewById(R.id.blog_paraGraph_belowing);
         String paraGraphBelow = dataObj.getText_ParaBlowing();
-        if(paraGraphBelow != null){
+        if(paraGraphBelow != null && !paraGraphBelow.equals("")){
             paraGraphBlog_below.setText(paraGraphBelow);
             paraGraphBlog_below.setTypeface(mycustomFont);
         }else{
@@ -216,7 +216,10 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             init_editCampaign();
         }
 
-        showPreview();
+        if (dataObj.isDefaultDataToCreateCampaign()){
+            showPreview();
+        }
+
 
         return view;
     }
