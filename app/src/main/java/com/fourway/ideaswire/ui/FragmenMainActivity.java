@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -261,6 +262,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         // previewLayout.setVisibility(View.VISIBLE);
 
     }
+    public void pageTemplate(View view) {
+        startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
+    }
 
 static int test = 0;
     public void testApp(View v) {
@@ -300,5 +304,11 @@ static int test = 0;
 
     public boolean checkPreview(){
         return showPreview;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showBaseMenu();
     }
 }

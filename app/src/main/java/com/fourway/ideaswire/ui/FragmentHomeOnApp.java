@@ -163,7 +163,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String paraGraph=dataObj.getParaGraph();
-        if(paraGraph!=null && paraGraph.equals("")){
+        if(paraGraph!=null && !paraGraph.equals("")){
             editParaGraph.setText(paraGraph);
             editParaGraph.setTypeface(mycustomFont);
         }else{

@@ -123,7 +123,7 @@
                 android:id="@+id/cardImageLayout">
 
                 <com.android.volley.toolbox.NetworkImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginTop="8dp"
                     android:id="@+id/Blog_CARD_IMAGE"

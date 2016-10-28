@@ -111,7 +111,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String title = dataObj.get_title();
         editTitle = (EditText) view.findViewById(R.id.ABOUT_TITLE);
-        if(title != null) {
+        if(title != null && !title.equals("")) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
@@ -120,7 +120,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String header = dataObj.get_heading();
         editHeader = (EditText) view.findViewById(R.id.ABOUT_US_HEADING);
-        if(header != null) {
+        if(header != null && !header.equals("")) {
             editHeader.setText(header);
             editHeader.setTypeface(mycustomFont);
         }else{
@@ -129,7 +129,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String subHeading = dataObj.get_sub_heading();
         editSubHeading = (EditText) view.findViewById(R.id.ABOUT_US_SUBHEADING);
-        if(subHeading != null) {
+        if(subHeading != null && !subHeading.equals("")) {
             editSubHeading.setText(subHeading);
             editSubHeading.setTypeface(mycustomFont);
         }else{
@@ -138,7 +138,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String paraGraphAboutUs =  dataObj.get_text_para();
         editParaGraphAboutUs = (EditText) view.findViewById(R.id.paraGraphAboutUs);
-        if(paraGraphAboutUs != null){
+        if(paraGraphAboutUs != null && !paraGraphAboutUs.equals("")){
             editParaGraphAboutUs.setText(paraGraphAboutUs);
             editParaGraphAboutUs.setTypeface(mycustomFont);
         }else{
@@ -175,6 +175,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                     int posInListOfPage = dataObj.get_submit_button_link();
 
                     if(posInListOfPage > 0) {
+                        int listSize=MainActivity.listOfTemplatePagesObj.size();
                         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
 
                         Fragment fragmentToLaunch = data.getFragmentToLaunchPage();
@@ -767,25 +768,25 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextAbtUs" + title);
-        if (title != null && !title.equals("")) {
+        if (title != null) {
             dataObj.set_title(title);
         }
 
         String header = String.valueOf(editHeader.getText());
         Log.d(TAG, "changeHeadingTxtAbtUs" + header);
-        if (header != null && !header.equals("")) {
+        if (header != null) {
             dataObj.set_heading(header);
         }
 
         String subheader = String.valueOf(editSubHeading.getText());
         Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
-        if (subheader != null && subheader.equals("")) {
+        if (subheader != null) {
             dataObj.set_sub_heading(subheader);
         }
 
         String para = String.valueOf(editParaGraphAboutUs.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (para != null && !para.equals("")) {
+        if (para != null) {
             dataObj.set_text_para(para);
         }
 
