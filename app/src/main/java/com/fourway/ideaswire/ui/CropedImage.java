@@ -185,7 +185,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         try{
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,50,bytes);
             FileOutputStream fo = openFileOutput(fileName, Context.MODE_PRIVATE);
             Log.v("createImagefromBitmap","try");
             fo.write(bytes.toByteArray());

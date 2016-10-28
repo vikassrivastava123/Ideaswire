@@ -72,7 +72,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
         File f = new File(getApplicationContext().getCacheDir(), "Abc");
 //Convert bitmap to byte array
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        b.compress(Bitmap.CompressFormat.JPEG, 50 /*ignored for PNG*/, bos);
         byte[] bitmapdata = bos.toByteArray();
 
 //write the bytes in file
