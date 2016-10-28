@@ -67,6 +67,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     AboutUsDataTemplate dataObj = null;
     private boolean showPreview = false;
 
+    String cardImageUrl = null;
+
     //Variables to make request to server
     Page  mAbtUsPageObj;
     String mProfileId = null;
@@ -148,6 +150,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         cardImageCrop = (ImageView) view.findViewById(R.id.ABOUT_US_STATIC_IMAGE);
 
         cardImageCrop.setOnClickListener(this);
+        cardImage.setOnClickListener(this);
 
         String urlOfProfile = dataObj.get_url();
         if(urlOfProfile != null && !urlOfProfile.equalsIgnoreCase("null")){
@@ -221,8 +224,18 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
            init_editCampaign();
        }
 
+        showPreview();
+
 
         return view;
+    }
+
+    void showPreview(){
+        if(((FragmenMainActivity)getActivity()).checkPreview()){
+            init_ViewCampaign();
+            showPreview=true;
+        }
+
     }
 
     int lastPositionInList = -1;
@@ -381,9 +394,14 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         pbImage.hide();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
-            String imageUrl = data.getResponseUrl();
-            dataObj.set_url(imageUrl);
-            Log.v(TAG,"Url received" + imageUrl);
+
+            String ImageName = data.getImageName();
+            if (ImageName.equals("About_us_banner")) {
+                String imageUrl = data.getResponseUrl();
+                cardImageUrl = imageUrl;
+                //dataObj.set_url(imageUrl);
+                Log.v(TAG, "Url received" + imageUrl);
+            }
         }
 
     }
@@ -630,6 +648,9 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             case R.id.ABOUT_US_STATIC_IMAGE:
                 uploadToAboutUsOnApp();
                 break;
+            case R.id.ABOUT_US_CARD_IMAGE:
+                uploadToAboutUsOnApp();
+                break;
 
         }
     }
@@ -671,7 +692,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
             UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About us banner", 1);
+                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About_us_banner", 1);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentAboutUsOnApp.this);
             req.executeRequest();
 
@@ -756,10 +777,13 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
 
         String para = String.valueOf(editParaGraphAboutUs.getText());
-
         Log.d(TAG, "changeParaAbtUs" + para);
         if (para != null) {
             dataObj.set_text_para(para);
+        }
+
+        if (cardImageUrl !=null){
+            dataObj.set_url(cardImageUrl);
         }
     }
 

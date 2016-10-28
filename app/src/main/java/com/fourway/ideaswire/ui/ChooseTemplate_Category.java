@@ -46,8 +46,8 @@ public class ChooseTemplate_Category extends Activity {
    //     gridAdapter = new GridViewAdapter(this, R.layout.activity_choose_template__category, getData());
     //    gridView.setAdapter(gridAdapter);
 
-        String[] values = new String[] { "business", "entertainment", "finance",
-                "health", "individual","information","other","restaurent","see_all_template","wedding"};
+        String[] values = new String[] { "Business", "Entertainment", "Finance",
+                "Health", "Individual","Information","Other","Restaurants","See_all_template","Wedding"};
 
         // use your custom layout
         ArrayAdapter<String> adapter = new GridViewAdapter<String>(this,

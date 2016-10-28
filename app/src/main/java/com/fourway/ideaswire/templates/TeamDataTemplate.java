@@ -2,6 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
+import com.fourway.ideaswire.ui.FragmentTeamOnApp;
 import com.fourway.ideaswire.ui.teamonapp;
 
 /**
@@ -70,7 +71,7 @@ public class TeamDataTemplate extends dataOfTemplate {
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentTeamOnApp();
     }
 
     @Override

@@ -68,6 +68,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     HomePageDataTemplate dataObj;
     private boolean showPreview = false;
 
+    String cardImageUrl = null;
+
     //Variables to make request to server
     Page  mHomePageObj;
     String mProfileId = null;
@@ -199,7 +201,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             init_editCampaign();
         }
 
-
+        showPreview();
         return view;
     }
 
@@ -634,8 +636,10 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     }
 
     void showPreview(){
-
-        init_viewCampaign();
+        if(((FragmenMainActivity)getActivity()).checkPreview()){
+            init_ViewCampaign();
+            showPreview=true;
+        }
 
     }
 

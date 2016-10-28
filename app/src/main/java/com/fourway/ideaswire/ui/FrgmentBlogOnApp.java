@@ -77,6 +77,8 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     String mPageName = null;
     String mPageId = null;
 
+    String cardImageUrl = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view=inflater.inflate(R.layout.fragment_blog, container, false);
@@ -126,7 +128,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
         }else{
             cardImage.setVisibility(View.GONE);
-            cardImageCrop.setImageResource(R.drawable.about_banner_1);
+            cardImageCrop.setImageResource(R.drawable.blog_banner);
 
         }
 
@@ -214,7 +216,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             init_editCampaign();
         }
 
-
+        showPreview();
 
         return view;
     }
@@ -339,7 +341,10 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
     void showPreview(){
 
-        init_viewCampaign();
+        if(((FragmenMainActivity)getActivity()).checkPreview()){
+            init_ViewCampaign();
+            showPreview=true;
+        }
 
     }
 
@@ -426,6 +431,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
     @Override
     public void init_ViewCampaign() {
+
         if (showPreview==false){
             init_viewCampaign();
             showPreview = true;
@@ -527,7 +533,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         pbImage.hide();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();
-            dataObj.setUrlOfImage(imageUrl);
+            cardImageUrl = imageUrl;
             Log.v(TAG,"Url received" + imageUrl);
         }
     }
@@ -573,6 +579,10 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         Log.d(TAG, "changeSubHeadingBelowTxtBlog" + paraBelow);
         if (paraBelow != null) {
             dataObj.setText_ParaBlowing(paraBelow);
+        }
+
+        if (cardImageUrl!=null) {
+            //dataObj.setUrlOfImage(cardImageUrl);
         }
     }
 

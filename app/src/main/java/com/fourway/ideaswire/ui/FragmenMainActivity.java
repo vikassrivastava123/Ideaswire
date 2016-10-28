@@ -154,7 +154,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     void showBaseMenu(){
 
         final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
-        Timer timing = new Timer();
+        final Timer timing = new Timer();
         timing.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -208,6 +208,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
                                     transaction.replace(R.id.mainRLayout,fragmentToLaunch);
                                     transaction.commit();
+
+
                                 }
                             });
                             row.addView(btn[i]);
@@ -294,5 +296,9 @@ static int test = 0;
     public abstract interface viewCampaign{
         abstract void init_ViewCampaign();
         abstract void addLastPage();
+    }
+
+    public boolean checkPreview(){
+        return showPreview;
     }
 }

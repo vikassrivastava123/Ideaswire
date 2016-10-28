@@ -2,6 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
+import com.fourway.ideaswire.ui.FragmentContactOnApp;
 import com.fourway.ideaswire.ui.contact_details;
 
 /**
@@ -86,7 +87,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentContactOnApp();
     }
 
     @Override

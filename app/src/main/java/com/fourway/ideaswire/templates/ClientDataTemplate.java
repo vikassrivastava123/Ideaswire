@@ -3,6 +3,7 @@ package com.fourway.ideaswire.templates;
 import android.app.Fragment;
 
 import com.fourway.ideaswire.ui.ClientsOnapp;
+import com.fourway.ideaswire.ui.FragmentClientsOnApp;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -64,7 +65,7 @@ public class ClientDataTemplate extends dataOfTemplate {
 
     @Override
     public Fragment getFragmentToLaunchPage() {
-        return null;
+        return new FragmentClientsOnApp();
     }
 
     @Override

@@ -100,6 +100,10 @@ public class CreateCampain_Sucess extends Activity {
         abtusObj.setPageIndex(3);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
         abtusObj.setPageIndex(4);
+        MainActivity.listOfTemplatePagesObj.add(5, clientobj);
+        abtusObj.setPageIndex(5);
+        MainActivity.listOfTemplatePagesObj.add(6, teamPages);
+        abtusObj.setPageIndex(6);
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
 
@@ -120,6 +124,8 @@ public class CreateCampain_Sucess extends Activity {
         Log.v("CreateCampain_Sucess","Clicked to start choosing template");
 //todo tempLoad Vijay
         startCreateCampaignWithDefaultData(1);
+
+        //startActivity(new Intent(this,ChooseTemplate_Category.class));
 
         //Intent iny = new Intent(this,TempActivity.class);
 
