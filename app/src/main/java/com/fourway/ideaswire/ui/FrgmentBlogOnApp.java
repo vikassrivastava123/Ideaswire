@@ -585,7 +585,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
         }
 
         if (cardImageUrl!=null) {
-            //dataObj.setUrlOfImage(cardImageUrl);
+            dataObj.setUrlOfImage(cardImageUrl);
         }
     }
 
