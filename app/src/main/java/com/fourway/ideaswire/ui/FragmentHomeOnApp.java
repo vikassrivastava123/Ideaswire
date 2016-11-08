@@ -68,7 +68,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     HomePageDataTemplate dataObj;
     private boolean showPreview = false;
 
-    String cardImageUrl = null;
+    String cardImageUrl_1 = null;
+    String cardImageUrl_2 = null;
 
     //Variables to make request to server
     Page  mHomePageObj;
@@ -350,7 +351,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
 
             UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_1", 1);
+                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_1", 2);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
             req.executeRequest();
 
@@ -414,7 +415,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
 
             UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_2", 1);
+                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_2", 3);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
             req.executeRequest();
 
@@ -467,11 +468,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
             if (ImageName.equals("Home_banner_1")) {
                 String imageUrl = data.getResponseUrl();
-                dataObj.setUrlOfImage_1(imageUrl);
+                cardImageUrl_1 = imageUrl;
+                //dataObj.setUrlOfImage_1(imageUrl);
                 Log.v(TAG, "Url received_1 " + imageUrl);
             }else if (ImageName.equals("Home_banner_2")){
                 String imageUrl = data.getResponseUrl();
-                dataObj.setUrlOfImage_2(imageUrl);
+                cardImageUrl_2 = imageUrl;
+                //dataObj.setUrlOfImage_2(imageUrl);
                 Log.v(TAG, "Url received_2 " + imageUrl);
             }
         }
@@ -671,6 +674,14 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         Log.d(TAG, "changeParaHome" + para);
         if (para != null) {
             dataObj.setParaGraph(para);
+        }
+
+        if (cardImageUrl_1!=null){
+            dataObj.setUrlOfImage_1(cardImageUrl_1);
+        }
+
+        if (cardImageUrl_2!=null){
+            dataObj.setUrlOfImage_2(cardImageUrl_2);
         }
     }
 }

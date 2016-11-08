@@ -71,8 +71,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     pages mthispage = null;
     int indexInList = -1;
 
-
-
+    String cardImageUrl = null;
 
 
     @Override
@@ -126,7 +125,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         if(urlOfProfile != null){
             // Uri cardImageUri = Uri.parse(urlOfProfile);
             // cardImage.setImageURI(cardImageUri);
-            cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity()).getImageLoader());
+            cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
             cardImageCrop.setVisibility(View.GONE);
 
         }else{
@@ -137,7 +136,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
 
         String title=dataObj.getTitle();
-        if (title!=null){
+        if (title!=null && !title.equals("")){
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
@@ -145,7 +144,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String heading=dataObj.getHeading();
-        if (heading!=null){
+        if (heading!=null && !heading.equals("")){
             editHeading.setText(heading);
             editHeading.setTypeface(mycustomFont);
         }else{
@@ -153,7 +152,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String subHeading=dataObj.getSubHeading();
-        if (subHeading!=null){
+        if (subHeading!=null && !subHeading.equals("")){
             editSubHeading.setText(subHeading);
             editSubHeading.setTypeface(mycustomFont);
         }else{
@@ -161,7 +160,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String para=dataObj.getParaGraph();
-        if (para!=null){
+        if (para!=null && !para.equals("")){
             editParaGraph.setText(para);
             editParaGraph.setTypeface(mycustomFont);
         }else{
@@ -169,7 +168,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String headingBelow=dataObj.getHeading_below();
-        if (headingBelow!=null){
+        if (headingBelow!=null && ! headingBelow.equals("")){
             editHeading_below.setText(headingBelow);
             editHeading_below.setTypeface(mycustomFont);
         }else{
@@ -177,7 +176,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String subHeadingBelow=dataObj.getSubHeading_below();
-        if (subHeadingBelow!=null){
+        if (subHeadingBelow!=null && !subHeadingBelow.equals("")){
             editSubHeading_below.setText(subHeadingBelow);
             editSubHeading_below.setTypeface(mycustomFont);
         }else{
@@ -185,7 +184,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String paraBelow=dataObj.getGetParaGraph_below();
-        if (paraBelow!=null){
+        if (paraBelow!=null && !paraBelow.equals("")){
             editParaGraph_below.setText(paraBelow);
             editParaGraph_below.setTypeface(mycustomFont);
         }else{
@@ -197,6 +196,10 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             init_viewCampaign();
         }else{
             init_editCampaign();
+        }
+
+        if (dataObj.isDefaultDataToCreateCampaign()){
+            showPreview();
         }
 
 
@@ -295,7 +298,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
 
             UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Service us banner", 1);
+                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Service banner", 5);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentServiceOnApp.this);
             req.executeRequest();
 
@@ -457,7 +460,12 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     ProgressDialog pbImage = null;
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
-
+        pbImage.hide();
+        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
+            String imageUrl = data.getResponseUrl();
+            cardImageUrl = imageUrl;
+            Log.v(TAG,"Url received" + imageUrl);
+        }
     }
 
     void changeText(){
@@ -501,6 +509,10 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         Log.d(TAG, "changeSubHeadingBelowTxtService" + paraBelow);
         if (paraBelow != null) {
             dataObj.setGetParaGraph_below(paraBelow);
+        }
+
+        if (cardImageUrl!=null) {
+            dataObj.setUrlOfImage(cardImageUrl);
         }
     }
 
@@ -638,5 +650,14 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     public String toString()
     {
         return "Services";
+    }
+
+    void showPreview(){
+
+        if(((FragmenMainActivity)getActivity()).checkPreview()){
+            init_ViewCampaign();
+            showPreview=true;
+        }
+
     }
 }

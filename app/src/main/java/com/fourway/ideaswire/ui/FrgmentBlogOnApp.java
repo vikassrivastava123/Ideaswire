@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
@@ -26,7 +25,6 @@ import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.CommonRequest;
-import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.blogpageDataTemplate;
@@ -44,7 +42,7 @@ import java.util.List;
 /**
  * Created by 4way on 15-10-2016.
  */
-public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveProfileResponseCallback  , UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener, FragmenMainActivity.viewCampaign{
+public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlRequest.UploadImageForUrlCallback ,View.OnClickListener, FragmenMainActivity.viewCampaign{
 
     EditText heading=null,subheading=null,paraGraphBlog=null,heading_belo=null,subheading_below=null,paraGraphBlog_below=null;
     List<String> attName;
@@ -297,6 +295,9 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
             deleteHeadingBlogBtnView.setVisibility(View.VISIBLE);
             deleteSubHeaderBlogBtnView.setVisibility(View.VISIBLE);
             deleteParaBlogBtnView.setVisibility(View.VISIBLE);
+            deleteHeadingBelowimgBlogBtnView.setVisibility(View.VISIBLE);
+            deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.VISIBLE);
+            deleteParaBlogBelowimgBtnView.setVisibility(View.VISIBLE);
         }catch (NullPointerException e){
             Log.v(TAG,"Null in init_viewCampaign");
         }
@@ -375,11 +376,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
     }
 
 
-    @Override
-    public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
-        Log.v(TAG,"ResponseCode = " + res);
-        Toast.makeText(getActivity(), String.valueOf(res), Toast.LENGTH_SHORT).show();
-    }
+
 
     ProgressDialog pbImage = null;
 
@@ -469,7 +466,7 @@ public class FrgmentBlogOnApp extends Fragment  implements SaveProfileData.SaveP
 
 
             UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Blog banner", 1);
+                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Blog banner", 4);
             UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity(), data, FrgmentBlogOnApp.this);
             req.executeRequest();
 
