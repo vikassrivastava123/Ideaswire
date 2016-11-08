@@ -520,7 +520,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_2, dataObj.getHeading_below());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_SUBHEADING_1, dataObj.getSubHeading());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_2, dataObj.getSubHeading_below());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_SUBHEADING_2, dataObj.getSubHeading_below());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_CARD_IMAGE, dataObj.getUrlOfImage());
 

@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity{
                     String heading = atr.getContentValue();
                     data.setHeading(heading);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_BLOG_SUBHEADING_1:
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_SUBHEADING_1:
                     String subHeading = atr.getContentValue();
                     data.setSubHeading(subHeading);
                     break;

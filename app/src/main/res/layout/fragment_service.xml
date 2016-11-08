@@ -14,8 +14,7 @@
         android:hint="Title"
         android:singleLine="true"
         android:textColorHint = "@color/card"
-        android:background="@color/skyBlueBckgrnd"
-        android:onClick="changeTitleTextService" />
+        android:background="@color/skyBlueBckgrnd" />
 
     <ImageView
         android:id="@+id/deleteTitleService"
@@ -47,7 +46,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Heading"
-                android:onClick="changeHeadingTxtService"
                 android:textColor="@color/text"
                 android:id="@+id/service_heading"
                 android:layout_alignParentTop="true"
@@ -70,7 +68,6 @@
                 android:text="This is some random sub heading"
                 android:textColor="@color/text"
                 android:textSize="16sp"
-                android:onClick="changeSubHeadingService"
                 android:layout_marginTop="14dp"
                 android:id="@+id/service_subheading"
                 android:layout_below="@+id/service_heading"
@@ -94,7 +91,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Writing some random paragraph so as to fill the spacethis is the random text."
                 android:gravity="center"
-                android:onClick="changeParaService"
                 android:textSize="14sp"
                 android:textAlignment="center"
                 android:id="@+id/service_para"
@@ -158,7 +154,6 @@
                 android:text="Heading below image view"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:onClick="changeHeadingTxtBelowService"
                 android:textColor="@color/text"
                 android:id="@+id/service_heading_belowimg"
                 android:layout_below="@+id/cardImageLayout"
@@ -182,7 +177,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Some random funny sub-heading."
                 android:textSize="16sp"
-                android:onClick="changeSubHeadingTxtBelowService"
                 android:textColor="@color/text"
                 android:id="@+id/service_subheading_belowimg"
                 android:layout_below="@+id/service_heading_belowimg"
@@ -206,7 +200,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="This is the random para to tet the text view put your own text re."
                 android:textSize="14sp"
-                android:onClick="changeParaTxtBelowService"
                 android:textAlignment="center"
                 android:id="@+id/service_para_belowing"
                 android:layout_below="@+id/service_subheading_belowimg"
