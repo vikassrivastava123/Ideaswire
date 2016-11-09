@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,16 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.UploadImageForUrlData;
-import com.fourway.ideaswire.request.CommonRequest;
-import com.fourway.ideaswire.request.UploadImageForUrlRequest;
+import com.fourway.ideaswire.data.Attribute;
+import com.fourway.ideaswire.data.Page;
+import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.templates.contactDetailsDataTemplate;
+import com.fourway.ideaswire.templates.pages;
 
 /**
  * Created by 4way on 24-10-2016.
  */
-public class FragmentContactOnApp extends Fragment implements View.OnClickListener, FragmenMainActivity.viewCampaign, UploadImageForUrlRequest.UploadImageForUrlCallback{
-    EditText title,heading,subheading,text_heading,address,email_add,number,website;
+public class FragmentContactOnApp extends Fragment implements View.OnClickListener, FragmenMainActivity.viewCampaign{
+    EditText editTitle, editHeading, editSubheading, editPara, editAddress, editEmail_add,editNumber,editWebsite;
     TextView mTitle;
 
     ImageView deleteTitle=null;
@@ -32,8 +35,19 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     ImageView deletePhone=null;
     ImageView deleteWeb=null;
 
+    TextView addressTextView,emailTextView,numberTextView,websiteTextView;
+
     private boolean showPreview = false;
     contactDetailsDataTemplate dataobj;
+
+    //Variables to make request to server
+    Page mContactPageObj;
+    String mProfileId = null;
+    String mPageName = null;
+    String mPageId = null;
+
+    int indexInList = -1;
+    pages mthispage = null;
 
     public String TAG="contact_details";
     public String name()
@@ -41,130 +55,26 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         return "Contact Details";
     }
 
-    void init_viewCampaign() {
-        try {
-            deleteTitle.setVisibility(View.GONE);
-            deleteHeading.setVisibility(View.GONE);
-            deleteSubHeading.setVisibility(View.GONE);
-            deleteParaGraph.setVisibility(View.GONE);
-            deleteAddress.setVisibility(View.GONE);
-            deleteEmail.setVisibility(View.GONE);
-            deletePhone.setVisibility(View.GONE);
-            deleteWeb.setVisibility(View.GONE);
-        }catch (NullPointerException e)
-        {
-            Log.v(TAG,"Null in init_viewCampaign");
-        }
 
-        if(title!=null){
-            title.setEnabled(false);
-            title.setKeyListener(null);
-        }
-
-        if (heading!=null) {
-            heading.setEnabled(false);
-            heading.setKeyListener(null);
-        }
-
-        if(subheading!=null) {
-            subheading.setEnabled(false);
-            subheading.setKeyListener(null);
-        }
-
-        if(text_heading!=null) {
-            text_heading.setEnabled(false);
-            text_heading.setKeyListener(null);
-        }
-
-        if(address!=null){
-            address.setEnabled(false);
-            address.setKeyListener(null);
-        }
-
-        if(email_add!=null) {
-            email_add.setEnabled(false);
-            email_add.setKeyListener(null);
-        }
-
-        if(number!=null) {
-            number.setEnabled(false);
-            number.setKeyListener(null);
-        }
-
-        if(website!=null) {
-            website.setEnabled(false);
-            website.setKeyListener(null);
-        }
-    }
-
-    void init_editCampaign(){
-
-        try {
-            deleteTitle.setVisibility(View.VISIBLE);
-            deleteHeading.setVisibility(View.VISIBLE);
-            deleteSubHeading.setVisibility(View.VISIBLE);
-            deleteParaGraph.setVisibility(View.VISIBLE);
-            deleteAddress.setVisibility(View.VISIBLE);
-            deleteEmail.setVisibility(View.VISIBLE);
-            deletePhone.setVisibility(View.VISIBLE);
-            deleteWeb.setVisibility(View.VISIBLE);
-        }catch (NullPointerException e)
-        {
-            Log.v(TAG,"Null in init_viewCampaign");
-        }
-
-        if(title!=null){
-            title.setEnabled(true);
-            title.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if (heading!=null) {
-            heading.setEnabled(true);
-            heading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(subheading!=null) {
-            subheading.setEnabled(true);
-            subheading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(text_heading!=null) {
-            text_heading.setEnabled(true);
-            text_heading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(address!=null){
-            address.setEnabled(true);
-            address.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(email_add!=null) {
-            email_add.setEnabled(true);
-            email_add.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(number!=null) {
-            number.setEnabled(true);
-            number.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-
-        if(website!=null) {
-            website.setEnabled(true);
-            website.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
-        }
-    }
-
-    void showPreview(){
-
-        init_viewCampaign();
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_contact,container,false);
 
         dataobj = (contactDetailsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
+
+        if(dataobj.isDefaultDataToCreateCampaign() == false){
+            showPreview = true;
+        }else{
+            indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+            mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+            //mPageName = mthispage.nameis();
+        }
+
+        addressTextView=(TextView)view.findViewById(R.id.textView13);
+        emailTextView = (TextView)view.findViewById(R.id.textView15);
+        numberTextView = (TextView)view.findViewById(R.id.textView17);
+        websiteTextView = (TextView)view.findViewById(R.id.textView19);
 
         deleteTitle=(ImageView)view.findViewById(R.id.deleteTitleContact);
         deleteHeading=(ImageView)view.findViewById(R.id.deleteHeadingContact);
@@ -184,77 +94,417 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         deletePhone.setOnClickListener(this);
         deleteWeb.setOnClickListener(this);
 
-        title = (EditText)view.findViewById(R.id.Contact_TITLE);
-        title.setText(dataobj.get_contactDeatils_title());
-        heading = (EditText) view.findViewById(R.id.contactHeading);
-        heading.setText(dataobj.get_heading());
-        subheading = (EditText) view.findViewById(R.id.contactSubHeading);
-        subheading.setText(dataobj.get_subheading());
-        text_heading = (EditText) view.findViewById(R.id.contactParaGraph);
-        text_heading.setText(dataobj.get_text_para());
-        address = (EditText) view.findViewById(R.id.textView14);
-        address.setText(dataobj.get_Address());
-        email_add = (EditText) view.findViewById(R.id.textView16);
-        email_add.setText(dataobj.get_email());
-        number = (EditText) view.findViewById(R.id.textView18);
-        number.setText(dataobj.get_phonenumber());
-        website = (EditText) view.findViewById(R.id.textView20);
-        website.setText(dataobj.get_website());
+        Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
 
+        String title=dataobj.getTitle();
+        editTitle = (EditText)view.findViewById(R.id.Contact_TITLE);
+        if(title != null && !title.equals("")) {
+            editTitle.setText(title);
+            editTitle.setTypeface(mycustomFont);
+        }
+
+        String header=dataobj.getHeaderContact();
+        editHeading = (EditText) view.findViewById(R.id.contactHeading);
+        if(header !=null && !header.equals("")){
+            editHeading.setText(header);
+            editHeading.setTypeface(mycustomFont);
+        }
+
+        String subHeading = dataobj.getSubHeading();
+        editSubheading = (EditText) view.findViewById(R.id.contactSubHeading);
+        if (subHeading != null && !subHeading.equals("")) {
+            editSubheading.setText(subHeading);
+            editSubheading.setTypeface(mycustomFont);
+        }
+
+        String paraGraph = dataobj.getParaGraph();
+        editPara = (EditText) view.findViewById(R.id.contactParaGraph);
+        if (paraGraph != null && !paraGraph.equals("")){
+            editPara.setText(paraGraph);
+            editPara.setTypeface(mycustomFont);
+        }
+
+        String address = dataobj.getAddress();
+        editAddress = (EditText) view.findViewById(R.id.textView14);
+        if (address != null && !address.equals("")) {
+            editAddress.setText(address);
+            editAddress.setTypeface(mycustomFont);
+        }
+
+        String email = dataobj.getEmail();
+        editEmail_add = (EditText) view.findViewById(R.id.textView16);
+        if (email != null && !email.equals("")) {
+            editEmail_add.setText(email);
+            editEmail_add.setTypeface(mycustomFont);
+        }
+        String number = dataobj.getPhoneNumber();
+        editNumber = (EditText) view.findViewById(R.id.textView18);
+        if (number != null && !number.equals("")) {
+            editNumber.setText(number);
+            editNumber.setTypeface(mycustomFont);
+        }
+
+        String website = dataobj.getWebsite();
+        editWebsite = (EditText) view.findViewById(R.id.textView20);
+        if (website != null && !website.equals("")) {
+            editWebsite.setText(website);
+            editWebsite.setTypeface(mycustomFont);
+        }
+
+        if(showPreview == true) {
+            init_viewCampaign();
+        }else{
+            init_editCampaign();
+        }
+
+        if (dataobj.isDefaultDataToCreateCampaign()){
+            showPreview();
+        }
 
         return view;
+    }
+
+    public void setAttribute(String name, String value){
+
+        if(name != null && value != null) {
+            Attribute atrbtObj = new Attribute(mProfileId, mPageId, name, value);
+            mContactPageObj.addAttribute(atrbtObj);
+        }
+    }
+
+    int lastPositionInList = -1;
+    void init_contactPage_request(){
+        mProfileId = editCampaign.mCampaignIdFromServer;
+        mPageName = ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US;
+        mContactPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+
+        if(mContactPageObj != null)
+        {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
+        }
+
+        mContactPageObj = new Page(mProfileId, mPageName);
+        mPageId = mContactPageObj.getPageId();
+    }
+
+    private void addPageToRequest(){
+
+        init_contactPage_request();
+
+
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US, mthispage.nameis() );
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE, dataobj.getTitle());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_HEADING, dataobj.getHeaderContact());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING, dataobj.getSubHeading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH, dataobj.getParaGraph());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_ADDRESS, dataobj.getAddress());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_EMAIL, dataobj.getEmail());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PHONE_NUMBER, dataobj.getPhoneNumber());
+
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_WEBSITE, dataobj.getWebsite());
+
+
+        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+
+        //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
+        /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
+            int index = reqToMakeProfile.getIndexOfPage(mPageId);
+            reqToMakeProfile.replacePage(index, mAbtUsPageObj);
+        }else*/
+        {
+            if(lastPositionInList == -1){
+                reqToMakeProfile.addPage(mContactPageObj);
+            }else {
+                reqToMakeProfile.addPageAtPosition(mContactPageObj, lastPositionInList);
+            }
+
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.deleteTitleContact:
-                title.setVisibility(View.GONE);
+                editTitle.setVisibility(View.GONE);
                 deleteTitle.setVisibility(View.GONE);
+                editTitle.setText(null);
                 break;
             case R.id.deleteHeadingContact:
-                heading.setVisibility(View.GONE);
+                editHeading.setVisibility(View.GONE);
                 deleteHeading.setVisibility(View.GONE);
+                editHeading.setText(null);
                 break;
             case R.id.deleteSubHeadingContact:
-                subheading.setVisibility(View.GONE);
+                editSubheading.setVisibility(View.GONE);
                 deleteSubHeading.setVisibility(View.GONE);
+                editSubheading.setText(null);
                 break;
             case R.id.deleteParaGraphContact:
-                text_heading.setVisibility(View.GONE);
+                editPara.setVisibility(View.GONE);
+                editPara.setText(null);
                 deleteParaGraph.setVisibility(View.GONE);
                 break;
             case R.id.deleteAddressContact:
-                address.setVisibility(View.GONE);
+                editAddress.setVisibility(View.GONE);
+                editAddress.setText(null);
                 deleteAddress.setVisibility(View.GONE);
+                addressTextView.setVisibility(View.GONE);
                 break;
             case R.id.deleteEmailContact:
-                email_add.setVisibility(View.GONE);
+                editEmail_add.setVisibility(View.GONE);
+                editEmail_add.setText(null);
                 deleteEmail.setVisibility(View.GONE);
+                emailTextView.setVisibility(View.GONE);
                 break;
             case R.id.deletePhoneContact:
-                number.setVisibility(View.GONE);
+                editNumber.setVisibility(View.GONE);
+                editNumber.setText(null);
                 deletePhone.setVisibility(View.GONE);
+                numberTextView.setVisibility(View.GONE);
                 break;
             case R.id.deleteWebContact:
-                website.setVisibility(View.GONE);
+                editWebsite.setVisibility(View.GONE);
+                editWebsite.setText(null);
                 deleteWeb.setVisibility(View.GONE);
+                websiteTextView.setVisibility(View.GONE);
                 break;
         }
     }
 
-    @Override
-    public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+    void init_viewCampaign() {
+        try {
+            deleteTitle.setVisibility(View.GONE);
+            deleteHeading.setVisibility(View.GONE);
+            deleteSubHeading.setVisibility(View.GONE);
+            deleteParaGraph.setVisibility(View.GONE);
+            deleteAddress.setVisibility(View.GONE);
+            deleteEmail.setVisibility(View.GONE);
+            deletePhone.setVisibility(View.GONE);
+            deleteWeb.setVisibility(View.GONE);
+        }catch (NullPointerException e)
+        {
+            Log.v(TAG,"Null in init_viewCampaign");
+        }
+
+        if(editTitle !=null){
+            editTitle.setEnabled(false);
+            editTitle.setKeyListener(null);
+        }
+
+        if (editHeading !=null) {
+            editHeading.setEnabled(false);
+            editHeading.setKeyListener(null);
+        }
+
+        if(editSubheading !=null) {
+            editSubheading.setEnabled(false);
+            editSubheading.setKeyListener(null);
+        }
+
+        if(editPara !=null) {
+            editPara.setEnabled(false);
+            editPara.setKeyListener(null);
+        }
+
+        if(editAddress !=null){
+            editAddress.setEnabled(false);
+            editAddress.setKeyListener(null);
+        }
+
+        if(editEmail_add !=null) {
+            editEmail_add.setEnabled(false);
+            editEmail_add.setKeyListener(null);
+        }
+
+        if(editNumber!=null) {
+            editNumber.setEnabled(false);
+            editNumber.setKeyListener(null);
+        }
+
+        if(editWebsite!=null) {
+            editWebsite.setEnabled(false);
+            editWebsite.setKeyListener(null);
+        }
+    }
+
+    void init_editCampaign(){
+
+        try {
+            deleteTitle.setVisibility(View.VISIBLE);
+            deleteHeading.setVisibility(View.VISIBLE);
+            deleteSubHeading.setVisibility(View.VISIBLE);
+            deleteParaGraph.setVisibility(View.VISIBLE);
+            deleteAddress.setVisibility(View.VISIBLE);
+            deleteEmail.setVisibility(View.VISIBLE);
+            deletePhone.setVisibility(View.VISIBLE);
+            deleteWeb.setVisibility(View.VISIBLE);
+        }catch (NullPointerException e)
+        {
+            Log.v(TAG,"Null in init_viewCampaign");
+        }
+
+        if(editTitle !=null){
+            editTitle.setEnabled(true);
+            editTitle.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if (editHeading !=null) {
+            editHeading.setEnabled(true);
+            editHeading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editSubheading !=null) {
+            editSubheading.setEnabled(true);
+            editSubheading.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editPara !=null) {
+            editPara.setEnabled(true);
+            editPara.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editAddress !=null){
+            editAddress.setEnabled(true);
+            editAddress.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editEmail_add !=null) {
+            editEmail_add.setEnabled(true);
+            editEmail_add.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editNumber!=null) {
+            editNumber.setEnabled(true);
+            editNumber.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+
+        if(editWebsite!=null) {
+            editWebsite.setEnabled(true);
+            editWebsite.setKeyListener(new EditText(getActivity().getApplicationContext()).getKeyListener());
+        }
+    }
+
+    void showPreview(){
+
+        if(((FragmenMainActivity)getActivity()).checkPreview()){
+            init_ViewCampaign();
+            showPreview=true;
+        }
+    }
+
+    void changeText(){
+
+        String title = String.valueOf(editTitle.getText());
+        Log.d(TAG, "changeTitleTextAbtUs" + title);
+        if (title != null) {
+            dataobj.setTitle(title);
+        }
+
+        String header = String.valueOf(editHeading.getText());
+        Log.d(TAG, "changeHeadingTxtAbtUs" + header);
+        if (header != null) {
+            dataobj.setHeaderContact(header);
+        }
+
+        String subheader = String.valueOf(editSubheading.getText());
+        Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
+        if (subheader != null) {
+            dataobj.setSubHeading(subheader);
+        }
+
+        String para = String.valueOf(editPara.getText());
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (para != null) {
+            dataobj.setParaGraph(para);
+        }
+
+        String address = String.valueOf(editAddress.getText());
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (address != null) {
+            dataobj.setAddress(address);
+        }
+
+        String email = String.valueOf(editEmail_add.getText());
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (email != null) {
+            dataobj.setEmail(email);
+        }
+        String phoneNumber = String.valueOf(editNumber.getText());
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (phoneNumber != null) {
+            dataobj.setPhoneNumber(phoneNumber);
+        }
+        String website = String.valueOf(editWebsite.getText());
+        Log.d(TAG, "changeParaAbtUs" + para);
+        if (website != null) {
+            dataobj.setWebsite(website);
+        }
+
+
+
 
     }
 
     @Override
     public void init_ViewCampaign() {
-
+        if (showPreview==false){
+            init_viewCampaign();
+            showPreview = true;
+        }else {
+            init_editCampaign();
+            showPreview = false;
+        }
     }
 
     @Override
     public void addLastPage() {
+        changeText();
+        addPageToRequest();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(indexInList >=0 )
+        {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataobj);
+        }
+    }
+
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (indexInList >=0) {
+            if (hidden) {
+                changeText();
+                addPageToRequest();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataobj);
+            } else {
+                changeText();
+                MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataobj);
+            }
+        }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataobj);
+        } else {
+            changeText();
+            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataobj);
+        }
     }
 }

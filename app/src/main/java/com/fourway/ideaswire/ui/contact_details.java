@@ -202,21 +202,21 @@ public class contact_details extends Activity {
         });
 
         title = (EditText)findViewById(R.id.Contact_TITLE);
-        title.setText(dataobj.get_contactDeatils_title());
+        title.setText(dataobj.getTitle());
         heading = (EditText) findViewById(R.id.contactHeading);
-        heading.setText(dataobj.get_heading());
+        heading.setText(dataobj.getHeaderContact());
         subheading = (EditText) findViewById(R.id.contactSubHeading);
-        subheading.setText(dataobj.get_subheading());
+        subheading.setText(dataobj.getSubHeading());
         text_heading = (EditText) findViewById(R.id.contactParaGraph);
-        text_heading.setText(dataobj.get_text_para());
+        text_heading.setText(dataobj.getParaGraph());
         address = (EditText) findViewById(R.id.textView14);
-        address.setText(dataobj.get_Address());
+        address.setText(dataobj.getAddress());
         email_add = (EditText) findViewById(R.id.textView16);
-        email_add.setText(dataobj.get_email());
+        email_add.setText(dataobj.getEmail());
         number = (EditText) findViewById(R.id.textView18);
-        number.setText(dataobj.get_phonenumber());
+        number.setText(dataobj.getPhoneNumber());
         website = (EditText) findViewById(R.id.textView20);
-        website.setText(dataobj.get_website());
+        website.setText(dataobj.getWebsite());
 
 
     }

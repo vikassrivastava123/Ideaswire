@@ -297,57 +297,41 @@ public class MainActivity extends AppCompatActivity{
             switch (attrName){
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE:
                     String abtTitle = atr.getContentValue();
-                    data.set_contactDeatils_title(abtTitle);
-
+                    data.setTitle(abtTitle);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_HEADING:
                     String heading = atr.getContentValue();
-                    data.set_contactDeatils_heading(heading);
+                    data.setHeaderContact(heading);
                     break;
 
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH_1:
-                    String para = atr.getContentValue();
-                    data.set_contactDeatils_paragraph(para);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING:
+                    String subHeading = atr.getContentValue();
+                    data.setSubHeading(subHeading);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH_2:
-                    String para2 = atr.getContentValue();
-                    data.set_contactDeatils_paragraph2(para2);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH:
+                    String paraGraph = atr.getContentValue();
+                    data.setParaGraph(paraGraph);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH_3:
-                    String para3 = atr.getContentValue();
-                    data.set_contactDeatils_paragraph3(para3);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_ADDRESS:
+                    String address = atr.getContentValue();
+                    data.setAddress(address);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH_4:
-                    String para4 = atr.getContentValue();
-                    data.set_contactDeatils_paragraph4(para4);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_EMAIL:
+                    String email = atr.getContentValue();
+                    data.setEmail(email);
 
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PARAGRAPH_5:
-                    String para5 = atr.getContentValue();
-                    data.set_contactDeatils_paragraph5(para5);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_PHONE_NUMBER:
+                    String phoneNumber = atr.getContentValue();
+                    data.setPhoneNumber(phoneNumber);
 
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING_1:
-                    String subHeading1 = atr.getContentValue();
-                    data.set_contactDeatils_subheading(subHeading1);
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_WEBSITE:
+                    String website = atr.getContentValue();
+                    data.setWebsite(website);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING_2:
-                    String subHeading2 = atr.getContentValue();
-                    data.set_contactDeatils_subheading2(subHeading2);
-                    break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING_3:
-                    String subHeading3 = atr.getContentValue();
-                    data.set_contactDeatils_subheading3(subHeading3);
-                    break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING_4:
-                    String subHeading4 = atr.getContentValue();
-                    data.set_contactDeatils_subheading4(subHeading4);
-                    break;
-                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_SUBHEADING_5:
-                    String subHeading5 = atr.getContentValue();
-                    data.set_contactDeatils_subheading5(subHeading5);
-                    break;
+
             }
         }
         listOfTemplatePagesObj.add(contactDetailsPageObj);

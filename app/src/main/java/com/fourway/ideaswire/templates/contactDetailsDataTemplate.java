@@ -10,12 +10,14 @@ import com.fourway.ideaswire.ui.contact_details;
  */
 public class contactDetailsDataTemplate extends dataOfTemplate{
     int templateSelected = 1;
-    String about_us_heading;
-    public String subheading_header =null;
-    public String heading_text =null;
-    public String Address = null;
-    public String Email =null;
-    public String phonenumber =null;
+
+    public String headerContact =null;
+    public String title =null;
+    public String subHeading =null;
+    public String paraGraph =null;
+    public String address = null;
+    public String email =null;
+    public String phoneNumber =null;
     public String website = null;
     boolean   ismDefaultData = false;
 
@@ -36,49 +38,21 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
     void initDeafultdata(){
 
         title="Contact";
-        header = "Totam Aperiam Consect";
-        subheading_header = "There are many variation of passages";
-        heading_text = "There are many variation of passage of Lorem" +
+        headerContact = "Totam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
                 "alternation in some form by injected humour";
-        Address = "Variation Passages Repetition,\n" +
+        address = "Variation Passages Repetition,\n" +
                 " 5462 Distracted" +
                 "\nSimple Random - 1100083";
-        Email = "dummy254@gmail.com";
-        phonenumber = "+91-8800664433";
+        email = "dummy254@gmail.com";
+        phoneNumber = "+91-8800664433";
         website = "www.4wayTechnologies.com";
     }
 
 
-    public void set_profile_page_about_us_heading(String header){
 
-        about_us_heading = header;
-    }
-
-    public String get_profile_page_about_us_heading(){
-        return about_us_heading;
-    }
-    public String get_heading(){
-        return header;
-    }
-    public String get_subheading(){
-        return subheading_header;
-    }
-    public String get_text_para(){
-        return heading_text;
-    }
-    public String get_Address(){
-        return Address;
-    }
-    public String get_email(){
-        return Email;
-    }
-    public String get_phonenumber(){
-        return phonenumber;
-    }
-    public String get_website(){
-        return website;
-    }
 
     @Override
     public Class getIntentToLaunchPage() {
@@ -100,138 +74,69 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
         return templateSelected;
     }
 
-    String title,url,heading,subheading,paragraph,buttontext,heading2,subheading2,paragraph2,paragraph4,paragraph5,heading3,subheading3,paragraph3,heading4,subheading4,heading5,subheading5;
 
-    public String get_contactDeatils_title(){
+    public String getHeaderContact() {
+        return headerContact;
+    }
+
+    public void setHeaderContact(String headerContact) {
+        this.headerContact = headerContact;
+    }
+
+    public String getTitle() {
         return title;
     }
-    public void set_contactDeatils_title(String arg){
-        title = arg;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String get_contactDeatils_image_url(){
-        return url;
-    }
-    public void set_contactDeatils_image_url(String arg){
-        url = arg;
+    public String getSubHeading() {
+        return subHeading;
     }
 
-    public String get_contactDeatils_heading(){
-        return heading;
-    }
-    public void set_contactDeatils_heading(String arg){
-        heading = arg;
+    public void setSubHeading(String subHeading) {
+        this.subHeading = subHeading;
     }
 
-    public String get_contactDeatils_heading2(){
-        return heading2;
-    }
-    public void set_contactDeatils_heading2(String arg){
-        heading2 = arg;
+    public String getParaGraph() {
+        return paraGraph;
     }
 
-    public String get_contactDeatils_heading3(){
-        return heading3;
-    }
-    public void set_contactDeatils_heading3(String arg){
-        heading3 = arg;
+    public void setParaGraph(String paraGraph) {
+        this.paraGraph = paraGraph;
     }
 
-    public String get_contactDeatils_heading4(){
-        return heading4;
-    }
-    public void set_contactDeatils_heading4(String arg){
-        heading4 = arg;
+    public String getAddress() {
+        return address;
     }
 
-    public String get_contactDeatils_heading5(){
-        return heading5;
-    }
-    public void set_contactDeatils_heading5(String arg){
-        heading5 = arg;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String get_contactDeatils_subheading(){
-        return subheading;
-    }
-    public void set_contactDeatils_subheading(String arg){
-        subheading = arg;
+    public String getEmail() {
+        return email;
     }
 
-    public String get_contactDeatils_subheading2(){
-        return subheading2;
-    }
-    public void set_contactDeatils_subheading2(String arg){
-        subheading2 = arg;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String get_contactDeatils_subheading3(){
-        return subheading3;
-    }
-    public void set_contactDeatils_subheading3(String arg){
-        subheading3 = arg;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String get_contactDeatils_subheading4(){
-        return subheading4;
-    }
-    public void set_contactDeatils_subheading4(String arg){
-        subheading4 = arg;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String get_contactDeatils_subheading5(){
-        return subheading5;
-    }
-    public void set_contactDeatils_subheading5(String arg){
-        subheading5 = arg;
+    public String getWebsite() {
+        return website;
     }
 
-
-    public String get_contactDeatils_paragraph(){
-        return paragraph;
-    }
-    public void set_contactDeatils_paragraph(String arg)
-    {
-        paragraph = arg;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String get_contactDeatils_paragraph2(){
-        return paragraph2;
-    }
-    public void set_contactDeatils_paragraph2(String arg)
-    {
-        paragraph2 = arg;
-    }
-
-    public String get_contactDeatils_paragraph3(){
-        return paragraph3;
-    }
-    public void set_contactDeatils_paragraph3(String arg)
-    {
-        paragraph3 = arg;
-    }
-
-    public String get_contactDeatils_paragraph4(){
-        return paragraph4;
-    }
-    public void set_contactDeatils_paragraph4(String arg)
-    {
-        paragraph4 = arg;
-    }
-
-    public String get_contactDeatils_paragraph5(){
-        return paragraph5;
-    }
-    public void set_contactDeatils_paragraph5(String arg)
-    {
-        paragraph5 = arg;
-    }
-
-
-    public String get_contactDeatils_button_text(){
-        return buttontext;
-    }
-    public void set_contactDeatils_button_text(String arg){
-        buttontext = arg;
-    }
 }
