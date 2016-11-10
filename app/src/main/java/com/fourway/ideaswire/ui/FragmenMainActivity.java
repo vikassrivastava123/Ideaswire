@@ -415,6 +415,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 showBaseMenu();
             }
         });
+
+        pageDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                showBaseMenu();
+            }
+        });
+
         pageDialog.show();
     }
 
