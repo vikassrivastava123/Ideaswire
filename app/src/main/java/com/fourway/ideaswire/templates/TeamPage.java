@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -10,6 +9,12 @@ public class TeamPage extends pages {
 
     TeamDataTemplate dataObj=null;
     public int mTemplateType = 1;
+
+    public TeamPage(){
+        if (nameis == null) {
+            nameis = "Team";
+        }
+    }
 
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
@@ -27,13 +32,19 @@ public class TeamPage extends pages {
     }
 
     @Override
-    public void set_nameis(String nameOfpage) {
+    public pages getNewPage() {
+        return new TeamPage();
+    }
 
+    String nameis = null;
+    @Override
+    public void set_nameis(String nameOfpage) {
+        nameis = nameOfpage;
     }
 
     @Override
     public String nameis() {
-        return "Team";
+        return nameis;
     }
 
     @Override

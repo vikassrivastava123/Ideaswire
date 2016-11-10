@@ -87,6 +87,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+            mPageName = mthispage.nameis();
         }
 
         deleteTitleBlogBtnView=(ImageView)view.findViewById(R.id.deleteTitleBlog);
@@ -225,7 +226,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     int lastPositionInList = -1;
     void init_blogPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
+        //mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
         mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
         if (mBlogPageObj==null) {
             lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);

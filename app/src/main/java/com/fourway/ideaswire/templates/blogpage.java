@@ -8,6 +8,12 @@ import com.fourway.ideaswire.R;
 public class blogpage extends pages {
     blogpageDataTemplate dataObj = null;
     public int mTemplateType = 1;
+    public blogpage(){
+        if (nameis == null) {
+            nameis = "Blog";
+        }
+    }
+
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
@@ -18,10 +24,12 @@ public class blogpage extends pages {
         }
         return dataObj;
     }
+
+    String nameis = null;
     @Override
     public String nameis ()
     {
-        return "Blog";
+        return nameis;
     }
 
     @Override
@@ -45,7 +53,12 @@ public class blogpage extends pages {
     }
 
     @Override
-    public void set_nameis(String nameOfpage) {
+    public pages getNewPage() {
+        return new blogpage();
+    }
 
+    @Override
+    public void set_nameis(String nameOfpage) {
+        nameis = nameOfpage;
     }
 }

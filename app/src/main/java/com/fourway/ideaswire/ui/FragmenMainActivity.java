@@ -4,15 +4,20 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +29,8 @@ import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -155,6 +162,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     void showBaseMenu(){
 
         final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
+        layout.removeAllViews();
         final Timer timing = new Timer();
         timing.schedule(new TimerTask() {
             @Override
@@ -263,7 +271,115 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     }
     public void pageTemplate(View view) {
-        startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
+        //startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
+        addPage();
+    }
+
+    void addPage(){
+        final AlertDialog builder=new AlertDialog.Builder(this).create();
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_about_us_page_tamplate,null);
+
+        final ListView listView;
+        final List<String> list=new ArrayList<>();
+        final PageTemplateArrayAdapter adapter=new PageTemplateArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+
+        listView=(ListView)dialogView.findViewById(R.id.listView);
+
+        final RelativeLayout layout = (RelativeLayout) dialogView.findViewById(R.id.dynamicPages2);
+
+        Timer timing = new Timer();
+        timing.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                final int size = MainActivity.listOfTemplatePagesObj.size();
+                ImageButton[] btn = new ImageButton[size];
+                int i = 0;
+                final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
+                row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
+                for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                    int icon = obj.iconis();
+
+                    float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+                    float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+
+                    LinearLayout.LayoutParams buttonLayoutParams =
+                            new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
+                                    (int)x,
+                                    (int)y));
+                    //buttonLayoutParams.setMargins(2,0, 0, 0);
+                    btn[i] = new ImageButton(FragmenMainActivity.this);
+
+                    btn[i].setLayoutParams(buttonLayoutParams);
+                    btn[i].setImageResource(icon);
+                    btn[i].setId(i);
+                    btn[i].setBackgroundColor(getResources().getColor(android.R.color.black));
+                    btn[i].setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            String pageName = MainActivity.listOfTemplatePagesObj.get(v.getId()).nameis()+ " (Copy)";
+
+                            pages mNewPage = MainActivity.listOfTemplatePagesObj.get(v.getId()).getNewPage();
+
+                            mNewPage.set_nameis(pageName);
+
+
+                            MainActivity.listOfTemplatePagesObj.add(size,mNewPage);
+                            list.add(pageName);
+                            listView.setAdapter(adapter);
+                            Toast.makeText(FragmenMainActivity.this, pageName + " Added... " , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                        row.addView(btn[i]);
+                    // Add the LinearLayout element to the ScrollView
+                    i++;
+                }
+                // When adding another view, make sure you do it on the UI
+                // thread.
+                layout.post(new Runnable() {
+
+                    public void run() {
+
+                        layout.addView(row);
+                    }
+                });
+            }
+        }, 500);
+
+        for(pages obj: MainActivity.listOfTemplatePagesObj) {
+            String name = obj.nameis();
+            list.add(name);
+        }
+
+
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(view.getId()==R.id.imageButton7)
+                {
+                    String pageName = MainActivity.listOfTemplatePagesObj.get(position).nameis();
+                    MainActivity.listOfTemplatePagesObj.remove(position);
+                    list.remove(position);
+                    listView.setAdapter(adapter);
+                    Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //setSupportActionBar(toolbar);
+
+
+        builder.setView(dialogView);
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                builder.dismiss();
+                showBaseMenu();
+            }
+        });
+        builder.show();
     }
 
 static int test = 0;

@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -12,7 +11,9 @@ public class ClientPage extends pages {
     public int mTemplateType = 1;
 
     public ClientPage(){
-        nameis = "Clients";
+        if (nameis == null) {
+            nameis = "Clients";
+        }
     }
 
 
@@ -31,8 +32,13 @@ public class ClientPage extends pages {
     }
 
     @Override
-    public void set_nameis(String nameOfpage) {
+    public pages getNewPage() {
+        return new ClientPage();
+    }
 
+    @Override
+    public void set_nameis(String nameOfpage) {
+        nameis = nameOfpage;
     }
 
     String nameis;

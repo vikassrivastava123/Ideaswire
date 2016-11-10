@@ -5,7 +5,7 @@ package com.fourway.ideaswire.data;
  */
 
 public class ProfileFieldsEnum {
-    public static final String PROFILE_PAGE_HOMEPAGE = "Homepage";
+    public static final String PROFILE_PAGE_HOMEPAGE = "Home";
     public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
     public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1 = "Homepage_Card_image_1";
     public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2 = "Homepage_Card_image_2";
@@ -14,7 +14,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_HOMEPAGE_PARAGRAPH = "Homepage_Paragraph";
     public static final String PROFILE_PAGE_HOMEPAGE_BUTTON = "Homepage_Button";
 
-    public static final String PROFILE_PAGE_ABOUT_US = "About_Us";
+    public static final String PROFILE_PAGE_ABOUT_US = "About";
     public static final String PROFILE_PAGE_ABOUT_TITLE = "About_Us_Title";
     public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE = "About_Us_Card_Image";
     public static final String PROFILE_PAGE_ABOUT_US_HEADING = "About_Us_Heading";
@@ -47,7 +47,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_CLIENT_LOGO_5 = "Client_Logo_5";
     public static final String PROFILE_PAGE_CLIENT_LOGO_6 = "Client_Logo_6";
 
-    public static final String PROFILE_PAGE_CONTACT_US = "Contact_Us";
+    public static final String PROFILE_PAGE_CONTACT_US = "Contact";
     public static final String PROFILE_PAGE_CONTACT_US_TITLE = "Contact_Us_Title";
     public static final String PROFILE_PAGE_CONTACT_US_HEADING = "Contact_Us_Heading";
     public static final String PROFILE_PAGE_CONTACT_US_SUBHEADING = "Contact_Us_Subheading_1";

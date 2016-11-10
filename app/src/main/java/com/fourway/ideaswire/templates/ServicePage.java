@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vaibhav Gusain on 9/9/2016.
@@ -9,6 +8,12 @@ import com.fourway.ideaswire.ui.MainActivity;
 public class ServicePage extends pages {
     ServicesDataTemplate dataObj = null;
     public int mTemplateType = 1;
+
+    public ServicePage(){
+        if (nameis == null) {
+            nameis = "Services";
+        }
+    }
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
@@ -17,7 +22,7 @@ public class ServicePage extends pages {
     }
     public String nameis ()
     {
-        return "Service";
+        return nameis;
     }
 
     @Override
@@ -42,7 +47,13 @@ public class ServicePage extends pages {
     }
 
     @Override
-    public void set_nameis(String nameOfpage) {
+    public pages getNewPage() {
+        return new ServicePage();
+    }
 
+    String nameis = null;
+    @Override
+    public void set_nameis(String nameOfpage) {
+        nameis = nameOfpage;
     }
 }

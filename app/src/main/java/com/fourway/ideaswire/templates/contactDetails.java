@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vaibhav Gusain on 9/9/2016.
@@ -10,6 +9,12 @@ import com.fourway.ideaswire.ui.MainActivity;
 public class contactDetails extends pages {
     contactDetailsDataTemplate dataObj = null;
     public int mTemplateType = 1;
+
+    public contactDetails(){
+        if (nameis == null) {
+            nameis = "Contact";
+        }
+    }
 
 
     @Override
@@ -36,9 +41,14 @@ public class contactDetails extends pages {
         return dataObj;
     }
 
-     public String nameis ()
+    @Override
+    public pages getNewPage() {
+        return new contactDetails();
+    }
+
+    public String nameis ()
     {
-        return "Contact";
+        return nameis;
     }
 
     @Override
@@ -61,8 +71,9 @@ public class contactDetails extends pages {
         return dataObj;
     }
 
+    String nameis = null;
     @Override
     public void set_nameis(String nameOfpage) {
-
+        nameis = nameOfpage;
     }
 }

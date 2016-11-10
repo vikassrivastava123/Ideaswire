@@ -91,7 +91,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
        }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-            //mPageName = mthispage.nameis();
+            mPageName = mthispage.nameis();
         }
 
         deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
@@ -245,7 +245,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     int lastPositionInList = -1;
     void init_aboutUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
+        //mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
         mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
 
         if(mAbtUsPageObj != null)

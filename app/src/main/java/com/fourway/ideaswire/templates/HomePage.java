@@ -1,7 +1,6 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Ritika on 8/24/2016.
@@ -10,6 +9,13 @@ public class HomePage extends pages {
 
     HomePageDataTemplate dataObj = null;
     public int mTemplateType = 1;
+
+    public HomePage(){
+        if (nameis == null) {
+            nameis = "Home";
+        }
+    }
+
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
@@ -18,7 +24,7 @@ public class HomePage extends pages {
     }
     public String nameis ()
     {
-        return "Home";
+        return nameis;
     }
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer() {
@@ -30,6 +36,12 @@ public class HomePage extends pages {
         }
         return dataObj;
     }
+
+    @Override
+    public pages getNewPage() {
+        return new HomePage();
+    }
+
     @Override
     public void set_iconis(int iconOfpage) {
 
@@ -40,9 +52,10 @@ public class HomePage extends pages {
         return R.drawable.home;
     }
 
+    String nameis = null;
     @Override
     public void set_nameis(String nameOfpage) {
-
+        nameis = nameOfpage;
     }
 }
 

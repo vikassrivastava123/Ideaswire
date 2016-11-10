@@ -12,7 +12,9 @@ public class AboutUsPage extends pages {
     public int mTemplateType = 1;
 
     public AboutUsPage(){
-         nameis = "About";
+        if (nameis == null) {
+            nameis = "About";
+        }
     }
 
 
@@ -40,7 +42,12 @@ public class AboutUsPage extends pages {
         return dataObj;
     }
 
-    String nameis;
+    @Override
+    public pages getNewPage() {
+        return new AboutUsPage();
+    }
+
+    String nameis = null;
     @Override
     public void set_nameis(String nameOfpage) {
         nameis = nameOfpage;

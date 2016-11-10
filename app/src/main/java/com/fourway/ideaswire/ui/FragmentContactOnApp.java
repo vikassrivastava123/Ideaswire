@@ -68,7 +68,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-            //mPageName = mthispage.nameis();
+            mPageName = mthispage.nameis();
         }
 
         addressTextView=(TextView)view.findViewById(R.id.textView13);
@@ -175,7 +175,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     int lastPositionInList = -1;
     void init_contactPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US;
+        //mPageName = ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US;
         mContactPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
 
         if(mContactPageObj != null)

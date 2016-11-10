@@ -99,6 +99,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+            mPageName = mthispage.nameis();
         }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -210,7 +211,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     void init_homeUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
+        //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
         mHomePageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
         if (mHomePageObj == null) {
@@ -623,6 +624,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     private void addPageToRequest(){
         init_homeUsPage_request();
 
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE, mthispage.nameis());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING, dataObj.getHeading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.getSubHeading());
 

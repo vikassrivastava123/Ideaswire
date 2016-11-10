@@ -85,7 +85,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-            //mPageName = mthispage.nameis();
+            mPageName = mthispage.nameis();
         }
 
         deleteTitle =(ImageView)view.findViewById(R.id.deleteTitleService);
@@ -209,7 +209,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     int lastPositionInList = -1;
     void init_servicePage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
-        mPageName = ProfileFieldsEnum.PROFILE_PAGE_SERVICES;
+        //mPageName = ProfileFieldsEnum.PROFILE_PAGE_SERVICES;
         mServicePageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
         if (mServicePageObj==null) {
             lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
@@ -526,6 +526,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     void addPageToRequest(){
         init_servicePage_request();
 
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES, mthispage.nameis());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_1, dataObj.getHeading());

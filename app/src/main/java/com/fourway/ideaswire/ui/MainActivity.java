@@ -156,6 +156,10 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
+                    String nameis = atr.getContentValue();
+                    abtusObj.set_nameis(nameis);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.set_title(abtTitle);
@@ -207,6 +211,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
+                    String nameis = atr.getContentValue();
+                    homePageObj.set_nameis(nameis);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.setTitle(abtTitle);
@@ -245,6 +254,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
+                    String nameis = atr.getContentValue();
+                    blogPageObj.set_nameis(nameis);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.setTitle(abtTitle);
@@ -295,6 +309,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
+                    String nameis = atr.getContentValue();
+                    contactDetailsPageObj.set_nameis(nameis);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.setTitle(abtTitle);
@@ -343,6 +362,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
+                    String nameis = atr.getContentValue();
+                    servicePageObj.set_nameis(nameis);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.setTitle(abtTitle);
@@ -392,6 +416,10 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
+                    String nameis = atr.getContentValue();
+                    clientPage.set_nameis(nameis);
+                    break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_TITLE:
                     String title = atr.getContentValue();
@@ -446,6 +474,10 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM:
+                    String nameis = atr.getContentValue();
+                    teamPage.set_nameis(nameis);
+                    break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_TITLE:
                     String title = atr.getContentValue();
@@ -551,7 +583,8 @@ public class MainActivity extends AppCompatActivity{
       try{
            int pageNumber = 0;
            for(Page p: pageList){
-            String pageName = p.getPageName();
+               String[] pName = p.getPageName().split(" ");
+            String pageName = pName[0];
 
                if(pageName == null || pageName.equals("null") == true){
                    ArrayList<Attribute> attributesFromServer = p.getAttributes();

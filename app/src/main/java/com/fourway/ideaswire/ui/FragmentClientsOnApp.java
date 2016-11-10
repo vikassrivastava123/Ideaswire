@@ -2,6 +2,7 @@ package com.fourway.ideaswire.ui;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,11 @@ import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.templates.ClientDataTemplate;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +55,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     ImageView deleteClientLogo;
 
     RelativeLayout clientLogoLayout;
+
+    int cropRestart=0;
 
     ClientDataTemplate dataObj;
     private boolean showPreview = false;
@@ -202,6 +210,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                 if(v.getId()==R.id.deleteClientLogo){
                     clientsLogoUrl.remove(position);
                     gridView.setAdapter(gridViewAdapter);
+                }else if (v.getId() == R.id.imgvTemplateCatrgory){
+
                 }
                 /*Log.v("tets","test test");
 
@@ -212,6 +222,53 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         return view;
     }
+
+    public void uploadToClientsOnApp() {
+
+        if(showPreview == false) {
+            String campnName = null;
+         /*
+        * Need to open gallery directly from here
+        * From Cropped image OK clicked editCampaign.java will be opened
+        * In editCampaign.java this campaign name(campnName) will be used to set defualt text
+        * ScreenName will be used by CropedImage as it will be used to open gallery by multiple classes
+        * */
+
+           /* Intent inf = new Intent(getActivity(), CropedImage.class);
+            inf.putExtra("ScreenName", MainActivity.CLIENTS_LOGO_IMAGE_CROPED_NAME_1);
+            inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_CLIENTS_PAGE_ON_APP);
+            cropRestart=1;
+            inf.putExtra("CampaignName", "Choose Image");
+            startActivity(inf);*/
+
+
+        }
+
+    }
+
+    private File getFileObjectFromBitmap (Bitmap b) throws IOException {
+        File f = new File(getActivity().getApplicationContext().getCacheDir(), "Abc");
+
+//Convert bitmap to byte array
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
+
 
     private class GridViewAdapter extends ArrayAdapter {
         Context context;

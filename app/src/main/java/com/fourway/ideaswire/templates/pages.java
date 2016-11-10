@@ -40,6 +40,8 @@ public abstract class pages {
         return dataObj;
     }
 
+    public abstract pages getNewPage();
+
     public abstract void set_nameis(String nameOfpage);
     public abstract String nameis();
 
