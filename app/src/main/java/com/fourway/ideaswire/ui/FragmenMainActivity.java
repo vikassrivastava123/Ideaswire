@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -175,7 +176,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
                 //if (size>1)
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
-                        String name = obj.nameis();
+                        String[] nameStrings = obj.nameis().split(" ", 2);
+                        String name=null;
+                        if (nameStrings.length>1){
+                            name = nameStrings[1];
+                        }else {
+                            name = nameStrings[0];
+                        }
+
 
                         // float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics());
                         float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
@@ -276,7 +284,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
 
     void addPage(){
-        final AlertDialog builder=new AlertDialog.Builder(this).create();
+        final AlertDialog pageDialog=new AlertDialog.Builder(this).create();
         View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_about_us_page_tamplate,null);
 
         final ListView listView;
@@ -316,17 +324,45 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     btn[i].setBackgroundColor(getResources().getColor(android.R.color.black));
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            String pageName = MainActivity.listOfTemplatePagesObj.get(v.getId()).nameis()+ " (Copy)";
 
-                            pages mNewPage = MainActivity.listOfTemplatePagesObj.get(v.getId()).getNewPage();
+                            final String pageName = MainActivity.listOfTemplatePagesObj.get(v.getId()).nameis();
+                            final pages mNewPage = MainActivity.listOfTemplatePagesObj.get(v.getId()).getNewPage();
 
-                            mNewPage.set_nameis(pageName);
+                            final AlertDialog mAlertDialog = new AlertDialog.Builder(FragmenMainActivity.this).create();
+                            mAlertDialog.setTitle("Page Name");
 
+                            View mAlertDialogView = LayoutInflater.from(FragmenMainActivity.this).inflate(R.layout.alert_dialog_page_name,null);
+                            final EditText editPageName = (EditText) mAlertDialogView.findViewById(R.id.dialogPageName);
+                            editPageName.setText(pageName +"(Copy)");
 
-                            MainActivity.listOfTemplatePagesObj.add(size,mNewPage);
-                            list.add(pageName);
-                            listView.setAdapter(adapter);
-                            Toast.makeText(FragmenMainActivity.this, pageName + " Added... " , Toast.LENGTH_SHORT).show();
+                            mAlertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Add", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String newPageName = editPageName.getText().toString();
+                                    if (!newPageName.equals("")) {
+                                        mNewPage.set_nameis(pageName+ " " +newPageName);
+
+                                        MainActivity.listOfTemplatePagesObj.add(size,mNewPage);
+                                        list.add(newPageName);
+                                        listView.setAdapter(adapter);
+                                        Toast.makeText(FragmenMainActivity.this, newPageName + " Added... " , Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(FragmenMainActivity.this, "Please enter page name :(", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
+                            mAlertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            mAlertDialog.setView(mAlertDialogView);
+                            mAlertDialog.show();
+
                         }
                     });
                         row.addView(btn[i]);
@@ -371,15 +407,15 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         //setSupportActionBar(toolbar);
 
 
-        builder.setView(dialogView);
-        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "Close", new DialogInterface.OnClickListener() {
+        pageDialog.setView(dialogView);
+        pageDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                builder.dismiss();
+                pageDialog.dismiss();
                 showBaseMenu();
             }
         });
-        builder.show();
+        pageDialog.show();
     }
 
 static int test = 0;

@@ -583,7 +583,7 @@ public class MainActivity extends AppCompatActivity{
       try{
            int pageNumber = 0;
            for(Page p: pageList){
-               String[] pName = p.getPageName().split(" ");
+               String[] pName = p.getPageName().split(" ",2);
             String pageName = pName[0];
 
                if(pageName == null || pageName.equals("null") == true){
