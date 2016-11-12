@@ -12,7 +12,7 @@ public class ClientPage extends pages {
 
     public ClientPage(){
         if (nameis == null) {
-            nameis = "Clients";
+            nameis = "Client";
         }
     }
 
@@ -20,14 +20,21 @@ public class ClientPage extends pages {
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new ClientDataTemplate(templateType,true);
+        dataObj = (ClientDataTemplate) getAlreadyCreatedDataObj();
+        if (dataObj == null){
+            dataObj = new ClientDataTemplate(templateType,true);
+        }
         return dataObj;
     }
 
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer() {
         mTemplateType = 1;
+        dataObj = (ClientDataTemplate) getAlreadyCreatedDataObj();
      //   dataObj = (ClientDataTemplate) MainActivity.listOfTemplateDataObj.get(position);
+        if (dataObj == null){
+            dataObj = new ClientDataTemplate(1,false);
+        }
         return dataObj;
     }
 

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int OPEN_GALLERY_FOR_BLOG_ON_APP  = 4;
     public static final int OPEN_GALLERY_FOR_SERVICE_ON_APP  = 5;
     public static final int OPEN_GALLERY_FOR_HOME_PAGE_ON_APP=6;
+    public static final int OPEN_GALLERY_FOR_CLIENTS_PAGE_ON_APP=7;
 
 
     //These are files names that will be saved locally
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String Home_TemplateImage_IMAGE_CROPED_NAME_2 = "homeTemplateImage_2";
     public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
     public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
+    public static final String CLIENTS_LOGO_IMAGE_CROPED_NAME_ = "clientsLogoImage_";
 
     public static final String OPEN_CAMERA_FOR_SEARCH = "openCameraSearch";
 

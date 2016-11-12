@@ -140,7 +140,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
         String title=dataObj.getTitle();
-        if(title!=null){
+        if(title!=null && !title.equals("")){
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }

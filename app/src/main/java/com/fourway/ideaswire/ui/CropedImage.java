@@ -249,6 +249,12 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
                         finish();
                         // startActivity(editCampaignIntent);
                         break;
+                    case MainActivity.OPEN_GALLERY_FOR_CLIENTS_PAGE_ON_APP:
+                        createImagefromBitmap(bitmap, scrnName);
+                        // editCampaignIntent = new Intent(this, AboutUsOnApp.class);
+                        finish();
+                        // startActivity(editCampaignIntent);
+                        break;
 
                     case MainActivity.OPEN_GALLERY_FOR_SEARCH:
 
