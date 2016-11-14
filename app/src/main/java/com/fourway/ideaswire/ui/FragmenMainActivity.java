@@ -457,7 +457,7 @@ static int test = 0;
         Toast.makeText(this, String.valueOf(res), Toast.LENGTH_SHORT).show();
     }
 
-    public abstract interface viewCampaign{
+    abstract public interface viewCampaign{
         abstract void init_ViewCampaign();
         abstract void addLastPage();
     }

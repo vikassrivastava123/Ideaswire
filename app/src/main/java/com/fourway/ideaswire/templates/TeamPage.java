@@ -19,15 +19,21 @@ public class TeamPage extends pages {
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj=new TeamDataTemplate(templateType,true);
+        dataObj = (TeamDataTemplate) getAlreadyCreatedDataObj();
+        if (dataObj == null){
+            dataObj=new TeamDataTemplate(templateType,true);
+        }
         return dataObj;
     }
 
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer() {
         mTemplateType = 1;
-
+        dataObj = (TeamDataTemplate) getAlreadyCreatedDataObj();
      //  dataObj= (TeamDataTemplate) MainActivity.listOfTemplateDataObj.get(position);
+        if (dataObj == null){
+            dataObj=new TeamDataTemplate(1,false);
+        }
         return dataObj;
     }
 

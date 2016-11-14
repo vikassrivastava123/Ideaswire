@@ -132,8 +132,6 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         deleteSubHeading.setOnClickListener(this);
         deleteParaGraph.setOnClickListener(this);
 
-        dataObj=(ClientDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
-
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
 
         String title=dataObj.getTitle();
@@ -202,11 +200,6 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
                     }
                 }
-                /*Log.v("tets","test test");
-
-                Intent sel = new Intent(ClientsOnapp.this,select_layout_of_template.class);
-                startActivity(sel);
-                //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();*/
             }});
 
         if(showPreview) {

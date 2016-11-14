@@ -12,9 +12,9 @@ public class TeamDataTemplate extends dataOfTemplate {
     int templateSelected = 1;
 
     public String title=null;
-    public String header=null;
-    public String subheading_header =null;
-    public String heading_text =null;
+    public String headerTeam=null;
+    public String subHeadingTeam =null;
+    public String paraGraphTeam =null;
 
     public String team_1_name=null;
     public String team_2_name=null;
@@ -52,12 +52,13 @@ public class TeamDataTemplate extends dataOfTemplate {
         this.templateSelected = templateSelected;
     }
 
+
     void initDeafultdata(){
 
         title="Team";
-        header = "Totam Aperiam Consect";
-        subheading_header = "There are many variation of passages";
-        heading_text = "There are many variation of passage of Lorem" +
+        headerTeam = "Totam Aperiam Consect";
+        subHeadingTeam = "There are many variation of passages";
+        paraGraphTeam = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
                 "alternation in some form by injected humour";
     }
@@ -87,30 +88,29 @@ public class TeamDataTemplate extends dataOfTemplate {
         this.title = title;
     }
 
-    @Override
-    public String getHeader() {
-        return header;
+
+    public String getHeaderTeam() {
+        return headerTeam;
     }
 
-    @Override
-    public void setHeader(String header) {
-        this.header = header;
+    public void setHeaderTeam(String header) {
+        this.headerTeam = header;
     }
 
-    public String getSubheading_header() {
-        return subheading_header;
+    public String getSubHeadingTeam() {
+        return subHeadingTeam;
     }
 
-    public void setSubheading_header(String subheading_header) {
-        this.subheading_header = subheading_header;
+    public void setSubHeadingTeam(String subHeadingTeam) {
+        this.subHeadingTeam = subHeadingTeam;
     }
 
-    public String getHeading_text() {
-        return heading_text;
+    public String getParaGraphTeam() {
+        return paraGraphTeam;
     }
 
-    public void setHeading_text(String heading_text) {
-        this.heading_text = heading_text;
+    public void setParaGraphTeam(String paraGraphTeam) {
+        this.paraGraphTeam = paraGraphTeam;
     }
 
     public String getTeam_1_name() {

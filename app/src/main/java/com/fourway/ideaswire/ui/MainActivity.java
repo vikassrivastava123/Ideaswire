@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int OPEN_GALLERY_FOR_SERVICE_ON_APP  = 5;
     public static final int OPEN_GALLERY_FOR_HOME_PAGE_ON_APP=6;
     public static final int OPEN_GALLERY_FOR_CLIENTS_PAGE_ON_APP=7;
+    public static final int OPEN_GALLERY_FOR_TEAM_PAGE_ON_APP=8;
 
 
     //These are files names that will be saved locally
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String Blog_TemplateImage_IMAGE_CROPED_NAME = "blogTemplateImage";
     public static final String Service_TemplateImage_IMAGE_CROPED_NAME = "serviceTemplateImage";
     public static final String CLIENTS_LOGO_IMAGE_CROPED_NAME_ = "clientsLogoImage_";
+    public static final String TEAM_MEMBER_IMAGE_CROPED_NAME_ = "teamMemberImage_";
 
     public static final String OPEN_CAMERA_FOR_SEARCH = "openCameraSearch";
 
@@ -488,15 +490,15 @@ public class MainActivity extends AppCompatActivity{
 
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_HEADING:
                     String heading = atr.getContentValue();
-                    data.setHeader(heading);
+                    data.setHeaderTeam(heading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_SUBHEADING:
                     String subHeading = atr.getContentValue();
-                    data.setSubheading_header(subHeading);
+                    data.setSubHeadingTeam(subHeading);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_PARAGRAPH:
                     String para = atr.getContentValue();
-                    data.setHeading_text(para);
+                    data.setParaGraphTeam(para);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE:
                     String img_1 = atr.getContentValue();

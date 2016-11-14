@@ -198,8 +198,8 @@ public class teamonapp extends Activity {
 
         title.setText(dataObj.getTitle());
         heading.setText(dataObj.getHeader());
-        subHeading.setText(dataObj.getSubheading_header());
-        paraGraph.setText(dataObj.getHeading_text());
+        subHeading.setText(dataObj.getSubHeadingTeam());
+        paraGraph.setText(dataObj.getParaGraphTeam());
 
         deleteTitle=(ImageView)findViewById(R.id.deleteTitleTeam);
         deleteHeading =(ImageView)findViewById(R.id.deleteHeadingTeam);

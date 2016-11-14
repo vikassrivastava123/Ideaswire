@@ -11,14 +11,10 @@ import com.fourway.ideaswire.ui.FragmentClientsOnApp;
 public class ClientDataTemplate extends dataOfTemplate {
     int templateSelected = 1;
 
-
-
     public String headerClient=null;
     public String subHeaderClient=null;
     public String paraClient=null;
     public String title=null;
-
-
 
     public String client_logo_1=null;
     public String client_logo_2=null;

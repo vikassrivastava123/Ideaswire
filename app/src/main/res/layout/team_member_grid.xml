@@ -4,28 +4,29 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:id="@+id/team_img_layout">
 
     <com.android.volley.toolbox.NetworkImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/member_1"
-        android:id="@+id/memberImage" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/memberImage"
+        android:background="@color/templateBackround"/>
 
         <ImageView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:id="@+id/Team_STATIC_img"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:scaleType="centerCrop"
             />
     </RelativeLayout>
 
-    <TextView
+    <EditText
+        android:layout_marginTop="5dp"
+        android:background="@color/card"
         android:layout_centerHorizontal="true"
         android:textColor="@color/text"
         android:textSize="16sp"
@@ -37,7 +38,10 @@
         android:id="@+id/memberName"
         android:layout_below="@id/team_img_layout"/>
 
-    <TextView
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/card"
         android:hint="Title"
         android:layout_below="@id/memberName"
         android:textSize="14sp"
