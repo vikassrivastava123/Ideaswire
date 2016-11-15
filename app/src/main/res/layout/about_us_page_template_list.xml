@@ -25,6 +25,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp"
+        android:checked="true"
         android:layout_toLeftOf="@+id/imageButton7"
         android:layout_toStartOf="@+id/imageButton7"/>
 

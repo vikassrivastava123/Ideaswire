@@ -528,6 +528,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         init_servicePage_request();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_STATUS, String.valueOf(mthispage.pageStatus()));
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_HEADING_1, dataObj.getHeading());

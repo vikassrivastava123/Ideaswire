@@ -119,7 +119,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             ArrayList<Page> pageList = p.getAllPages();
 
             MainActivity.initListOfPages();
-            boolean bcanShowProfile = MainActivity.addPagesToList(pageList);
+            boolean bcanShowProfile = MainActivity.addPagesToList(pageList, true);
 
             if(bcanShowProfile == true) {
                 //shoEditProfile();

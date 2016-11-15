@@ -619,6 +619,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         init_clientsPage_request();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_STATUS, String.valueOf(mthispage.pageStatus()));
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_TITLE, dataObj.getTitle());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_HEADING, dataObj.getHeaderClient());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_SUBHEADING, dataObj.getSubHeaderClient());

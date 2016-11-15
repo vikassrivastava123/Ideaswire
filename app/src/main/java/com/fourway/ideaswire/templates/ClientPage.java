@@ -63,4 +63,15 @@ public class ClientPage extends pages {
     public int iconis() {
         return R.drawable.client;
     }
+
+    boolean status = true;
+    @Override
+    public void setPageStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean pageStatus() {
+        return status;
+    }
 }

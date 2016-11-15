@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +44,17 @@ public class PageTemplateArrayAdapter extends ArrayAdapter{
                 ((ListView)parent).performItemClick(v, position,0);
             }
         });
+
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ((ListView)parent).performItemClick(buttonView, position, 0);
+            }
+        });
+
+
+
+
 
         tv.setText(items.get(position));
 

@@ -35,6 +35,17 @@ public class ServicePage extends pages {
         return R.drawable.services;
     }
 
+    boolean status = true;
+    @Override
+    public void setPageStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean pageStatus() {
+        return status;
+    }
+
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer(){
         mTemplateType = 1;

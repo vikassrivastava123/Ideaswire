@@ -71,7 +71,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
             ArrayList<Page> pageList = p.getAllPages();
 
             MainActivity.initListOfPages();
-            boolean bcanShowProfile = MainActivity.addPagesToList(pageList);
+            boolean bcanShowProfile = MainActivity.addPagesToList(pageList, false);
 
             if(bcanShowProfile == true) {
                 shownLiveProfile();

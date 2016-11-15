@@ -793,6 +793,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         init_teamPage_request();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_STATUS, String.valueOf(mthispage.pageStatus()));
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_TITLE, dataObj.getTitle());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_HEADING, dataObj.getHeaderTeam());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_SUBHEADING, dataObj.getSubHeadingTeam());

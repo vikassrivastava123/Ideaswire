@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -399,13 +400,20 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pages mPages= MainActivity.listOfTemplatePagesObj.get(position);
                 if(view.getId()==R.id.imageButton7)
                 {
-                    String pageName = MainActivity.listOfTemplatePagesObj.get(position).nameis();
+                    String pageName = mPages.nameis();
                     MainActivity.listOfTemplatePagesObj.remove(position);
                     list.remove(position);
                     listView.setAdapter(adapter);
                     Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
+                }else if (view.getId()==R.id.switchbtn){
+                    SwitchCompat switchCompat=(SwitchCompat)view;
+                    boolean pageStatus = switchCompat.isChecked();
+
+                    mPages.setPageStatus(pageStatus);
+
                 }
             }
         });

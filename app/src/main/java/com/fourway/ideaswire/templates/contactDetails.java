@@ -61,6 +61,17 @@ public class contactDetails extends pages {
         return R.drawable.contact;
     }
 
+    boolean status = true;
+    @Override
+    public void setPageStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean pageStatus() {
+        return status;
+    }
+
     public dataOfTemplate getDataForTemplateAsReceivedFromServer(int position){
         mTemplateType = 1;
         dataObj = (contactDetailsDataTemplate) getAlreadyCreatedDataObj();

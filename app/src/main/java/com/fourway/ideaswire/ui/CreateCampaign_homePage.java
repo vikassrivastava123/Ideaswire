@@ -168,7 +168,7 @@ private static String TAG = "CreateCampaign_homePage";
             ArrayList<Page> pageList = p.getAllPages();
 
             MainActivity.initListOfPages();
-            boolean bcanShowProfile = MainActivity.addPagesToList(pageList);
+            boolean bcanShowProfile = MainActivity.addPagesToList(pageList, true);
 
             if(bcanShowProfile == true) {
                 shownLiveProfile();

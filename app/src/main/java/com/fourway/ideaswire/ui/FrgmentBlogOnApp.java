@@ -600,6 +600,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         init_blogPage_request();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_STATUS, String.valueOf(mthispage.pageStatus()));
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE, dataObj.getTitle());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_BLOG_HEADING_1, dataObj.getHeaderBlog());

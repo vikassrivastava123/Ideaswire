@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     public static Profile requestToMakeProfile = null;
+    public static boolean isLoginData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +165,10 @@ public class MainActivity extends AppCompatActivity{
                     String nameis = atr.getContentValue();
                     abtusObj.set_nameis(nameis);
                     break;
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    abtusObj.setPageStatus(status);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.set_title(abtTitle);
@@ -200,8 +205,11 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
-
-        listOfTemplatePagesObj.add(abtusObj);
+        if (abtusObj.pageStatus()) {
+            listOfTemplatePagesObj.add(abtusObj);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(abtusObj);
+        }
         int index = listOfTemplatePagesObj.indexOf(abtusObj);
         listOfTemplatePagesObj.get(index).setDataObj(data);
 
@@ -218,6 +226,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                     String nameis = atr.getContentValue();
                     homePageObj.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    homePageObj.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
@@ -247,7 +260,12 @@ public class MainActivity extends AppCompatActivity{
                     break;
             }
         }
-        listOfTemplatePagesObj.add(homePageObj);
+        if (homePageObj.pageStatus()) {
+            listOfTemplatePagesObj.add(homePageObj);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(homePageObj);
+        }
+
     }
 
 
@@ -261,6 +279,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
                     String nameis = atr.getContentValue();
                     blogPageObj.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_BLOG_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    blogPageObj.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG_TITLE:
@@ -303,7 +326,12 @@ public class MainActivity extends AppCompatActivity{
 
             }
         }
-        listOfTemplatePagesObj.add(blogPageObj);
+        if (blogPageObj.pageStatus()) {
+            listOfTemplatePagesObj.add(blogPageObj);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(blogPageObj);
+        }
+
     }
 
 
@@ -316,6 +344,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
                     String nameis = atr.getContentValue();
                     contactDetailsPageObj.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    contactDetailsPageObj.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE:
@@ -357,7 +390,12 @@ public class MainActivity extends AppCompatActivity{
 
             }
         }
-        listOfTemplatePagesObj.add(contactDetailsPageObj);
+        if (contactDetailsPageObj.pageStatus()) {
+            listOfTemplatePagesObj.add(contactDetailsPageObj);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(contactDetailsPageObj);
+        }
+
     }
 
     static void setAttributesForServicePage(ArrayList<Attribute> attributesFromServer){
@@ -369,6 +407,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
                     String nameis = atr.getContentValue();
                     servicePageObj.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    servicePageObj.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_SERVICES_TITLE:
@@ -411,7 +454,12 @@ public class MainActivity extends AppCompatActivity{
 
             }
         }
-        listOfTemplatePagesObj.add(servicePageObj);
+        if (servicePageObj.pageStatus()) {
+            listOfTemplatePagesObj.add(servicePageObj);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(servicePageObj);
+        }
+
     }
 
     static void setAttributesForClientPage(ArrayList<Attribute> attributesFromServer){
@@ -423,6 +471,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
                     String nameis = atr.getContentValue();
                     clientPage.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    clientPage.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_TITLE:
@@ -469,7 +522,12 @@ public class MainActivity extends AppCompatActivity{
 
             }
         }
-        listOfTemplatePagesObj.add(clientPage);
+        if (clientPage.pageStatus()) {
+            listOfTemplatePagesObj.add(clientPage);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(clientPage);
+        }
+
     }
 
     static void setAttributesForTeamPage(ArrayList<Attribute> attributesFromServer){
@@ -481,6 +539,11 @@ public class MainActivity extends AppCompatActivity{
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM:
                     String nameis = atr.getContentValue();
                     teamPage.set_nameis(nameis);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_PAGE_TEAM_STATUS:
+                    boolean status = Boolean.valueOf(atr.getContentValue());
+                    teamPage.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_TITLE:
@@ -576,12 +639,18 @@ public class MainActivity extends AppCompatActivity{
 
             }
         }
-        listOfTemplatePagesObj.add(teamPage);
+        if (teamPage.pageStatus()) {
+            listOfTemplatePagesObj.add(teamPage);
+        }else if (isLoginData){
+            listOfTemplatePagesObj.add(teamPage);
+        }
+
     }
 
 
 
-    public static boolean addPagesToList(ArrayList<Page> pageList){
+    public static boolean addPagesToList(ArrayList<Page> pageList, boolean dataForLogin){
+        isLoginData = dataForLogin;
         boolean bCanShowProfile = false;
 
       try{

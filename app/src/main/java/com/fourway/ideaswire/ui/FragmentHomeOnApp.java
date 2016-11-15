@@ -625,6 +625,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         init_homeUsPage_request();
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS, String.valueOf(mthispage.pageStatus()));
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING, dataObj.getHeading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.getSubHeading());
 

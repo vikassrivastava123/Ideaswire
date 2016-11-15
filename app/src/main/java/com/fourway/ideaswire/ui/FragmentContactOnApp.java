@@ -195,6 +195,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US, mthispage.nameis() );
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_STATUS, String.valueOf(mthispage.pageStatus()) );
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE, dataobj.getTitle());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_HEADING, dataobj.getHeaderContact());

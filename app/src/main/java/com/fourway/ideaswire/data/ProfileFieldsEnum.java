@@ -6,6 +6,7 @@ package com.fourway.ideaswire.data;
 
 public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_HOMEPAGE = "Home";
+    public static final String PROFILE_PAGE_HOMEPAGE_STATUS = "Homepage_Status";
     public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
     public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1 = "Homepage_Card_image_1";
     public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2 = "Homepage_Card_image_2";
@@ -15,6 +16,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_HOMEPAGE_BUTTON = "Homepage_Button";
 
     public static final String PROFILE_PAGE_ABOUT_US = "About";
+    public static final String PROFILE_PAGE_ABOUT_US_STATUS = "About_Status";
     public static final String PROFILE_PAGE_ABOUT_TITLE = "About_Us_Title";
     public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE = "About_Us_Card_Image";
     public static final String PROFILE_PAGE_ABOUT_US_HEADING = "About_Us_Heading";
@@ -25,6 +27,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT = "url";
 
     public static final String PROFILE_PAGE_BLOG = "Blog";
+    public static final String PROFILE_PAGE_BLOG_STATUS = "Blog_Status";
     public static final String PROFILE_PAGE_BLOG_TITLE = "Blog_Title";
     public static final String PROFILE_PAGE_BLOG_HEADING_1 = "Blog_Heading_1";
     public static final String PROFILE_PAGE_BLOG_SUBHEADING_1 = "Blog_Subheading_1";
@@ -36,6 +39,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_BLOG_BUTTON = "Blog_Button";
 
     public static final String PROFILE_PAGE_CLIENT = "Client";
+    public static final String PROFILE_PAGE_CLIENT_STATUS = "Client_Status";
     public static final String PROFILE_PAGE_CLIENT_TITLE = "Client_Title";
     public static final String PROFILE_PAGE_CLIENT_HEADING = "Client_Heading";
     public static final String PROFILE_PAGE_CLIENT_SUBHEADING = "Client_Subheading";
@@ -48,6 +52,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_CLIENT_LOGO_6 = "Client_Logo_6";
 
     public static final String PROFILE_PAGE_CONTACT_US = "Contact";
+    public static final String PROFILE_PAGE_CONTACT_US_STATUS = "Contact_Status";
     public static final String PROFILE_PAGE_CONTACT_US_TITLE = "Contact_Us_Title";
     public static final String PROFILE_PAGE_CONTACT_US_HEADING = "Contact_Us_Heading";
     public static final String PROFILE_PAGE_CONTACT_US_SUBHEADING = "Contact_Us_Subheading_1";
@@ -62,6 +67,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_CONTACT_US_PARAGRAPH_5 = "Contact_Us_Paragraph_5";
 
     public static final String PROFILE_PAGE_SERVICES = "Services";
+    public static final String PROFILE_PAGE_SERVICES_STATUS = "Services_Status";
     public static final String PROFILE_PAGE_SERVICES_TITLE = "Services_Title";
     public static final String PROFILE_PAGE_SERVICES_HEADING_1 = "Services_Heading_1";
     public static final String PROFILE_PAGE_SERVICES_SUBHEADING_1 = "Services_Subheading_1";
@@ -72,6 +78,7 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_PAGE_SERVICES_PARAGRAPH_2 = "Services_Paragraph_2";
 
     public static final String PROFILE_PAGE_TEAM = "Team";
+    public static final String PROFILE_PAGE_TEAM_STATUS = "Team_Status";
     public static final String PROFILE_PAGE_TEAM_TITLE = "Team_Title";
     public static final String PROFILE_PAGE_TEAM_HEADING = "Team_Heading";
     public static final String PROFILE_PAGE_TEAM_SUBHEADING = "Team_Subheading";

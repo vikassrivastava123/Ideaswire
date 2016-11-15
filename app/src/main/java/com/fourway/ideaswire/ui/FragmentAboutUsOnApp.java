@@ -333,6 +333,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS, String.valueOf(mthispage.pageStatus()));
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
