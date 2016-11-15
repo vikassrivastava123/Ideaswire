@@ -170,10 +170,11 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             @Override
             public void run() {
 
-                int size = MainActivity.listOfTemplatePagesObj.size();
-                Button[] btn = new Button[size];
+                final int size = MainActivity.listOfTemplatePagesObj.size();
+                final Button[] btn = new Button[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
+                row.setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
                 //if (size>1)
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
@@ -233,6 +234,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                     transaction.replace(R.id.mainRLayout,fragmentToLaunch);
                                     transaction.commit();
 
+                                    for(int j=0;j<size;j++){
+                                        if (v.getId()!=j){
+                                            btn[j].setBackgroundColor(getResources().getColor(R.color.card));
+                                        }else {
+                                            btn[j].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                                        }
+                                    }
+
 
                                 }
                             });
@@ -241,7 +250,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         // Add the LinearLayout element to the ScrollView
                         i++;
                     }
-                // btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                 btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.

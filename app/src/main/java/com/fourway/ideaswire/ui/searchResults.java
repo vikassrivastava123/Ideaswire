@@ -57,8 +57,9 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
 
         Class intenetToLaunch = data.getIntentToLaunchPage();
         Log.v(TAG, "5" + intenetToLaunch);
-        Intent intent = new Intent(this, intenetToLaunch);
-        intent.putExtra(MainActivity.ExplicitEditModeKey, true);
+//        Intent intent = new Intent(this, intenetToLaunch);
+        Intent intent = new Intent(this, FragmenMainActivity.class);
+//        intent.putExtra(MainActivity.ExplicitEditModeKey, true);
         intent.putExtra("data",data);
         startActivity(intent);
 
