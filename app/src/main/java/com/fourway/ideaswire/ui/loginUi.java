@@ -32,6 +32,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     private static final String TAG = "loginUi";
     private static final int REQUEST_SIGNUP = 0;
     public static String mLogintoken = null;
+    private boolean loginSuccess = false;
     static ProgressDialog mProgressDialog;
     static ArrayList<Profile> mProfileList;
     Button login_button;
@@ -126,15 +127,20 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     }
 
     private void requestProfileList (){
+        mProgressDialog = new ProgressDialog(loginUi.this,
+                R.style.AppTheme_Dark_Dialog);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
         GetUserProfileRequest request = new GetUserProfileRequest(this, data, this);
         request.executeRequest();
     }
 
     public void onLoginSuccess() {
-
+        mProgressDialog.dismiss();
         _loginButton.setEnabled(true);
-        requestProfileList();
+        //requestProfileList();
       //  finish();
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -193,7 +199,8 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
             case COMMON_RES_SUCCESS:
                 mLogintoken = data.getAccessToken();
                 Log.v(TAG,"LoginToken" + mLogintoken);
-                     onLoginSuccess();
+                loginSuccess = true;
+                requestProfileList();
                 break;
             case COMMON_RES_INTERNAL_ERROR:
                 onLoginFailed("Login Failed ,Please try again");
@@ -215,6 +222,9 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
             mProfileList = data.getProfileList();
+            if (loginSuccess){
+                onLoginSuccess();
+            }
         }
     }
 }

@@ -126,6 +126,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             // Uri cardImageUri = Uri.parse(urlOfProfile);
             // cardImage.setImageURI(cardImageUri);
             cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+            cardImage.setBackground(null);
             cardImageCrop.setVisibility(View.GONE);
 
         }else{
