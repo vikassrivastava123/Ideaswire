@@ -22,7 +22,7 @@
             android:contextClickable="true"
             app:navigationIcon="@drawable/back_1"
             android:visibility="visible">
-            <!--
+
             <Button
                 android:paddingTop="30dp"
                 android:layout_width="15dp"
@@ -36,12 +36,9 @@
                 android:paddingTop="30dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:onClick="onRotateImageClick"
-                android:id="@+id/showevents"
-
+                android:id="@+id/imageRotate"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/rot_3"
-
                 android:layout_gravity="right"
 
                 />
@@ -54,21 +51,15 @@
                 android:layout_gravity="right"
 
                 />
-            <Button
-
-                android:paddingLeft="10dp"
-                android:drawablePadding="20dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-
-                android:id="@+id/showevents2"
-
-                android:layout_alignParentRight="true"
-                android:background="@drawable/crop_2"
-
-                android:layout_gravity="right"
-
-                />-->
+            <!--<Button-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:drawablePadding="20dp"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:id="@+id/showevents2"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@drawable/crop_2"-->
+                <!--android:layout_gravity="right" />-->
             </android.support.v7.widget.Toolbar>
 
 

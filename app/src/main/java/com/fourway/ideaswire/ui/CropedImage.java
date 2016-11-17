@@ -29,7 +29,7 @@ import java.io.FileOutputStream;
 
 public class CropedImage extends Activity implements CropImageView.OnGetCroppedImageCompleteListener,  CropImageView.OnSetImageUriCompleteListener{
 
-    Button b1,b2;
+    Button b1,b2,b3;
     private CropImageView mCropImageView;
 
     private View mProgressView;
@@ -68,9 +68,18 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         Log.v(TAG, "onCreate galleryStarted == " + galleryStarted);
         b1 = (Button) findViewById(R.id.crop_done);
         b2 = (Button) findViewById(R.id.crop_cancel);
+        b3 = (Button) findViewById(R.id.imageRotate);
+
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRotateImageClick();
+            }
+        });
 
         b1.setTypeface(mycustomFont);
         b2.setTypeface(mycustomFont);
+        b3.setTypeface(mycustomFont);
         mCropImageView = (CropImageView)  findViewById(R.id.CropImageView);
         mProgressView =  findViewById(R.id.ProgressView);
         mProgressViewText = (TextView)  findViewById(R.id.ProgressViewText);
@@ -367,7 +376,7 @@ public class CropedImage extends Activity implements CropImageView.OnGetCroppedI
         }
     }
 
-    public void onRotateImageClick(View view) {
+    public void onRotateImageClick() {
         mCropImageView.rotateImage(90);
     }
 
