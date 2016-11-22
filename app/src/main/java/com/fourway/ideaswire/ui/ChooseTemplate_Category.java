@@ -46,8 +46,8 @@ public class ChooseTemplate_Category extends Activity {
    //     gridAdapter = new GridViewAdapter(this, R.layout.activity_choose_template__category, getData());
     //    gridView.setAdapter(gridAdapter);
 
-        String[] values = new String[] { "Business", "Entertainment", "Finance",
-                "Health", "Individual","Information","Other","Restaurants","See_all_template","Wedding"};
+        String[] values = new String[] { "Business", "Individual", "Finance",
+                "Health", "Entertainment","Information","Wedding","Restaurants","Other","See_all_template"};
 
         // use your custom layout
         ArrayAdapter<String> adapter = new GridViewAdapter<String>(this,
@@ -122,7 +122,7 @@ public class ChooseTemplate_Category extends Activity {
                     holderObj.imgView.setImageResource(R.drawable.business);
                     break;
                 case 1:
-                    holderObj.imgView.setImageResource(R.drawable.entertainment);
+                    holderObj.imgView.setImageResource(R.drawable.individual);
                     break;
                 case 2:
 
@@ -133,22 +133,22 @@ public class ChooseTemplate_Category extends Activity {
                     holderObj.imgView.setImageResource(R.drawable.health);
                     break;
                 case 4:
-                    holderObj.imgView.setImageResource(R.drawable.individual);
+                    holderObj.imgView.setImageResource(R.drawable.entertainment);
                     break;
                 case 5:
                     holderObj.imgView.setImageResource(R.drawable.information);
                     break;
                 case 6:
-                    holderObj.imgView.setImageResource(R.drawable.other);
+                    holderObj.imgView.setImageResource(R.drawable.wedding);
                     break;
                 case 7:
                     holderObj.imgView.setImageResource(R.drawable.restaurent);
                     break;
                 case 8:
-                    holderObj.imgView.setImageResource(R.drawable.see_all_template);
+                    holderObj.imgView.setImageResource(R.drawable.other);
                     break;
                 case 9:
-                    holderObj.imgView.setImageResource(R.drawable.wedding);
+                    holderObj.imgView.setImageResource(R.drawable.see_all_template);
                     break;
             }
             return convertView;

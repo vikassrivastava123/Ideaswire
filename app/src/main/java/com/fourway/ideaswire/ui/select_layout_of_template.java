@@ -106,6 +106,7 @@ public class select_layout_of_template extends Activity {
 
 
 
+
         MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
         abtusObj.setPageIndex(0);
         MainActivity.listOfTemplatePagesObj.add(1, homeObj);
@@ -116,14 +117,23 @@ public class select_layout_of_template extends Activity {
         abtusObj.setPageIndex(3);
         MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
         abtusObj.setPageIndex(4);
+        MainActivity.listOfTemplatePagesObj.add(5, clientobj);
+        abtusObj.setPageIndex(5);
+        MainActivity.listOfTemplatePagesObj.add(6, teamPages);
+        abtusObj.setPageIndex(6);
+
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
 
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v("Create homepage", "5" + intenetToLaunch);
-        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+//        Class intenetToLaunch = data.getIntentToLaunchPage();
+//        Log.v("Create homepage", "5" + intenetToLaunch);
+//        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+//
+//        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+//        intent.putExtra("data",data);
+//        startActivity(intent);
 
-        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
 
@@ -144,6 +154,7 @@ public class select_layout_of_template extends Activity {
 
         class viewHolder {
             ImageView imgView;
+            TextView txtView;
 
         }
 
@@ -160,6 +171,7 @@ public class select_layout_of_template extends Activity {
                 convertView = inflater.inflate(R.layout.design_choose_layout_of_template, null);
 
                 holderObj.imgView = (ImageView) convertView.findViewById(R.id.imgvTemplateLayout);
+                holderObj.txtView = (TextView) convertView.findViewById(R.id.layoutText);
 
                 convertView.setTag(holderObj);
 
@@ -171,17 +183,23 @@ public class select_layout_of_template extends Activity {
             switch (position) {
                 case 0:
                     holderObj.imgView.setImageResource(R.drawable.homepage_layout1);
+                    holderObj.txtView.setText("Layout 1");
                     break;
                 case 1:
                     holderObj.imgView.setImageResource(R.drawable.homepage_layout2);
+                    holderObj.txtView.setText("Layout 2");
                     break;
                 case 2:
                     holderObj.imgView.setImageResource(R.drawable.homepage_layout3);
+                    holderObj.txtView.setText("Layout 3");
                     break;
                 case 3:
                     holderObj.imgView.setImageResource(R.drawable.homepage_layout4);
+                    holderObj.txtView.setText("Layout 4");
                     break;
             }
+
+
             return convertView;
         }
     }

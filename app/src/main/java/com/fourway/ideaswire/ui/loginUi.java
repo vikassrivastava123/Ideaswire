@@ -130,6 +130,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         mProgressDialog = new ProgressDialog(loginUi.this,
                 R.style.AppTheme_Dark_Dialog);
         mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
         GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);

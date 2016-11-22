@@ -123,15 +123,15 @@ public class CreateCampain_Sucess extends Activity {
 
         Log.v("CreateCampain_Sucess","Clicked to start choosing template");
 //todo tempLoad Vijay
-        startCreateCampaignWithDefaultData(1);
+        //startCreateCampaignWithDefaultData(1);
 
         //startActivity(new Intent(this,ChooseTemplate_Category.class));
 
         //Intent iny = new Intent(this,TempActivity.class);
 
 
-     //  Intent iny = new Intent(this,ChooseTemplate_Category.class);
-       // startActivity(iny);
+       Intent iny = new Intent(this,ChooseTemplate_Category.class);
+        startActivity(iny);
     }
 
     @Override

@@ -62,7 +62,7 @@
         android:layout_below="@+id/greatText"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
-        android:text="Campaign Created Succefully"
+        android:text="Profile Created Succefully"
         android:textColor="@color/text"
         />
 

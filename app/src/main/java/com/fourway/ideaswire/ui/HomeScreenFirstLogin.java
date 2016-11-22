@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 
@@ -52,7 +51,7 @@ public class HomeScreenFirstLogin extends ListActivity {
         t.setTypeface(mycustomFont);
         btn2 = (Button)findViewById(R.id.btn_start);
         btn2.setTypeface(mycustomFont);
-        String[] values = new String[] { "CREATE CAMPAIGN", "CHOOSE TEMPLATE", "EDIT TEMPLATE",
+        String[] values = new String[] { "CREATE PROFILE", "CHOOSE TEMPLATE", "EDIT TEMPLATE",
                 "PREVIEW", "MAKE IT LIVE"};
 
         // use your custom layout
@@ -64,7 +63,7 @@ public class HomeScreenFirstLogin extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
     }
 
 

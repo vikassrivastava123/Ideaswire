@@ -38,7 +38,7 @@
         android:paddingTop="20dp"
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
-        android:text= "Add new Campaign"
+        android:text= "Add new Profile"
         android:layout_below="@+id/imageButton" />
 
     <GridView
