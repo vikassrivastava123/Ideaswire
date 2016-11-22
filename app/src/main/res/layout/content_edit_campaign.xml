@@ -47,13 +47,15 @@
         />
 
     <TextView
+        android:paddingLeft="15dp"
+        android:gravity="start"
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageToEdit"
         android:layout_marginTop="7dp"
         android:text="Status"
-        android:textSize="25dp">
+        android:textSize="25sp">
 </TextView>
 
     <RadioGroup
@@ -106,5 +108,20 @@
         android:text="Create Campaign"
         android:onClick="createCamapignBtn"
         />
+
+    <CheckBox
+        android:paddingRight="15dp"
+        android:gravity="end"
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Active"
+        android:checked="true"
+        android:id="@+id/checkBoxStatus"
+        android:layout_below="@+id/imageToEdit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+         />
 
 </RelativeLayout>

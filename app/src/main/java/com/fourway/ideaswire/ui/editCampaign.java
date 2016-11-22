@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -39,6 +41,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     private String mCampaignNameReceived = null;
     private static String Tag = "editCampaign";
     TextView t1_new,mTitle;
+    CheckBox statusBox=null;
     Button btn1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,14 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         selImage = (ImageView)findViewById(R.id.imageToEdit);
         statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
         statusOn = (RadioButton)findViewById(R.id.StatusOn);
+        statusBox = (CheckBox)findViewById(R.id.checkBoxStatus);
         statusDraft.setTypeface(mycustomFont);
         statusOn.setTypeface(mycustomFont);
+        statusBox.setTypeface(mycustomFont);
+        statusBox.setOnCheckedChangeListener(statusChangeListener);
         showImageCampaign();
         //selImage.set
+
 
     }
 
@@ -94,6 +101,17 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     }
 
     CreateProfileData.ProfileStatus  mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+    CompoundButton.OnCheckedChangeListener statusChangeListener=new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked){
+                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+            }else {
+                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+            }
+        }
+    };
+
     CreateProfileData.ProfileType mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
     public void onRadioButtonClicked(View view) {
 
