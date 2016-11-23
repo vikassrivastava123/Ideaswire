@@ -250,7 +250,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         // Add the LinearLayout element to the ScrollView
                         i++;
                     }
-                 btn[0].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                 btn[getIndexOfPresentview()].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
