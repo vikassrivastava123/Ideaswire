@@ -12,9 +12,9 @@
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Title"
+        android:hint="Enter Title"
         android:singleLine="true"
-        android:textColorHint = "@color/card"
+        android:textColorHint = "@color/cardHint"
         android:background="@color/skyBlueBckgrnd"
         />
     <ImageView
@@ -33,7 +33,6 @@
 
     <ScrollView
         android:layout_above="@+id/buttonMainAbtUs"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"

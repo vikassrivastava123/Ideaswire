@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
@@ -57,6 +58,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     ImageView deleteHeadingAboutUsBtnView = null;
     ImageView deleteSubHeaderAboutUsBtnView = null;
     ImageView deleteParaAboutUsBtnView = null;
+    RelativeLayout cardImageRelativeLayout = null;
 
     EditText editTitle = null,editHeader = null,editSubHeading = null,editParaGraphAboutUs = null;
 
@@ -109,6 +111,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         deleteHeadingAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteHeadingAboutUs);
         deleteSubHeaderAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteSubHeaderAboutUs);
         deleteParaAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteParaAboutUs);
+
+        cardImageRelativeLayout = (RelativeLayout)view.findViewById(R.id.cardImageLayout);
 
         deleteTitleAboutUsBtnView.setOnClickListener(this);
         deleteCARD_IMAGEBtnView .setOnClickListener(this);
@@ -662,8 +666,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 deleteTitleAboutUsBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE:
-                editTitle.setVisibility(View.GONE);
-                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                cardImage.setVisibility(View.GONE);
+                cardImageCrop.setVisibility(View.GONE);
+                cardImageRelativeLayout.setVisibility(View.GONE);
+                deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingAboutUs:
                 editHeader.setVisibility(View.GONE);
