@@ -250,6 +250,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 break;
             case R.id.deleteCARD_IMAGE_2:
                 deleteCardImage_2.setVisibility(View.GONE);
+                cardImageCrop_2.setVisibility(View.GONE);
                 cardImage_2.setVisibility(View.GONE);
                 break;
             case R.id.Home_STATIC_IMAGE_1:

@@ -10,9 +10,9 @@
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Title"
+        android:hint="Enter Title"
         android:singleLine="true"
-        android:textColorHint = "@color/card"
+        android:textColorHint = "@color/cardHint"
         android:background="@color/skyBlueBckgrnd"
         android:onClick="changeTitleTextHome" />
 
