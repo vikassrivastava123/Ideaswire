@@ -103,7 +103,7 @@
                 android:textColor="@color/text"
                 android:gravity="center"
                 android:hint="Heading"
-                android:textColorHint = "@color/text"
+                android:textColorHint = "@color/textHintOnWhite"
                 android:singleLine="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"

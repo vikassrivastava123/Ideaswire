@@ -18,6 +18,7 @@
         android:text="Example application"
         android:textSize="16sp" />
     <ImageView
+        android:paddingLeft="12dp"
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
