@@ -16,6 +16,7 @@ import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.data.SessionManager;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.LoginRequest;
@@ -44,10 +45,14 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     @InjectView(R.id.link_signup)
     Button _signupLink;
     String MyPREFERENCES = "app_prefs",username_level ;
+
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_ui);
+
+        session = new SessionManager(getApplicationContext());
 
          _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setOnClickListener(new Button.OnClickListener() {
@@ -199,6 +204,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         switch(responseCode){
             case COMMON_RES_SUCCESS:
                 mLogintoken = data.getAccessToken();
+                session.createLoginSession(mLogintoken);
                 Log.v(TAG,"LoginToken" + mLogintoken);
                 loginSuccess = true;
                 requestProfileList();

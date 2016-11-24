@@ -18,9 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.SessionManager;
 
 public class HomeScreenFirstLogin extends ListActivity {
 
+    SessionManager session;
 
     public void startNowBtn(View view) {
         Intent intent = new Intent(this,CreateCampaign_homePage.class);
@@ -33,6 +35,8 @@ public class HomeScreenFirstLogin extends ListActivity {
         Button btn2;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen_first_login);
+
+        session = new SessionManager(getApplicationContext());
 
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,8 +70,14 @@ public class HomeScreenFirstLogin extends ListActivity {
 
     @Override
     public void onBackPressed() {
-            Intent intent = new Intent(getBaseContext(),HomepageBeforeLogin.class);
+        if (session.isLoggedIn()) {
+            Intent intent = new Intent(getBaseContext(), HomepageBeforeLogin.class);
             startActivity(intent);
+        }else {
+            Intent intent = new Intent(getBaseContext(), loginUi.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private class fristScreenAdapter<S> extends ArrayAdapter<String>{

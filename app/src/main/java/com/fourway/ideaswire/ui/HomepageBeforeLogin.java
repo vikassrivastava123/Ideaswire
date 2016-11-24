@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.SessionManager;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -72,6 +73,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
     ImageButton naveButton;
 
     private File mCurrentPhoto;
+    SessionManager session;
 
 
 
@@ -82,6 +84,8 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        session = new SessionManager(getApplicationContext());
 
         setContentView(R.layout.activity_homepage_before_login);
         FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Montserrat-Regular.otf");
@@ -167,7 +171,11 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //            fragmentTransaction.commit();
 
         }else if (id==R.id.nav_login) {
-            startActivity(new Intent(this,loginUi.class));
+            if (!session.isLoggedIn()) {
+                startActivity(new Intent(this, loginUi.class));
+            }else {
+                startActivity(new Intent(this, CreateCampaign_homePage.class));
+            }
 
         }else if (id == R.id.nav_slideshow) {
 //            SlidshowFrag fragment = new SlidshowFrag();
@@ -409,6 +417,15 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (session.isLoggedIn()){
+            finish();
+        }else {
+            startActivity(new Intent(HomepageBeforeLogin.this, loginUi.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
