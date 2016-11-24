@@ -42,9 +42,6 @@
 
 
 
-
-    />
-
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
@@ -74,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="Active"
+            android:text="Individual"
             android:textSize="25dp"
             android:checked="true"
             android:buttonTint="#00FF00"/>
@@ -83,7 +80,7 @@
             android:id="@+id/StatusDraft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Draft"
+            android:text="Logo"
             android:layout_marginLeft="75dp"
             android:onClick="onRadioButtonClicked"
             android:textSize="25dp"
@@ -94,7 +91,7 @@
 
 
     <Button
-        android:id="@+id/btn_createCampaign"
+        android:id="@+id/btn_createCampaignNew"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -104,6 +101,19 @@
         android:layout_alignParentBottom="true"
         android:text="Edit Campaign"
         android:onClick="editProfile"
+        />
+
+    <CheckBox
+        android:gravity="end"
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Active"
+        android:checked="true"
+        android:id="@+id/checkBoxStatus"
+        android:layout_below="@+id/imageToEditNew"
+        android:layout_centerHorizontal="true"
         />
 
 </RelativeLayout>

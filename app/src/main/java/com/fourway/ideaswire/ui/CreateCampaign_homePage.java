@@ -72,7 +72,7 @@ private static String TAG = "CreateCampaign_homePage";
                 gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        campaignEditMode =true;
+                        campaignEditMode = false;
                         if(view.getId()==R.id.imgViewProfile) {
                             Profile p = loginUi.mProfileList.get(position);
                             GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
@@ -82,15 +82,16 @@ private static String TAG = "CreateCampaign_homePage";
 
                         }
 
-                       /* if(view.getId()==R.id.editCampaign) {
-                            campaignEditMode = false;
+                        if(view.getId()==R.id.editCampaign) {
+                            campaignEditMode = true;
                             profilePosition = position;
-                            Profile p = loginUi.mProfileList.get(position);
-                            GetProfileRequestData profileRequestData = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-                            GetProfileRequest request =
-                                    new GetProfileRequest(CreateCampaign_homePage.this, profileRequestData, CreateCampaign_homePage.this);
-                            request.executeRequest();
-                        }*/
+                            shownLiveProfile();
+//                            Profile p = loginUi.mProfileList.get(position);
+//                            GetProfileRequestData profileRequestData = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+//                            GetProfileRequest request =
+//                                    new GetProfileRequest(CreateCampaign_homePage.this, profileRequestData, CreateCampaign_homePage.this);
+//                            request.executeRequest();
+                        }
 
                     }
                 });
@@ -119,7 +120,7 @@ private static String TAG = "CreateCampaign_homePage";
 
     private void shownLiveProfile(){
 
-      //  if (campaignEditMode) {
+        if (!campaignEditMode) {
             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
 
             Class intenetToLaunch = data.getIntentToLaunchPage();
@@ -129,15 +130,14 @@ private static String TAG = "CreateCampaign_homePage";
             intent.putExtra("data", data);
          //   intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);
-       // }
-        /*else {
+        } else {
 
             Intent intent = new Intent(this, EditCampaignNew.class);
             intent.putExtra("profilePosition",profilePosition);
             intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);
 
-        }*/
+        }
 
     }
 

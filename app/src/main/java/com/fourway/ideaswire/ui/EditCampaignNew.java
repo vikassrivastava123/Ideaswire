@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.CreateProfileData;
 import com.fourway.ideaswire.data.GetProfileRequestData;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
@@ -28,11 +32,12 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
     EditText edCampaignName;
     int profilePosition;
 
-    public static String TAG = "EditCampaignNew";
-
+    public static String Tag = "EditCampaignNew";
+    CheckBox statusBox=null;
     RadioButton statusOn = null;
     RadioButton statusDraft = null;
     private ArrayList<Profile> mProfileList;
+    Button btn1;
 
 
     @Override
@@ -52,6 +57,16 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         statusOn = (RadioButton)findViewById(R.id.StatusOn);
         statusDraft.setTypeface(mycustomFont);
         statusOn.setTypeface(mycustomFont);
+        statusBox = (CheckBox)findViewById(R.id.checkBoxStatus);
+        btn1 = (Button) findViewById(R.id.btn_createCampaignNew);
+
+        statusDraft.setTypeface(mycustomFont);
+        statusOn.setTypeface(mycustomFont);
+        statusBox.setTypeface(mycustomFont);
+        btn1.setTypeface(mycustomFont);
+
+        statusBox.setOnCheckedChangeListener(statusChangeListener);
+
 
         Profile p = loginUi.mProfileList.get(profilePosition);
         GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
@@ -63,6 +78,26 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     }
 
+    private void showImageCampaign(){
+
+        Toast.makeText(EditCampaignNew.this, "Image Not set", Toast.LENGTH_SHORT).show();
+
+    }
+
+    CreateProfileData.ProfileStatus  mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+    CompoundButton.OnCheckedChangeListener statusChangeListener=new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked){
+                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+            }else {
+                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+            }
+        }
+    };
+
+
+    CreateProfileData.ProfileType mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
     public void onRadioButtonClicked(View view) {
 
         // Is the button now checked?
@@ -71,39 +106,42 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.StatusOn:
-                if (checked) {
-                    // Pirates are the best
-                }
-                Log.v(TAG,"StausOn"+checked);
+                Log.v(Tag,"StausOn"+checked);
                 statusOn.toggle();
-                Log.v(TAG,"StatusOn after toggle"+statusOn.isChecked());
+                if (checked) {
+                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
+                }
+                Log.v(Tag,"StatusOn after toggle"+statusOn.isChecked());
                 break;
             case R.id.StatusDraft:
-                if (checked) {
-                    // Ninjas rule
-                }
-
-
-                Log.v(TAG,"statusDraft"+checked);
+                Log.v(Tag,"statusDraft"+checked);
                 statusDraft.toggle();
-                Log.v(TAG, "StatusOn after toggle" + statusDraft.isChecked());
+                if (checked) {
+                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
+                }
+                Log.v(Tag, "StatusOn after toggle" + statusDraft.isChecked());
                 break;
         }
 
     }
 
+    public static Profile reqToEditProfile = null;
+
     public void editProfile(View view){
         if (!edCampaignName.getText().toString().equals("")){
-
+            Profile p = loginUi.mProfileList.get(profilePosition);
+            reqToEditProfile = p;
+            editCampaign.mCampaignIdFromServer = p.getProfileId();
             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
 
-            Class intenetToLaunch = data.getIntentToLaunchPage();
-            Log.v(TAG, "5" + intenetToLaunch);
-            //Intent intent = new Intent(this, FragmenMainActivity.class);
-            Intent intent = new Intent(this, intenetToLaunch);
+//            Class intenetToLaunch = data.getIntentToLaunchPage();
+//            Log.v(Tag, "5" + intenetToLaunch);
+            Intent intent = new Intent(this, FragmenMainActivity.class);
+//            Intent intent = new Intent(this, intenetToLaunch);
             intent.putExtra("data", data);
-            intent.putExtra("pId",mProfileList.get(profilePosition).getProfileId());
-            intent.putExtra(MainActivity.ExplicitEditModeKey, false);
+            intent.putExtra(MainActivity.ExplicitEditModeKey, true);
             startActivity(intent);
 
         }else {

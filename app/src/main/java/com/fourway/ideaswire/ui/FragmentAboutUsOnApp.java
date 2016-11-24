@@ -66,6 +66,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     AboutUsDataTemplate dataObj = null;
     private boolean showPreview = false;
+    private boolean mEditMode = false;
 
     String cardImageUrl = null;
 
@@ -84,10 +85,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_about, container, false);
 
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+
         dataObj = (AboutUsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
 
         if(dataObj.isDefaultDataToCreateCampaign() == false){
-           showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
        }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -227,6 +237,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         if (dataObj.isDefaultDataToCreateCampaign()){
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
 
 
@@ -246,12 +258,22 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     void init_aboutUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
-        mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        if (!mEditMode) {
+            mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mAbtUsPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
 
         if(mAbtUsPageObj != null)
         {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            }else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
 
         mAbtUsPageObj = new Page(mProfileId, mPageName);
@@ -349,8 +371,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
 
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
-
+        Profile reqToMakeProfile =  null;
+        if (!mEditMode){
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
             int index = reqToMakeProfile.getIndexOfPage(mPageId);

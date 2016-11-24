@@ -173,16 +173,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
             pd = new ProgressDialog(this);
             pd.setMessage("Please wait");
 
-            boolean liveCampain = false;
-
-            RadioButton rbStatusOn = (RadioButton) findViewById(R.id.StatusOn);
-            RadioButton rbDraftOn = (RadioButton) findViewById(R.id.StatusDraft);
-
-            if (rbStatusOn.isChecked() == true) {
-                liveCampain = true;
-            }
-
-             String CamapingName = mEtCampnName.getText().toString();
+            String campaignName = mEtCampnName.getText().toString();
             FileInputStream in = null;
             try {
                 in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
@@ -198,14 +189,9 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
                 Log.v(Tag, "Make request Now to create templae");
                 Log.v(Tag, "LoginToken" + loginUi.mLogintoken);
 
-                CreateProfileData data = new CreateProfileData (CamapingName, "bussiness", "profile_department",
+                CreateProfileData data = new CreateProfileData (campaignName, "bussiness", "profile_department",
                         loginUi.mLogintoken, sendFile, mProfileType,mSetStatus );
                         //null;//new CreateProfileData(CamapingName, "bussiness", "asASa", loginUi.mLogintoken, sendFile);
-
-
-
-
-
 
                 CreateProfileRequest req = new CreateProfileRequest(editCampaign.this, data, this);
                 req.executeRequest();
@@ -226,9 +212,9 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
         Log.v(Tag,"ResponseCode : "+res);
 
-        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
+        pd.dismiss();
 
-            pd.dismiss();
+        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
 
             Log.v(Tag,"Success ResponseCode : "+res);
 
@@ -239,13 +225,17 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
             finish();
 
 
-        }else
-           Log.v(Tag,"Error ResponseCode : "+res);
+        }else{
+            pd.dismiss();
+            Log.v(Tag,"Error ResponseCode : "+res);
+            Toast.makeText(editCampaign.this, ""+res, Toast.LENGTH_SHORT).show();
 //                COMMON_RES_INTERNAL_ERROR,
 //                COMMON_RES_CONNECTION_TIMEOUT,
 //                COMMON_RES_FAILED_TO_CONNECT,
 //                COMMON_RES_IMAGE_NOT_FOUND,
 //                COMMON_RES_SERVER_ERROR_WITH_MESSAGE
+        }
+
 
     }
 

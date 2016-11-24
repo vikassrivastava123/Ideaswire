@@ -122,6 +122,11 @@ public class Profile {
         return mTotalNumberOfPages;
     }
 
+//    For edit profile
+    public void setTotalNumberOfPages(){
+        mTotalNumberOfPages = mPages.size() ;
+    }
+
     public boolean checkIfPageExist(String page_id){
         for (int i=0; i< mTotalNumberOfPages; i++){
             Page p = mPages.get(i);

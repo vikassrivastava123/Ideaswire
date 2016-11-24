@@ -42,6 +42,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     dataOfTemplate dataObj;
     private static String TAG = "FragmenMainActivity";
     private boolean showPreview = false;
+    private boolean mEditMode = false;
     int IndexKey = 0;
     Fragment fragmentToLaunch;
     TextView mTitle;
@@ -56,10 +57,15 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         setContentView(R.layout.activity_fragmen_main);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
 
+        mEditMode = super.getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
         dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
         if(false == dataObj.isDefaultDataToCreateCampaign()){
-            toolbar.setVisibility(View.GONE);
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+            }else {
+                toolbar.setVisibility(View.GONE);
+                showPreview = true;
+            }
 
         }
 
@@ -127,7 +133,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         previewCampaign = (viewCampaign)fragmentToLaunch ;
         previewCampaign.addLastPage();
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile =  null;
+        if (!mEditMode){
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
 
         if(numOfPages > 0) {

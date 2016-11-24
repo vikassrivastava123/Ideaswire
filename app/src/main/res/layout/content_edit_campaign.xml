@@ -47,8 +47,6 @@
 
 
 
-        />
-
     <TextView
         android:paddingLeft="15dp"
         android:gravity="start"
