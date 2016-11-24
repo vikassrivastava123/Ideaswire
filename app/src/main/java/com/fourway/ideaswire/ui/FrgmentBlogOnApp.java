@@ -406,6 +406,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
                 break;
             case R.id.deleteCARD_IMAGE:
                 cardImage.setVisibility(View.GONE);
+                cardImageCrop.setVisibility(View.GONE);
                 deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
                 //cardRelativeLayout.setVisibility(View.GONE);
                 break;
