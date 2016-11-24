@@ -241,6 +241,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
                 break;
             case R.id.deleteCardService:
                 cardImage.setVisibility(View.GONE);
+                cardImageCrop.setVisibility(View.GONE);
                 deleteCardImage.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingBlowingService:

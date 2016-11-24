@@ -8,10 +8,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.SearchProfileData;
@@ -140,8 +140,39 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 
 
         }else{
+            AlertDialog.Builder  errorDialog = new AlertDialog.Builder(this);
+            errorDialog.setPositiveButton("OK", null);
+            errorDialog.setTitle("Error");
+            errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            switch (res){
+                case COMMON_RES_CONNECTION_TIMEOUT:
+                    errorDialog.setMessage("Connection time out");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_FAILED_TO_UPLOAD:
+                    errorDialog.setMessage("Image upload failed");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_INTERNAL_ERROR:
+                    errorDialog.setMessage("Internal error");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_FAILED_TO_CONNECT:
+                    errorDialog.setMessage("failed to connect");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_IMAGE_NOT_FOUND:
+                    errorDialog.setMessage("Image not found");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                    errorDialog.setMessage(""+res);
+                    errorDialog.show();
+                    break;
+                default:errorDialog.setMessage("Fail to find ):");
+                    errorDialog.show();
 
-            Toast.makeText(getApplicationContext(), "Fail to find ):", Toast.LENGTH_SHORT).show();
+            }
         }
 
 
