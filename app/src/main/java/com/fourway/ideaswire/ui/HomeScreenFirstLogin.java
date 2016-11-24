@@ -41,9 +41,7 @@ public class HomeScreenFirstLogin extends ListActivity {
             @Override
             public void onClick(View v) {
                 // back button pressed
-                finish();
-                //Intent intent = new Intent(getBaseContext(),CreateCampaign_homePage.class);
-                //startActivity(intent);
+                onBackPressed();
             }
         });
         t= (TextView) findViewById(R.id.HeaderFirstLogin);
@@ -66,8 +64,11 @@ public class HomeScreenFirstLogin extends ListActivity {
         //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+            Intent intent = new Intent(getBaseContext(),HomepageBeforeLogin.class);
+            startActivity(intent);
+    }
 
     private class fristScreenAdapter<S> extends ArrayAdapter<String>{
 

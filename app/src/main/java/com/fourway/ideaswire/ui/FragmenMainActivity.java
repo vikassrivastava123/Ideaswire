@@ -56,6 +56,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragmen_main);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mEditMode = super.getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
         dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");

@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
@@ -501,16 +502,20 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                             int which) {
 
                         String linkUrlToButton = addUrl.getText().toString();
-                        dataObj.set_buttonUrl(linkUrlToButton);
-
-
                         String addNameToButtonValue = addNameToButton.getText().toString();
-                        Button btn = (Button) getActivity().findViewById(R.id.buttonMainAbtUs);
-                        btn.setText(addNameToButtonValue);
-                        dataObj.set_button_text(addNameToButtonValue);
+
+                        if (!linkUrlToButton.equals("") && !addNameToButtonValue.equals("")) {
+                            dataObj.set_buttonUrl(linkUrlToButton);
+
+                            Button btn = (Button) getActivity().findViewById(R.id.buttonMainAbtUs);
+                            btn.setText(addNameToButtonValue);
+                            dataObj.set_button_text(addNameToButtonValue);
 
 
-                        dialog.dismiss();
+                            dialog.dismiss();
+                        }else {
+                            Toast.makeText(getActivity(), "Please enter valid text", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

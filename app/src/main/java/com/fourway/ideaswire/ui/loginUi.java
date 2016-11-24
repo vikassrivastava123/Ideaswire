@@ -160,7 +160,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
             editor.putInt(username_level, 1);
             editor.commit();
             Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
-            startActivityForResult(intent, REQUEST_SIGNUP);
+            startActivity(intent);
 
         }
        // startActivity(new Intent(getApplicationContext(),TempActivity.class));

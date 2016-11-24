@@ -155,12 +155,12 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
-            Intent intent = new Intent(this,CreateCampaign_homePage.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this,CreateCampaign_homePage.class);
+//            startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(this,CreateCampaign_homePage.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this,CreateCampaign_homePage.class);
+//            startActivity(intent);
 //            GalleryFragment fragment = new GalleryFragment();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
