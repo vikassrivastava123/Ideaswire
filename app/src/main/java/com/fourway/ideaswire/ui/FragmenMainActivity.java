@@ -307,7 +307,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
     public void pageTemplate(View view) {
         //startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
+        if (!showPreview)
         addPage();
+    }
+
+    public void changeThemes(View view){
+        if (!showPreview){
+
+        }
     }
 
     void addPage(){
