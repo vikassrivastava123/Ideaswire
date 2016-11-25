@@ -23,7 +23,6 @@ public class SplashScreen extends Activity implements GetUserProfileRequest.GetU
 
         session = new SessionManager(getApplicationContext());
         setContentView(R.layout.activity_splash_screen);
-        startApp();
         if (!session.isLoggedIn()){
             startApp();
         }else {
@@ -57,6 +56,7 @@ public class SplashScreen extends Activity implements GetUserProfileRequest.GetU
     public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
             loginUi.mProfileList = data.getProfileList();
+            startActivity(new Intent(SplashScreen.this,HomepageBeforeLogin.class));
             finish();
         }else {
             session.logoutUser();
