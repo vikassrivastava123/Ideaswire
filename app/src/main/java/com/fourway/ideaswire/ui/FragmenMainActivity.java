@@ -48,6 +48,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     TextView mTitle;
     Toolbar toolbar;
     FloatingActionButton fab;
+    ArrayList<Integer> selectedPageList;
 
     private viewCampaign previewCampaign;
 
@@ -74,6 +75,11 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             }
 
         }
+
+        selectedPageList =new ArrayList<>();
+            if (!showPreview ){
+                selectedPageList.add(0);
+            }
 
         showBaseMenu();
 
@@ -203,13 +209,17 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             name = nameStrings[0];
                         }
 
+                        int numberOfBtn = size;
+                        if (dataObj.isDefaultDataToCreateCampaign() && showPreview){
+                            numberOfBtn = selectedPageList.size();
+                        }
 
                          float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics())/2;
                         float x ;//=  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
-                        if (size>3){
+                        if (numberOfBtn>3){
                             x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
                         }else {
-                            x=displayWidth/size;
+                            x=displayWidth/numberOfBtn;
                         }
 
                         float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
@@ -233,6 +243,18 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                 public void onClick(View v) {
                                     //Toast.makeText(getApplicationContext(),
                                     //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                                    if (dataObj.isDefaultDataToCreateCampaign() && !showPreview) {
+                                        boolean add=true;
+                                        for (int x = 0; x < selectedPageList.size(); x++) {
+                                            if (selectedPageList.get(x) == v.getId()) {
+                                                add = false;
+                                                break;
+                                            }
+                                        }
+                                        if (add){
+                                            selectedPageList.add(v.getId());
+                                        }
+                                    }
                                     dataObj = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
 
                                     FragmentManager fragmentManager=getFragmentManager();
@@ -262,7 +284,21 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
                                 }
                             });
-                            row.addView(btn[i]);
+                            if (dataObj.isDefaultDataToCreateCampaign() && showPreview){
+                                boolean addV = false;
+                                for (int m = 0; m < selectedPageList.size(); m++) {
+                                    if (selectedPageList.get(m) == i) {
+                                        addV = true;
+                                        break;
+                                    }
+                                }
+                                if (addV){
+                                    row.addView(btn[i]);
+                                }
+                            }else {
+                                row.addView(btn[i]);
+                            }
+
                         }
                         // Add the LinearLayout element to the ScrollView
                         i++;
@@ -298,6 +334,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             previewCampaign.init_ViewCampaign();
             //init_viewCampaign();
             showPreview = true;
+            showBaseMenu();
         }else {
             textViewShowPreview.setText("Preview");
             fab.hide();
@@ -305,6 +342,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             previewCampaign.init_ViewCampaign();
             //init_editCampaign();
             showPreview = false;
+            showBaseMenu();
         }
 
         //   RelativeLayout previewLayout = (RelativeLayout)findViewById(R.id.previewLayout);
