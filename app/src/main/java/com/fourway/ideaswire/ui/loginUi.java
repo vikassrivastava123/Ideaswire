@@ -128,7 +128,8 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     @Override
     public void onBackPressed() {
         // disable going back to the MainActivity
-        moveTaskToBack(true);
+//        moveTaskToBack(true);
+        finish();
     }
 
     private void requestProfileList (){

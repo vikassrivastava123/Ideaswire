@@ -3,6 +3,7 @@ package com.fourway.ideaswire.ui;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -17,6 +18,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -174,7 +176,18 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
             if (!session.isLoggedIn()) {
                 startActivity(new Intent(this, loginUi.class));
             }else {
-                startActivity(new Intent(this, CreateCampaign_homePage.class));
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.setTitle("Info");
+                builder.setMessage("Already login");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(HomepageBeforeLogin.this, CreateCampaign_homePage.class));
+                    }
+                });
+                builder.show();
+
             }
 
         }else if (id == R.id.nav_slideshow) {
