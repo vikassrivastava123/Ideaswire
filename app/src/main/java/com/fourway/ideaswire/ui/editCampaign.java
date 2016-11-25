@@ -43,6 +43,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     TextView t1_new,mTitle;
     CheckBox statusBox=null;
     Button btn1;
+    private int imageFrom;
+    FileInputStream in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         btn1.setTypeface(mycustomFont);
 //        t1_new.setTypeface(mycustomFont);
         Intent intentScrn = getIntent();
+        imageFrom = intentScrn.getIntExtra(MainActivity.CREATE_CAMPAIGN_IMAGE_FROM, 2);
+
        mCampaignNameReceived = getIntent().getStringExtra("CampaignName");
         mEtCampnName = (EditText)findViewById(R.id.etCampaignName);
         if(mEtCampnName != null){
@@ -89,7 +93,14 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
         Log.v("editCampaign", "showImageCampaign");
         try {
-            FileInputStream in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+            switch (imageFrom){
+                case MainActivity.IMAGE_CREATE_CAMPAIGN:
+                    in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+                    break;
+                case MainActivity.IMAGE_SEARCH:
+                    in = openFileInput(MainActivity.SEARCH__IMAGE_CROPED_NAME);
+                    break;
+            }
 
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             selImage.setImageDrawable(new BitmapDrawable(getResources(), bitmap));

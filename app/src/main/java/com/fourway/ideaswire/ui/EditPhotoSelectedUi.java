@@ -162,8 +162,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
                     errorDialog.show();
                     break;
                 case COMMON_RES_IMAGE_NOT_FOUND:
-                    errorDialog.setMessage("Image not found");
-                    errorDialog.show();
+                    startActivity(new Intent(EditPhotoSelectedUi.this,ImageNotFoundUi.class));
                     break;
                 case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
                     errorDialog.setMessage(""+res);

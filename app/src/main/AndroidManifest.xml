@@ -44,7 +44,7 @@
         <activity
             android:name=".ui.ImageNotFoundUi"
             android:label="@string/title_activity_image_not_found_ui"
-            android:theme="@style/AppTheme.TitleCustomBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CreateCampaign_homePage"
             android:label="@string/title_activity_create_campaign_home_page"

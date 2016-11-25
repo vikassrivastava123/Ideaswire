@@ -18,14 +18,16 @@
         android:layout_height="wrap_content"
         android:src = "@drawable/whoops"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="50dp"
         />
     <TextView
         android:id="@+id/whoopsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WHOOPS!"
-        android:textSize="44dp"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:textColor="@color/text"
         android:layout_below="@+id/whoops"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
@@ -35,7 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="We don't have app for this image"
-        android:textSize="22dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/whoopsText"
@@ -57,6 +60,8 @@
         android:layout_below="@+id/textMsg"
         android:layout_marginTop="10dp"
         android:text="CREATE AN APP"
+        android:textColor="@color/card"
+        android:onClick="createApp"
         android:background="@drawable/loginbutton"
 
         />

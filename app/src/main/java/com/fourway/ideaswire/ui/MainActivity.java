@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity{
     public static final int OPEN_GALLERY_FOR_CLIENTS_PAGE_ON_APP=7;
     public static final int OPEN_GALLERY_FOR_TEAM_PAGE_ON_APP=8;
 
+    public static final String CREATE_CAMPAIGN_IMAGE_FROM = "Create_campaign_for_which_image";
+
+    public static final int IMAGE_CREATE_CAMPAIGN = 0;
+    public static final int IMAGE_SEARCH  = 1;
+
 
     //These are files names that will be saved locally
     public static final String CREATE_CAMPAIGN_IMAGE_CROPED_NAME = "Imaged";
