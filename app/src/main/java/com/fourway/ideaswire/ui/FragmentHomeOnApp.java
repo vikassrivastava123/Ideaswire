@@ -550,7 +550,6 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             changeText();
             MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);

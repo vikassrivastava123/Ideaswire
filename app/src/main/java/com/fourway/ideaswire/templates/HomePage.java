@@ -19,16 +19,19 @@ public class HomePage extends pages {
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
-        dataObj = new HomePageDataTemplate(templateType, true);
+        dataObj = (HomePageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new HomePageDataTemplate(templateType, true);
+        }
         return dataObj;
     }
     public String nameis ()
     {
         return nameis;
     }
+
     @Override
     public dataOfTemplate getDataForTemplateAsReceivedFromServer() {
-
         mTemplateType = 1;
         dataObj = (HomePageDataTemplate) getAlreadyCreatedDataObj();
         if (dataObj == null) {
