@@ -458,7 +458,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     }
                 });
             }
-        }, 500);
+        }, 250);
 
         for(pages obj: MainActivity.listOfTemplatePagesObj) {
             String name = obj.nameis();
@@ -480,6 +480,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     list.remove(position);
                     listView.setAdapter(adapter);
                     Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
+                    addPage();
+                    pageDialog.dismiss();
                 }else if (view.getId()==R.id.switchbtn){
                     SwitchCompat switchCompat=(SwitchCompat)view;
                     boolean pageStatus = switchCompat.isChecked();

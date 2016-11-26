@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -352,87 +352,63 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     }
 
 
-    private class GridViewAdapter extends BaseAdapter{
+    private class GridViewAdapter extends ArrayAdapter{
         Context context;
         List<String> clientLogoUrl=new ArrayList<>();
 
         public GridViewAdapter(Context context, int resource,List<String> clientLogoUrl) {
+            super(context, resource, clientLogoUrl);
             this.context=context;
             this.clientLogoUrl=clientLogoUrl;
         }
 
         @Override
-        public int getCount() {
-            return clientLogoUrl.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
         public View getView(final int position, View convertView, final ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View gridView;
+            View gridView=LayoutInflater.from(context).inflate(R.layout.cl, null);
 
-            if (convertView == null) {
-                gridView = new View(context);
-                gridView = inflater.inflate( R.layout.cl , null);
+            NetworkImageView clientLogo = (NetworkImageView) gridView.findViewById(R.id.imgvTemplateCatrgory);
+            final ImageView clientStaticLogo = (ImageView)gridView.findViewById(R.id.Client_STATIC_LOGO);
+            clientLogoLayout =(RelativeLayout)gridView.findViewById(R.id.client_logo_layout);
+            deleteClientLogo =(ImageView)gridView.findViewById(R.id.deleteClientLogo);
+            if (showPreview){
+                deleteClientLogo.setVisibility(View.GONE);
+            }
 
-                NetworkImageView clientLogo = (NetworkImageView) gridView.findViewById(R.id.imgvTemplateCatrgory);
-                final ImageView clientStaticLogo = (ImageView)gridView.findViewById(R.id.Client_STATIC_LOGO);
-                clientLogoLayout =(RelativeLayout)gridView.findViewById(R.id.client_logo_layout);
-                deleteClientLogo =(ImageView)gridView.findViewById(R.id.deleteClientLogo);
-                if (showPreview){
-                    deleteClientLogo.setVisibility(View.GONE);
+            deleteClientLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView) parent).performItemClick(v, position, 0);
+
                 }
+            });
 
-                deleteClientLogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView) parent).performItemClick(v, position, 0);
+            clientLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView) parent).performItemClick(v, position, 0);
+                }
+            });
 
-                    }
-                });
+            clientStaticLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView) parent).performItemClick(v, position, 0);
+                }
+            });
 
-                clientLogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView) parent).performItemClick(v, position, 0);
-                    }
-                });
-
-                clientStaticLogo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView) parent).performItemClick(v, position, 0);
-                    }
-                });
-
-                String logoImageUrl =clientLogoUrl.get(position);
-                if( logoImageUrl!=null)
-                {
+            String logoImageUrl =clientLogoUrl.get(position);
+            if( logoImageUrl!=null)
+            {
+                clientStaticLogo.setVisibility(View.GONE);
+                clientLogo.setImageUrl(logoImageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+            }
+            else {
+                clientLogo.setVisibility(View.GONE);
+                if (!showPreview) {
+                    clientStaticLogo.setImageResource(R.drawable.clients_logo);
+                }else {
                     clientStaticLogo.setVisibility(View.GONE);
-                    clientLogo.setImageUrl(logoImageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
                 }
-                else {
-                    clientLogo.setVisibility(View.GONE);
-                    if (!showPreview) {
-                        clientStaticLogo.setImageResource(R.drawable.clients_logo);
-                    }else {
-                        clientStaticLogo.setVisibility(View.GONE);
-                    }
-                }
-
-            }else {
-                gridView = (View) convertView;
             }
 
             return gridView;
