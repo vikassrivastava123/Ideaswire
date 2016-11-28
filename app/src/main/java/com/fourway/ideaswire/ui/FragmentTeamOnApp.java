@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,7 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -229,7 +230,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                         gridView.setAdapter(gridViewAdapter);
                     } else if (v.getId() == R.id.memberImage || v.getId() == R.id.Team_STATIC_img) {
                         uploadToTeamOnApp(MainActivity.TEAM_MEMBER_IMAGE_CROPED_NAME_ + position, position);
-                        uploadImageView = v;
+                        gridPosition = position;
                     }
                 }
 
@@ -284,14 +285,16 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     }
 
-    View uploadImageView;
+    int gridPosition = -1;
     private void showImageForBackround(String imageName){
         Log.v("editCampaign", "showImageCampaign");
         try {
             FileInputStream in = getActivity().openFileInput(imageName);
-            ImageView imageView=(ImageView)uploadImageView;
             Bitmap bitmap = BitmapFactory.decodeStream(in);
-            imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+            if (gridPosition != -1) {
+                gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
+                gridViewAdapter.notifyDataSetChanged();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -384,14 +387,17 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
     }
 
-    private class GridViewAdapter extends BaseAdapter {
+    private class GridViewAdapter extends ArrayAdapter {
 
         Context context;
         List<String> memberImageUrl;
         List<String> memberNameList;
         List<String> memberTitleList;
 
-        public GridViewAdapter(Context context, int resource,List<String> memberImageUrl,List<String> memberNameList,List<String> memberPositionList){
+
+        public GridViewAdapter(Context context, int resource,List<String> memberImageUrl,List<String> memberNameList,List<String> memberPositionList) {
+            super(context, resource, memberImageUrl);
+
             this.context=context;
             this.memberImageUrl=memberImageUrl;
             this.memberNameList=memberNameList;
@@ -399,167 +405,148 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
 
         @Override
-        public int getCount() {
-            int size = 0;
-            if(memberImageUrl != null) {
-                size = memberImageUrl.size();
-            }
-            return size;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
         public View getView(final int position, View convertView, final ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View gridView;
+            View gridView = LayoutInflater.from(context).inflate(R.layout.team_member_grid , null);
 
-            if (convertView == null){
-                gridView = new View(context);
-                gridView = inflater.inflate( R.layout.team_member_grid , null);
+            NetworkImageView memberImg=(NetworkImageView) gridView.findViewById(R.id.memberImage);
+            ImageView memberStaticImg = (ImageView)gridView.findViewById(R.id.Team_STATIC_img);
+            teamImgLayout =(RelativeLayout)gridView.findViewById(R.id.team_img_layout);
+            deleteTeamImg =(ImageView)gridView.findViewById(R.id.deleteTeamImage);
 
-                NetworkImageView memberImg=(NetworkImageView) gridView.findViewById(R.id.memberImage);
-                ImageView memberStaticImg = (ImageView)gridView.findViewById(R.id.Team_STATIC_img);
-                teamImgLayout =(RelativeLayout)gridView.findViewById(R.id.team_img_layout);
-                deleteTeamImg =(ImageView)gridView.findViewById(R.id.deleteTeamImage);
-                if (showPreview){
-                    deleteTeamImg.setVisibility(View.GONE);
-                }
+            EditText memberName =(EditText)gridView.findViewById(R.id.memberName);
+            EditText memberTitle =(EditText)gridView.findViewById(R.id.memberPostion);
 
-                EditText memberName =(EditText)gridView.findViewById(R.id.memberName);
-                EditText memberTitle =(EditText)gridView.findViewById(R.id.memberPostion);
-
-                deleteTeamImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView)parent).performItemClick(v, position,0);
-                    }
-                });
-
-                memberImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView)parent).performItemClick(v, position,0);
-                    }
-                });
-
-                memberStaticImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((GridView)parent).performItemClick(v, position,0);
-                    }
-                });
-
-
-                memberName.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        String changeName=s.toString();
-                        switch (position){
-                            case 0: dataObj.setTeam_1_name(changeName);
-                                break;
-                            case 1: dataObj.setTeam_2_name(changeName);
-                                break;
-                            case 2: dataObj.setTeam_3_name(changeName);
-                                break;
-                            case 3: dataObj.setTeam_4_name(changeName);
-                                break;
-                            case 4: dataObj.setTeam_5_name(changeName);
-                                break;
-                            case 5: dataObj.setTeam_6_name(changeName);
-                                break;
-                        }
-                    }
-                });
-
-                memberTitle.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        String changeTitle=s.toString();
-                        switch (position){
-                            case 0: dataObj.setTeam_1_title(changeTitle);
-                                break;
-                            case 1: dataObj.setTeam_2_title(changeTitle);
-                                break;
-                            case 2: dataObj.setTeam_3_title(changeTitle);
-                                break;
-                            case 3: dataObj.setTeam_4_title(changeTitle);
-                                break;
-                            case 4: dataObj.setTeam_5_title(changeTitle);
-                                break;
-                            case 5: dataObj.setTeam_6_title(changeTitle);
-                                break;
-                        }
-                    }
-
-                });
-
-                if(memberNameList.get(position)!=null) {
-                    memberName.setText(memberNameList.get(position));
-                }else {
-                    if (showPreview){
-                        memberName.setVisibility(View.GONE);
-                    }
-                }
-
-                if(memberTitleList.get(position)!=null) {
-                    memberTitle.setText(memberTitleList.get(position));
-                }else {
-                    if (showPreview) {
-                        memberTitle.setVisibility(View.GONE);
-                    }
-                }
-
-                String imageUrl = memberImageUrl.get(position);
-                if( imageUrl!=null) {
-                    memberStaticImg.setVisibility(View.GONE);
-                    memberImg.setImageUrl(imageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
-                }
-                else {
-                    memberImg.setVisibility(View.GONE);
-                    if (!showPreview) {
-                        memberStaticImg.setImageResource(R.drawable.member_1);
-                    }else {
-                        memberStaticImg.setVisibility(View.GONE);
-                    }
-                }
-
-
+            if (showPreview){
+                deleteTeamImg.setVisibility(View.GONE);
+                memberName.setEnabled(false);
+                memberTitle.setEnabled(false);
             }else {
-                gridView = (View) convertView;
+                memberName.setEnabled(true);
+                memberTitle.setEnabled(true);
+            }
+
+
+
+            deleteTeamImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView)parent).performItemClick(v, position,0);
+                }
+            });
+
+            memberImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView)parent).performItemClick(v, position,0);
+                }
+            });
+
+            memberStaticImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((GridView)parent).performItemClick(v, position,0);
+                }
+            });
+
+
+            memberName.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String changeName=s.toString();
+                    switch (position){
+                        case 0: dataObj.setTeam_1_name(changeName);
+                            break;
+                        case 1: dataObj.setTeam_2_name(changeName);
+                            break;
+                        case 2: dataObj.setTeam_3_name(changeName);
+                            break;
+                        case 3: dataObj.setTeam_4_name(changeName);
+                            break;
+                        case 4: dataObj.setTeam_5_name(changeName);
+                            break;
+                        case 5: dataObj.setTeam_6_name(changeName);
+                            break;
+                    }
+                }
+            });
+
+            memberTitle.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String changeTitle=s.toString();
+                    switch (position){
+                        case 0: dataObj.setTeam_1_title(changeTitle);
+                            break;
+                        case 1: dataObj.setTeam_2_title(changeTitle);
+                            break;
+                        case 2: dataObj.setTeam_3_title(changeTitle);
+                            break;
+                        case 3: dataObj.setTeam_4_title(changeTitle);
+                            break;
+                        case 4: dataObj.setTeam_5_title(changeTitle);
+                            break;
+                        case 5: dataObj.setTeam_6_title(changeTitle);
+                            break;
+                    }
+                }
+
+            });
+
+            if(memberNameList.get(position)!=null) {
+                memberName.setText(memberNameList.get(position));
+            }else {
+                if (showPreview){
+                    memberName.setVisibility(View.GONE);
+                }
+            }
+
+            if(memberTitleList.get(position)!=null) {
+                memberTitle.setText(memberTitleList.get(position));
+            }else {
+                if (showPreview) {
+                    memberTitle.setVisibility(View.GONE);
+                }
+            }
+
+            String imageUrl = memberImageUrl.get(position);
+            if( imageUrl!=null) {
+                memberStaticImg.setVisibility(View.GONE);
+                memberImg.setImageUrl(imageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+            }
+            else {
+                memberImg.setVisibility(View.GONE);
+                if (!showPreview || dataObj.isDefaultDataToCreateCampaign()) {
+                    memberStaticImg.setImageDrawable(mThumbs[position]);
+                }else {
+                    memberStaticImg.setVisibility(View.GONE);
+                }
             }
 
             return gridView;
         }
+
+        Drawable myIcon = getResources().getDrawable( R.drawable.member_1 );
+        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
     }
 
 

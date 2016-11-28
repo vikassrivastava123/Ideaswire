@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -196,7 +197,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                         gridView.setAdapter(gridViewAdapter);
                     } else if (v.getId() == R.id.imgvTemplateCatrgory || v.getId() == R.id.Client_STATIC_LOGO) {
                         uploadToClientsOnApp(MainActivity.CLIENTS_LOGO_IMAGE_CROPED_NAME_ + position, position);
-                        uploadImageView = v;
+                        gridPosition = position;
 
                     }
                 }
@@ -249,14 +250,17 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
     }
 
-    View uploadImageView;
+    int gridPosition = -1;
     private void showImageForBackround(String imageName){
         Log.v("editCampaign", "showImageCampaign");
         try {
             FileInputStream in = getActivity().openFileInput(imageName);
-            ImageView imageView=(ImageView)uploadImageView;
             Bitmap bitmap = BitmapFactory.decodeStream(in);
-            imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+            if (gridPosition != -1) {
+                gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
+                gridViewAdapter.notifyDataSetChanged();
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -397,15 +401,15 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             });
 
             String logoImageUrl =clientLogoUrl.get(position);
-            if( logoImageUrl!=null)
+            if( logoImageUrl!=null )
             {
                 clientStaticLogo.setVisibility(View.GONE);
                 clientLogo.setImageUrl(logoImageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
             }
             else {
                 clientLogo.setVisibility(View.GONE);
-                if (!showPreview) {
-                    clientStaticLogo.setImageResource(R.drawable.clients_logo);
+                if (!showPreview || dataObj.isDefaultDataToCreateCampaign()) {
+                        clientStaticLogo.setImageDrawable(mThumbs[position]);
                 }else {
                     clientStaticLogo.setVisibility(View.GONE);
                 }
@@ -413,6 +417,10 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
             return gridView;
         }
+
+        Drawable myIcon = getResources().getDrawable( R.drawable.clients_logo );
+        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
+//        int[] mThumbs = {R.drawable.clients_logo, R.drawable.clients_logo, R.drawable.clients_logo,R.drawable.clients_logo, R.drawable.clients_logo,R.drawable.clients_logo};
     }
 
     @Override
