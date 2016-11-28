@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -163,19 +164,57 @@ private static String TAG = "CreateCampaign_homePage";
 
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
+        AlertDialog.Builder  errorDialog = new AlertDialog.Builder(this);
+        errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        errorDialog.setPositiveButton("OK", null);
+        errorDialog.setTitle("Error");
+
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             Profile p = data.getProfile();
             ArrayList<Page> pageList = p.getAllPages();
 
-            MainActivity.initListOfPages();
-            boolean bcanShowProfile = MainActivity.addPagesToList(pageList, true);
+            if (pageList.size() > 0) {
+                MainActivity.initListOfPages();
+                boolean bcanShowProfile = MainActivity.addPagesToList(pageList, true);
 
-            if(bcanShowProfile == true) {
-                shownLiveProfile();
-            }else{
-                Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
+                if (bcanShowProfile == true) {
+                    shownLiveProfile();
+                } else {
+//                Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
+                    errorDialog.setMessage("Something went wrong in data");
+                    errorDialog.show();
+                }
+            }else {
+                errorDialog.setMessage("Data not found");
+                errorDialog.show();
             }
 
+        }else {
+            switch (res){
+                case COMMON_RES_CONNECTION_TIMEOUT:
+                    errorDialog.setMessage("Connection time out");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_INTERNAL_ERROR:
+                    errorDialog.setMessage("Internal error");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_FAILED_TO_CONNECT:
+                    errorDialog.setMessage("failed to connect");
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                    errorDialog.setMessage(""+res);
+                    errorDialog.show();
+                    break;
+                case COMMON_RES_PROFILE_DATA_NO_CONTENT:
+                    errorDialog.setMessage("Profile data no content");
+                    errorDialog.show();
+                    break;
+                default:errorDialog.setMessage("Fail to find ):");
+                    errorDialog.show();
+
+            }
         }
     }
 }

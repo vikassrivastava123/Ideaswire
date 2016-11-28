@@ -51,7 +51,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
         GridView gv = (GridView) findViewById(R.id.searchResultsGridView);
 
 
-        msearchProfileAdapter = new SearchProfileListAdapter(this, loginUi.mProfileList);
+        msearchProfileAdapter = new SearchProfileListAdapter(this, EditPhotoSelectedUi.mSearchProfileList);
 
         gv.setAdapter(msearchProfileAdapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,7 +61,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
                 dialog=new ProgressDialog(searchResults.this);
                 dialog.setMessage("Please wait, loading...");
                 if(view.getId()==R.id.imgViewProfile) {
-                    Profile p = loginUi.mProfileList.get(position);
+                    Profile p = EditPhotoSelectedUi.mSearchProfileList.get(position);
                     GetProfileRequestData data = new GetProfileRequestData(p.getProfileId(), p);
                     GetProfileRequest request =
                             new GetProfileRequest(searchResults.this, data, searchResults.this);
@@ -136,7 +136,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
                     errorDialog.show();
                     break;
                 case COMMON_RES_PROFILE_DATA_NO_CONTENT:
-                    errorDialog.setMessage("Profile data not content");
+                    errorDialog.setMessage("Profile data no content");
                     errorDialog.show();
                     break;
                 default:errorDialog.setMessage("Fail to find ):");

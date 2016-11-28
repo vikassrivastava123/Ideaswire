@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.SearchProfileData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SearchProfileRequest;
@@ -24,11 +25,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EditPhotoSelectedUi extends Activity implements SearchProfileRequest.SearchResponseCallback {
 
     Uri imgUri;
     ImageView CroppedimageView;
+    static ArrayList<Profile> mSearchProfileList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +133,8 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
         if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
 
             //Toast.makeText(getApplicationContext(), "Search waas sucess :)", Toast.LENGTH_SHORT).show();
-            loginUi.mProfileList = data.getProfileList();
-            int numberOfProfiles = loginUi.mProfileList.size();
+            mSearchProfileList = data.getProfileList();
+            int numberOfProfiles = mSearchProfileList.size();
             Log.v("SearchProfile","number of profiles searched"+numberOfProfiles);
             if(numberOfProfiles > 0) {
                 Intent intent = new Intent(getApplicationContext(), searchResults.class);
