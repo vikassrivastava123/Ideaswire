@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -51,10 +56,24 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     FloatingActionButton fab;
     ArrayList<Integer> selectedPageList;
 
+
+    private static ViewPager mPager;
     private viewCampaign previewCampaign;
+    static int theme = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        theme = MainActivity.listOfTemplatePagesObj.get(0).themes();
+        switch (theme){
+            case MainActivity.THEME_ORANGE:
+                setTheme(R.style.AppTheme_Orange);
+                break;
+            case MainActivity.THEME_GREEN:
+                setTheme(R.style.AppTheme_Green);
+                break;
+            default:
+                setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragmen_main);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -108,32 +127,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             public void onClick(View view) {
 
                 aboutUsButtonAction();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  //      .setAction("Action", null).show();
-
-/*                if(test == 0)
-                    test = 2;
-                else {
-                    test = 0;
-                }
-
-                dataObj = MainActivity.listOfTemplatePagesObj.get(test).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
-
-                FragmentManager fragmentManager=getFragmentManager();
-                FragmentTransaction transaction=fragmentManager.beginTransaction();
-                transaction.hide(fragmentToLaunch);
-                fragmentToLaunch = dataObj.getFragmentToLaunchPage();
-
-                Bundle args = new Bundle();
-                args.putSerializable("dataKey", dataObj);
-                args.putInt("IndexKey", 0);
-                IndexKey = test;
-                args.putBoolean("showPreviewKey", showPreview);
-                fragmentToLaunch.setArguments(args);
-
-                transaction.replace(R.id.mainRLayout,fragmentToLaunch);
-                transaction.commit();
-         */   }
+            }
 
         });
     }
@@ -198,7 +192,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 final Button[] btn = new Button[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
-                row.setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                row.setBackgroundColor(fetchThemeBackgroundColor());
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
                 //if (size>1)
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
@@ -278,7 +272,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                         if (v.getId()!=j){
                                             btn[j].setBackgroundColor(getResources().getColor(R.color.card));
                                         }else {
-                                            btn[j].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                                            btn[j].setBackgroundColor(fetchThemeBackgroundColor());
                                         }
                                     }
 
@@ -304,7 +298,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         // Add the LinearLayout element to the ScrollView
                         i++;
                     }
-                 btn[getIndexOfPresentview()].setBackgroundColor(getResources().getColor(R.color.skyBlueBckgrnd));
+                 btn[getIndexOfPresentview()].setBackgroundColor(fetchThemeBackgroundColor());
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
@@ -319,6 +313,17 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         }, 500);
 
 
+    }
+
+    private int fetchThemeBackgroundColor() {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.customBackgroundAttributeColor });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 
     public void previewTemplate(View view) {
@@ -358,6 +363,59 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     public void changeThemes(View view){
         if (!showPreview){
+            AlertDialog themeDialog = new AlertDialog.Builder(this, R.style.AppTheme).create();
+
+            View themeDialogView = LayoutInflater.from(this).inflate(R.layout.themes_chooser,null);
+
+            ImageButton slideLeft = (ImageButton)themeDialogView .findViewById(R.id.slideLeft);
+            ImageButton slideRight = (ImageButton)themeDialogView .findViewById(R.id.slideRight);
+
+            mPager = (ViewPager)themeDialogView. findViewById(R.id.theme_pager);
+            mPager.setAdapter(new SlideThemes_Adapter(this));
+
+            slideLeft.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int currentItem = mPager.getCurrentItem();
+                    if (currentItem != 0){
+                        currentItem--;
+                    }else {
+                        currentItem = mPager.getAdapter().getCount();
+                    }
+                    mPager.setCurrentItem(currentItem);
+                }
+            });
+
+            slideRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int currentItem = mPager.getCurrentItem();
+                    if (currentItem != mPager.getAdapter().getCount()-1){
+                        currentItem++;
+                    }else {
+                        currentItem = 0;
+                    }
+                    mPager.setCurrentItem(currentItem);
+                }
+            });
+
+
+            themeDialog.setView(themeDialogView);
+            themeDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    theme = mPager.getCurrentItem();
+                }
+            });
+
+            themeDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            themeDialog.show();
 
         }
     }
@@ -598,5 +656,46 @@ static int test = 0;
     protected void onRestart() {
         super.onRestart();
         showBaseMenu();
+    }
+}
+
+
+
+class SlideThemes_Adapter extends PagerAdapter {
+
+    private int[] mResources = {R.drawable.theme_blue,R.drawable.theme_orange,R.drawable.theme_green};
+    private Context context;
+    LayoutInflater mLayoutInflater;
+
+    public SlideThemes_Adapter(Context context) {
+        this.context = context;
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @Override
+    public int getCount() {
+        return mResources.length;
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == ((LinearLayout) object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        View itemView = mLayoutInflater.inflate(R.layout.slide_thems_layout, container, false);
+
+        ImageView imageView = (ImageView) itemView.findViewById(R.id.theme_image);
+        imageView.setImageResource(mResources[position]);
+
+        container.addView(itemView);
+
+        return itemView;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((LinearLayout) object);
     }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E8E8">
+
+        <TextView
+            android:id="@+id/themeHeader"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose a Theme"
+            android:layout_centerHorizontal="true"
+            android:textSize="25sp"
+            android:textColor="@color/text"/>
+
+        <ImageButton
+            android:id="@+id/slideLeft"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/slide_left"
+            android:layout_centerVertical="true"/>
+
+        <android.support.v4.view.ViewPager
+            android:layout_margin="5dp"
+            android:layout_below="@+id/themeHeader"
+            android:layout_toRightOf="@+id/slideLeft"
+            android:layout_toLeftOf="@+id/slideRight"
+            android:id="@+id/theme_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:id="@+id/slideRight"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/slide_right"
+            android:layout_centerVertical="true"/>
+
+
+
+</RelativeLayout>

@@ -75,6 +75,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/setTheme"
+                android:onClick="changeThemes"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/theme"
                 android:layout_gravity="center"

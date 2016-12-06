@@ -73,4 +73,15 @@ public class TeamPage extends pages {
     public boolean pageStatus() {
         return status;
     }
+
+    int theme;
+    @Override
+    public void set_theme(int theme) {
+        this.theme = theme;
+    }
+
+    @Override
+    public int themes() {
+        return theme;
+    }
 }

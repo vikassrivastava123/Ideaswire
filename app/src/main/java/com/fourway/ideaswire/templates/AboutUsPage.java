@@ -70,6 +70,17 @@ public class AboutUsPage extends pages {
         return R.drawable.about;
     }
 
+    int theme;
+    @Override
+    public void set_theme(int theme) {
+        this.theme = theme;
+    }
+
+    @Override
+    public int themes() {
+        return theme;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {

@@ -357,7 +357,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         init_aboutUsPage_request();
 
-
+        setAttribute(ProfileFieldsEnum.PROFILE_THEME, String.valueOf(FragmenMainActivity.theme) );
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS, String.valueOf(mthispage.pageStatus()));

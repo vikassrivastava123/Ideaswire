@@ -13,7 +13,7 @@
         android:hint="Enter Title"
         android:singleLine="true"
         android:textColorHint = "@color/cardHint"
-        android:background="@color/skyBlueBckgrnd"
+        android:background="?customBackgroundAttributeColor"
         android:onClick="changeTitleTextHome" />
 
     <ImageView

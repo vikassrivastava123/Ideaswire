@@ -87,4 +87,15 @@ public class contactDetails extends pages {
     public void set_nameis(String nameOfpage) {
         nameis = nameOfpage;
     }
+
+    int theme;
+    @Override
+    public void set_theme(int theme) {
+        this.theme = theme;
+    }
+
+    @Override
+    public int themes() {
+        return theme;
+    }
 }

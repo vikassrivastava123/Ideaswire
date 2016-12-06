@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity{
     public static final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
     public static final String ExplicitEditModeKey = "ExplicitEditMode";
 
+    public static final int THEME_DEFAULT = 0;
+    public static final int THEME_ORANGE = 1;
+    public static final int THEME_GREEN = 2;
 
     public static Profile requestToMakeProfile = null;
     public static boolean isLoginData;
@@ -166,6 +169,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    abtusObj.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
                     String nameis = atr.getContentValue();
                     abtusObj.set_nameis(nameis);
@@ -228,6 +236,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    homePageObj.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                     String nameis = atr.getContentValue();
                     homePageObj.set_nameis(nameis);
@@ -281,6 +294,12 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    blogPageObj.set_theme(theme);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
                     String nameis = atr.getContentValue();
                     blogPageObj.set_nameis(nameis);
@@ -346,6 +365,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    contactDetailsPageObj.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
                     String nameis = atr.getContentValue();
                     contactDetailsPageObj.set_nameis(nameis);
@@ -409,6 +433,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    servicePageObj.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_SERVICES:
                     String nameis = atr.getContentValue();
                     servicePageObj.set_nameis(nameis);
@@ -473,6 +502,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    clientPage.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
                     String nameis = atr.getContentValue();
                     clientPage.set_nameis(nameis);
@@ -541,6 +575,11 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_THEME:
+                    String themeS = atr.getContentValue();
+                    int theme = Integer.parseInt(themeS);
+                    teamPage.set_theme(theme);
+                    break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM:
                     String nameis = atr.getContentValue();
                     teamPage.set_nameis(nameis);

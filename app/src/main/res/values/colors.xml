@@ -21,4 +21,12 @@
     <color name="TemplatethemeBackround">#00bbff</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="colorPrimaryOrange">#ff9800</color>
+    <color name="colorPrimaryDarkOrange">#f57c00</color>
+    <color name="colorAccentOrange"> #ff5722</color>
+
+    <color name="colorPrimaryGreen">#8bc34a</color>
+    <color name="colorPrimaryDarkGreen">#689f38</color>
+    <color name="colorAccentGreen"> #4caf50</color>
 </resources>

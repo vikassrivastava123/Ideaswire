@@ -48,6 +48,9 @@ public abstract class pages {
     public abstract void set_iconis(int iconOfpage);
     public abstract int iconis();
 
+    public abstract void set_theme(int theme);
+    public abstract int themes();
+
     public abstract void setPageStatus(boolean status);
     public abstract boolean pageStatus();
 }
