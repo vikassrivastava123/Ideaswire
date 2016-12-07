@@ -42,6 +42,16 @@ public class blogpage extends pages {
         return R.drawable.blog;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.blog_black;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {

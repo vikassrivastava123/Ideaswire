@@ -64,6 +64,16 @@ public class ClientPage extends pages {
         return R.drawable.client;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.client_black;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {

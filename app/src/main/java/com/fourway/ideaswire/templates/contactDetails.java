@@ -61,6 +61,16 @@ public class contactDetails extends pages {
         return R.drawable.contact;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.contact_black;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {

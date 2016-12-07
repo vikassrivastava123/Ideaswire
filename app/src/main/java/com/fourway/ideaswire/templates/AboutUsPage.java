@@ -70,6 +70,16 @@ public class AboutUsPage extends pages {
         return R.drawable.about;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.about_black;
+    }
+
     int theme;
     @Override
     public void set_theme(int theme) {

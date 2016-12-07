@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
@@ -190,15 +191,19 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
                 final int size = MainActivity.listOfTemplatePagesObj.size();
                 final Button[] btn = new Button[size];
+                final int[] iconWhite = new int[size] ;
+                final int[] iconBlack = new  int[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
                 row.setBackgroundColor(fetchThemeBackgroundColor());
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
                 //if (size>1)
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                        iconWhite[i] = obj.iconis();
+                        iconBlack[i] = obj.iconBlack();
                         String[] nameStrings = obj.nameis().split(" ", 2);
                         String name=null;
-                        int icon = obj.iconis();
+
                         if (nameStrings.length>1){
                             name = nameStrings[1];
                         }else {
@@ -236,7 +241,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setSingleLine();
                             btn[i].setAllCaps(true);
                             btn[i].setId(i);
-                            btn[i].setCompoundDrawablesWithIntrinsicBounds(0,icon,0,0);
+                            btn[i].setCompoundDrawablesWithIntrinsicBounds(0,iconBlack[i],0,0);
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
@@ -275,8 +280,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                     for(int j=0;j<size;j++){
                                         if (v.getId()!=j){
                                             btn[j].setBackgroundColor(getResources().getColor(R.color.card));
+                                            btn[j].setCompoundDrawablesWithIntrinsicBounds(0,iconBlack[j],0,0);
+                                            btn[j].setTextColor(getResources().getColor(R.color.text));
                                         }else {
                                             btn[j].setBackgroundColor(fetchThemeBackgroundColor());
+                                            btn[j].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[j],0,0);
+                                            btn[j].setTextColor(Color.WHITE);
                                         }
                                     }
 
@@ -303,6 +312,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         i++;
                     }
                  btn[getIndexOfPresentview()].setBackgroundColor(fetchThemeBackgroundColor());
+                 btn[getIndexOfPresentview()].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[getIndexOfPresentview()],0,0);
+                 btn[getIndexOfPresentview()].setTextColor(Color.WHITE);
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.

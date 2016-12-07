@@ -37,6 +37,15 @@ public class ServicePage extends pages {
     public int iconis() {
         return R.drawable.services;
     }
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.services_black;
+    }
 
     boolean status = true;
     @Override

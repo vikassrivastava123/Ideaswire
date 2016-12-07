@@ -63,6 +63,16 @@ public class TeamPage extends pages {
         return R.drawable.team;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.team_black;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {

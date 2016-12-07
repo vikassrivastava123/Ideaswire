@@ -55,6 +55,16 @@ public class HomePage extends pages {
         return R.drawable.home;
     }
 
+    @Override
+    public void set_iconBlack(int iconOfpage) {
+
+    }
+
+    @Override
+    public int iconBlack() {
+        return R.drawable.home_black;
+    }
+
     boolean status = true;
     @Override
     public void setPageStatus(boolean status) {
