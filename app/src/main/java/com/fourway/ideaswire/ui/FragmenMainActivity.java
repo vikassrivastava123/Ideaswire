@@ -198,6 +198,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     for(pages obj: MainActivity.listOfTemplatePagesObj) {
                         String[] nameStrings = obj.nameis().split(" ", 2);
                         String name=null;
+                        int icon = obj.iconis();
                         if (nameStrings.length>1){
                             name = nameStrings[1];
                         }else {
@@ -232,7 +233,10 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i] = new Button(FragmenMainActivity.this);
                             btn[i].setLayoutParams(buttonLayoutParams);
                             btn[i].setText(name);
+                            btn[i].setSingleLine();
+                            btn[i].setAllCaps(true);
                             btn[i].setId(i);
+                            btn[i].setCompoundDrawablesWithIntrinsicBounds(0,icon,0,0);
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
