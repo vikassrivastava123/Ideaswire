@@ -209,14 +209,17 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         return view;
     }
 
+    int lastPositionInList = -1;
     void init_homeUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
         mHomePageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
-        if (mHomePageObj == null) {
-            mHomePageObj = new Page(mProfileId, mPageName);
+        if (mHomePageObj != null) {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
+        mHomePageObj = new Page(mProfileId, mPageName);
         mParentId = mHomePageObj.getPageId();
     }
 
@@ -639,11 +642,10 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
-        if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
-            int index = reqToMakeProfile.getIndexOfPage(mParentId);
-            reqToMakeProfile.replacePage(index, mHomePageObj);
-        }else {
+        if( lastPositionInList == -1){
             reqToMakeProfile.addPage(mHomePageObj);
+        }else {
+            reqToMakeProfile.addPageAtPosition(mHomePageObj, lastPositionInList);
         }
     }
 

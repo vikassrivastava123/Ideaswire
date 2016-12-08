@@ -228,7 +228,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
         mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
-        if (mBlogPageObj==null) {
+        if (mBlogPageObj!=null) {
             lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
             MainActivity.getProfileObject().deletePageByName(mPageName);
         }

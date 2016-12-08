@@ -216,14 +216,17 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         return view;
     }
 
+    int lastPositionInList = -1;
     void init_clientsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
         mClientsPageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
-        if (mClientsPageObj == null) {
-            mClientsPageObj = new Page(mProfileId, mPageName);
+        if (mClientsPageObj != null) {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
+        mClientsPageObj = new Page(mProfileId, mPageName);
         mParentId = mClientsPageObj.getPageId();
     }
 
@@ -618,11 +621,10 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
-        if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
-            int index = reqToMakeProfile.getIndexOfPage(mParentId);
-            reqToMakeProfile.replacePage(index, mClientsPageObj);
-        }else {
+        if( lastPositionInList == -1){
             reqToMakeProfile.addPage(mClientsPageObj);
+        }else {
+            reqToMakeProfile.addPageAtPosition(mClientsPageObj, lastPositionInList);
         }
 
     }

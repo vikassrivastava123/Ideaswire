@@ -212,7 +212,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_SERVICES;
         mServicePageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
-        if (mServicePageObj==null) {
+        if (mServicePageObj!=null) {
             lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
             MainActivity.getProfileObject().deletePageByName(mPageName);
         }

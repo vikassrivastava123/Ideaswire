@@ -251,14 +251,18 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         return view;
     }
 
+    int lastPositionInList = -1;
     void init_teamPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
         mTeamPageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
-        if (mTeamPageObj == null) {
-            mTeamPageObj = new Page(mProfileId, mPageName);
+        if (mTeamPageObj != null) {
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
+
+        mTeamPageObj = new Page(mProfileId, mPageName);
         mParentId = mTeamPageObj.getPageId();
     }
 
@@ -811,11 +815,10 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         Profile reqToMakeProfile =  MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
-        if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
-            int index = reqToMakeProfile.getIndexOfPage(mParentId);
-            reqToMakeProfile.replacePage(index, mTeamPageObj);
-        }else {
+        if(lastPositionInList == -1){
             reqToMakeProfile.addPage(mTeamPageObj);
+        }else {
+            reqToMakeProfile.addPageAtPosition(mTeamPageObj, lastPositionInList);
         }
 
     }
