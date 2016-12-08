@@ -68,7 +68,7 @@
     </style>
 
     <style name="AppTheme_Dark_Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:background">@color/primary</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
