@@ -28,12 +28,13 @@ import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class select_layout_of_template extends Activity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
-
+    public static List<pages> listOfTemplatePagesObjForAddPage;
 
 
     private final String TAG = "seleclayouttemplate";
@@ -94,6 +95,7 @@ public class select_layout_of_template extends Activity {
     private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
 
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
+        listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
 
 
         pages abtusObj = new AboutUsPage();
@@ -121,6 +123,16 @@ public class select_layout_of_template extends Activity {
         abtusObj.setPageIndex(5);
         MainActivity.listOfTemplatePagesObj.add(6, teamPages);
         abtusObj.setPageIndex(6);
+
+
+        listOfTemplatePagesObjForAddPage.add(0, abtusObj);
+        listOfTemplatePagesObjForAddPage.add(1, homeObj);
+        listOfTemplatePagesObjForAddPage.add(2, blogpage);
+        listOfTemplatePagesObjForAddPage.add(3, contactdetails);
+        listOfTemplatePagesObjForAddPage.add(4, ServicePage);
+        listOfTemplatePagesObjForAddPage.add(5, clientobj);
+        listOfTemplatePagesObjForAddPage.add(6, teamPages);
+
 
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);

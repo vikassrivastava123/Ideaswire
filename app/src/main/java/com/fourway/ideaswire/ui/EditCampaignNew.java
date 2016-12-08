@@ -23,7 +23,15 @@ import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetProfileRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
+import com.fourway.ideaswire.templates.AboutUsPage;
+import com.fourway.ideaswire.templates.ClientPage;
+import com.fourway.ideaswire.templates.HomePage;
+import com.fourway.ideaswire.templates.ServicePage;
+import com.fourway.ideaswire.templates.TeamPage;
+import com.fourway.ideaswire.templates.blogpage;
+import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.dataOfTemplate;
+import com.fourway.ideaswire.templates.pages;
 
 import java.util.ArrayList;
 
@@ -135,6 +143,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             reqToEditProfile = p;
             editCampaign.mCampaignIdFromServer = p.getProfileId();
             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
+            addDefaultDataForAddPage();
 
 //            Class intenetToLaunch = data.getIntentToLaunchPage();
 //            Log.v(Tag, "5" + intenetToLaunch);
@@ -148,6 +157,27 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             Toast.makeText(EditCampaignNew.this, "Please Fill Campaign Name", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void addDefaultDataForAddPage()
+    {
+        select_layout_of_template.listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
+
+        pages abtusObj = new AboutUsPage();
+        pages homeObj = new HomePage();
+        pages blogpage = new blogpage();
+        pages contactdetails = new contactDetails();
+        pages ServicePage = new ServicePage();
+        pages clientobj = new ClientPage();
+        pages teamPages =new TeamPage();
+
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(0, abtusObj);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(1, homeObj);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(2, blogpage);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(3, contactdetails);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(4, ServicePage);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(5, clientobj);
+        select_layout_of_template.listOfTemplatePagesObjForAddPage.add(6, teamPages);
     }
 
     @Override

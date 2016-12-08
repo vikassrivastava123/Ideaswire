@@ -245,50 +245,51 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    //Toast.makeText(getApplicationContext(),
-                                    //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
-                                    if (dataObj.isDefaultDataToCreateCampaign() && !showPreview) {
-                                        boolean add=true;
-                                        for (int x = 0; x < selectedPageList.size(); x++) {
-                                            if (selectedPageList.get(x) == v.getId()) {
-                                                add = false;
-                                                break;
+                                    if (getIndexOfPresentview() != v.getId()) {
+                                        //Toast.makeText(getApplicationContext(),
+                                        //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                                        if (dataObj.isDefaultDataToCreateCampaign() && !showPreview) {
+                                            boolean add = true;
+                                            for (int x = 0; x < selectedPageList.size(); x++) {
+                                                if (selectedPageList.get(x) == v.getId()) {
+                                                    add = false;
+                                                    break;
+                                                }
+                                            }
+                                            if (add) {
+                                                selectedPageList.add(v.getId());
                                             }
                                         }
-                                        if (add){
-                                            selectedPageList.add(v.getId());
+                                        dataObj = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+
+                                        FragmentManager fragmentManager = getFragmentManager();
+
+
+                                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                        transaction.hide(fragmentToLaunch);
+                                        fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+                                        Bundle args = new Bundle();
+                                        args.putSerializable("dataKey", dataObj);
+                                        args.putInt("IndexKey", v.getId());
+                                        IndexKey = v.getId();
+                                        args.putBoolean("showPreviewKey", showPreview);
+                                        fragmentToLaunch.setArguments(args);
+
+                                        transaction.replace(R.id.mainRLayout, fragmentToLaunch);
+                                        transaction.commit();
+
+                                        for (int j = 0; j < size; j++) {
+                                            if (v.getId() != j) {
+                                                btn[j].setBackgroundColor(getResources().getColor(R.color.card));
+                                                btn[j].setCompoundDrawablesWithIntrinsicBounds(0, iconBlack[j], 0, 0);
+                                                btn[j].setTextColor(getResources().getColor(R.color.text));
+                                            } else {
+                                                btn[j].setBackgroundColor(fetchThemeBackgroundColor());
+                                                btn[j].setCompoundDrawablesWithIntrinsicBounds(0, iconWhite[j], 0, 0);
+                                                btn[j].setTextColor(Color.WHITE);
+                                            }
                                         }
                                     }
-                                    dataObj = MainActivity.listOfTemplatePagesObj.get(v.getId()).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
-
-                                    FragmentManager fragmentManager=getFragmentManager();
-
-
-                                    FragmentTransaction transaction=fragmentManager.beginTransaction();
-                                    transaction.hide(fragmentToLaunch);
-                                    fragmentToLaunch = dataObj.getFragmentToLaunchPage();
-                                    Bundle args = new Bundle();
-                                    args.putSerializable("dataKey", dataObj);
-                                    args.putInt("IndexKey", v.getId());
-                                    IndexKey = v.getId();
-                                    args.putBoolean("showPreviewKey", showPreview);
-                                    fragmentToLaunch.setArguments(args);
-
-                                    transaction.replace(R.id.mainRLayout,fragmentToLaunch);
-                                    transaction.commit();
-
-                                    for(int j=0;j<size;j++){
-                                        if (v.getId()!=j){
-                                            btn[j].setBackgroundColor(getResources().getColor(R.color.card));
-                                            btn[j].setCompoundDrawablesWithIntrinsicBounds(0,iconBlack[j],0,0);
-                                            btn[j].setTextColor(getResources().getColor(R.color.text));
-                                        }else {
-                                            btn[j].setBackgroundColor(fetchThemeBackgroundColor());
-                                            btn[j].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[j],0,0);
-                                            btn[j].setTextColor(Color.WHITE);
-                                        }
-                                    }
-
 
                                 }
                             });
@@ -436,8 +437,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
 
     void addPage(){
-        final AlertDialog pageDialog=new AlertDialog.Builder(this).create();
+        final AlertDialog pageDialog=new AlertDialog.Builder(this, R.style.AppTheme).create();
         View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_about_us_page_tamplate,null);
+        final pages currentPages = MainActivity.listOfTemplatePagesObj.get(getIndexOfPresentview());
 
         final ListView listView;
         final List<String> list=new ArrayList<>();
@@ -452,12 +454,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             @Override
             public void run() {
 
-                final int size = MainActivity.listOfTemplatePagesObj.size();
+                final int size = select_layout_of_template.listOfTemplatePagesObjForAddPage.size();
                 ImageButton[] btn = new ImageButton[size];
                 int i = 0;
                 final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                for(pages obj: select_layout_of_template.listOfTemplatePagesObjForAddPage) {
                     int icon = obj.iconis();
 
                     float x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
@@ -477,13 +479,13 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     btn[i].setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            final String pageName = MainActivity.listOfTemplatePagesObj.get(v.getId()).nameis();
-                            final pages mNewPage = MainActivity.listOfTemplatePagesObj.get(v.getId()).getNewPage();
+                            final String pageName = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).nameis();
+                            final pages mNewPage = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).getNewPage();
 
                             final AlertDialog mAlertDialog = new AlertDialog.Builder(FragmenMainActivity.this).create();
                             mAlertDialog.setTitle("Page Name");
 
-                            View mAlertDialogView = LayoutInflater.from(FragmenMainActivity.this).inflate(R.layout.alert_dialog_page_name,null);
+                            final View mAlertDialogView = LayoutInflater.from(FragmenMainActivity.this).inflate(R.layout.alert_dialog_page_name,null);
                             final EditText editPageName = (EditText) mAlertDialogView.findViewById(R.id.dialogPageName);
                             editPageName.setText(pageName +"(Copy)");
 
@@ -492,12 +494,34 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                 public void onClick(DialogInterface dialog, int which) {
                                     String newPageName = editPageName.getText().toString();
                                     if (!newPageName.equals("")) {
-                                        mNewPage.set_nameis(pageName+ " " +newPageName);
+                                        boolean nameAlreadyExist = false;
+                                        for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                                            String[] nameStrings = obj.nameis().split(" ", 2);
+                                            String name=null;
+                                            if (nameStrings.length>1){
+                                                name = nameStrings[1];
+                                            }else {
+                                                name = nameStrings[0];
+                                            }
 
-                                        MainActivity.listOfTemplatePagesObj.add(size,mNewPage);
-                                        list.add(newPageName);
-                                        listView.setAdapter(adapter);
-                                        Toast.makeText(FragmenMainActivity.this, newPageName + " Added... " , Toast.LENGTH_SHORT).show();
+                                            if (newPageName.equals(name)){
+                                                nameAlreadyExist = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!nameAlreadyExist) {
+                                            mNewPage.set_nameis(pageName + " " + newPageName);
+
+                                            MainActivity.listOfTemplatePagesObj.add(MainActivity.listOfTemplatePagesObj.size(), mNewPage);
+                                            list.add(newPageName);
+                                            adapter.notifyDataSetChanged();
+                                            Toast.makeText(FragmenMainActivity.this, newPageName + " Added... ", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(FragmenMainActivity.this, newPageName + " is already added", Toast.LENGTH_SHORT).show();
+                                            mAlertDialog.setView(mAlertDialogView);
+                                            mAlertDialog.show();
+
+                                        }
                                     }else {
                                         Toast.makeText(FragmenMainActivity.this, "Please enter page name :(", Toast.LENGTH_SHORT).show();
                                     }
@@ -534,7 +558,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         }, 250);
 
         for(pages obj: MainActivity.listOfTemplatePagesObj) {
-            String name = obj.nameis();
+            String[] nameStrings = obj.nameis().split(" ", 2);
+            String name=null;
+
+            if (nameStrings.length>1){
+                name = nameStrings[1];
+            }else {
+                name = nameStrings[0];
+            }
             list.add(name);
         }
 
@@ -549,12 +580,20 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 if(view.getId()==R.id.imageButton7)
                 {
                     String pageName = mPages.nameis();
-                    MainActivity.listOfTemplatePagesObj.remove(position);
-                    list.remove(position);
-                    listView.setAdapter(adapter);
-                    Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
-                    addPage();
-                    pageDialog.dismiss();
+                    if (currentPages != mPages) {
+                        MainActivity.listOfTemplatePagesObj.remove(position);
+                        list.remove(position);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
+                        for (int c=0;c<MainActivity.listOfTemplatePagesObj.size();c++){
+                            if (currentPages == MainActivity.listOfTemplatePagesObj.get(c)){
+                                IndexKey = c;
+                            }
+                        }
+                    }else {
+                        Toast.makeText(FragmenMainActivity.this, pageName + " can't delete because its open", Toast.LENGTH_SHORT).show();
+
+                    }
                 }else if (view.getId()==R.id.switchbtn){
                     SwitchCompat switchCompat=(SwitchCompat)view;
                     boolean pageStatus = switchCompat.isChecked();
