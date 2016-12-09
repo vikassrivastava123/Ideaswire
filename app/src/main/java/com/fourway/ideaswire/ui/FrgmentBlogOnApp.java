@@ -460,17 +460,18 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
             try {
                 in = getActivity().openFileInput(MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Blog banner", 4);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity(), data, FrgmentBlogOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Blog banner", 4);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity(), data, FrgmentBlogOnApp.this);
-            req.executeRequest();
 
             //todo set image
            /* runOnUiThread(new Runnable() {
@@ -537,6 +538,16 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
             String imageUrl = data.getResponseUrl();
             cardImageUrl = imageUrl;
             Log.v(TAG,"Url received" + imageUrl);
+            deleteCropFile();
+        }
+    }
+
+    public void deleteCropFile(){
+        String path = getActivity().getFilesDir().getAbsolutePath() + "/" + MainActivity.Blog_TemplateImage_IMAGE_CROPED_NAME;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
         }
     }
 

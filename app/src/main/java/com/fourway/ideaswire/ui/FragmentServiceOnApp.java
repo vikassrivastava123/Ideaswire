@@ -292,17 +292,18 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
             try {
                 in = getActivity().openFileInput(MainActivity.Service_TemplateImage_IMAGE_CROPED_NAME);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Service banner", 5);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentServiceOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Service banner", 5);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentServiceOnApp.this);
-            req.executeRequest();
 
             //todo set image
            /* runOnUiThread(new Runnable() {
@@ -467,6 +468,16 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             String imageUrl = data.getResponseUrl();
             cardImageUrl = imageUrl;
             Log.v(TAG,"Url received" + imageUrl);
+            deleteCropFile();
+        }
+    }
+
+    public void deleteCropFile(){
+        String path = getActivity().getFilesDir().getAbsolutePath() + "/" + MainActivity.Service_TemplateImage_IMAGE_CROPED_NAME;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
         }
     }
 

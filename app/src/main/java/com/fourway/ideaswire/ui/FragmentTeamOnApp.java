@@ -349,17 +349,18 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
             try {
                 in = getActivity().openFileInput(ScreenName);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, image_name, unique_seq_number);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentTeamOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, image_name, unique_seq_number);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentTeamOnApp.this);
-            req.executeRequest();
 
 
         }
@@ -748,21 +749,30 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             if (ImageId>=70) {
                 String imageUrl = data.getResponseUrl();
                 switch (ImageId){
-                    case 70: teamImgUrl_1=imageUrl;
+                    case 70: teamImgUrl_1=imageUrl; deleteCropFile(0);
                         break;
-                    case 71: teamImgUrl_2=imageUrl;
+                    case 71: teamImgUrl_2=imageUrl; deleteCropFile(1);
                         break;
-                    case 72: teamImgUrl_3=imageUrl;
+                    case 72: teamImgUrl_3=imageUrl; deleteCropFile(2);
                         break;
-                    case 73: teamImgUrl_4=imageUrl;
+                    case 73: teamImgUrl_4=imageUrl; deleteCropFile(3);
                         break;
-                    case 74: teamImgUrl_5=imageUrl;
+                    case 74: teamImgUrl_5=imageUrl; deleteCropFile(4);
                         break;
-                    case 75: teamImgUrl_6=imageUrl;
+                    case 75: teamImgUrl_6=imageUrl; deleteCropFile(5);
                         break;
 
                 }
             }
+        }
+    }
+
+    public void deleteCropFile(int imageNumber){
+        String path = getActivity().getFilesDir().getAbsolutePath() + "/" + MainActivity.CLIENTS_LOGO_IMAGE_CROPED_NAME_+imageNumber;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
         }
     }
 

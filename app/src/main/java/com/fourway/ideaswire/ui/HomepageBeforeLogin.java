@@ -278,7 +278,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(4, 30, 4, 0);
+            params.setMargins(4, 75, 4, 0);
             pager_indicator.addView(dots[i], params);
         }
 

@@ -181,8 +181,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     ProgressDialog pd;
     public void createCamapignBtn(View view) throws IOException {
         if (!mEtCampnName.getText().toString().equals("")) {
-            pd = new ProgressDialog(this);
-            pd.setMessage("Please wait");
+            pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+            pd.setMessage("Please wait...");
 
             String campaignName = mEtCampnName.getText().toString();
             FileInputStream in = null;

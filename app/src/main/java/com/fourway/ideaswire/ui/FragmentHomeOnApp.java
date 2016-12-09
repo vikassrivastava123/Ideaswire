@@ -348,17 +348,18 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
             try {
                 in = getActivity().openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_1", 2);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_1", 2);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
-            req.executeRequest();
 
             //todo set image
        /*     runOnUiThread(new Runnable() {
@@ -412,17 +413,18 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
             try {
                 in = getActivity().openFileInput(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_2", 3);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "Home_banner_2", 3);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
-            req.executeRequest();
 
             //todo set image
        /*     runOnUiThread(new Runnable() {
@@ -476,12 +478,23 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 cardImageUrl_1 = imageUrl;
                 //dataObj.setUrlOfImage_1(imageUrl);
                 Log.v(TAG, "Url received_1 " + imageUrl);
+                deleteCropFile(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1);
             }else if (ImageName.equals("Home_banner_2")){
                 String imageUrl = data.getResponseUrl();
                 cardImageUrl_2 = imageUrl;
                 //dataObj.setUrlOfImage_2(imageUrl);
                 Log.v(TAG, "Url received_2 " + imageUrl);
+                deleteCropFile(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2);
             }
+        }
+    }
+
+    public void deleteCropFile(String imageName){
+        String path = getActivity().getFilesDir().getAbsolutePath() + "/" + imageName;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
         }
     }
 

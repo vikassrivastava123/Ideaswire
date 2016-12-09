@@ -437,9 +437,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 cardImageUrl = imageUrl;
                 //dataObj.set_url(imageUrl);
                 Log.v(TAG, "Url received" + imageUrl);
+               deleteCropFile();
             }
         }
 
+    }
+
+    public void deleteCropFile(){
+            String path = getActivity().getFilesDir().getAbsolutePath() + "/" + MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME;
+
+            File file = new File(path);
+            if (file.exists()){
+                file.delete();
+            }
     }
 
     public void setAttribute(String name, String value){
@@ -730,17 +740,21 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
             try {
                 in = getActivity().openFileInput(MainActivity.About_Us_TemplateImage_IMAGE_CROPED_NAME);
+                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                in.close();
+
+
+                File sendFile = getFileObjectFromBitmap (bitmap);
+
+
+                UploadImageForUrlData data =
+                        new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About_us_banner", 1);
+                UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentAboutUsOnApp.this);
+                req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-            File sendFile = getFileObjectFromBitmap (bitmap);
 
-
-            UploadImageForUrlData data =
-                    new UploadImageForUrlData(loginUi.mLogintoken, editCampaign.mCampaignIdFromServer, sendFile, "About_us_banner", 1);
-            UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentAboutUsOnApp.this);
-            req.executeRequest();
 
             //todo set image
        /*     runOnUiThread(new Runnable() {
@@ -793,10 +807,13 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             cardImageCrop.setVisibility(View.VISIBLE);
 
             Bitmap bitmap = BitmapFactory.decodeStream(in);
+            in.close();
             cardImageCrop.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
 
 
         }catch (FileNotFoundException e){
+            Log.v("editCampaign","About_Us_TemplateImage_IMAGE_CROPED_NAME file not found");
+        }catch (IOException e){
             Log.v("editCampaign","About_Us_TemplateImage_IMAGE_CROPED_NAME file not found");
         }
 
