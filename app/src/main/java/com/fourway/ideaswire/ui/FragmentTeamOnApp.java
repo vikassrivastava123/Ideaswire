@@ -469,17 +469,17 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 public void afterTextChanged(Editable s) {
                     String changeName=s.toString();
                     switch (position){
-                        case 0: dataObj.setTeam_1_name(changeName);
+                        case 0: dataObj.setTeam_1_name(changeName); memberNameList.set(0, changeName);
                             break;
-                        case 1: dataObj.setTeam_2_name(changeName);
+                        case 1: dataObj.setTeam_2_name(changeName); memberNameList.set(1, changeName);
                             break;
-                        case 2: dataObj.setTeam_3_name(changeName);
+                        case 2: dataObj.setTeam_3_name(changeName); memberNameList.set(2, changeName);
                             break;
-                        case 3: dataObj.setTeam_4_name(changeName);
+                        case 3: dataObj.setTeam_4_name(changeName); memberNameList.set(3, changeName);
                             break;
-                        case 4: dataObj.setTeam_5_name(changeName);
+                        case 4: dataObj.setTeam_5_name(changeName); memberNameList.set(4, changeName);
                             break;
-                        case 5: dataObj.setTeam_6_name(changeName);
+                        case 5: dataObj.setTeam_6_name(changeName); memberNameList.set(5, changeName);
                             break;
                     }
                 }
@@ -500,17 +500,17 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 public void afterTextChanged(Editable s) {
                     String changeTitle=s.toString();
                     switch (position){
-                        case 0: dataObj.setTeam_1_title(changeTitle);
+                        case 0: dataObj.setTeam_1_title(changeTitle); memberTitleList.set(0, changeTitle);
                             break;
-                        case 1: dataObj.setTeam_2_title(changeTitle);
+                        case 1: dataObj.setTeam_2_title(changeTitle); memberTitleList.set(1, changeTitle);
                             break;
-                        case 2: dataObj.setTeam_3_title(changeTitle);
+                        case 2: dataObj.setTeam_3_title(changeTitle); memberTitleList.set(2, changeTitle);
                             break;
-                        case 3: dataObj.setTeam_4_title(changeTitle);
+                        case 3: dataObj.setTeam_4_title(changeTitle); memberTitleList.set(3, changeTitle);
                             break;
-                        case 4: dataObj.setTeam_5_title(changeTitle);
+                        case 4: dataObj.setTeam_5_title(changeTitle); memberTitleList.set(4, changeTitle);
                             break;
-                        case 5: dataObj.setTeam_6_title(changeTitle);
+                        case 5: dataObj.setTeam_6_title(changeTitle); memberTitleList.set(5, changeTitle);
                             break;
                     }
                 }
