@@ -245,11 +245,22 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
     void startSlideShow() {
         mHandler = new Handler();
         mUpdate = new Runnable() {
+            boolean revers= false;
             public void run() {
-                if (currentPage == NUM_PAGES - 1) {
-                    currentPage = 0;
+
+                if (currentPage == NUM_PAGES - 2 && !revers) {
+//                    currentPage = 0;
+                    revers = true;
+                } else if (currentPage == 0){
+                    revers = false;
+
                 }
-                mViewPager.setCurrentItem(currentPage++, true);
+
+                if (!revers) {
+                    mViewPager.setCurrentItem(currentPage++, true);
+                }else {
+                    mViewPager.setCurrentItem(currentPage--, true);
+                }
             }
         };
         new Timer().schedule(new TimerTask() {
@@ -432,12 +443,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     @Override
     public void onBackPressed() {
-        if (session.isLoggedIn()){
             finish();
-        }else {
-            startActivity(new Intent(HomepageBeforeLogin.this, loginUi.class));
-            finish();
-        }
     }
 
     @Override

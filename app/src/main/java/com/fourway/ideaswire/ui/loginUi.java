@@ -167,6 +167,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
             editor.commit();
             Intent intent = new Intent(getApplicationContext(),HomeScreenFirstLogin.class);
             startActivity(intent);
+           finish();
 
         }
        // startActivity(new Intent(getApplicationContext(),TempActivity.class));

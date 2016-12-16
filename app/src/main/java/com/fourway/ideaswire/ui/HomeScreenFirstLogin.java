@@ -73,6 +73,7 @@ public class HomeScreenFirstLogin extends ListActivity {
         if (session.isLoggedIn()) {
             Intent intent = new Intent(getBaseContext(), HomepageBeforeLogin.class);
             startActivity(intent);
+            finish();
         }else {
             Intent intent = new Intent(getBaseContext(), loginUi.class);
             startActivity(intent);
