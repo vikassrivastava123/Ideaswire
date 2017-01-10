@@ -122,6 +122,11 @@ public class Profile {
         return mTotalNumberOfPages;
     }
 
+    // Get Total Number Of Page
+    public int getTotalNumberOfPages(){
+        return mPages.size();
+    }
+
 //    For edit profile
     public void setTotalNumberOfPages(){
         mTotalNumberOfPages = mPages.size() ;
@@ -256,5 +261,12 @@ public class Profile {
 
     public void addAllPagesToList (JSONArray ja, Profile p){
         createPageListFromJSONArray(ja, p);
+    }
+
+    public void clearPage(){
+        if (mPages != null){
+            mPages.clear();
+        }
+
     }
 }

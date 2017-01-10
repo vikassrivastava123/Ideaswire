@@ -62,6 +62,12 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
                 dialog.setMessage("Please wait, loading...");
                 if(view.getId()==R.id.imgViewProfile) {
                     Profile p = EditPhotoSelectedUi.mSearchProfileList.get(position);
+
+                    //Clear page if Already have data in page
+                    if (p.getTotalNumberOfPages() != 0){
+                        p.clearPage();
+                    }
+
                     GetProfileRequestData data = new GetProfileRequestData(p.getProfileId(), p);
                     GetProfileRequest request =
                             new GetProfileRequest(searchResults.this, data, searchResults.this);

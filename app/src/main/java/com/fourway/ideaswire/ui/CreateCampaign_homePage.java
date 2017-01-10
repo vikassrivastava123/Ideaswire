@@ -76,6 +76,12 @@ private static String TAG = "CreateCampaign_homePage";
                         campaignEditMode = false;
                         if(view.getId()==R.id.imgViewProfile) {
                             Profile p = loginUi.mProfileList.get(position);
+
+                            //Clear page if Already have data in page
+                            if (p.getTotalNumberOfPages() != 0){
+                                p.clearPage();
+                            }
+
                             GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
                             GetProfileRequest request =
                                     new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
