@@ -10,11 +10,9 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -318,7 +316,7 @@ public boolean phone_val(String ph_number)
 
         switch(responseCode){
             case COMMON_RES_SUCCESS:
-                onSignUpSuccess("Successfull SignUp! You can login now");
+                onSignUpSuccess("Successfully SignUp! You can login now");
                 break;
             case COMMON_RES_INTERNAL_ERROR:
                 onSignUpSuccess("Please try again");

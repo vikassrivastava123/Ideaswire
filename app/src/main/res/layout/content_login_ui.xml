@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="58dp"
+            android:layout_marginTop="30dp"
             />
 
         <!-- Email Label -->
@@ -87,7 +87,7 @@
             android:layout_marginTop="50dp"
             android:textColor="@color/card"
             android:background="@drawable/dont_have_c"
-            android:text="Dont't have an account yet? Sign Up"
+            android:text="Don't have an account yet? Sign Up"
             android:gravity="center"
             android:textSize="16dip"/>
     </LinearLayout>

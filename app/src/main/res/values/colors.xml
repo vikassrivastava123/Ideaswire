@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="appBar">#EA2C2E</color>
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <color name="colorPrimaryDark">#197EAC</color>
+    <color name="appBar">#C02425</color>
     <color name="titleBar">#FF0003</color>
     <color name="primary">#EA2C2E</color>
     <color name="secondary">#1A2953</color>

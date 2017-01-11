@@ -85,6 +85,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_Dark);
         super.onCreate(savedInstanceState);
 
         session = new SessionManager(getApplicationContext());

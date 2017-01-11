@@ -31,6 +31,13 @@
 
     </style>
 
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+
+
+    </style>
+
     <style name="NavigationDrawerStyle">
         <item name="android:textSize">18sp</item>
         <item name="android:typeface">monospace</item>

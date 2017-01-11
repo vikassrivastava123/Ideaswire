@@ -63,16 +63,6 @@
                     />
                 <!-- android:onClick="uploadToAboutUsOnApp"-->
 
-                <ImageView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    android:id="@+id/ABOUT_US_STATIC_IMAGE"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:scaleType="centerCrop" />
-
-
 
                 <ImageView
                     android:id="@+id/deleteCARD_IMAGE"
@@ -85,6 +75,18 @@
                     android:layout_marginRight="1dp"
                     android:background="@null"
                     />
+
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:id="@+id/ABOUT_US_STATIC_IMAGE"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
 
