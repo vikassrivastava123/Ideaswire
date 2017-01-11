@@ -6,16 +6,8 @@
     android:orientation="vertical"
     >
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/imgViewProfile"
-        android:layout_width="120dp"
-        android:layout_gravity="center"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-
-       />
-
     <LinearLayout
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/imgViewProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -37,6 +29,15 @@
 
 
     </LinearLayout>
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/imgViewProfile"
+        android:layout_width="125dp"
+        android:layout_gravity="center"
+        android:layout_height="125dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <!-- android:scaleType="centerCrop"-->
 
 

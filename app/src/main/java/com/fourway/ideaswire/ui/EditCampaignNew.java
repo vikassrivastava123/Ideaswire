@@ -77,6 +77,11 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
 
         Profile p = loginUi.mProfileList.get(profilePosition);
+        //Clear page if Already have data in page
+        if (p.getTotalNumberOfPages() != 0){
+            p.clearPage();
+        }
+
         GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
         GetProfileRequest request =
                 new GetProfileRequest(EditCampaignNew.this, data, EditCampaignNew.this);
@@ -197,7 +202,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
                 }
 
                 String cName = (mProfileList.get(profilePosition)).getProfileName();
-                if (cName !=null && cName.equalsIgnoreCase("null")){
+                if (cName !=null){
                     edCampaignName.setText(cName);
                 }
             }else{
