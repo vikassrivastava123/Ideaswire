@@ -31,6 +31,87 @@
 
     </style>
 
+    <style name="AppTheme.Business" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryBusiness</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkBusiness</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryBusiness</item>
+
+    </style>
+
+    <style name="AppTheme.Entertainment" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryEntertainment</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkEntertainment</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryEntertainment</item>
+
+    </style>
+
+    <style name="AppTheme.Finance" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryFinance</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkFinance</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryFinance</item>
+
+    </style>
+
+    <style name="AppTheme.Health" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryHealth</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkHealth</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryHealth</item>
+
+    </style>
+
+    <style name="AppTheme.Individual" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryIndividual</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkIndividual</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryIndividual</item>
+
+    </style>
+
+    <style name="AppTheme.Information" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryInformation</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkInformation</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryInformation</item>
+
+    </style>
+
+    <style name="AppTheme.Others" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryOthers</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkOthers</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryOthers</item>
+
+    </style>
+
+    <style name="AppTheme.Restaurant" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryRestaurant</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkRestaurant</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryRestaurant</item>
+
+    </style>
+
+    <style name="AppTheme.Wedding" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryWedding</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryWedding</item>
+        <item name="customBackgroundAttributeColor">@color/colorPrimaryWedding</item>
+
+    </style>
+
     <style name="AppTheme.Dark" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>

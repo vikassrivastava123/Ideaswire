@@ -30,4 +30,34 @@
     <color name="colorPrimaryGreen">#8bc34a</color>
     <color name="colorPrimaryDarkGreen">#689f38</color>
     <color name="colorAccentGreen"> #4caf50</color>
+
+    <color name="colorPrimaryBusiness">#2099D2</color>
+    <color name="colorPrimaryDarkBusiness">#197EAC</color>
+
+    <color name="colorPrimaryEntertainment">#d52383</color>
+    <color name="colorPrimaryDarkEntertainment">#b01d6d</color>
+
+    <color name="colorPrimaryFinance">#22c6a4</color>
+    <color name="colorPrimaryDarkFinance">#1da388</color>
+
+    <color name="colorPrimaryHealth">#1fb6d1</color>
+    <color name="colorPrimaryDarkHealth">#1996ac</color>
+
+    <color name="colorPrimaryIndividual">#201f25</color>
+    <color name="colorPrimaryDarkIndividual">#1b1a1f</color>
+
+    <color name="colorPrimaryInformation">#633ec1</color>
+    <color name="colorPrimaryDarkInformation">#53339e</color>
+
+    <color name="colorPrimaryOthers">#e42a38</color>
+    <color name="colorPrimaryDarkOthers">#bd232f</color>
+
+    <color name="colorPrimaryRestaurant">#fd5d11</color>
+    <color name="colorPrimaryDarkRestaurant">#d14d0d</color>
+
+    <color name="colorPrimaryWedding">#d14a50</color>
+    <color name="colorPrimaryDarkWedding">#fb5a60</color>
+
+
+
 </resources>
