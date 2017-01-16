@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TextView
         android:id="@+id/layout_title"
@@ -16,17 +15,11 @@
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor" />
 
-    <GridView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/layout_title"
-        android:numColumns="2"
-        android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp"
-        android:background="#66121111"
-        android:id="@+id/layout2_gridView">
+        android:id="@+id/layout3_listView">
+    </ListView>
 
-
-    </GridView>
-
-</RelativeLayout>
+</LinearLayout>

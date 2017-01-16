@@ -13,8 +13,7 @@
         android:hint="Enter Title"
         android:singleLine="true"
         android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor"
-        android:onClick="changeTitleTextAbtUs" />
+        android:background="?customBackgroundAttributeColor" />
 
     <ImageView
         android:id="@+id/deleteTitleTeam"
