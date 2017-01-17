@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -67,6 +68,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     ImageView cardImageCrop;
     Button submit_button;
 
+    ProgressBar progressBar =null;
+
     AboutUsDataTemplate dataObj = null;
     private boolean showPreview = false;
     private boolean mEditMode = false;
@@ -106,6 +109,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
         }
+
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
         deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
         deleteCARD_IMAGEBtnView = (ImageView)view.findViewById(R.id.deleteCARD_IMAGE);
@@ -428,7 +433,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
      @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
 
-        pbImage.hide();
+         progressBar.setVisibility(View.GONE);
+        //pbImage.dismiss();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
 
             String ImageName = data.getImageName();
@@ -753,6 +759,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
 
 
@@ -785,8 +792,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         protected void onPreExecute() {
             super.onPreExecute();
 
-            pbImage = new ProgressDialog(getActivity().getApplicationContext());
+            pbImage = new ProgressDialog(getActivity());
             pbImage.setMessage("Uploading Image...");
+            //pbImage.show();
+            progressBar.setVisibility(View.VISIBLE);
 
         }
 

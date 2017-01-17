@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     NetworkImageView cardImage_1,cardImage_2;
     ImageView cardImageCrop_1, cardImageCrop_2;
+    ProgressBar progressBar1;
+    ProgressBar progressBar2;
 
     RelativeLayout cardImageLayout1;
 
@@ -104,6 +107,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        progressBar1 = (ProgressBar)view.findViewById(R.id.progressBar_home1);
+        progressBar2 = (ProgressBar)view.findViewById(R.id.progressBar_home2);
 
         cardImage_1 =(NetworkImageView)view.findViewById(R.id.Home_CARD_IMAGE_1);
         cardImage_2 =(NetworkImageView)view.findViewById(R.id.Home_CARD_IMAGE_2);
@@ -357,6 +362,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 UploadImageForUrlRequest req = new UploadImageForUrlRequest(getActivity().getApplicationContext(), data, FragmentHomeOnApp.this);
                 req.executeRequest();
             } catch (FileNotFoundException e) {
+                progressBar1.setVisibility(View.GONE);
                 e.printStackTrace();
             }
 
@@ -392,6 +398,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
+            progressBar1.setVisibility(View.VISIBLE);
 
         }
 
@@ -423,6 +430,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                progressBar2.setVisibility(View.GONE);
             }
 
 
@@ -457,6 +465,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
+            progressBar2.setVisibility(View.VISIBLE);
 
         }
 
@@ -470,6 +479,9 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        progressBar1.setVisibility(View.GONE);
+        progressBar2.setVisibility(View.GONE);
+
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String ImageName = data.getImageName();
 

@@ -56,8 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/ABOUT_US_CARD_IMAGE"
-                    android:background="@drawable/home_banner_1"
-                    android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     />
@@ -82,11 +80,17 @@
                     android:layout_height="230dp"
                     android:id="@+id/ABOUT_US_STATIC_IMAGE"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
 
             </RelativeLayout>
 

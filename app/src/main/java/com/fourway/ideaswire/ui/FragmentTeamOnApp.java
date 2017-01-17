@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,6 +54,7 @@ import java.util.List;
 public class FragmentTeamOnApp extends Fragment implements View.OnClickListener, FragmenMainActivity.viewCampaign, UploadImageForUrlRequest.UploadImageForUrlCallback {
 
     private GridView gridView;
+    ProgressBar progressBar;
     private GridViewAdapter gridViewAdapter;
     TextView mTitle,choose_cat;
 
@@ -183,6 +185,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
 
         gridView = (GridView) view.findViewById(R.id.gridView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar_team);
 
         final List<String> memberImageUrl=new ArrayList<>();
         final List<String> memberName=new ArrayList<>();
@@ -359,6 +362,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
 
 
@@ -382,6 +386,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
+            progressBar.setVisibility(View.VISIBLE);
 
         }
 
@@ -743,6 +748,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
+        progressBar.setVisibility(View.GONE);
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             int ImageId = data.getUniqueSequenceNumber();
 

@@ -54,8 +54,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/Home_CARD_IMAGE_1"
                     android:background="@drawable/about_banner_1"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     />
 
@@ -64,9 +62,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/Home_STATIC_IMAGE_1"
-
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     />
 
@@ -80,6 +75,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@null" />
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar_home1"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
             </RelativeLayout>
 
             <EditText
@@ -162,8 +164,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Home_CARD_IMAGE_2"
                 android:background="@drawable/about_banner_1"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:layout_below="@+id/paraGraphHome"
                 android:scaleType="centerCrop"
                 />
@@ -173,9 +173,16 @@
                 android:layout_height="230dp"
                 android:id="@+id/Home_STATIC_IMAGE_2"
                 android:layout_below="@+id/paraGraphHome"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:scaleType="centerCrop" />
+
+            <ProgressBar
+                android:layout_marginTop="80dp"
+                android:visibility="gone"
+                android:layout_below="@+id/paraGraphHome"
+                android:id="@+id/progressBar_home2"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
             <ImageView
                 android:id="@+id/deleteCARD_IMAGE_2"
@@ -187,6 +194,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@null" />
+
 
 
         </RelativeLayout>

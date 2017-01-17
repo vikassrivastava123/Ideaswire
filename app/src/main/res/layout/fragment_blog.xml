@@ -127,8 +127,6 @@
                     android:layout_height="230dp"
                     android:layout_marginTop="8dp"
                     android:id="@+id/Blog_CARD_IMAGE"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     android:background="@drawable/blog_banner"
                     android:layout_centerHorizontal="true" />
@@ -138,9 +136,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/Blog_STATIC_IMAGE"
-
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
                     />
 
@@ -152,9 +147,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="1dp"
-                    android:background="@null"
+                    android:background="@null" />
 
-                    />
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar_blog"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
 
             </RelativeLayout>
 

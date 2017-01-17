@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ import java.util.List;
  */
 public class FragmentClientsOnApp extends Fragment implements View.OnClickListener, FragmenMainActivity.viewCampaign, UploadImageForUrlRequest.UploadImageForUrlCallback {
     private GridView gridView;
+    ProgressBar progressBar;
     TextView mTitle,choose_cat;
     public String TAG="ClientOnApp";
 
@@ -118,6 +120,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             mPageName = mthispage.nameis();
         }
 
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar_client);
         editTitle =(EditText)view.findViewById(R.id.Client_TITLE);
         editHeading = (EditText)view.findViewById(R.id.ClientHeading);
         editSubHeading =(EditText)view.findViewById(R.id.ClientSubHeading);
@@ -326,6 +329,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
 
 
@@ -349,6 +353,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
+            progressBar.setVisibility(View.VISIBLE);
 
         }
 
@@ -565,6 +570,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        progressBar.setVisibility(View.GONE);
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             int ImageId = data.getUniqueSequenceNumber();
 

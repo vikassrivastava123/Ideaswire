@@ -20,10 +20,9 @@
 
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/Client_STATIC_LOGO"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        />
+        android:id="@+id/Client_STATIC_LOGO" />
+
+
 
 
     </RelativeLayout>

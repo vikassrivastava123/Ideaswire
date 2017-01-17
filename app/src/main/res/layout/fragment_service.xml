@@ -120,8 +120,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginTop="8dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:id="@+id/Service_CARD_IMAGE"
                     android:background="@drawable/services_banner"
                     android:layout_centerHorizontal="true" />
@@ -131,9 +129,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/Service_STATIC_IMAGE"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:scaleType="centerCrop" />
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar_service"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
 
                 <ImageView
                     android:id="@+id/deleteCardService"

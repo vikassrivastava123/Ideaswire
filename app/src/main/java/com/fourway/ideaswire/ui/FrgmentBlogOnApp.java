@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -54,6 +55,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     NetworkImageView cardImage;
     ImageView cardImageCrop;
+    ProgressBar progressBar;
     pages mthispage = null;
 
     private static String TAG = "BlogOnApp";
@@ -113,6 +115,8 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         cardImage = (NetworkImageView) view.findViewById(R.id.Blog_CARD_IMAGE);
         cardImageCrop =(ImageView) view.findViewById(R.id.Blog_STATIC_IMAGE);
+
+        progressBar =(ProgressBar)view.findViewById(R.id.progressBar_blog);
 
         cardImageCrop.setOnClickListener(this);
 
@@ -470,6 +474,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                progressBar.setVisibility(View.GONE);
             }
 
 
@@ -503,6 +508,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
             pbImage = new ProgressDialog(getActivity());
             pbImage.setMessage("Uploading Image...");
+            progressBar.setVisibility(View.VISIBLE);
 
         }
 
@@ -534,6 +540,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        progressBar.setVisibility(View.GONE);
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();
             cardImageUrl = imageUrl;
