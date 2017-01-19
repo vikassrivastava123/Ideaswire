@@ -457,7 +457,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
 
         requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
         requestToMakeProfile.addPage(mHomePageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
+        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this, false);
         req.executeRequest();
     }
 

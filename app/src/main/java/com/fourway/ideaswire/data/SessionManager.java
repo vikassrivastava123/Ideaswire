@@ -25,6 +25,7 @@ public class SessionManager {
 
     // User name (make variable public to access from outside)
     public static final String KEY_LOGIN_TOKEN = "LoginToken";
+    public static final String KEY_REFRESH_TOKEN = "RefreshToken";
 
     // Constructor
     public SessionManager(Context context){
@@ -36,12 +37,13 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String token){
+    public void createLoginSession(String token,String rToken){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(KEY_LOGIN_TOKEN, token);
+        editor.putString(KEY_REFRESH_TOKEN, rToken);
 
         // commit changes
         editor.commit();
@@ -76,6 +78,7 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
         user.put(KEY_LOGIN_TOKEN, pref.getString(KEY_LOGIN_TOKEN, null));
+        user.put(KEY_REFRESH_TOKEN, pref.getString(KEY_REFRESH_TOKEN, null));
 
         // return user
         return user;

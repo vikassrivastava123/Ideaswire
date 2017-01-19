@@ -460,7 +460,7 @@ public class ServicesOnApp extends Activity implements SaveProfileData.SaveProfi
 
         requestToMakeProfile = new Profile(editCampaign.mCampaignIdFromServer, Profile.TemplateID.PROFILE_TEMPLATE_ID_T1);
         requestToMakeProfile.addPage(mServicePageObj);
-        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this);
+        SaveProfileData req = new SaveProfileData(this,requestToMakeProfile,loginUi.mLogintoken,this, false);
         req.executeRequest();
     }
 

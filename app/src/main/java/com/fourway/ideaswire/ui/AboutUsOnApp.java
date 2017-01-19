@@ -617,13 +617,13 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
             //addPageToRequest(); //This function has check that ensures page is not added duplicate
                                 //Todo Need to show user popup to get his confirmation that this page will be added
-            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this, false);
             req.executeRequest();
         }else{
             Toast.makeText(this,"No page was added to your campaign",Toast.LENGTH_LONG).show();
 
             //addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
-            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this, false);
             req.executeRequest();
         }
 

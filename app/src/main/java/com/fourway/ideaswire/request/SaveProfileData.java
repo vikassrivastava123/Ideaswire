@@ -34,19 +34,25 @@ public class SaveProfileData {
     private Profile mProfile;
     private String mAppKey;
     private String mProfileId;
+    private Boolean isUpdateRequest;
 
     public interface SaveProfileResponseCallback {
         void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data);
     }
     private SaveProfileResponseCallback mSaveProfileResponseCallback;
 
-    public SaveProfileData (Context c, Profile p, String app_token, SaveProfileResponseCallback cb){
+    public SaveProfileData (Context c, Profile p, String app_token, SaveProfileResponseCallback cb,Boolean isUpdate_Request){
         mContext = c; mProfile = p; mAppKey = app_token; mProfileId = mProfile.getProfileId();
         mSaveProfileResponseCallback = cb;
+        isUpdateRequest = isUpdate_Request;
     }
 
     public void executeRequest () {
-        String url = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8090/4ways//api/image/content/add";
+        String url = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8090/4ways//api/image/content/add"; //update
+
+        if (isUpdateRequest) {
+            url = "http://ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8090/4ways//api/image/content/add/temp";
+        }
 
         JSONObject js = new JSONObject();
         try {
