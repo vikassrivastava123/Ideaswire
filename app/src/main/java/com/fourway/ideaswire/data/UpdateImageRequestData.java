@@ -14,6 +14,9 @@ public class UpdateImageRequestData {
     private CreateProfileData.ProfileType mProfileType;
     private CreateProfileData.ProfileStatus mProfileStatus;
 
+    private UpdateProfileData.ProfileType mUpdateProfileType;
+    private UpdateProfileData.ProfileStatus mUpdateProfileStatus;
+
     private String mErrorMessage;
 
     public UpdateImageRequestData (String token, String p_id, String p_name, File img,
@@ -22,6 +25,14 @@ public class UpdateImageRequestData {
         mImageData = img; mProfileId = p_id; mToken = token; mProfileName = p_name; mProfileType = type;
         mProfileStatus = p_status;
     }
+
+    public UpdateImageRequestData (String token, String p_id, String p_name, File img,
+                                   UpdateProfileData.ProfileType type,
+                                   UpdateProfileData.ProfileStatus p_status){
+        mImageData = img; mProfileId = p_id; mToken = token; mProfileName = p_name; mUpdateProfileType = type;
+        mUpdateProfileStatus = p_status;
+    }
+
     public void setErrorMessage (String msg) {mErrorMessage = msg;}
     public String getErrorMessage (){return mErrorMessage;}
     public File getImageData(){return mImageData;}
@@ -30,4 +41,7 @@ public class UpdateImageRequestData {
     public String getAccessToken(){return  mToken;}
     public CreateProfileData.ProfileType getProfileType(){return mProfileType;}
     public CreateProfileData.ProfileStatus getProfileStatus (){return mProfileStatus;}
+
+    public UpdateProfileData.ProfileType getUpdateProfileType(){return mUpdateProfileType;}
+    public UpdateProfileData.ProfileStatus getUpdateProfileStatus (){return mUpdateProfileStatus;}
 }
