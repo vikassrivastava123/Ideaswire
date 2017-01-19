@@ -9,12 +9,8 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.fourway.ideaswire.R;
 
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Vikas on 7/14/2016.
@@ -45,15 +41,18 @@ public class VolleyErrorHelper {
         if(response != null){
             switch (response.statusCode){
 
+                case 400:
+                case 403:
                 case 404:
                 case 422:
                 case 401:
+                case 500:
                     String trimmedString;
                     try {
                         String json;
                         json = new String(response.data);
                         JSONObject obj = new JSONObject(json);
-                        trimmedString = obj.getString("message");
+                        trimmedString = obj.getString("error");
                         return trimmedString;
 
                     } catch (Exception e) {

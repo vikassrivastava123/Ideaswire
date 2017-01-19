@@ -33,6 +33,7 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
     private static final String TAG = "loginUi";
     private static final int REQUEST_SIGNUP = 0;
     public static String mLogintoken = null;
+    public static String mRefreshToken = null;
     private boolean loginSuccess = false;
     static ProgressDialog mProgressDialog;
     static ArrayList<Profile> mProfileList;
@@ -206,7 +207,8 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
         switch(responseCode){
             case COMMON_RES_SUCCESS:
                 mLogintoken = data.getAccessToken();
-                session.createLoginSession(mLogintoken);
+                mRefreshToken = data.getRefreshToken();
+                session.createLoginSession(mLogintoken,mRefreshToken);
                 Log.v(TAG,"LoginToken" + mLogintoken);
                 loginSuccess = true;
                 requestProfileList();
@@ -219,6 +221,15 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
                 break;
             case COMMON_RES_FAILED_TO_CONNECT:
                 onLoginFailed("Please check internet connection !");
+                break;
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                String errorMsg = data.getErrorMessage();
+
+                if (errorMsg.contentEquals("invalid_grant")) {
+                    onLoginFailed("Invalid username or password");
+                }else {
+                    onLoginFailed(errorMsg);
+                }
                 break;
             default:
                 onLoginFailed("Login Failed ,Please try again");
