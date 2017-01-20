@@ -1,8 +1,12 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,17 +15,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.data.CreateProfileData;
 import com.fourway.ideaswire.data.GetProfileRequestData;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.data.UpdateProfileData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetProfileRequest;
+import com.fourway.ideaswire.request.UpdateProfileRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
 import com.fourway.ideaswire.templates.AboutUsPage;
 import com.fourway.ideaswire.templates.ClientPage;
@@ -33,13 +39,25 @@ import com.fourway.ideaswire.templates.contactDetails;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class EditCampaignNew extends Activity implements GetProfileRequest.GetProfileResponseCallback{
+public class EditCampaignNew extends Activity implements GetProfileRequest.GetProfileResponseCallback,UpdateProfileRequest.UpdateProfileResponseCallback{
     NetworkImageView editImageView;
+    ImageView editCropImageView;
     EditText edCampaignName;
     int profilePosition;
 
+    int cropRestart=0;
+    FileInputStream in;
+
+
+    private String mProfileId = null;
     public static String Tag = "EditCampaignNew";
     CheckBox statusBox=null;
     RadioButton statusOn = null;
@@ -59,6 +77,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         profilePosition = getIntent().getIntExtra("profilePosition",0);
 
         editImageView = (NetworkImageView)findViewById(R.id.imageToEditNew);
+        editCropImageView = (ImageView)findViewById(R.id.imageCropToEditNew);
         edCampaignName = (EditText)findViewById(R.id.etCampaignName);
 
         statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
@@ -91,26 +110,61 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     }
 
+    public void selectImage(View view) {
+
+
+        Intent inf = new Intent(this, CropedImage.class);
+
+        inf.putExtra(MainActivity.OPEN_GALLERY_FOR, MainActivity.OPEN_GALLERY_FOR_EDIT_CAMPAIGN);
+        startActivity(inf);
+        cropRestart = 1;
+
+    }
+
+    public void deleteCropFile(){
+        String path = getFilesDir().getAbsolutePath() + "/" + MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (cropRestart == 1 ) {
+            try {
+                in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                editCropImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+                cropRestart = 0;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void showImageCampaign(){
 
         Toast.makeText(EditCampaignNew.this, "Image Not set", Toast.LENGTH_SHORT).show();
 
     }
 
-    CreateProfileData.ProfileStatus  mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+    UpdateProfileData.ProfileStatus  mSetStatus = UpdateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
     CompoundButton.OnCheckedChangeListener statusChangeListener=new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked){
-                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+                mSetStatus = UpdateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
             }else {
-                mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+                mSetStatus = UpdateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
             }
         }
     };
 
 
-    CreateProfileData.ProfileType mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
+    UpdateProfileData.ProfileType mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_LOGO;
     public void onRadioButtonClicked(View view) {
 
         // Is the button now checked?
@@ -123,7 +177,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
                 statusOn.toggle();
                 if (checked) {
                     //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
-                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
+                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
                 }
                 Log.v(Tag,"StatusOn after toggle"+statusOn.isChecked());
                 break;
@@ -132,7 +186,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
                 statusDraft.toggle();
                 if (checked) {
                     //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
-                    mProfileType = CreateProfileData.ProfileType.PROFILE_TYPE_LOGO;
+                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_LOGO;
                 }
                 Log.v(Tag, "StatusOn after toggle" + statusDraft.isChecked());
                 break;
@@ -142,26 +196,61 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     public static Profile reqToEditProfile = null;
 
-    public void editProfile(View view){
+    ProgressDialog pd;
+    public void editProfile(View view)  {
         if (!edCampaignName.getText().toString().equals("")){
-            Profile p = loginUi.mProfileList.get(profilePosition);
-            reqToEditProfile = p;
-            editCampaign.mCampaignIdFromServer = p.getProfileId();
-            dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
-            addDefaultDataForAddPage();
+            pd = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+            pd.setMessage("Please wait...");
 
-//            Class intenetToLaunch = data.getIntentToLaunchPage();
-//            Log.v(Tag, "5" + intenetToLaunch);
-            Intent intent = new Intent(this, FragmenMainActivity.class);
-//            Intent intent = new Intent(this, intenetToLaunch);
-            intent.putExtra("data", data);
-            intent.putExtra(MainActivity.ExplicitEditModeKey, true);
-            startActivity(intent);
+            String campaignName = edCampaignName.getText().toString();
+            //BitmapDrawable bitmapDrawable = (BitmapDrawable)editImageView.getDrawable();
+            FileInputStream in = null;
+            File sendFile = null;
+            try {
+                in = openFileInput(MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME);
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                sendFile = getFileObjectFromBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            UpdateProfileData data = new UpdateProfileData(mProfileId, campaignName, "bussiness", "profile_department",
+                    loginUi.mLogintoken, sendFile, mProfileType,mSetStatus );
+
+            UpdateProfileRequest request = new UpdateProfileRequest(EditCampaignNew.this, data, this);
+            request.executeRequest();
+
 
         }else {
             Toast.makeText(EditCampaignNew.this, "Please Fill Campaign Name", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private File getFileObjectFromBitmap (Bitmap b) throws IOException {
+        File f = new File(getApplicationContext().getCacheDir(), "Abc");
+
+//Convert bitmap to byte array
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return f;
     }
 
     public void addDefaultDataForAddPage()
@@ -189,6 +278,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
             Profile p = data.getProfile();
+            mProfileId = data.getProfileId();
             ArrayList<Page> pageList = p.getAllPages();
 
             MainActivity.initListOfPages();
@@ -208,6 +298,33 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             }else{
                 Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    @Override
+    public void onUpdateProfileResponse(CommonRequest.ResponseCode res, UpdateProfileData data) {
+
+        switch (res) {
+            case COMMON_RES_SUCCESS:
+                deleteCropFile();
+                Toast.makeText(this, "COMMON_RES_SUCCESS", Toast.LENGTH_SHORT).show();
+/**
+ ---------------------------------Update Profile Data---------------------------------
+*/
+                Profile p = loginUi.mProfileList.get(profilePosition);
+                reqToEditProfile = p;
+                editCampaign.mCampaignIdFromServer = p.getProfileId();
+                dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
+                addDefaultDataForAddPage();
+
+//            Class intenetToLaunch = data.getIntentToLaunchPage();
+//            Log.v(Tag, "5" + intenetToLaunch);
+                Intent intent = new Intent(this, FragmenMainActivity.class);
+//            Intent intent = new Intent(this, intenetToLaunch);
+                intent.putExtra("data", dataOfTemplate);
+                intent.putExtra(MainActivity.ExplicitEditModeKey, true);
+                startActivity(intent);
+                break;
         }
     }
 }

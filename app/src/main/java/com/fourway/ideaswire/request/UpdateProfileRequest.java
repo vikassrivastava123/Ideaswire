@@ -94,7 +94,12 @@ public class UpdateProfileRequest implements UpdateImageRequest.UpdateImageRespo
                 try {
                     mProfileId = response.getString("data");
                     mProfileRequestData.setProfileId (mProfileId);
-                    uploadProfileImage();
+                    if (mProfileRequestData.getImageData() != null) {
+                        uploadProfileImage();
+                    }else {
+                            mUpdateProfileResponseCallback.onUpdateProfileResponse(COMMON_RES_SUCCESS, mProfileRequestData);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -38,7 +38,17 @@
         android:id="@+id/imageToEditNew"
         android:scaleType="centerCrop"
         android:background="@null"
-        />
+        android:onClick="selectImage" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_below="@+id/txtEdit"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageCropToEditNew"
+        android:scaleType="centerCrop"
+        android:background="@null"
+        android:onClick="selectImage"/>
 
 
 

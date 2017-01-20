@@ -176,6 +176,15 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         return f;
     }
 
+    public void deleteCropFile(){
+        String path = getFilesDir().getAbsolutePath() + "/" + MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
+        }
+    }
+
     public static String mCampaignIdFromServer = null;
 
     ProgressDialog pd;
@@ -228,6 +237,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
 
             Log.v(Tag,"Success ResponseCode : "+res);
+            deleteCropFile();
 
             mCampaignIdFromServer = data.getProfileId();
 

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
     //intent value that will be passed for activity recog
     public static final int OPEN_GALLERY_FOR_CREATE_CAMPAIGN = 0;
+    public static final int OPEN_GALLERY_FOR_EDIT_CAMPAIGN = 9;
     public static final int OPEN_GALLERY_FOR_SEARCH  = 1;
     public static final int OPEN_GALLERY_FOR_ABOUTUSPAGE_ON_APP  = 2;
     public static final int OPEN_PREVIOUS_ACTIVITY  = 3;
