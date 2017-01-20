@@ -71,6 +71,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     blogpageDataTemplate dataObj;
     private boolean showPreview = false;
+    private boolean mEditMode = false;
 
     Page mBlogPageObj;
     String mProfileId = null;
@@ -83,9 +84,18 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view=inflater.inflate(R.layout.fragment_blog, container, false);
 
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+
         dataObj = (blogpageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
         if(dataObj.isDefaultDataToCreateCampaign() == false){
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -119,6 +129,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         progressBar =(ProgressBar)view.findViewById(R.id.progressBar_blog);
 
         cardImageCrop.setOnClickListener(this);
+        cardImage.setOnClickListener(this);
 
 
         String urlOfProfile = dataObj.getUrlOfImage();
@@ -221,6 +232,8 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         if (dataObj.isDefaultDataToCreateCampaign()){
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
 
 
@@ -231,10 +244,21 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     void init_blogPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
-        mBlogPageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
+        if (!mEditMode) {
+            mBlogPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mBlogPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
+
         if (mBlogPageObj!=null) {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            }else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
         mBlogPageObj = new Page(mProfileId, mPageName);
         mPageId = mBlogPageObj.getPageId();
@@ -430,6 +454,9 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
                 deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
                 break;
             case R.id.Blog_STATIC_IMAGE:
+                uploadToBlogOnApp();
+                break;
+            case R.id.Blog_CARD_IMAGE:
                 uploadToBlogOnApp();
                 break;
         }
@@ -635,7 +662,12 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
 
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile;
+        if (!mEditMode) {
+                reqToMakeProfile =  MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
 
         /*if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
             int index = reqToMakeProfile.getIndexOfPage(mPageId);

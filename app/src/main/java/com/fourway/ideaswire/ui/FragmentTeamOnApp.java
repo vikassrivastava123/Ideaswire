@@ -99,6 +99,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     int cropRestart=-1;
     private boolean showPreview = false;
+    private boolean mEditMode = false;
+
     TeamDataTemplate dataObj;
 
     //Variables to make request to server
@@ -118,10 +120,19 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
+
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
         dataObj=(TeamDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
         if (dataObj.isDefaultDataToCreateCampaign() == false){
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
         }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -248,6 +259,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
         if (dataObj.isDefaultDataToCreateCampaign()) {
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
 
 
@@ -258,11 +271,21 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     void init_teamPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
+        if (!mEditMode) {
+            mTeamPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mTeamPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
 
-        mTeamPageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
         if (mTeamPageObj != null) {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            }else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
 
         mTeamPageObj = new Page(mProfileId, mPageName);
@@ -828,7 +851,12 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE, dataObj.getTeam_6_title());
 
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile;
+        if (!mEditMode) {
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         if(lastPositionInList == -1){

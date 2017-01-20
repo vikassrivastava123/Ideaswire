@@ -50,6 +50,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     private static String TAG = "FragmenMainActivity";
     private boolean showPreview = false;
     private boolean mEditMode = false;
+    private Boolean isUpdateRequest;
     int IndexKey = 0;
     Fragment fragmentToLaunch;
     TextView mTitle;
@@ -115,7 +116,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         args.putBoolean("showPreviewKey", showPreview);
         fragmentToLaunch.setArguments(args);
 
-        transaction.add(R.id.mainRLayout,fragmentToLaunch);
+        transaction.add(R.id.mainRLayout,fragmentToLaunch); //TODO: uncomment after test
+        //transaction.add(R.id.mainRLayout,new FragmentLayout3());//TODO: remove code after test
         transaction.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,8 +146,10 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         Profile reqToMakeProfile =  null;
         if (!mEditMode){
             reqToMakeProfile = MainActivity.getProfileObject();
+            isUpdateRequest = false;
         }else {
             reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+            isUpdateRequest = true;
         }
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
 
@@ -153,13 +157,13 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
             //addPageToRequest(); //This function has check that ensures page is not added duplicate
             //Todo Need to show user popup to get his confirmation that this page will be added
-            SaveProfileData req = new SaveProfileData(FragmenMainActivity.this, reqToMakeProfile, loginUi.mLogintoken,FragmenMainActivity.this);
+            SaveProfileData req = new SaveProfileData(FragmenMainActivity.this, reqToMakeProfile, loginUi.mLogintoken,FragmenMainActivity.this,isUpdateRequest);
             req.executeRequest();
         }else{
             Toast.makeText(this, "No page was added to your campaign", Toast.LENGTH_LONG).show();
 
             //addPageToRequest();//Todo All this code will be removed once it is done with help of dialogbox
-            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this);
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this,isUpdateRequest);
             req.executeRequest();
         }
 
@@ -660,6 +664,7 @@ static int test = 0;
         errorDialog.setTitle("Error");
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             errorDialog.setIcon(android.R.drawable.ic_dialog_info);
+            errorDialog.setCancelable(false);
             errorDialog.setTitle("Congratulation!");
             errorDialog.setMessage("Your app successfully created. ");
             errorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {

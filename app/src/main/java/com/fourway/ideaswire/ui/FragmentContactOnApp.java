@@ -38,6 +38,8 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     TextView addressTextView,emailTextView,numberTextView,websiteTextView;
 
     private boolean showPreview = false;
+    private boolean mEditMode = false;
+
     contactDetailsDataTemplate dataobj;
 
     //Variables to make request to server
@@ -61,10 +63,19 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_contact,container,false);
 
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+
         dataobj = (contactDetailsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
         if(dataobj.isDefaultDataToCreateCampaign() == false){
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -159,6 +170,8 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
         if (dataobj.isDefaultDataToCreateCampaign()){
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
 
         return view;
@@ -176,12 +189,22 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     void init_contactPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US;
-        mContactPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        if (!mEditMode) {
+            mContactPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mContactPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
 
         if(mContactPageObj != null)
         {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            }else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
 
         mContactPageObj = new Page(mProfileId, mPageName);
@@ -211,7 +234,12 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_WEBSITE, dataobj.getWebsite());
 
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile;
+        if (!mEditMode) {
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){

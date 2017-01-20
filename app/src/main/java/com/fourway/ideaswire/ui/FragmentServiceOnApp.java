@@ -70,6 +70,8 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
     ServicesDataTemplate dataObj;
     private boolean showPreview = false;
+    private boolean mEditMode = false;
+
     pages mthispage = null;
     int indexInList = -1;
 
@@ -80,10 +82,19 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_service,container,false);
 
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+
         dataObj = (ServicesDataTemplate) ((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
 
         if(dataObj.isDefaultDataToCreateCampaign() == false){
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -123,6 +134,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar_service);
 
         cardImageCrop.setOnClickListener(this);
+        cardImage.setOnClickListener(this);
 
         String urlOfProfile = dataObj.getUrlOfImage();
 
@@ -205,6 +217,8 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
         if (dataObj.isDefaultDataToCreateCampaign()){
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
 
 
@@ -215,10 +229,21 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     void init_servicePage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_SERVICES;
-        mServicePageObj  =  MainActivity.getProfileObject().getPageByName(mPageName);
+        if (!mEditMode) {
+            mServicePageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mServicePageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
+
         if (mServicePageObj!=null) {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            }else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
         mServicePageObj = new Page(mProfileId, mPageName);
         mParentId = mServicePageObj.getPageId();
@@ -261,6 +286,9 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
                 deleteParaBlow.setVisibility(View.GONE);
                 break;
             case R.id.Service_STATIC_IMAGE:
+                uploadToServiceOnApp();
+                break;
+            case R.id.Service_CARD_IMAGE:
                 uploadToServiceOnApp();
                 break;
 
@@ -561,7 +589,12 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_1, dataObj.getParaGraph());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_2, dataObj.getParaGraph_below);
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile;
+        if (!mEditMode) {
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
 
         if (lastPositionInList == -1){
             reqToMakeProfile.addPage(mServicePageObj);

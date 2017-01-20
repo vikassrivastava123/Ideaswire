@@ -70,6 +70,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     HomePageDataTemplate dataObj;
     private boolean showPreview = false;
+    private boolean mEditMode = false;
 
     String cardImageUrl_1 = null;
     String cardImageUrl_2 = null;
@@ -95,10 +96,19 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
 
+        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+
         dataObj = (HomePageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
         if(dataObj.isDefaultDataToCreateCampaign() == false){
-            showPreview = true;
+            if (mEditMode){
+                showPreview = false;
+                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
+                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
+                mPageName = mthispage.nameis();
+            }else {
+                showPreview = true;
+            }
         }else{
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -116,6 +126,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         cardImageCrop_1 = (ImageView)view.findViewById(R.id.Home_STATIC_IMAGE_1);
         cardImageCrop_2 = (ImageView)view.findViewById(R.id.Home_STATIC_IMAGE_2);
 
+        cardImage_1.setOnClickListener(this);
+        cardImage_2.setOnClickListener(this);
         cardImageCrop_1.setOnClickListener(this);
         cardImageCrop_2.setOnClickListener(this);
 
@@ -210,6 +222,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         if (dataObj.isDefaultDataToCreateCampaign()) {
             showPreview();
+        }else if (mEditMode){
+            showPreview();
         }
         return view;
     }
@@ -219,10 +233,21 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
-        mHomePageObj  = MainActivity.getProfileObject().getPageByName(mPageName);
+        if (!mEditMode) {
+            mHomePageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        }else {
+            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
+            mHomePageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
+        }
+
         if (mHomePageObj != null) {
-            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-            MainActivity.getProfileObject().deletePageByName(mPageName);
+            if (!mEditMode) {
+                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+                MainActivity.getProfileObject().deletePageByName(mPageName);
+            } else {
+                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
+                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
+            }
         }
         mHomePageObj = new Page(mProfileId, mPageName);
         mParentId = mHomePageObj.getPageId();
@@ -264,7 +289,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             case R.id.Home_STATIC_IMAGE_1:
                 uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
                 break;
+            case R.id.Home_CARD_IMAGE_1:
+                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
+                break;
             case R.id.Home_STATIC_IMAGE_2:
+                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
+                break;
+            case R.id.Home_CARD_IMAGE_2:
                 uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
                 break;
         }
@@ -664,7 +695,12 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH, dataObj.getParaGraph());
 
 
-        Profile reqToMakeProfile =  MainActivity.getProfileObject();
+        Profile reqToMakeProfile;
+        if (!mEditMode) {
+            reqToMakeProfile = MainActivity.getProfileObject();
+        }else {
+            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
+        }
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         if( lastPositionInList == -1){

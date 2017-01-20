@@ -65,6 +65,8 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
     private ArrayList<Profile> mProfileList;
     Button btn1;
 
+    ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,11 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         GetProfileRequest request =
                 new GetProfileRequest(EditCampaignNew.this, data, EditCampaignNew.this);
         request.executeRequest();
+
+        mProgressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Getting data...   ");
+        mProgressDialog.show();
 
 
 
@@ -223,6 +230,11 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             UpdateProfileRequest request = new UpdateProfileRequest(EditCampaignNew.this, data, this);
             request.executeRequest();
 
+            mProgressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Updating profile...   ");
+            mProgressDialog.show();
+
 
         }else {
             Toast.makeText(EditCampaignNew.this, "Please Fill Campaign Name", Toast.LENGTH_SHORT).show();
@@ -276,6 +288,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
+        mProgressDialog.dismiss();
         if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
             Profile p = data.getProfile();
             mProfileId = data.getProfileId();
@@ -303,11 +316,11 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     @Override
     public void onUpdateProfileResponse(CommonRequest.ResponseCode res, UpdateProfileData data) {
-
+        mProgressDialog.dismiss();
         switch (res) {
             case COMMON_RES_SUCCESS:
                 deleteCropFile();
-                Toast.makeText(this, "COMMON_RES_SUCCESS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show();
 /**
  ---------------------------------Update Profile Data---------------------------------
 */
@@ -317,10 +330,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
                 dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
                 addDefaultDataForAddPage();
 
-//            Class intenetToLaunch = data.getIntentToLaunchPage();
-//            Log.v(Tag, "5" + intenetToLaunch);
                 Intent intent = new Intent(this, FragmenMainActivity.class);
-//            Intent intent = new Intent(this, intenetToLaunch);
                 intent.putExtra("data", dataOfTemplate);
                 intent.putExtra(MainActivity.ExplicitEditModeKey, true);
                 startActivity(intent);
