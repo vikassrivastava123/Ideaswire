@@ -14,6 +14,7 @@ public abstract class dataOfTemplate implements Serializable {
 
     transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
+    boolean mEditMode = false , mUpdateProfile = false;
 
     void setHeader(String header){
         this.header = header;
@@ -28,15 +29,29 @@ public abstract class dataOfTemplate implements Serializable {
     abstract public boolean isDefaultDataToCreateCampaign();
     abstract public int getTemplateSelected();
 
-    public int getPositionInList(){
-        int test = 0;
-        int size = MainActivity.listOfTemplatePagesObj.size();
-        for(test = 0;test<size;test++){
-            if(this.equals(MainActivity.listOfTemplatePagesObj.get(test).getDataForTemplate(1)) == true){
-                return test;
-            }
-       }
-        return -1;
+    public boolean isEditMode(){
+        return mEditMode;
     }
 
-}
+    public boolean isEditDefaultOrUpdateData() {
+        boolean bIneditMode = false;
+        if(mUpdateProfile || mEditMode) {
+            bIneditMode = true;
+        }
+            return bIneditMode;
+
+    }
+
+    public void setEditMode(boolean tf){
+        mEditMode = tf;
+    }
+
+    public boolean isInUpdateProfileMode(){
+        return mUpdateProfile;
+    }
+
+    public void  setIsInUpdateProfileMode(boolean argUpdateProfile){
+        mUpdateProfile  = argUpdateProfile;
+    }
+
+ }

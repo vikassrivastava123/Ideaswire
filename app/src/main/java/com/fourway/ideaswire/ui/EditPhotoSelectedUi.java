@@ -32,6 +32,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
     Uri imgUri;
     ImageView CroppedimageView;
     static ArrayList<Profile> mSearchProfileList;
+    boolean isVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,53 +128,56 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 
     @Override
     public void onSearchResponse(CommonRequest.ResponseCode res, SearchProfileData data) {
-        Log.v("search results","res :"+res);
+        if (isVisible) {
+            Log.v("search results", "res :" + res);
 
-        pd.dismiss();
-        if(CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res){
+            pd.dismiss();
+            if (CommonRequest.ResponseCode.COMMON_RES_SUCCESS == res) {
 
-            //Toast.makeText(getApplicationContext(), "Search waas sucess :)", Toast.LENGTH_SHORT).show();
-            mSearchProfileList = data.getProfileList();
-            int numberOfProfiles = mSearchProfileList.size();
-            Log.v("SearchProfile","number of profiles searched"+numberOfProfiles);
-            if(numberOfProfiles > 0) {
-                Intent intent = new Intent(getApplicationContext(), searchResults.class);
-                startActivity(intent);
-            }
+                //Toast.makeText(getApplicationContext(), "Search waas sucess :)", Toast.LENGTH_SHORT).show();
+                mSearchProfileList = data.getProfileList();
+                int numberOfProfiles = mSearchProfileList.size();
+                Log.v("SearchProfile", "number of profiles searched" + numberOfProfiles);
+                if (numberOfProfiles > 0) {
+                    Intent intent = new Intent(getApplicationContext(), searchResults.class);
+                    startActivity(intent);
+                }
 
 
-        }else{
-            AlertDialog.Builder  errorDialog = new AlertDialog.Builder(this);
-            errorDialog.setPositiveButton("OK", null);
-            errorDialog.setTitle("Error");
-            errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
-            switch (res){
-                case COMMON_RES_CONNECTION_TIMEOUT:
-                    errorDialog.setMessage("Connection time out");
-                    errorDialog.show();
-                    break;
-                case COMMON_RES_FAILED_TO_UPLOAD:
-                    errorDialog.setMessage("Image upload failed");
-                    errorDialog.show();
-                    break;
-                case COMMON_RES_INTERNAL_ERROR:
-                    errorDialog.setMessage("Internal error");
-                    errorDialog.show();
-                    break;
-                case COMMON_RES_FAILED_TO_CONNECT:
-                    errorDialog.setMessage("failed to connect");
-                    errorDialog.show();
-                    break;
-                case COMMON_RES_IMAGE_NOT_FOUND:
-                    startActivity(new Intent(EditPhotoSelectedUi.this,ImageNotFoundUi.class));
-                    break;
-                case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
-                    errorDialog.setMessage(""+res);
-                    errorDialog.show();
-                    break;
-                default:errorDialog.setMessage("Fail to find ):");
-                    errorDialog.show();
+            } else {
+                AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
+                errorDialog.setPositiveButton("OK", null);
+                errorDialog.setTitle("Error");
+                errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                switch (res) {
+                    case COMMON_RES_CONNECTION_TIMEOUT:
+                        errorDialog.setMessage("Connection time out");
+                        errorDialog.show();
+                        break;
+                    case COMMON_RES_FAILED_TO_UPLOAD:
+                        errorDialog.setMessage("Image upload failed");
+                        errorDialog.show();
+                        break;
+                    case COMMON_RES_INTERNAL_ERROR:
+                        errorDialog.setMessage("Internal error");
+                        errorDialog.show();
+                        break;
+                    case COMMON_RES_FAILED_TO_CONNECT:
+                        errorDialog.setMessage("failed to connect");
+                        errorDialog.show();
+                        break;
+                    case COMMON_RES_IMAGE_NOT_FOUND:
+                        startActivity(new Intent(EditPhotoSelectedUi.this, ImageNotFoundUi.class));
+                        break;
+                    case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                        errorDialog.setMessage("" + res);
+                        errorDialog.show();
+                        break;
+                    default:
+                        errorDialog.setMessage("Fail to find ):");
+                        errorDialog.show();
 
+                }
             }
         }
 
@@ -185,5 +189,35 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
        // startActivity(iny);
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        isVisible = false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isVisible = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isVisible = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isVisible = false;
     }
 }

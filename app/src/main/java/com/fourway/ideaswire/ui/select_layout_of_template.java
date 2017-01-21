@@ -136,7 +136,8 @@ public class select_layout_of_template extends Activity {
 
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
-
+        data.setEditMode(true);
+        data.setIsInUpdateProfileMode(false);
 //        Class intenetToLaunch = data.getIntentToLaunchPage();
 //        Log.v("Create homepage", "5" + intenetToLaunch);
 //        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
@@ -146,16 +147,18 @@ public class select_layout_of_template extends Activity {
 //        startActivity(intent);
 
         Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+
         intent.putExtra("data",data);
         startActivity(intent);
 
 
     }
 
-    private class GridViewAdapter<S> extends ArrayAdapter<String> {
+    private class GridViewAdapter<String> extends ArrayAdapter<String> {
 
         private final Context context;
         private final String[] values;
+        int layoutResource[] = {R.drawable.homepage_layout1, R.drawable.homepage_layout2, R.drawable.homepage_layout3, R.drawable.homepage_layout4 };
 
         public GridViewAdapter(Context context, String[] values) {
             super(context, R.layout.choose_category_grid_layout, values);
@@ -191,22 +194,20 @@ public class select_layout_of_template extends Activity {
                 holderObj = (viewHolder) convertView.getTag();
             }
 
+            holderObj.imgView.setImageResource(layoutResource[position]);
+
             Log.v("chooseLayoutAdapter", "position" + position + " " + values[position]);
             switch (position) {
                 case 0:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_layout1);
                     holderObj.txtView.setText("Layout 1");
                     break;
                 case 1:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_layout2);
                     holderObj.txtView.setText("Layout 2");
                     break;
                 case 2:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_layout3);
                     holderObj.txtView.setText("Layout 3");
                     break;
                 case 3:
-                    holderObj.imgView.setImageResource(R.drawable.homepage_layout4);
                     holderObj.txtView.setText("Layout 4");
                     break;
             }

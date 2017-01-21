@@ -31,6 +31,8 @@ import com.fourway.ideaswire.templates.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fourway.ideaswire.ui.select_layout_of_template.listOfTemplatePagesObjForAddPage;
+
 public class MainActivity extends AppCompatActivity{
 
     public static List<pages> listOfTemplatePagesObj;
@@ -103,46 +105,75 @@ public class MainActivity extends AppCompatActivity{
         //Intent intent = new Intent(getApplicationContext(), loginUi.class);
         //Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         //startActivity(intent);
-        startActivity(new Intent(this,SplashScreen.class));
 
-        //startActivity(new Intent(getApplicationContext(), FragmenMainActivity.class));
 
-        //startCreateCampaignforDefaultData(1);
+       startActivity(new Intent(this,SplashScreen.class));
+
+
+
+//        startCreateCampaignWithDefaultData(1);
     }
 
 
-    void startCreateCampaignforDefaultData(int typeOfTemplateSelected){
+    private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
 
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
+        listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
+
 
         pages abtusObj = new AboutUsPage();
         pages homeObj = new HomePage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
-        pages clientobj = new ClientPage();
         pages ServicePage = new ServicePage();
+        pages clientobj = new ClientPage();
         pages teamPages =new TeamPage();
 
 
 
 
-        MainActivity.listOfTemplatePagesObj.add(abtusObj);
-        MainActivity.listOfTemplatePagesObj.add(homeObj);
-        MainActivity.listOfTemplatePagesObj.add(blogpage);
-        MainActivity.listOfTemplatePagesObj.add(contactdetails);
-        MainActivity.listOfTemplatePagesObj.add(ServicePage);
-        MainActivity.listOfTemplatePagesObj.add(clientobj);
-        MainActivity.listOfTemplatePagesObj.add(teamPages);
+        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
+        abtusObj.setPageIndex(0);
+        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
+        abtusObj.setPageIndex(1);
+        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
+        abtusObj.setPageIndex(2);
+        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
+        abtusObj.setPageIndex(3);
+        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
+        abtusObj.setPageIndex(4);
+        MainActivity.listOfTemplatePagesObj.add(5, clientobj);
+        abtusObj.setPageIndex(5);
+        MainActivity.listOfTemplatePagesObj.add(6, teamPages);
+        abtusObj.setPageIndex(6);
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected,true);
 
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v(TAG, "5" + intenetToLaunch);
-        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+        listOfTemplatePagesObjForAddPage.add(0, abtusObj);
+        listOfTemplatePagesObjForAddPage.add(1, homeObj);
+        listOfTemplatePagesObjForAddPage.add(2, blogpage);
+        listOfTemplatePagesObjForAddPage.add(3, contactdetails);
+        listOfTemplatePagesObjForAddPage.add(4, ServicePage);
+        listOfTemplatePagesObjForAddPage.add(5, clientobj);
+        listOfTemplatePagesObjForAddPage.add(6, teamPages);
+
+
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
+        data.setEditMode(true);
+//        Class intenetToLaunch = data.getIntentToLaunchPage();
+//        Log.v("Create homepage", "5" + intenetToLaunch);
+//        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
+//
+//        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
+//        intent.putExtra("data",data);
+//        startActivity(intent);
+
+        Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
-    }
 
+
+    }
 
 
   public Context getAppContxt(){
@@ -781,6 +812,11 @@ public class MainActivity extends AppCompatActivity{
     public static void makeRequestToaddTemplateData(){
 
 
+    }
+
+
+    public static void setProfileObject(Profile argRequestToMakeProfile){
+         requestToMakeProfile =  argRequestToMakeProfile;
     }
 
     public static Profile getProfileObject(){

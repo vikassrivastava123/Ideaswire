@@ -20,6 +20,9 @@ import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.SignUpData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SignUpRequest;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 
 import java.util.regex.Pattern;
 
@@ -35,6 +38,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
     @InjectView(R.id.input_email) EditText _emailText;
     @InjectView(R.id.input_password) EditText _passwordText;
     @InjectView(R.id.input_phonenumber) EditText _phonenumberText;
+    @InjectView(R.id.confirm_password) EditText _confirm_password;
     @InjectView(R.id.btn_signup)
     Button _signupButton;
     @InjectView(R.id.link_login)
@@ -136,6 +140,8 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
+        String confirmPassword = _confirm_password.getText().toString();
+
         doSignUp();
 
 
@@ -233,6 +239,8 @@ public boolean phone_val(String ph_number)
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
+        String confirmPassword = _confirm_password.getText().toString();
+
         String ph_number = _phonenumberText.getText().toString();
 //        String[] Code_is = count_code.split(",");
 //        String Code  = "+"+Code_is[0];
@@ -243,34 +251,34 @@ public boolean phone_val(String ph_number)
         String Code  = "+"+Code_is[0];
         mobile_num_new = Code+ph_number;
         Log.d("here",mobile_num_new);
-//        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-//        try {
-//            // phone must begin with '+'
-//            Phonenumber.PhoneNumber numberProto = phoneUtil.parse(mobile_num_new, "");
-//            int countryCode = numberProto.getCountryCode();
-//            _phonenumberText.setError(null);
-//        } catch (NumberParseException e) {
-//            _phonenumberText.setError("Enter a valid Mobile re Exception");
-//
-//            valid = false;
-//            System.err.println("NumberParseException was thrown: " + e.toString());
-//        }
-//        valid_num = phone_val(mobile_num_new);
-//        if (valid_num == true)
-//        {
-//            _phonenumberText.setError(null);
-//        }
-//        else
-//        {_phonenumberText.setError("Enter a valid Mobile re");
-//            valid =false;}
-//        valid_num = isValidMobile(mobile_num_new);
-//        if (valid_num == true)
-//        {
-//            _phonenumberText.setError(null);
-//        }
-//        else
-//        {_phonenumberText.setError("Enter a valid Mobile re");
-//        valid =false;}
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        try {
+            // phone must begin with '+'
+            Phonenumber.PhoneNumber numberProto = phoneUtil.parse(mobile_num_new, "");
+            int countryCode = numberProto.getCountryCode();
+            _phonenumberText.setError(null);
+        } catch (NumberParseException e) {
+            _phonenumberText.setError("Enter a valid Mobile re Exception");
+
+            valid = false;
+            System.err.println("NumberParseException was thrown: " + e.toString());
+        }
+        valid_num = phone_val(mobile_num_new);
+        if (valid_num == true)
+        {
+            _phonenumberText.setError(null);
+        }
+        else
+        {_phonenumberText.setError("Enter a valid Mobile re");
+            valid =false;}
+        valid_num = isValidMobile(mobile_num_new);
+        if (valid_num == true)
+        {
+            _phonenumberText.setError(null);
+        }
+        else
+        {_phonenumberText.setError("Enter a valid Mobile re");
+        valid =false;}
 
         if (name.isEmpty() || name.length() < 3) {
             _nameText.setError("at least 3 characters");
@@ -286,12 +294,21 @@ public boolean phone_val(String ph_number)
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 6 || password.length() > 16) {
+            _passwordText.setError("between 6 and 16 alphanumeric characters");
             valid = false;
         } else {
             _passwordText.setError(null);
         }
+
+        if (confirmPassword.equals(password) == false) {
+            _confirm_password.setError("Passsword not matched");
+            valid = false;
+        } else {
+            _confirm_password.setError(null);
+        }
+
+
 
         return valid;
     }

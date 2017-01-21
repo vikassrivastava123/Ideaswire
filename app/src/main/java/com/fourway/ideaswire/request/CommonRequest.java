@@ -28,8 +28,11 @@ public abstract class CommonRequest {
     private static final String GET_PROFILE_DATA_URL =
             "http://ec2-52-66-99-210.ap-south-1.compute.amazonaws.com:8091" +
                     "/4ways/api/profile/search/profile/content";
+    private static final String REFRESH_TOKEN_REQUEST_URL = "http://4ways:4wayssecret@ec2-52-40-240-149.us-west-2.compute.amazonaws.com:8899"
+            + "/4ways/userauth/oauth/token" +"?grant_type=refresh_token";
 
     public enum RequestType  {
+        COMMON_REQUEST_REFRESH_TOKEN,
         COMMON_REQUEST_LOGIN,
         COMMON_REQUEST_FORGET_PASSWORD,
         COMMON_REQUEST_SIGNUP,
@@ -107,6 +110,9 @@ public abstract class CommonRequest {
                 break;
             case COMMON_REQUEST_GET_PROFILE:
                 url = GET_PROFILE_DATA_URL;
+                break;
+            case COMMON_REQUEST_REFRESH_TOKEN:
+                url = REFRESH_TOKEN_REQUEST_URL;
                 break;
         }
         return url;

@@ -234,30 +234,39 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
 
         pd.dismiss();
 
-        if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
-
-            Log.v(Tag,"Success ResponseCode : "+res);
-            deleteCropFile();
-
-            mCampaignIdFromServer = data.getProfileId();
-
-            Intent inte = new Intent(this, CreateCampain_Sucess.class);
-            startActivity(inte);
-            finish();
 
 
-        }else{
-            pd.dismiss();
-            Log.v(Tag,"Error ResponseCode : "+res);
-            Toast.makeText(editCampaign.this, ""+res, Toast.LENGTH_SHORT).show();
-//                COMMON_RES_INTERNAL_ERROR,
-//                COMMON_RES_CONNECTION_TIMEOUT,
-//                COMMON_RES_FAILED_TO_CONNECT,
-//                COMMON_RES_IMAGE_NOT_FOUND,
-//                COMMON_RES_SERVER_ERROR_WITH_MESSAGE
+        switch(res){
+            case COMMON_RES_SUCCESS:
+                Log.v(Tag,"Success ResponseCode : "+res);
+                mCampaignIdFromServer = data.getProfileId();
+                Intent inte = new Intent(this, CreateCampain_Sucess.class);
+                startActivity(inte);
+                finish();
+                break;
+            case COMMON_RES_INTERNAL_ERROR:
+                showMessage("Failed ,Please try again");
+                break;
+            case COMMON_RES_CONNECTION_TIMEOUT:
+                showMessage("Connection Timeout !");
+                break;
+            case COMMON_RES_FAILED_TO_CONNECT:
+                showMessage("Please check internet connection !");
+                break;
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                String errorMsg = data.getErrorMessage();
+                showMessage(errorMsg);
+                break;
+            default:
+                showMessage("Failed ,Please try again");
+                break;
         }
 
 
+    }
+
+    public void showMessage(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 /*    public void deleteCamapign(View view) {

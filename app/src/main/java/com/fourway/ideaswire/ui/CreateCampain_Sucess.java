@@ -15,19 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.AboutUsPage;
-import com.fourway.ideaswire.templates.ClientPage;
-import com.fourway.ideaswire.templates.HomePage;
-import com.fourway.ideaswire.templates.ServicePage;
-import com.fourway.ideaswire.templates.TeamPage;
-import com.fourway.ideaswire.templates.blogpage;
-import com.fourway.ideaswire.templates.contactDetails;
-import com.fourway.ideaswire.templates.dataOfTemplate;
-import com.fourway.ideaswire.templates.pages;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class CreateCampain_Sucess extends Activity {
 
@@ -61,6 +52,15 @@ public class CreateCampain_Sucess extends Activity {
         showImageCampaign();
     }
 
+    public void deleteCropFile(){
+        String path = getFilesDir().getAbsolutePath() + "/" + MainActivity.CREATE_CAMPAIGN_IMAGE_CROPED_NAME;
+
+        File file = new File(path);
+        if (file.exists()){
+            file.delete();
+        }
+    }
+
     private void showImageCampaign(){
 
         Log.v("CreateCampain_Sucess", "showImageCampaign");
@@ -75,6 +75,8 @@ public class CreateCampain_Sucess extends Activity {
 
     }
 
+// will be used when no select template page . show list
+    /*
     private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
 
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
@@ -114,10 +116,11 @@ public class CreateCampain_Sucess extends Activity {
         Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
+        deleteCropFile();
 
 
     }
-
+*/
 
     public void addTemplate(View view) {
 

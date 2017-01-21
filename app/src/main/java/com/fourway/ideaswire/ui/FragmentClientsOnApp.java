@@ -87,7 +87,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
     ClientDataTemplate dataObj;
     private boolean showPreview = false;
-    private boolean mEditMode = false;
+    //private boolean mEditMode = false;
 
     //Variables to make request to server
     Page mClientsPageObj;
@@ -111,20 +111,13 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_clients, container, false);
-        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+     //   mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (ClientDataTemplate) ((FragmenMainActivity)getActivity()).getDatObject();
 
-        if(dataObj.isDefaultDataToCreateCampaign() == false){
-            if (mEditMode){
-                showPreview = false;
-                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
-                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-                mPageName = mthispage.nameis();
-            }else {
-                showPreview = true;
-            }
-        }else{
+        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
+            //  showPreview = true;
+        }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
@@ -216,16 +209,11 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                 }
             }});
 
-        if(showPreview) {
-            init_viewCampaign();
-        }else{
-            init_editCampaign();
-        }
 
-        if (dataObj.isDefaultDataToCreateCampaign()) {
-            showPreview();
-        }else if (mEditMode){
-            showPreview();
+        showPreview();
+
+        if(showPreview == false) {
+             init_editCampaign();
         }
 
         return view;
@@ -235,21 +223,12 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     void init_clientsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
-        if (!mEditMode) {
-            mClientsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        }else {
-            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
-            mClientsPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
-        }
+        mClientsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
 
         if (mClientsPageObj != null) {
-            if (!mEditMode) {
                 lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
                 MainActivity.getProfileObject().deletePageByName(mPageName);
-            }else {
-                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
-                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
-            }
+
         }
         mClientsPageObj = new Page(mProfileId, mPageName);
         mParentId = mClientsPageObj.getPageId();
@@ -489,7 +468,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         }
     }
 
-    void changeText(){
+    public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextService" + title);
         if (title != null) {
@@ -657,11 +636,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_6, dataObj.getClient_logo_6());
 
         Profile reqToMakeProfile;
-        if (!mEditMode) {
-            reqToMakeProfile = MainActivity.getProfileObject();
-        }else {
-            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
-        }
+        reqToMakeProfile = MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         if( lastPositionInList == -1){

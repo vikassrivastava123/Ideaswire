@@ -322,10 +322,10 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
 
         dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
 
-        int pos = dataObj.getPositionInList();
+       // int pos = dataObj.getPositionInList();
         //if(pos > -1)
         if(dataObj.isDefaultDataToCreateCampaign() == true){
-                dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+      //          dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
         }
 
 

@@ -99,7 +99,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     int cropRestart=-1;
     private boolean showPreview = false;
-    private boolean mEditMode = false;
+
 
     TeamDataTemplate dataObj;
 
@@ -121,18 +121,11 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
 
-        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+        //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
         dataObj=(TeamDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
-        if (dataObj.isDefaultDataToCreateCampaign() == false){
-            if (mEditMode){
-                showPreview = false;
-                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
-                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-                mPageName = mthispage.nameis();
-            }else {
-                showPreview = true;
-            }
+        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
+            //  showPreview = true;
         }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
@@ -251,17 +244,12 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
             }});
 
-        if(showPreview) {
-            init_viewCampaign();
-        }else{
+        showPreview();
+
+        if(showPreview == false) {
             init_editCampaign();
         }
 
-        if (dataObj.isDefaultDataToCreateCampaign()) {
-            showPreview();
-        }else if (mEditMode){
-            showPreview();
-        }
 
 
         return view;
@@ -271,21 +259,13 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     void init_teamPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
-        if (!mEditMode) {
-            mTeamPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        }else {
-            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
-            mTeamPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
-        }
+        mTeamPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+
 
         if (mTeamPageObj != null) {
-            if (!mEditMode) {
-                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-                MainActivity.getProfileObject().deletePageByName(mPageName);
-            }else {
-                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
-                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
-            }
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
+
         }
 
         mTeamPageObj = new Page(mProfileId, mPageName);
@@ -619,7 +599,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
     }
 
-    void changeText(){
+    public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextService" + title);
         if (title != null) {
@@ -852,11 +832,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
 
         Profile reqToMakeProfile;
-        if (!mEditMode) {
-            reqToMakeProfile = MainActivity.getProfileObject();
-        }else {
-            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
-        }
+        reqToMakeProfile = MainActivity.getProfileObject();
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         if(lastPositionInList == -1){

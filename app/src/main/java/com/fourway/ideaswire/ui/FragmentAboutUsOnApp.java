@@ -72,7 +72,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     AboutUsDataTemplate dataObj = null;
     private boolean showPreview = false;
-    private boolean mEditMode = false;
+    //private boolean mEditMode = false;
 
     String cardImageUrl = null;
 
@@ -91,24 +91,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_about, container, false);
 
-        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+        //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (AboutUsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
 
-        if(dataObj.isDefaultDataToCreateCampaign() == false){
-            if (mEditMode){
-                showPreview = false;
-                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
-                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-                mPageName = mthispage.nameis();
-            }else {
-                showPreview = true;
-            }
-       }else{
+        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
+            //  showPreview = true;
+        }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
         }
+
+
 
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
@@ -237,18 +232,10 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
 
 
+        showPreview();
 
-
-       if(showPreview == true) {
-           init_viewCampaign();
-       }else{
-           init_editCampaign();
-       }
-
-        if (dataObj.isDefaultDataToCreateCampaign()){
-            showPreview();
-        }else if (mEditMode){
-            showPreview();
+        if(showPreview == false) {
+            init_editCampaign();
         }
 
 
@@ -268,24 +255,12 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     void init_aboutUsPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US;
-        if (!mEditMode) {
-            mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        }else {
-            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
-            mAbtUsPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
-        }
 
-        if(mAbtUsPageObj != null)
-        {
-            if (!mEditMode) {
-                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-                MainActivity.getProfileObject().deletePageByName(mPageName);
-            }else {
-                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
-                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
-            }
+        mAbtUsPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+        if(mAbtUsPageObj != null){
+            lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+            MainActivity.getProfileObject().deletePageByName(mPageName);
         }
-
         mAbtUsPageObj = new Page(mProfileId, mPageName);
         mPageId = mAbtUsPageObj.getPageId();
     }
@@ -382,11 +357,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
 
         Profile reqToMakeProfile =  null;
-        if (!mEditMode){
-            reqToMakeProfile = MainActivity.getProfileObject();
-        }else {
-            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
-        }
+        reqToMakeProfile = MainActivity.getProfileObject();
+
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         /*if( MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1){
             int index = reqToMakeProfile.getIndexOfPage(mPageId);
@@ -828,7 +800,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     }
 
-    void changeText(){
+    public  void changeText(){
 
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextAbtUs" + title);

@@ -70,7 +70,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     HomePageDataTemplate dataObj;
     private boolean showPreview = false;
-    private boolean mEditMode = false;
+    //private boolean mEditMode = false;
 
     String cardImageUrl_1 = null;
     String cardImageUrl_2 = null;
@@ -96,20 +96,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
 
-        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+        //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (HomePageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
-        if(dataObj.isDefaultDataToCreateCampaign() == false){
-            if (mEditMode){
-                showPreview = false;
-                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
-                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-                mPageName = mthispage.nameis();
-            }else {
-                showPreview = true;
-            }
-        }else{
+        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
+            //  showPreview = true;
+        }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
@@ -214,16 +207,10 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         //showImageForBackround();
 
-        if(showPreview == true) {
-            init_viewCampaign();
-        }else{
-            init_editCampaign();
-        }
+        showPreview();
 
-        if (dataObj.isDefaultDataToCreateCampaign()) {
-            showPreview();
-        }else if (mEditMode){
-            showPreview();
+        if(showPreview == false) {
+            init_editCampaign();
         }
         return view;
     }
@@ -233,21 +220,11 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE;
 
-        if (!mEditMode) {
-            mHomePageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        }else {
-            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
-            mHomePageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
-        }
+       mHomePageObj = MainActivity.getProfileObject().getPageByName(mPageName);
+       if (mHomePageObj != null) {
+           lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+           MainActivity.getProfileObject().deletePageByName(mPageName);
 
-        if (mHomePageObj != null) {
-            if (!mEditMode) {
-                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-                MainActivity.getProfileObject().deletePageByName(mPageName);
-            } else {
-                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
-                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
-            }
         }
         mHomePageObj = new Page(mProfileId, mPageName);
         mParentId = mHomePageObj.getPageId();
@@ -565,7 +542,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         if(indexInList >=0 )
         {
             changeText();
-            MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
+           // addPageToRequest();
+           MainActivity.listOfTemplatePagesObj.get(indexInList).setDataObj(dataObj);
         }
     }
 
@@ -696,11 +674,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
 
         Profile reqToMakeProfile;
-        if (!mEditMode) {
-            reqToMakeProfile = MainActivity.getProfileObject();
-        }else {
-            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
-        }
+        reqToMakeProfile = MainActivity.getProfileObject();
+
 
         //if(reqToMakeProfile.checkIfPageExist(mPageId)) {
         if( lastPositionInList == -1){
@@ -718,7 +693,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     }
 
-    void changeText(){
+    public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextHome" + title);
         if (title != null) {

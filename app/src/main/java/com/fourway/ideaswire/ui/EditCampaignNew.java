@@ -293,8 +293,9 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             Profile p = data.getProfile();
             mProfileId = data.getProfileId();
             ArrayList<Page> pageList = p.getAllPages();
-
             MainActivity.initListOfPages();
+
+
             boolean bcanShowProfile = MainActivity.addPagesToList(pageList, true);
 
             if(bcanShowProfile == true) {
@@ -326,11 +327,23 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 */
                 Profile p = loginUi.mProfileList.get(profilePosition);
                 reqToEditProfile = p;
+
+                if(reqToEditProfile != null){
+                     MainActivity.setProfileObject(reqToEditProfile);
+                }
+
                 editCampaign.mCampaignIdFromServer = p.getProfileId();
                 dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
+                dataOfTemplate.setEditMode(true); //when in edit mode while updating profile
+                dataOfTemplate.setIsInUpdateProfileMode(true);
+
                 addDefaultDataForAddPage();
 
+//            Class intenetToLaunch = data.getIntentToLaunchPage();
+//            Log.v(Tag, "5" + intenetToLaunch);
+                reqToEditProfile.setTotalNumberOfPages();
                 Intent intent = new Intent(this, FragmenMainActivity.class);
+//            Intent intent = new Intent(this, intenetToLaunch);
                 intent.putExtra("data", dataOfTemplate);
                 intent.putExtra(MainActivity.ExplicitEditModeKey, true);
                 startActivity(intent);

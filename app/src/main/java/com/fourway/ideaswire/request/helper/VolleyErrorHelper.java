@@ -57,6 +57,7 @@ public class VolleyErrorHelper {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        return "Something went wrong";
                     }
                 default:
                     return COMMON_NETWORK_ERROR_TIMEOUT;

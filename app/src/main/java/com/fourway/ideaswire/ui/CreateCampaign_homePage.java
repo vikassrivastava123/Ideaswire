@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -92,12 +91,10 @@ private static String TAG = "CreateCampaign_homePage";
                         if(view.getId()==R.id.editCampaign) {
                             campaignEditMode = true;
                             profilePosition = position;
+
+
+
                             shownLiveProfile();
-//                            Profile p = loginUi.mProfileList.get(position);
-//                            GetProfileRequestData profileRequestData = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-//                            GetProfileRequest request =
-//                                    new GetProfileRequest(CreateCampaign_homePage.this, profileRequestData, CreateCampaign_homePage.this);
-//                            request.executeRequest();
                         }
 
                     }
@@ -129,13 +126,11 @@ private static String TAG = "CreateCampaign_homePage";
 
         if (!campaignEditMode) {
             dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
-
-            Class intenetToLaunch = data.getIntentToLaunchPage();
-            Log.v(TAG, "5" + intenetToLaunch);
+            data.setEditMode(false);
+            data.setIsInUpdateProfileMode(false);
+            // Log.v(TAG, "5" + intentToLaunch);
             Intent intent = new Intent(this, FragmenMainActivity.class);
-            //Intent intent = new Intent(this, intenetToLaunch);
             intent.putExtra("data", data);
-         //   intent.putExtra(MainActivity.ExplicitEditModeKey, campaignEditMode);
             startActivity(intent);
         } else {
 

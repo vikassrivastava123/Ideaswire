@@ -71,7 +71,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     blogpageDataTemplate dataObj;
     private boolean showPreview = false;
-    private boolean mEditMode = false;
+   // private boolean mEditMode = false;
 
     Page mBlogPageObj;
     String mProfileId = null;
@@ -84,19 +84,12 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view=inflater.inflate(R.layout.fragment_blog, container, false);
 
-        mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
+       // mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (blogpageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
-        if(dataObj.isDefaultDataToCreateCampaign() == false){
-            if (mEditMode){
-                showPreview = false;
-                indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
-                mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
-                mPageName = mthispage.nameis();
-            }else {
-                showPreview = true;
-            }
-        }else{
+        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
+            //  showPreview = true;
+        }else {
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
@@ -220,20 +213,10 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
             paraGraphBlog_below.setVisibility(View.GONE);
         }
 
+        showPreview();
 
-
-
-
-        if(showPreview == true) {
-            init_viewCampaign();
-        }else{
+        if(showPreview == false) {
             init_editCampaign();
-        }
-
-        if (dataObj.isDefaultDataToCreateCampaign()){
-            showPreview();
-        }else if (mEditMode){
-            showPreview();
         }
 
 
@@ -244,21 +227,12 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     void init_blogPage_request(){
         mProfileId = editCampaign.mCampaignIdFromServer;
         //mPageName = ProfileFieldsEnum.PROFILE_PAGE_BLOG;
-        if (!mEditMode) {
-            mBlogPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
-        }else {
-            EditCampaignNew.reqToEditProfile.setTotalNumberOfPages();
-            mBlogPageObj = EditCampaignNew.reqToEditProfile.getPageByName(mPageName);
-        }
+
+        mBlogPageObj = MainActivity.getProfileObject().getPageByName(mPageName);
 
         if (mBlogPageObj!=null) {
-            if (!mEditMode) {
-                lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
-                MainActivity.getProfileObject().deletePageByName(mPageName);
-            }else {
-                lastPositionInList = EditCampaignNew.reqToEditProfile.getIndexOfPageFromName(mPageName);
-                EditCampaignNew.reqToEditProfile.deletePageByName(mPageName);
-            }
+           lastPositionInList = MainActivity.getProfileObject().getIndexOfPageFromName(mPageName);
+           MainActivity.getProfileObject().deletePageByName(mPageName);
         }
         mBlogPageObj = new Page(mProfileId, mPageName);
         mPageId = mBlogPageObj.getPageId();
@@ -585,7 +559,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         }
     }
 
-    void changeText(){
+    public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextBlog" + title);
         if (title != null) {
@@ -663,11 +637,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
 
         Profile reqToMakeProfile;
-        if (!mEditMode) {
-                reqToMakeProfile =  MainActivity.getProfileObject();
-        }else {
-            reqToMakeProfile = EditCampaignNew.reqToEditProfile;
-        }
+        reqToMakeProfile =  MainActivity.getProfileObject();
 
         /*if(MainActivity.getProfileObject().getIndexOfPageFromName(mPageName) != -1) {
             int index = reqToMakeProfile.getIndexOfPage(mPageId);

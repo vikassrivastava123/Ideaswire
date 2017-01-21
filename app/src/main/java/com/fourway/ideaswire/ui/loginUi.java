@@ -17,6 +17,7 @@ import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.LoginData;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.data.SessionManager;
+import com.fourway.ideaswire.login_session.TokenUpdateService;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.LoginRequest;
@@ -209,6 +210,8 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
                 mLogintoken = data.getAccessToken();
                 mRefreshToken = data.getRefreshToken();
                 session.createLoginSession(mLogintoken,mRefreshToken);
+                TokenUpdateService updateService = new TokenUpdateService(getApplicationContext(), data.getAccessTokenExpiry());
+                updateService.onCreate();
                 Log.v(TAG,"LoginToken" + mLogintoken);
                 loginSuccess = true;
                 requestProfileList();
