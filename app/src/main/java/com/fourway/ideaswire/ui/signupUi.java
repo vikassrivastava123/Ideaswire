@@ -47,6 +47,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
     String count_code;
     private String[] states;
     String mobile_num_new;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +132,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(signupUi.this,
+        progressDialog = new ProgressDialog(signupUi.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
@@ -201,8 +202,7 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
         _signupButton.setEnabled(true);
     }
 
@@ -216,7 +216,7 @@ public boolean phone_val(String ph_number)
         boolean check=false;
         if(!Pattern.matches("[a-zA-Z]+", phone2))
         {
-            if(phone2.length() < 6 || phone2.length() > 13)
+            if(phone2.length() < 12 || phone2.length() > 12)
             {
                 check = false;
 
@@ -269,7 +269,7 @@ public boolean phone_val(String ph_number)
             _phonenumberText.setError(null);
         }
         else
-        {_phonenumberText.setError("Enter a valid Mobile re");
+        {_phonenumberText.setError("Enter a valid Mobile Number");
             valid =false;}
         valid_num = isValidMobile(mobile_num_new);
         if (valid_num == true)
@@ -277,7 +277,7 @@ public boolean phone_val(String ph_number)
             _phonenumberText.setError(null);
         }
         else
-        {_phonenumberText.setError("Enter a valid Mobile re");
+        {_phonenumberText.setError("Enter a valid Mobile Number");
         valid =false;}
 
         if (name.isEmpty() || name.length() < 3) {
@@ -302,7 +302,7 @@ public boolean phone_val(String ph_number)
         }
 
         if (confirmPassword.equals(password) == false) {
-            _confirm_password.setError("Passsword not matched");
+            _confirm_password.setError("Password not matched");
             valid = false;
         } else {
             _confirm_password.setError(null);
@@ -316,7 +316,8 @@ public boolean phone_val(String ph_number)
     public void onSignUpSuccess(String msg) {
 
         Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG).show();
-        finish();
+        _signupButton.setEnabled(true);
+
     }
 
     public void onSignUpFail(String msg) {
@@ -330,19 +331,20 @@ public boolean phone_val(String ph_number)
 
         Log.d(TAG, "responseCode ==" + responseCode);
         Log.d(TAG, "Error message =="+data.getErrorMessage());
-
+        progressDialog.dismiss();
         switch(responseCode){
             case COMMON_RES_SUCCESS:
                 onSignUpSuccess("Successfully SignUp! You can login now");
+                finish();
                 break;
             case COMMON_RES_INTERNAL_ERROR:
                 onSignUpSuccess("Please try again");
                 break;
             case COMMON_RES_CONNECTION_TIMEOUT:
-                onSignUpSuccess("Please try again");
+                onSignUpSuccess("Connection timeout !");
                 break;
             case COMMON_RES_FAILED_TO_CONNECT:
-                onSignUpSuccess("Please try again");
+                onSignUpSuccess("Check your connection !");
                 break;
             default:
                 onSignUpSuccess("Please try again");

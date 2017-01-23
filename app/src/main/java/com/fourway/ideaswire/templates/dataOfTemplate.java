@@ -14,7 +14,7 @@ public abstract class dataOfTemplate implements Serializable {
 
     transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
-    boolean mEditMode = false , mUpdateProfile = false;
+   static boolean mEditMode = false , mUpdateProfile = false;
 
     void setHeader(String header){
         this.header = header;

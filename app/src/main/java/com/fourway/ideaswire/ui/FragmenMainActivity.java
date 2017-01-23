@@ -58,6 +58,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     FloatingActionButton fab;
     static ArrayList<Integer> selectedPageList = null;
     static  int pageButtonViewId;
+    static  boolean isChangeThemeManual = false;
 
 
     private static ViewPager mPager;
@@ -103,7 +104,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         if(false == dataObj.isEditDefaultOrUpdateData())
         {
             toolbar.setVisibility(View.GONE);
+            showPreview = true;
         }
+
 
         if( selectedPageList == null && dataObj.isEditDefaultOrUpdateData() == true)
         {
@@ -117,6 +120,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             }else {
                 selectedPageList.add(0);
             }
+        }else {
+            if (selectedPageList == null)
+            selectedPageList = new ArrayList<>();
         }
 
            showBaseMenu();
@@ -125,13 +131,13 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-
-   //     Bundle args = new Bundle();
-  //      args.putSerializable("dataKey", dataObj);
- //       IndexKey =0;
-  //      args.putInt("IndexKey", pageButtonViewId);
-   //     args.putBoolean("showPreviewKey", showPreview);
- //       fragmentToLaunch.setArguments(args);
+        IndexKey = pageButtonViewId;
+//        Bundle args = new Bundle();
+//        args.putSerializable("dataKey", dataObj);
+//
+//        args.putInt("IndexKey", pageButtonViewId);
+//        args.putBoolean("showPreviewKey", showPreview);
+//        fragmentToLaunch.setArguments(args);
 
         if(selectedPageList.size()>1)
         transaction.replace(R.id.mainRLayout,fragmentToLaunch);
@@ -239,7 +245,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         }
 
                         int numberOfBtn = size;
-                        if (showPreview){
+                        if (showPreview && dataObj.isEditDefaultOrUpdateData()){
                             numberOfBtn = selectedPageList.size();
                         }
 
@@ -273,7 +279,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    if (getIndexOfPresentview() != v.getId()) {
+                                    if (pageButtonViewId != v.getId()) {
                                         pageButtonViewId = v.getId();
                                         //Toast.makeText(getApplicationContext(),
                                         //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
@@ -341,9 +347,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         // Add the LinearLayout element to the ScrollView
                         i++;
                     }
-                 btn[getIndexOfPresentview()].setBackgroundColor(fetchThemeBackgroundColor());
-                 btn[getIndexOfPresentview()].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[getIndexOfPresentview()],0,0);
-                 btn[getIndexOfPresentview()].setTextColor(Color.WHITE);
+                 btn[pageButtonViewId].setBackgroundColor(fetchThemeBackgroundColor());
+                 btn[pageButtonViewId].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[pageButtonViewId],0,0);
+                 btn[pageButtonViewId].setTextColor(Color.WHITE);
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
@@ -360,11 +366,11 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     }
 
-    void testForCahngeTheme(){
+   /* void testForCahngeTheme(){
 
         dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
 
-/*      FragmentManager fragmentManager = getFragmentManager();
+      FragmentManager fragmentManager = getFragmentManager();
 
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -378,8 +384,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         fragmentToLaunch.setArguments(args);
 
         transaction.replace(R.id.mainRLayout, fragmentToLaunch);
-        transaction.commit();*/
-    }
+        transaction.commit();
+    }*/
 
     private int fetchThemeBackgroundColor() {
         TypedValue typedValue = new TypedValue();
@@ -475,6 +481,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 public void onClick(DialogInterface dialog, int which) {
                  //  previewCampaign.changeText();
               //      testForCahngeTheme();
+                    isChangeThemeManual = true;
                     theme = mPager.getCurrentItem();
                     recreate();
                 }
@@ -495,7 +502,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     void addPage(){
         final AlertDialog pageDialog=new AlertDialog.Builder(this, R.style.AppTheme).create();
         View dialogView = LayoutInflater.from(this).inflate(R.layout.activity_about_us_page_tamplate,null);
-        final pages currentPages = MainActivity.listOfTemplatePagesObj.get(getIndexOfPresentview());
+        final pages currentPages = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId);
 
         final ListView listView;
         final List<String> list=new ArrayList<>();
@@ -743,24 +750,33 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     protected void onRestart() {
         super.onRestart();
 
-        theme = MainActivity.listOfTemplatePagesObj.get(0).themes();
-        switch (theme){
-            case MainActivity.THEME_ORANGE:
-                setTheme(R.style.AppTheme_Orange);
-                break;
-            case MainActivity.THEME_GREEN:
-                setTheme(R.style.AppTheme_Green);
-                break;
-            default:
-                setTheme(R.style.AppTheme);
+        if (isChangeThemeManual) {
+            theme = MainActivity.listOfTemplatePagesObj.get(0).themes();
+            switch (theme) {
+                case MainActivity.THEME_ORANGE:
+                    setTheme(R.style.AppTheme_Orange);
+                    break;
+                case MainActivity.THEME_GREEN:
+                    setTheme(R.style.AppTheme_Green);
+                    break;
+                default:
+                    setTheme(R.style.AppTheme);
+            }
+            setContentView(R.layout.activity_fragmen_main);
+            getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
+            showBaseMenu();
+            isChangeThemeManual = false;
         }
-        setContentView(R.layout.activity_fragmen_main);
-        getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
-        showBaseMenu();
     }
 
-   static int i = 0;
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isChangeThemeManual) {
+            pageButtonViewId = 0;
+            selectedPageList = null;
+        }
+    }
 }
 
 

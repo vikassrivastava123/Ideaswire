@@ -115,12 +115,14 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         dataObj = (ClientDataTemplate) ((FragmenMainActivity)getActivity()).getDatObject();
 
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true){
+
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar_client);
@@ -214,6 +216,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         if(showPreview == false) {
              init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
         return view;

@@ -86,12 +86,13 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
         dataObj = (ServicesDataTemplate) ((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
 
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true){
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
         deleteTitle =(ImageView)view.findViewById(R.id.deleteTitleService);
@@ -206,6 +207,8 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
 

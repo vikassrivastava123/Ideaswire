@@ -95,12 +95,14 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         dataObj = (AboutUsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
 
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true){
+
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
 
@@ -236,6 +238,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
 

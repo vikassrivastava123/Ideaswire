@@ -33,6 +33,7 @@
                 android:textColorHint = "@color/cardHint"
                 android:textColor="@color/card"
                 android:hint="Name" />
+            <requestFocus />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->

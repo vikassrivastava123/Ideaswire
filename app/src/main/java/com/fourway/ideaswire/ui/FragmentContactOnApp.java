@@ -67,12 +67,14 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
         dataobj = (contactDetailsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
-        if (dataobj.isEditDefaultOrUpdateData() == true && dataobj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataobj.isEditDefaultOrUpdateData() == true){
+
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
         addressTextView=(TextView)view.findViewById(R.id.textView13);
@@ -159,6 +161,8 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
 

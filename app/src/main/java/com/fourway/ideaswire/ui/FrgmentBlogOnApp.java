@@ -87,12 +87,14 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
        // mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (blogpageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true){
+
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
         deleteTitleBlogBtnView=(ImageView)view.findViewById(R.id.deleteTitleBlog);
@@ -217,6 +219,8 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
 

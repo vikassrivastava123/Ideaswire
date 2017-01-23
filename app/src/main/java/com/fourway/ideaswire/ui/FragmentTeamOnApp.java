@@ -124,12 +124,13 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
         dataObj=(TeamDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true){
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
 
@@ -248,6 +249,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
 
 

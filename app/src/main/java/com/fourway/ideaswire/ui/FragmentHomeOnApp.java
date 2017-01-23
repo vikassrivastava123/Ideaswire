@@ -100,12 +100,14 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         dataObj = (HomePageDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();
 
-        if (dataObj.isEditDefaultOrUpdateData() == true && dataObj.isInUpdateProfileMode() == false){
-            //  showPreview = true;
-        }else {
+        if (dataObj.isEditDefaultOrUpdateData() == true ){
+
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
+            showPreview = false;
+        }else {
+            showPreview = true;
         }
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -211,6 +213,8 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         if(showPreview == false) {
             init_editCampaign();
+        }else {
+            init_viewCampaign();
         }
         return view;
     }

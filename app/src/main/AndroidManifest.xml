@@ -23,11 +23,13 @@
         <activity
             android:name=".ui.loginUi"
             android:label="@string/title_activity_login_ui"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.signupUi"
             android:label="@string/title_activity_signup_ui"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ui.HomepageBeforeLogin"
             android:label="@string/title_activity_homepage_before_login"
