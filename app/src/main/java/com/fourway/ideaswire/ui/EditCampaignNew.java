@@ -47,6 +47,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.fourway.ideaswire.ui.editCampaign.mCampaignIdFromServer;
+
 public class EditCampaignNew extends Activity implements GetProfileRequest.GetProfileResponseCallback,UpdateProfileRequest.UpdateProfileResponseCallback{
     NetworkImageView editImageView;
     ImageView editCropImageView;
@@ -64,6 +66,8 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
     RadioButton statusDraft = null;
     private ArrayList<Profile> mProfileList;
     Button btn1;
+
+    boolean blankProfileData = false;
 
     ProgressDialog mProgressDialog;
 
@@ -312,6 +316,19 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             }else{
                 Toast.makeText(getBaseContext(), "Error : Please Try Later", Toast.LENGTH_LONG).show();
             }
+        }else if (res == CommonRequest.ResponseCode.COMMON_RES_PROFILE_DATA_NO_CONTENT) {
+            Profile p = data.getProfile();
+            mProfileId = data.getProfileId();
+            blankProfileData = true;
+            String url =  (mProfileList.get(profilePosition)).getImageUrl();
+            if (url != null && !url.equalsIgnoreCase("null")){
+                editImageView.setImageUrl(url, VolleySingleton.getInstance(this).getImageLoader());
+            }
+
+            String cName = (mProfileList.get(profilePosition)).getProfileName();
+            if (cName !=null){
+                edCampaignName.setText(cName);
+            }
         }
     }
 
@@ -322,31 +339,34 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
             case COMMON_RES_SUCCESS:
                 deleteCropFile();
                 Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show();
+
+                mCampaignIdFromServer = data.getProfileId(); // it is use for create new profile data if onGetProfileResponse COMMON_RES_PROFILE_DATA_NO_CONTENT
 /**
  ---------------------------------Update Profile Data---------------------------------
 */
-                Profile p = loginUi.mProfileList.get(profilePosition);
-                reqToEditProfile = p;
+                if (!blankProfileData) {
+                    Profile p = loginUi.mProfileList.get(profilePosition);
+                    reqToEditProfile = p;
 
-                if(reqToEditProfile != null){
-                     MainActivity.setProfileObject(reqToEditProfile);
+                    if (reqToEditProfile != null) {
+                        MainActivity.setProfileObject(reqToEditProfile);
+                    }
+
+                    mCampaignIdFromServer = p.getProfileId();
+                    dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
+                    dataOfTemplate.setEditMode(false); //when in edit mode while updating profile
+                    dataOfTemplate.setIsInUpdateProfileMode(true);
+
+                    addDefaultDataForAddPage();
+                    reqToEditProfile.setTotalNumberOfPages();
+                    Intent intent = new Intent(this, FragmenMainActivity.class);
+                    intent.putExtra("data", dataOfTemplate);
+                    intent.putExtra(MainActivity.ExplicitEditModeKey, true);
+                    startActivity(intent);
+                }else {
+                    Intent iny = new Intent(this,ChooseTemplate_Category.class);
+                    startActivity(iny);
                 }
-
-                editCampaign.mCampaignIdFromServer = p.getProfileId();
-                dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
-                dataOfTemplate.setEditMode(false); //when in edit mode while updating profile
-                dataOfTemplate.setIsInUpdateProfileMode(true);
-
-                addDefaultDataForAddPage();
-
-//            Class intenetToLaunch = data.getIntentToLaunchPage();
-//            Log.v(Tag, "5" + intenetToLaunch);
-                reqToEditProfile.setTotalNumberOfPages();
-                Intent intent = new Intent(this, FragmenMainActivity.class);
-//            Intent intent = new Intent(this, intenetToLaunch);
-                intent.putExtra("data", dataOfTemplate);
-                intent.putExtra(MainActivity.ExplicitEditModeKey, true);
-                startActivity(intent);
                 break;
         }
     }
