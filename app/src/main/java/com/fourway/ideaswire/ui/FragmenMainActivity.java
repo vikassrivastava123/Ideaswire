@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
@@ -225,6 +226,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     void showBaseMenu(){
 
+        final Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+
         final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
         layout.removeAllViews();
         final Timer timing = new Timer();
@@ -290,6 +293,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setText(name);
                             btn[i].setSingleLine();
                             btn[i].setAllCaps(true);
+                            btn[i].setTypeface(mycustomFont);
                             btn[i].setId(i);
                             btn[i].setCompoundDrawablesWithIntrinsicBounds(0,iconBlack[i],0,0);
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));

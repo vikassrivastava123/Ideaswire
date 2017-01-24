@@ -40,7 +40,7 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
     private EditText mEtCampnName = null;
     private String mCampaignNameReceived = null;
     private static String Tag = "editCampaign";
-    TextView t1_new,mTitle;
+    TextView mTitle,statusTextView;
     CheckBox statusBox=null;
     Button btn1;
     private int imageFrom;
@@ -64,6 +64,8 @@ public class editCampaign extends Activity implements CreateProfileRequest.Creat
         });
 //        setSupportActionBar(toolbar);
 
+        statusTextView = (TextView)findViewById(R.id.tvStatus);
+        statusTextView.setTypeface(mycustomFont);
         btn1 = (Button) findViewById(R.id.btn_createCampaign);
         btn1.setTypeface(mycustomFont);
 //        t1_new.setTypeface(mycustomFont);

@@ -12,23 +12,24 @@
     tools:context="com.fourway.ideaswire.ui.CreateCampain_Sucess"
     tools:showIn="@layout/activity_create_campain__sucess">
 
-    <!-- TODO: remove below code after testing-->
-
-
-
-    <!-- TODO: remove above code after testing-->
 
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="41dp"
         android:scaleType="centerCrop"
         android:id="@+id/imageFinal"
         android:background="@null"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
 
     <RelativeLayout
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/btn_addTemplate"
         android:layout_below="@id/imageFinal"
         android:id="@+id/rLayoutSuccess"
@@ -90,6 +91,8 @@
         android:text="NOW CHOOSE TEMPLATE"
         android:onClick="addTemplate"
         />
+
+
 
 
 </RelativeLayout>

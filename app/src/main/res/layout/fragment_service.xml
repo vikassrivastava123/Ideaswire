@@ -3,18 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <EditText android:id="@+id/Service_TITLE"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
         android:hint="Enter Title"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:textSize="20sp"
         android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor" />
+        android:background="?customBackgroundAttributeColor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/deleteTitleService"
@@ -25,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:background="@null" />
+
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,6 +51,7 @@
                 android:textStyle="bold"
                 android:text="Heading"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/service_heading"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
@@ -67,6 +72,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="This is some random sub heading"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textSize="16sp"
                 android:layout_marginTop="14dp"
                 android:id="@+id/service_subheading"
@@ -88,6 +94,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:textColor="@color/textWith_56p_opacity"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Writing some random paragraph so as to fill the spacethis is the random text."
                 android:gravity="center"
@@ -159,6 +167,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/service_heading_belowimg"
                 android:layout_below="@+id/cardImageLayout"
                 android:layout_centerHorizontal="true" />
@@ -182,6 +191,7 @@
                 android:text="Some random funny sub-heading."
                 android:textSize="16sp"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/service_subheading_belowimg"
                 android:layout_below="@+id/service_heading_belowimg"
                 android:layout_centerHorizontal="true" />
@@ -204,6 +214,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="This is the random para to tet the text view put your own text re."
                 android:textSize="14sp"
+                android:textColor="@color/textWith_56p_opacity"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textAlignment="center"
                 android:id="@+id/service_para_belowing"
                 android:layout_below="@+id/service_subheading_belowimg"
@@ -221,5 +233,7 @@
 
         </RelativeLayout>
     </ScrollView>
+
+
 
 </RelativeLayout>

@@ -666,7 +666,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     public void uploadToBlogOnApp() {
 
-        if(showPreview == false) {
+        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
             String campnName = null;
          /*
         * Need to open gallery directly from here

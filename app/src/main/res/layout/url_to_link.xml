@@ -3,33 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Add Url:" />
 
     <EditText
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextAddUrl"
-        android:hint="Add Url"
+        android:hint="Url"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Set Name:" />
 
     <EditText
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextButtonName"
-        android:hint="Edit Button Name"
+        android:hint="Button Name"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

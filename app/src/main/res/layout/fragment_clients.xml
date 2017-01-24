@@ -5,14 +5,14 @@
 
     <EditText android:id="@+id/Client_TITLE"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:focusable="true"
-        android:onClick="changeTitleTextClient"
+        android:textSize="20sp"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
         android:hint="Enter Title"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor" />
 
@@ -33,7 +33,6 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
         android:layout_below="@+id/Client_TITLE"
         android:focusable="true"
         android:fillViewport="true">
@@ -44,7 +43,7 @@
             android:id="@+id/relativeLayout">
 
             <EditText
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="14dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +51,8 @@
                 android:textStyle="bold"
                 android:onClick="changeHeadingTxtClient"
                 android:textColor="@color/text"
-                android:text="This is the main heading"
+                android:hint="This is the main heading"
+                android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/ClientHeading"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
@@ -76,6 +76,7 @@
                 android:layout_marginTop="14dp"
                 android:textSize="16dp"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:onClick="changeSubHeadingClient"
                 android:text="This is some random sub heading"
                 android:id="@+id/ClientSubHeading"
@@ -102,6 +103,7 @@
                 android:textAlignment="center"
                 android:layout_marginTop="14dp"
                 android:textSize="14sp"
+                android:textColor="@color/textWith_56p_opacity"
                 android:onClick="changeParaClient"
                 android:text="This is some random para dont read it is a dummy text."
                 android:id="@+id/ClientParaGraph"

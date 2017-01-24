@@ -229,7 +229,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                if (!showPreview) {
+                if (!showPreview && progressBar.getVisibility() == View.GONE) {
 
                     if (v.getId() == R.id.deleteTeamImage) {
                         memberImageUrl.remove(position);

@@ -5,13 +5,13 @@
 
     <EditText android:id="@+id/Contact_TITLE"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
         android:hint="Enter Title"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor"
         android:onClick="changeTitleTextAbtUs" />
@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/text"
+
                 android:text="Heading"
                 android:id="@+id/contactHeading"
                 android:layout_alignParentTop="true"
@@ -74,6 +75,7 @@
                 android:layout_marginTop="14dp"
                 android:textSize="16sp"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:text="This is some random some heading"
                 android:id="@+id/contactSubHeading"
                 android:layout_below="@+id/contactHeading"
@@ -100,6 +102,7 @@
                 android:layout_marginTop="14dp"
                 android:text="This is some random para dont read it .please it is a dummy text"
                 android:textSize="14sp"
+                android:textColor="@color/textWith_56p_opacity"
                 android:textAlignment="center"
                 android:id="@+id/contactParaGraph"
                 android:layout_below="@+id/contactSubHeading"
@@ -120,7 +123,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:textSize="20dp"
+                android:fontFamily="fonts/Montserrat-SemiBold.otf"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:text="Address"
                 android:id="@+id/textView13"
                 android:layout_below="@+id/contactParaGraph"
@@ -134,6 +139,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Address line one ,address line 2 address line3"
                 android:textAlignment="center"
+                android:textSize="16sp"
+                android:textColor="@color/text"
                 android:id="@+id/textView14"
                 android:layout_below="@+id/textView13"
                 android:layout_marginRight="30dp"
@@ -154,7 +161,8 @@
                 android:layout_marginTop="20dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Email"
-                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:id="@+id/textView15"
                 android:layout_below="@+id/textView14"
                 android:layout_centerHorizontal="true" />
@@ -164,6 +172,8 @@
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Email Address"
                 android:id="@+id/textView16"
@@ -181,22 +191,26 @@
                 android:background="@null" />
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Phone Number"
+                android:textSize="20sp"
                 android:id="@+id/textView17"
                 android:layout_below="@+id/textView16"
                 android:layout_centerHorizontal="true" />
 
             <EditText
+
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
                 android:text="011-45526119"
+                android:textSize="16sp"
+                android:textColor="@color/text"
                 android:id="@+id/textView18"
                 android:layout_below="@+id/textView17"
                 android:layout_centerHorizontal="true" />
@@ -213,10 +227,11 @@
 
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="Web Site"
                 android:id="@+id/textView19"
                 android:layout_below="@+id/textView18"
@@ -226,7 +241,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:text="www.ideaswire.com"
                 android:id="@+id/textView20"
                 android:layout_below="@+id/textView19"

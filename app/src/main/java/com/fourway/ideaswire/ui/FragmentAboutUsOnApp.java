@@ -164,6 +164,8 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
 
         submit_button = (Button)  view.findViewById(R.id.buttonMainAbtUs);
+        submit_button.setTypeface(mycustomFont);
+
         cardImage = (NetworkImageView)  view.findViewById(R.id.ABOUT_US_CARD_IMAGE);
         cardImageCrop = (ImageView) view.findViewById(R.id.ABOUT_US_STATIC_IMAGE);
 
@@ -382,7 +384,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     public void uploadToAboutUsOnApp() {
 
-        if(showPreview == false) {
+        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
             String campnName = null;
          /*
         * Need to open gallery directly from here

@@ -391,7 +391,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
     public void uploadToServiceOnApp() {
 
-        if(showPreview == false) {
+        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
             String campnName = null;
          /*
         * Need to open gallery directly from here

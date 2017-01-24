@@ -309,7 +309,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     public void uploadToHomeOnApp(String ImageName, int forWhichImage) {
 
-        if(showPreview == false) {
+        if(showPreview == false && progressBar1.getVisibility() == View.GONE && progressBar2.getVisibility() == View.GONE) {
             String campnName = null;
          /*
         * Need to open gallery directly from here

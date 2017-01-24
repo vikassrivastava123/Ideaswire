@@ -8,6 +8,7 @@
         android:ellipsize="end"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:textSize="20sp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
@@ -62,17 +63,7 @@
                 <!-- android:onClick="uploadToAboutUsOnApp"-->
 
 
-                <ImageView
-                    android:id="@+id/deleteCARD_IMAGE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cross_1"
-                    android:layout_below="@+id/txtEdit"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="1dp"
-                    android:background="@null"
-                    />
+
 
                 <ImageView
 
@@ -84,6 +75,17 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
+                <ImageView
+                    android:id="@+id/deleteCARD_IMAGE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cross_1"
+                    android:layout_below="@+id/txtEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@null"
+                    />
 
                 <ProgressBar
                     android:visibility="gone"
@@ -103,6 +105,8 @@
                 android:layout_width="wrap_content"
                 android:background="@color/card"
                 android:layout_height="40dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:id="@+id/ABOUT_US_HEADING"
                 android:layout_below="@+id/cardImageLayout"
                 android:layout_marginTop="5dp"
@@ -139,6 +143,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="14dp"
                 android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="There are many variation of packagaes "
                 android:layout_below="@+id/ABOUT_US_HEADING"
@@ -168,6 +173,9 @@
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/textWith_56p_opacity"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -201,7 +209,9 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:textAllCaps="true"
+        android:textSize="14sp"
         android:text="Add Button Text"
         android:onClick="showListOfPages"
         android:id="@+id/buttonMainAbtUs"
