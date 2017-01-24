@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.Profile;
 import com.fourway.ideaswire.request.CommonRequest;
+import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
@@ -43,13 +46,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FragmenMainActivity extends Activity implements SaveProfileData.SaveProfileResponseCallback{
-    Button abtBtn,blogBtn;
+import static com.fourway.ideaswire.ui.loginUi.mLogintoken;
+
+public class FragmenMainActivity extends Activity implements SaveProfileData.SaveProfileResponseCallback,GetUserProfileRequest.GetUserProfilesResponseCallback {
+
     Fragment fragment;
     dataOfTemplate dataObj = null;
     private static String TAG = "FragmenMainActivity";
     private boolean showPreview = false;
-    private boolean mEditMode = false;
     private Boolean isUpdateRequest;
     int IndexKey = 0;
     Fragment fragmentToLaunch;
@@ -67,7 +71,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //theme = MainActivity.listOfTemplatePagesObj.get(0).themes();
+
+        //theme = MainActivity.listOfTemplatePagesObj.get(0).themes(); //TODO: change theme login
         switch (theme){
             case MainActivity.THEME_ORANGE:
                 setTheme(R.style.AppTheme_Orange);
@@ -91,15 +96,24 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
        // mEditMode = super.getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
 
-//        if(pageButtonViewId ==0) {
+        try {
+            if(dataObj != null) {
+                dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
+            }else{
+                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
+            }
+        }catch (NullPointerException e){
+            Log.d(TAG,e.toString());
 
-      //  dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
-//todo try catch for nullpointer exception and indexout of bound + add log.v in catch statement
-        dataObj = null;
-        dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
+        }catch (IndexOutOfBoundsException e){
+            Log.d(TAG,e.toString());
+        }
 
 
-       /*We can show in either Preview or Edit mode */
+
+       /**
+        * We can show in either Preview or Edit mode
+        */
 
         if(false == dataObj.isEditDefaultOrUpdateData())
         {
@@ -107,43 +121,45 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             showPreview = true;
         }
 
-
-        if( selectedPageList == null && dataObj.isEditDefaultOrUpdateData() == true)
-        {
+        /**
+         * selectedPageList : it's save selected page base menu button id, which page add in profile data
+         */
+        if( selectedPageList == null && dataObj.isEditDefaultOrUpdateData() == true) {
             selectedPageList = new ArrayList<>();
 
             if(dataObj.isInUpdateProfileMode()== true){
                 int sizeOfPages = MainActivity.listOfTemplatePagesObj.size();
                 for(int i = 0 ;i< sizeOfPages;i++){
-                   selectedPageList.add(i);
+                   selectedPageList.add(i);             // add all button when update mode
                }
             }else {
-                selectedPageList.add(0);
+                selectedPageList.add(0);    // by default add 1st button when edit edit mode
             }
-        }else {
-            if (selectedPageList == null)
-            selectedPageList = new ArrayList<>();
         }
 
-           showBaseMenu();
 
-         fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+        showBaseMenu();
+
+        fragmentToLaunch = dataObj.getFragmentToLaunchPage();
         FragmentManager fragmentManager=getFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         IndexKey = pageButtonViewId;
-//        Bundle args = new Bundle();
-//        args.putSerializable("dataKey", dataObj);
-//
-//        args.putInt("IndexKey", pageButtonViewId);
-//        args.putBoolean("showPreviewKey", showPreview);
-//        fragmentToLaunch.setArguments(args);
 
-        if(selectedPageList.size()>1)
-        transaction.replace(R.id.mainRLayout,fragmentToLaunch);
-        else
-        transaction.add(R.id.mainRLayout,fragmentToLaunch); //TODO: uncomment after test
-        //transaction.add(R.id.mainRLayout,new FragmentLayout3());//TODO: remove code after test
+        try {
+            if(selectedPageList.size()>1) {
+                transaction.replace(R.id.mainRLayout, fragmentToLaunch);
+            }
+            else {
+                transaction.add(R.id.mainRLayout, fragmentToLaunch); //TODO: uncomment after test     ???
+            }
+        }catch (NullPointerException e){
+            Log.v(TAG, e.toString());
+            transaction.add(R.id.mainRLayout, fragmentToLaunch);
+        }
+
+
+        //transaction.add(R.id.mainRLayout,new FragmentLayout3());//TODO: remove code after test ???
         transaction.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -154,7 +170,6 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 aboutUsButtonAction();
             }
 
@@ -174,12 +189,6 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         Profile reqToMakeProfile =  null;
         reqToMakeProfile = MainActivity.getProfileObject(); //data for profile
 
-//        if (!mEditMode){
-//            isUpdateRequest = false;
-//        }else {
-//            isUpdateRequest = true;
-//        }
-
         isUpdateRequest = dataObj.isInUpdateProfileMode();
 
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
@@ -187,13 +196,13 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         if(numOfPages > 0) {
 
             //addPageToRequest(); //This function has check that ensures page is not added duplicate
-            SaveProfileData req = new SaveProfileData(FragmenMainActivity.this, reqToMakeProfile, loginUi.mLogintoken,FragmenMainActivity.this,isUpdateRequest);
+            SaveProfileData req = new SaveProfileData(FragmenMainActivity.this, reqToMakeProfile, mLogintoken,FragmenMainActivity.this,isUpdateRequest);
             req.executeRequest();
         }else{
             Toast.makeText(this, "No page was added to your campaign", Toast.LENGTH_LONG).show();
 
             //addPageToRequest();
-            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, loginUi.mLogintoken, this,isUpdateRequest);
+            SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, mLogintoken, this,isUpdateRequest);
             req.executeRequest();
         }
 
@@ -244,9 +253,16 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             name = nameStrings[0];
                         }
 
-                        int numberOfBtn = size;
+                        int numberOfBtn = size;  // number of button when data come from server and preview mode
+
+                        //try for null pointer catch . log catch in case it fails
                         if (showPreview && dataObj.isEditDefaultOrUpdateData()){
-                            numberOfBtn = selectedPageList.size();
+                            try {
+                                numberOfBtn = selectedPageList.size();  // buttons which page are add in profile data
+                            }catch (NullPointerException e){
+                                Log.d(TAG, e.toString());
+                            }
+
                         }
 
                          float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics())/2;
@@ -366,26 +382,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     }
 
-   /* void testForCahngeTheme(){
 
-        dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
-
-      FragmentManager fragmentManager = getFragmentManager();
-
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.hide(fragmentToLaunch);
-        fragmentToLaunch = dataObj.getFragmentToLaunchPage();
-        Bundle args = new Bundle();
-        args.putSerializable("dataKey", dataObj);
-        args.putInt("IndexKey", pageButtonViewId);
-        IndexKey = pageButtonViewId;
-        args.putBoolean("showPreviewKey", showPreview);
-        fragmentToLaunch.setArguments(args);
-
-        transaction.replace(R.id.mainRLayout, fragmentToLaunch);
-        transaction.commit();
-    }*/
 
     private int fetchThemeBackgroundColor() {
         TypedValue typedValue = new TypedValue();
@@ -406,11 +403,15 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         Button showPreviewBtn  = (Button)findViewById(R.id.showPreview);
 
 
-        if(toglePreviewButton == false) {
+        if(toglePreviewButton == false) {    //this means app is in edit mode and user pressed
+                                             //priview button so now it should be priview mode
             textViewShowPreview.setText("Edit");
             fab.show();
             showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
             previewCampaign.init_ViewCampaign();
+
+            dataObj.setPriviewMode(true);   //take app to priview mode
+
             //init_viewCampaign();
             showPreview = true;
             toglePreviewButton = true;
@@ -420,6 +421,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             fab.hide();
             showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
             previewCampaign.init_ViewCampaign();
+
+            dataObj.setPriviewMode(false);  //take app to edit mode
+
             //init_editCampaign();
             showPreview = false;
             toglePreviewButton = false;
@@ -700,13 +704,21 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             errorDialog.setIcon(android.R.drawable.ic_dialog_info);
             errorDialog.setCancelable(false);
             errorDialog.setTitle("Congratulation!");
+
+            if (!dataObj.isInUpdateProfileMode())
             errorDialog.setMessage("Your app successfully created. ");
+            else
+            errorDialog.setMessage("Your app successfully updated. ");
+
             errorDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(getApplicationContext(), CreateCampaign_homePage.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+
+                    GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
+                    GetUserProfileRequest request = new GetUserProfileRequest(FragmenMainActivity.this, data, FragmenMainActivity.this);
+                    request.executeRequest();
+
+
                 }
             });
             errorDialog.show();
@@ -736,12 +748,28 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         }
     }
 
+    @Override
+    public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
+        switch (res) {
+            case COMMON_RES_SUCCESS:
+                loginUi.mProfileList = data.getProfileList();
+                Intent intent = new Intent(getApplicationContext(), CreateCampaign_homePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+        }
+
+    }
+
+
     abstract public interface viewCampaign{
         abstract void init_ViewCampaign();
         abstract void addLastPage();
         abstract void changeText();
     }
 
+    /*
+    * Preview button is pressed if  showPreview = true;
+    * */
     public boolean checkPreview(){
         return showPreview;
     }
@@ -772,9 +800,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (!isChangeThemeManual) {
+        if (!isChangeThemeManual) {     //init static variables
             pageButtonViewId = 0;
             selectedPageList = null;
+            dataObj.setEditMode(false);
+            dataObj.setIsInUpdateProfileMode(false);
+            dataObj.setPriviewMode(false);
         }
     }
 }

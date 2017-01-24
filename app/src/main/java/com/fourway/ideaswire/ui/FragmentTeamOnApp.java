@@ -98,7 +98,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
 
     int cropRestart=-1;
-    private boolean showPreview = false;
+    private boolean showPreview = false;        /**Is in editable mode or privew/it is server data .
+                                                    in case it false : editable, True means : Priview or server data*/
 
 
     TeamDataTemplate dataObj;
@@ -110,12 +111,12 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     String mParentId = null;
     Profile requestToMakeProfile;
 
-    void showPreview(){
-        if(((FragmenMainActivity)getActivity()).checkPreview()){
-            init_ViewCampaign();
-            showPreview=true;
-        }
-    }
+//    void showPreview(){
+//        if(((FragmenMainActivity)getActivity()).checkPreview()){
+//            init_ViewCampaign();
+//            showPreview=true;
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,9 +129,9 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
-            showPreview = false;
+            showPreview = false;        //since editable
         }else {
-            showPreview = true;
+            showPreview = true;          //in preview or server data
         }
 
 
@@ -245,7 +246,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
             }});
 
-        showPreview();
+        //showPreview();
 
         if(showPreview == false) {
             init_editCampaign();
@@ -846,12 +847,19 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     }
 
+
+    /**
+     * What action should happen in case privew button is pressed by user
+     * showPreview : if it is true that means it was in priview mode . change this to edit mode
+     *  showPreview : if it is false that means it was in edit mode . change this to priview mode
+     */
+
     @Override
     public void init_ViewCampaign() {
         if (showPreview==false){
             init_viewCampaign();
             showPreview = true;
-        }else {
+        }else {             //in priview mode
             init_editCampaign();
             showPreview = false;
         }

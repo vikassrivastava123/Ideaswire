@@ -14,7 +14,7 @@ public abstract class dataOfTemplate implements Serializable {
 
     transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
-   static boolean mEditMode = false , mUpdateProfile = false;
+    static boolean mEditMode = false , mUpdateProfile = false , mIsPriviewMode = false;
 
     void setHeader(String header){
         this.header = header;
@@ -33,9 +33,14 @@ public abstract class dataOfTemplate implements Serializable {
         return mEditMode;
     }
 
+    /**
+    * mUpdateProfile : Do not change this value from pages as need to know it is for update or new page edit request
+    * mEditMode : When user creates new profile it should be in edit mode .
+    */
+
     public boolean isEditDefaultOrUpdateData() {
         boolean bIneditMode = false;
-        if(mUpdateProfile || mEditMode) {
+        if((mUpdateProfile || mEditMode) && mIsPriviewMode == false ) {
             bIneditMode = true;
         }
             return bIneditMode;
@@ -44,6 +49,10 @@ public abstract class dataOfTemplate implements Serializable {
 
     public void setEditMode(boolean tf){
         mEditMode = tf;
+    }
+
+    public void setPriviewMode(boolean tf){
+        mIsPriviewMode = tf;
     }
 
     public boolean isInUpdateProfileMode(){

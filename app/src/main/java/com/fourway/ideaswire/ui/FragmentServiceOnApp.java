@@ -69,7 +69,8 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     public static String TAG="ServiceOnApp";
 
     ServicesDataTemplate dataObj;
-    private boolean showPreview = false;
+    private boolean showPreview = false;        /**Is in editable mode or privew/it is server data .
+                                                    in case it false : editable, True means : Priview or server data*/
 
 
     pages mthispage = null;
@@ -90,9 +91,9 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
-            showPreview = false;
+            showPreview = false;    //since editable
         }else {
-            showPreview = true;
+            showPreview = true;     //in preview or server data
         }
 
         deleteTitle =(ImageView)view.findViewById(R.id.deleteTitleService);
@@ -203,7 +204,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
 
-        showPreview();
+        //showPreview();
 
         if(showPreview == false) {
             init_editCampaign();
@@ -278,12 +279,18 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
     }
 
+    /**
+     * What action should happen in case privew button is pressed by user
+     * showPreview : if it is true that means it was in priview mode . change this to edit mode
+     *  showPreview : if it is false that means it was in edit mode . change this to priview mode
+     */
+
     @Override
     public void init_ViewCampaign() {
         if (showPreview==false){
             init_viewCampaign();
             showPreview = true;
-        }else {
+        }else {     //in priview mode
             init_editCampaign();
             showPreview = false;
         }
@@ -687,13 +694,13 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     {
         return "Services";
     }
-
-    void showPreview(){
-
-        if(((FragmenMainActivity)getActivity()).checkPreview()){
-            init_ViewCampaign();
-            showPreview=true;
-        }
-
-    }
+//
+//    void showPreview(){
+//
+//        if(((FragmenMainActivity)getActivity()).checkPreview()){
+//            init_ViewCampaign();
+//            showPreview=true;
+//        }
+//
+//    }
 }

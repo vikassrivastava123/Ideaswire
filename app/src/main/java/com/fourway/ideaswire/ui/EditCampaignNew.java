@@ -334,7 +334,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
                 editCampaign.mCampaignIdFromServer = p.getProfileId();
                 dataOfTemplate dataOfTemplate = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, false);
-                dataOfTemplate.setEditMode(true); //when in edit mode while updating profile
+                dataOfTemplate.setEditMode(false); //when in edit mode while updating profile
                 dataOfTemplate.setIsInUpdateProfileMode(true);
 
                 addDefaultDataForAddPage();

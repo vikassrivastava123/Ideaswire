@@ -71,8 +71,9 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     ProgressBar progressBar =null;
 
     AboutUsDataTemplate dataObj = null;
-    private boolean showPreview = false;
-    //private boolean mEditMode = false;
+    private boolean showPreview = false;   /**Is in editable mode or privew/it is server data .
+                                             in case it false : editable, True means : Priview or server data*/
+
 
     String cardImageUrl = null;
 
@@ -100,9 +101,9 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             indexInList = (int)((FragmenMainActivity)getActivity()).getIndexOfPresentview();
             mthispage = MainActivity.listOfTemplatePagesObj.get(indexInList);
             mPageName = mthispage.nameis();
-            showPreview = false;
+            showPreview = false;   //since editable
         }else {
-            showPreview = true;
+            showPreview = true;    //in preview or server data
         }
 
 
@@ -185,7 +186,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         submit_button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
 
-                if(showPreview == false) {
+                if(showPreview == false) { //it is editable and link page to button
                     showMenuOptionToLinkPage();
                 }else{
 
@@ -234,7 +235,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
 
 
-        showPreview();
+   //   showPreview();
 
         if(showPreview == false) {
             init_editCampaign();
@@ -247,13 +248,13 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         return view;
     }
 
-    void showPreview(){
-        if(((FragmenMainActivity)getActivity()).checkPreview()){
-            init_ViewCampaign();
-            showPreview=true;
-        }
-
-    }
+//    void showPreview(){
+//        if(((FragmenMainActivity)getActivity()).checkPreview()){    //true means in preview mode
+//            init_ViewCampaign();
+//            showPreview=true;
+//        }
+//
+//    }
 
     int lastPositionInList = -1;
     void init_aboutUsPage_request(){
@@ -693,12 +694,19 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
         }
     }
 
+        /**
+        * What action should happen in case privew button is pressed by user
+        * showPreview : if it is true that means it was in priview mode . change this to edit mode
+        *  showPreview : if it is false that means it was in edit mode . change this to priview mode
+        */
+
+
     @Override
     public void init_ViewCampaign() {
         if (showPreview==false){
             init_viewCampaign();
             showPreview = true;
-        }else {
+        }else {  //in priview mode
             init_editCampaign();
             showPreview = false;
         }

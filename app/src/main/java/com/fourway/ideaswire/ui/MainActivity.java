@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity{
         //startActivity(intent);
 
 
-//       startActivity(new Intent(this,SplashScreen.class));
+       startActivity(new Intent(this,SplashScreen.class));
 
 
 
-        startCreateCampaignWithDefaultData(1);
+//        startCreateCampaignWithDefaultData(1);
     }
 
 
@@ -159,8 +159,8 @@ public class MainActivity extends AppCompatActivity{
 
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
-        data.setEditMode(true);
-        data.setIsInUpdateProfileMode(false);
+        data.setEditMode(false);
+        data.setIsInUpdateProfileMode(true);
 //        Class intenetToLaunch = data.getIntentToLaunchPage();
 //        Log.v("Create homepage", "5" + intenetToLaunch);
 //        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);

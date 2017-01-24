@@ -209,7 +209,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         //showImageForBackround();
 
-        showPreview();
+      //  showPreview();
 
         if(showPreview == false) {
             init_editCampaign();
@@ -689,13 +689,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
     }
 
-    void showPreview(){
-        if(((FragmenMainActivity)getActivity()).checkPreview()){
-            init_ViewCampaign();
-            showPreview=true;
-        }
-
-    }
+//    void showPreview(){
+//        if(((FragmenMainActivity)getActivity()).checkPreview()){
+//            init_ViewCampaign();
+//            showPreview=true;
+//        }
+//
+//    }
 
     public  void changeText(){
         String title = String.valueOf(editTitle.getText());
