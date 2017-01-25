@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,6 +65,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     static ArrayList<Integer> selectedPageList = null;
     static  int pageButtonViewId;
     static  boolean isChangeThemeManual = false;
+    ProgressDialog mProgressDialog;
 
 
     private static ViewPager mPager;
@@ -184,6 +186,10 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     private void aboutUsButtonAction() {
 
+        mProgressDialog = new ProgressDialog(FragmenMainActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        mProgressDialog.setIndeterminate(true);
+
         previewCampaign = (viewCampaign)fragmentToLaunch ;
         previewCampaign.addLastPage();
 
@@ -191,6 +197,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         reqToMakeProfile = MainActivity.getProfileObject(); //data for profile
 
         isUpdateRequest = dataObj.isInUpdateProfileMode();
+
+        if (isUpdateRequest) {
+            mProgressDialog.setMessage("Updating profile...  ");
+        }else {
+            mProgressDialog.setMessage("Please wait...  ");
+        }
 
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
 
@@ -206,6 +218,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             SaveProfileData req = new SaveProfileData(this, reqToMakeProfile, mLogintoken, this,isUpdateRequest);
             req.executeRequest();
         }
+        mProgressDialog.show();
 
     }
 
@@ -552,6 +565,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
                             final String pageName = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).nameis();
                             final pages mNewPage = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).getNewPage();
+                            dataOfTemplate dot = mNewPage.getTemplateData(1,true);
+                            mNewPage.setDataObj(dot);
 
                             final AlertDialog mAlertDialog = new AlertDialog.Builder(FragmenMainActivity.this).create();
                             mAlertDialog.setTitle("Page Name");
@@ -700,6 +715,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     @Override
     public void onProfileSaveResponse(CommonRequest.ResponseCode res, Profile data) {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
         AlertDialog.Builder  errorDialog = new AlertDialog.Builder(this);
         errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
         errorDialog.setPositiveButton("OK", null);
@@ -721,6 +739,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
                     GetUserProfileRequest request = new GetUserProfileRequest(FragmenMainActivity.this, data, FragmenMainActivity.this);
                     request.executeRequest();
+                    mProgressDialog.setMessage("Please wait...  ");
+                    mProgressDialog.show();
 
 
                 }
@@ -754,6 +774,9 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     @Override
     public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
         switch (res) {
             case COMMON_RES_SUCCESS:
                 loginUi.mProfileList = data.getProfileList();
@@ -810,6 +833,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             dataObj.setEditMode(false);
             dataObj.setIsInUpdateProfileMode(false);
             dataObj.setPriviewMode(false);
+            if (select_layout_of_template.listOfTemplatePagesObjForAddPage != null)
+            select_layout_of_template.listOfTemplatePagesObjForAddPage.clear();
         }
     }
 }
