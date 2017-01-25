@@ -12,9 +12,9 @@
         android:gravity="center"
         android:hint="Enter Title"
         android:maxLines="1"
+        android:textSize="20sp"
         android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor"
-        android:onClick="changeTitleTextAbtUs" />
+        android:background="?customBackgroundAttributeColor" />
 
     <ImageView
         android:id="@+id/deleteTitleContact"
@@ -132,6 +132,7 @@
                 android:layout_centerHorizontal="true" />
 
             <EditText
+                android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,6 +169,7 @@
                 android:layout_centerHorizontal="true" />
 
             <EditText
+                android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
@@ -203,7 +205,7 @@
                 android:layout_centerHorizontal="true" />
 
             <EditText
-
+                android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -237,6 +239,7 @@
                 android:layout_below="@+id/textView18"
                 android:layout_centerHorizontal="true" />
             <EditText
+                android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

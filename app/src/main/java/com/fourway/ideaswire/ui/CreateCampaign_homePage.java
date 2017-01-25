@@ -32,6 +32,7 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
     Boolean campaignEditMode;
     int profilePosition;
     ImageButton menuButton;
+    ProgressDialog mProgressDialog;
 private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,11 @@ private static String TAG = "CreateCampaign_homePage";
                             GetProfileRequest request =
                                     new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
                             request.executeRequest();
+                            mProgressDialog = new ProgressDialog(CreateCampaign_homePage.this,
+                                    R.style.AppTheme_Dark_Dialog);
+                            mProgressDialog.setIndeterminate(true);
+                            mProgressDialog.setMessage("Getting data...  ");
+                            mProgressDialog.show();
 
                         }
 
@@ -165,6 +171,7 @@ private static String TAG = "CreateCampaign_homePage";
 
     @Override
     public void onGetProfileResponse(CommonRequest.ResponseCode res, GetProfileRequestData data) {
+        mProgressDialog.dismiss();
         AlertDialog.Builder  errorDialog = new AlertDialog.Builder(this);
         errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
         errorDialog.setPositiveButton("OK", null);

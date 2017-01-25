@@ -141,7 +141,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         editParaGraph =(EditText)view.findViewById(R.id.paraGraphTeam);
 
         editTitle.setText(dataObj.getTitle());
-        editHeading.setText(dataObj.getHeader());
+        editHeading.setText(dataObj.getHeaderTeam());
         editSubHeading.setText(dataObj.getSubHeadingTeam());
         editParaGraph.setText(dataObj.getParaGraphTeam());
 
@@ -165,7 +165,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             editTitle.setVisibility(View.GONE);
         }
 
-        String heading=dataObj.getHeader();
+        String heading=dataObj.getHeaderTeam();
         if (heading!=null && !heading.equals("")){
             editHeading.setText(heading);
             editHeading.setTypeface(mycustomFont);

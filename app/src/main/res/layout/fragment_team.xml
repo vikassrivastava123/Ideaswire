@@ -3,18 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText android:id="@+id/Team_TITLE"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColor="@color/card"
-        android:gravity="center"
-        android:hint="Enter Title"
-        android:maxLines="1"
-        android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor" />
-
     <ImageView
         android:id="@+id/deleteTitleTeam"
         android:layout_width="wrap_content"
@@ -41,6 +29,7 @@
             android:id="@+id/relativeLayout">
 
             <EditText
+                android:gravity="center"
                 android:layout_marginTop="14dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
@@ -63,6 +52,7 @@
                 android:background="@null" />
 
             <EditText
+                android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,6 +125,22 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <EditText android:id="@+id/Team_TITLE"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/card"
+        android:gravity="center"
+        android:hint="Enter Title"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:textColorHint = "@color/cardHint"
+        android:background="?customBackgroundAttributeColor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -11,6 +11,7 @@
         android:textColor="@color/card"
         android:gravity="center"
         android:hint="Enter Title"
+        android:textSize="20sp"
         android:maxLines="1"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor"
