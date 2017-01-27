@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int REQUEST_GALLERY_IMAGE_SELECTOR_KITKAT = 102;
     public static final int REQUEST_CAMERA_IMAGE_SELECTOR = 103;
     public static final String ExplicitEditModeKey = "ExplicitEditMode";
+    public static final String CROSS_BUTTON_HIDE = "*#doNotShow#*";
 
     public static final int THEME_DEFAULT = 0;
     public static final int THEME_ORANGE = 1;

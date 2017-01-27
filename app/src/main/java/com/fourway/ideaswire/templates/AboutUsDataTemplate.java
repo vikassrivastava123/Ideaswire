@@ -53,12 +53,12 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     void initDeafultdata(){
 
         title = "Business";
-        headerAboutUs = "Toatam Aperiam Consect";
+      /*  headerAboutUs = "Totam Aperiam Consect";
         sub_header = "There are many variation of passages";
         text_para = "There are many variation of passage " +
                 "Lorem Ipsum available but the majority have" +
                 " in some form bye inject humour";
-        button_text = "BUTTON TEXT";
+        button_text = "BUTTON TEXT";*/
 
     }
 

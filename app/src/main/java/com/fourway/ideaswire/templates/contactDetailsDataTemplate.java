@@ -38,7 +38,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
     void initDeafultdata(){
 
         title="Contact";
-        headerContact = "Totam Aperiam Consect";
+       /* headerContact = "Totam Aperiam Consect";
         subHeading = "There are many variation of passages";
         paraGraph = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
@@ -48,7 +48,7 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
                 "\nSimple Random - 1100083";
         email = "dummy254@gmail.com";
         phoneNumber = "+91-8800664433";
-        website = "www.4wayTechnologies.com";
+        website = "www.4wayTechnologies.com";*/
     }
 
 

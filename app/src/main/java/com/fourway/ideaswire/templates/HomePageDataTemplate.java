@@ -42,9 +42,9 @@ public class HomePageDataTemplate extends dataOfTemplate{
 
     void initDeafultdata(){
         title="Home";
-        heading = "Toatam Aperiam Consect";
+        /*heading = "Toatam Aperiam Consect";
         subHeading = "There are many variation of passages";
-        paraGraph= "This is custom random para to generate space dont read ti its useless";
+        paraGraph= "This is custom random para to generate space dont read ti its useless";*/
     }
 
     @Override

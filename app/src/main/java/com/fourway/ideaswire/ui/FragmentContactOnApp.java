@@ -19,6 +19,8 @@ import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.templates.contactDetailsDataTemplate;
 import com.fourway.ideaswire.templates.pages;
 
+import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
+
 /**
  * Created by 4way on 24-10-2016.
  */
@@ -93,6 +95,15 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         deletePhone=(ImageView)view.findViewById(R.id.deletePhoneContact);
         deleteWeb=(ImageView)view.findViewById(R.id.deleteWebContact);
 
+        deleteTitle.setVisibility(View.GONE);
+        deleteHeading.setVisibility(View.GONE);
+        deleteSubHeading.setVisibility(View.GONE);
+        deleteParaGraph.setVisibility(View.GONE);
+        deleteAddress.setVisibility(View.GONE);
+        deleteEmail.setVisibility(View.GONE);
+        deletePhone.setVisibility(View.GONE);
+        deleteWeb.setVisibility(View.GONE);
+
         deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
@@ -106,57 +117,78 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
         String title=dataobj.getTitle();
         editTitle = (EditText)view.findViewById(R.id.Contact_TITLE);
-        if(title != null && !title.equals("")) {
+        if(title == null || !title.equals(CROSS_BUTTON_HIDE)) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
+        }else {
+            editTitle.setVisibility(View.GONE);
         }
 
         String header=dataobj.getHeaderContact();
         editHeading = (EditText) view.findViewById(R.id.contactHeading);
-        if(header !=null && !header.equals("")){
+        if(header == null || !header.equals(CROSS_BUTTON_HIDE)){
             editHeading.setText(header);
             editHeading.setTypeface(mycustomFont);
+        }else {
+            editHeading.setVisibility(View.GONE);
         }
 
         String subHeading = dataobj.getSubHeading();
         editSubheading = (EditText) view.findViewById(R.id.contactSubHeading);
-        if (subHeading != null && !subHeading.equals("")) {
+        if (subHeading == null || !subHeading.equals(CROSS_BUTTON_HIDE)) {
             editSubheading.setText(subHeading);
             editSubheading.setTypeface(mycustomFont);
+        }else {
+            editSubheading.setVisibility(View.GONE);
         }
 
         String paraGraph = dataobj.getParaGraph();
         editPara = (EditText) view.findViewById(R.id.contactParaGraph);
-        if (paraGraph != null && !paraGraph.equals("")){
+        if (paraGraph == null || !paraGraph.equals(CROSS_BUTTON_HIDE)){
             editPara.setText(paraGraph);
             editPara.setTypeface(mycustomFont);
+        }else {
+            editPara.setVisibility(View.GONE);
         }
 
         String address = dataobj.getAddress();
         editAddress = (EditText) view.findViewById(R.id.textView14);
-        if (address != null && !address.equals("")) {
+        if (address == null || !address.equals(CROSS_BUTTON_HIDE)) {
             editAddress.setText(address);
             editAddress.setTypeface(mycustomFont);
+        }else {
+            editAddress.setVisibility(View.GONE);
+            addressTextView.setVisibility(View.GONE);
         }
 
         String email = dataobj.getEmail();
         editEmail_add = (EditText) view.findViewById(R.id.textView16);
-        if (email != null && !email.equals("")) {
+        if (email == null || !email.equals(CROSS_BUTTON_HIDE)) {
             editEmail_add.setText(email);
             editEmail_add.setTypeface(mycustomFont);
+        }else {
+            editEmail_add.setVisibility(View.GONE);
+            emailTextView.setVisibility(View.GONE);
         }
+
         String number = dataobj.getPhoneNumber();
         editNumber = (EditText) view.findViewById(R.id.textView18);
-        if (number != null && !number.equals("")) {
+        if (number == null || !number.equals(CROSS_BUTTON_HIDE)) {
             editNumber.setText(number);
             editNumber.setTypeface(mycustomFont);
+        }else {
+            editNumber.setVisibility(View.GONE);
+            numberTextView.setVisibility(View.GONE);
         }
 
         String website = dataobj.getWebsite();
         editWebsite = (EditText) view.findViewById(R.id.textView20);
-        if (website != null && !website.equals("")) {
+        if (website == null || !website.equals(CROSS_BUTTON_HIDE)) {
             editWebsite.setText(website);
             editWebsite.setTypeface(mycustomFont);
+        }else {
+            editWebsite.setVisibility(View.GONE);
+            websiteTextView.setVisibility(View.GONE);
         }
 
         //showPreview();
@@ -242,44 +274,52 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
             case R.id.deleteTitleContact:
                 editTitle.setVisibility(View.GONE);
                 deleteTitle.setVisibility(View.GONE);
-                editTitle.setText(null);
+                editTitle.setText(CROSS_BUTTON_HIDE);
+                dataobj.setTitle(CROSS_BUTTON_HIDE);
                 break;
             case R.id.deleteHeadingContact:
                 editHeading.setVisibility(View.GONE);
                 deleteHeading.setVisibility(View.GONE);
-                editHeading.setText(null);
+                editHeading.setText(CROSS_BUTTON_HIDE);
+                dataobj.setHeaderContact(CROSS_BUTTON_HIDE);
                 break;
             case R.id.deleteSubHeadingContact:
                 editSubheading.setVisibility(View.GONE);
                 deleteSubHeading.setVisibility(View.GONE);
-                editSubheading.setText(null);
+                editSubheading.setText(CROSS_BUTTON_HIDE);
+                dataobj.setSubHeading(CROSS_BUTTON_HIDE);
                 break;
             case R.id.deleteParaGraphContact:
                 editPara.setVisibility(View.GONE);
-                editPara.setText(null);
+                editPara.setText(CROSS_BUTTON_HIDE);
+                dataobj.setParaGraph(CROSS_BUTTON_HIDE);
                 deleteParaGraph.setVisibility(View.GONE);
                 break;
             case R.id.deleteAddressContact:
                 editAddress.setVisibility(View.GONE);
-                editAddress.setText(null);
+                editAddress.setText(CROSS_BUTTON_HIDE);
+                dataobj.setAddress(CROSS_BUTTON_HIDE);
                 deleteAddress.setVisibility(View.GONE);
                 addressTextView.setVisibility(View.GONE);
                 break;
             case R.id.deleteEmailContact:
                 editEmail_add.setVisibility(View.GONE);
-                editEmail_add.setText(null);
+                editEmail_add.setText(CROSS_BUTTON_HIDE);
+                dataobj.setEmail(CROSS_BUTTON_HIDE);
                 deleteEmail.setVisibility(View.GONE);
                 emailTextView.setVisibility(View.GONE);
                 break;
             case R.id.deletePhoneContact:
                 editNumber.setVisibility(View.GONE);
-                editNumber.setText(null);
+                editNumber.setText(CROSS_BUTTON_HIDE);
+                dataobj.setPhoneNumber(CROSS_BUTTON_HIDE);
                 deletePhone.setVisibility(View.GONE);
                 numberTextView.setVisibility(View.GONE);
                 break;
             case R.id.deleteWebContact:
                 editWebsite.setVisibility(View.GONE);
-                editWebsite.setText(null);
+                editWebsite.setText(CROSS_BUTTON_HIDE);
+                dataobj.setWebsite(CROSS_BUTTON_HIDE);
                 deleteWeb.setVisibility(View.GONE);
                 websiteTextView.setVisibility(View.GONE);
                 break;
@@ -345,14 +385,45 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     void init_editCampaign(){
 
         try {
-            deleteTitle.setVisibility(View.VISIBLE);
-            deleteHeading.setVisibility(View.VISIBLE);
-            deleteSubHeading.setVisibility(View.VISIBLE);
-            deleteParaGraph.setVisibility(View.VISIBLE);
-            deleteAddress.setVisibility(View.VISIBLE);
-            deleteEmail.setVisibility(View.VISIBLE);
-            deletePhone.setVisibility(View.VISIBLE);
-            deleteWeb.setVisibility(View.VISIBLE);
+            if (dataobj.getTitle() == null || !dataobj.getTitle().equals(CROSS_BUTTON_HIDE)) {
+                deleteTitle.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getHeaderContact() == null || !dataobj.getHeaderContact().equals(CROSS_BUTTON_HIDE)) {
+                deleteHeading.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getSubHeading() == null || !dataobj.getSubHeading().equals(CROSS_BUTTON_HIDE)) {
+                deleteSubHeading.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getParaGraph() == null || !dataobj.getParaGraph().equals(CROSS_BUTTON_HIDE)) {
+                deleteParaGraph.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getAddress() == null || !dataobj.getAddress().equals(CROSS_BUTTON_HIDE)) {
+                deleteAddress.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getEmail() == null || !dataobj.getEmail().equals(CROSS_BUTTON_HIDE)) {
+                deleteEmail.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getPhoneNumber() == null || !dataobj.getPhoneNumber().equals(CROSS_BUTTON_HIDE)) {
+                deletePhone.setVisibility(View.VISIBLE);
+            }
+
+            if (dataobj.getWebsite() == null || !dataobj.getWebsite().equals(CROSS_BUTTON_HIDE)) {
+                deleteWeb.setVisibility(View.VISIBLE);
+            }
+
+
+
+
+
+
+
+
         }catch (NullPointerException e)
         {
             Log.v(TAG,"Null in init_viewCampaign");
@@ -411,47 +482,47 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextAbtUs" + title);
-        if (title != null) {
+        if (!title.equals("")) {
             dataobj.setTitle(title);
         }
 
         String header = String.valueOf(editHeading.getText());
         Log.d(TAG, "changeHeadingTxtAbtUs" + header);
-        if (header != null) {
+        if (!header.equals("")) {
             dataobj.setHeaderContact(header);
         }
 
         String subheader = String.valueOf(editSubheading.getText());
         Log.d(TAG, "changeSubHeadingAbtUs" + subheader);
-        if (subheader != null) {
+        if (!subheader.equals("")) {
             dataobj.setSubHeading(subheader);
         }
 
         String para = String.valueOf(editPara.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (para != null) {
+        if (!para.equals("")) {
             dataobj.setParaGraph(para);
         }
 
         String address = String.valueOf(editAddress.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (address != null) {
+        if (!address.equals("")) {
             dataobj.setAddress(address);
         }
 
         String email = String.valueOf(editEmail_add.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (email != null) {
+        if (!email.equals("")) {
             dataobj.setEmail(email);
         }
         String phoneNumber = String.valueOf(editNumber.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (phoneNumber != null) {
+        if (!phoneNumber.equals("")) {
             dataobj.setPhoneNumber(phoneNumber);
         }
         String website = String.valueOf(editWebsite.getText());
         Log.d(TAG, "changeParaAbtUs" + para);
-        if (website != null) {
+        if (!website.equals("")) {
             dataobj.setWebsite(website);
         }
 

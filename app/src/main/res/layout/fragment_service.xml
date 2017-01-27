@@ -3,14 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText android:id="@+id/Service_TITLE"
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/Service_TITLE"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Enter Title"
+        android:hint="@string/titleHint"
         android:maxLines="1"
         android:textSize="20sp"
         android:textColorHint = "@color/cardHint"
@@ -47,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="Heading"
+                android:hint="@string/headingHint"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/service_heading"
@@ -69,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is some random sub heading"
+                android:hint="@string/subHeadingHint"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
                 android:textSize="16sp"
@@ -89,6 +91,8 @@
                 android:background="@null" />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +100,7 @@
                 android:textColor="@color/textWith_56p_opacity"
                 android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Writing some random paragraph so as to fill the spacethis is the random text."
+                android:hint="@string/paragraphHint"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textAlignment="center"
@@ -157,13 +161,14 @@
             </RelativeLayout>
 
             <EditText
+                android:maxLength="30"
                 android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Heading below image view"
+                android:hint="@string/headingHint"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/text"
@@ -189,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Some random funny sub-heading."
+                android:hint="@string/subHeadingHint"
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
@@ -208,13 +213,15 @@
                 android:background="@null" />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is the random para to tet the text view put your own text re."
+                android:hint="@string/paragraphHint"
                 android:textSize="14sp"
                 android:textColor="@color/textWith_56p_opacity"
                 android:textColorHint="@color/textHintOnWhite"

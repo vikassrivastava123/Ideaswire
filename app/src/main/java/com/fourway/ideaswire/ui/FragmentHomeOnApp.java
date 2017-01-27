@@ -39,6 +39,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
+
 /**
  * Created by 4way on 24-10-2016.
  */
@@ -136,6 +138,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         deleteCardImage_1 =(ImageView)view.findViewById(R.id.deleteCARD_IMAGE_1);
         deleteCardImage_2 =(ImageView) view.findViewById(R.id.deleteCARD_IMAGE_2);
 
+        deleteTitle.setVisibility(View.GONE);
+        deleteHeading.setVisibility(View.GONE);
+        deleteSubHeading.setVisibility(View.GONE);
+        deletePara.setVisibility(View.GONE);
+        deleteCardImage_1.setVisibility(View.GONE);
+        deleteCardImage_2.setVisibility(View.GONE);
+
 
         cardImageCrop_1.setOnClickListener(this);
         deleteTitle.setOnClickListener(this);
@@ -152,7 +161,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
         String title=dataObj.getTitle();
-        if(title!=null && !title.equals("")){
+        if(title == null || !title.equals(CROSS_BUTTON_HIDE)){
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }
@@ -161,7 +170,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String header=dataObj.getHeading();
-        if(header!=null && !header.equals("")){
+        if(header == null || !header.equals(CROSS_BUTTON_HIDE)){
             editHeader.setText(header);
             editHeader.setTypeface(mycustomFont);
         }else{
@@ -169,7 +178,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String subHeading=dataObj.getSubHeading();
-        if(subHeading!=null && !subHeading.equals("")){
+        if(subHeading == null || !subHeading.equals(CROSS_BUTTON_HIDE)){
             editSubheading.setText(subHeading);
             editSubheading.setTypeface(mycustomFont);
         }else{
@@ -177,7 +186,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         }
 
         String paraGraph=dataObj.getParaGraph();
-        if(paraGraph!=null && !paraGraph.equals("")){
+        if(paraGraph == null || !paraGraph.equals(CROSS_BUTTON_HIDE)){
             editParaGraph.setText(paraGraph);
             editParaGraph.setTypeface(mycustomFont);
         }else{
@@ -187,8 +196,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         String urlOfProfile_1 = dataObj.getUrlOfImage_1();
 
         if(urlOfProfile_1 != null){
-            cardImage_1.setImageUrl(urlOfProfile_1, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
-            cardImageCrop_1.setVisibility(View.GONE);
+            if (!urlOfProfile_1.equals(CROSS_BUTTON_HIDE)) {
+                cardImage_1.setImageUrl(urlOfProfile_1, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+                cardImageCrop_1.setVisibility(View.GONE);
+            }else {
+                cardImage_1.setVisibility(View.GONE);
+                cardImageCrop_1.setVisibility(View.GONE);
+            }
 
         }else{
             cardImage_1.setVisibility(View.GONE);
@@ -198,8 +212,13 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
         String urlOfProfile_2 = dataObj.getUrlOfImage_2();
         if(urlOfProfile_2 != null){
-            cardImage_2.setImageUrl(urlOfProfile_2, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
-            cardImageCrop_2.setVisibility(View.GONE);
+            if (!urlOfProfile_2.equals(CROSS_BUTTON_HIDE)) {
+                cardImage_2.setImageUrl(urlOfProfile_2, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+                cardImageCrop_2.setVisibility(View.GONE);
+            }else {
+                cardImage_2.setVisibility(View.GONE);
+                cardImageCrop_2.setVisibility(View.GONE);
+            }
 
         }else{
             cardImage_2.setVisibility(View.GONE);
@@ -239,33 +258,41 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
         switch (v.getId()){
             case R.id.deleteTitlehome:
                 editTitle.setVisibility(View.GONE);
-                editTitle.setText("");
+                editTitle.setText(CROSS_BUTTON_HIDE);
+                dataObj.setTitle(CROSS_BUTTON_HIDE);
                 deleteTitle.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE_1:
                 cardImage_1.setVisibility(View.GONE);
                 cardImageLayout1.setVisibility(View.GONE);
                 deleteCardImage_1.setVisibility(View.GONE);
+                dataObj.setUrlOfImage_1(CROSS_BUTTON_HIDE);
+                cardImageUrl_1 = CROSS_BUTTON_HIDE;
                 break;
             case R.id.deleteHeadingHome:
                 editHeader.setVisibility(View.GONE);
-                editHeader.setText("");
+                editHeader.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeading(CROSS_BUTTON_HIDE);
                 deleteHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeadingHome:
                 editSubheading.setVisibility(View.GONE);
-                editSubheading.setText("");
+                editSubheading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeading(CROSS_BUTTON_HIDE);
                 deleteSubHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaHome:
                 editParaGraph.setVisibility(View.GONE);
-                editParaGraph.setText("");
+                editParaGraph.setText(CROSS_BUTTON_HIDE);
+                dataObj.setParaGraph(CROSS_BUTTON_HIDE);
                 deletePara.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE_2:
                 deleteCardImage_2.setVisibility(View.GONE);
                 cardImageCrop_2.setVisibility(View.GONE);
                 cardImage_2.setVisibility(View.GONE);
+                dataObj.setUrlOfImage_2(CROSS_BUTTON_HIDE);
+                cardImageUrl_2 = CROSS_BUTTON_HIDE;
                 break;
             case R.id.Home_STATIC_IMAGE_1:
                 uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
@@ -634,12 +661,30 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     void init_editCampaign(){
         try {
 
-            deleteTitle.setVisibility(View.VISIBLE);
-            deleteHeading.setVisibility(View.VISIBLE);
-            deleteSubHeading.setVisibility(View.VISIBLE);
-            deletePara.setVisibility(View.VISIBLE);
-            deleteCardImage_1.setVisibility(View.VISIBLE);
-            deleteCardImage_2.setVisibility(View.VISIBLE);
+                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
+                    deleteTitle.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getHeading() == null || !dataObj.getHeading().equals(CROSS_BUTTON_HIDE)) {
+                    deleteHeading.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getSubHeading() == null || !dataObj.getSubHeading().equals(CROSS_BUTTON_HIDE)) {
+                    deleteSubHeading.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getParaGraph() == null || !dataObj.getParaGraph().equals(CROSS_BUTTON_HIDE)) {
+                    deletePara.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getUrlOfImage_1() == null || !dataObj.getUrlOfImage_1().equals(CROSS_BUTTON_HIDE)) {
+                    deleteCardImage_1.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getUrlOfImage_2() == null || !dataObj.getUrlOfImage_2().equals(CROSS_BUTTON_HIDE)) {
+                    deleteCardImage_2.setVisibility(View.VISIBLE);
+                }
+
         }catch (NullPointerException e){
             Log.v(TAG,"Null in init_viewCampaign");
         }
@@ -700,24 +745,24 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextHome" + title);
-        if (title != null) {
+        if (!title.equals("")) {
             dataObj.setTitle(title);
         }
 
         String header = String.valueOf(editHeader.getText());
         Log.d(TAG, "changeHeadingTxtHome" + header);
-        if (header != null) {
+        if (!header.equals("")) {
             dataObj.setHeading(header);
         }
         String subheader = String.valueOf(editSubheading.getText());
         Log.d(TAG, "changeSubHeadingHome" + subheader);
-        if (subheader != null) {
+        if (!subheader.equals("")) {
             dataObj.setSubHeading(subheader);
         }
 
         String para = String.valueOf(editParaGraph.getText());
         Log.d(TAG, "changeParaHome" + para);
-        if (para != null) {
+        if (!para.equals("")) {
             dataObj.setParaGraph(para);
         }
 

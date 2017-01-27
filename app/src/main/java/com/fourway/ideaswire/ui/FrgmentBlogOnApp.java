@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
+
 /**
  * Created by 4way on 15-10-2016.
  */
@@ -108,6 +110,16 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         deleteSubHeaderBelowimgBlogBtnView=(ImageView)view.findViewById(R.id.deleteSubHeaderBelowimgBlog);
         deleteParaBlogBelowimgBtnView=(ImageView)view.findViewById(R.id.deleteParaBelowimgBlogPage);
 
+        deleteTitleBlogBtnView.setVisibility(View.GONE);
+        deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+        deleteHeadingBlogBtnView.setVisibility(View.GONE);
+        deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
+        deleteParaBlogBtnView.setVisibility(View.GONE);
+        deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
+        deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
+        deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
+
+
         deleteTitleBlogBtnView.setOnClickListener(this);
         deleteCARD_IMAGEBtnView.setOnClickListener(this);
         deleteHeadingBlogBtnView.setOnClickListener(this);
@@ -131,10 +143,13 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         String urlOfProfile = dataObj.getUrlOfImage();
 
         if(urlOfProfile != null){
-            // Uri cardImageUri = Uri.parse(urlOfProfile);
-            // cardImage.setImageURI(cardImageUri);
-            cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity()).getImageLoader());
-            cardImageCrop.setVisibility(View.GONE);
+            if (!urlOfProfile.equals(CROSS_BUTTON_HIDE)) {
+                cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity()).getImageLoader());
+                cardImageCrop.setVisibility(View.GONE);
+            }else {
+                cardImage.setVisibility(View.GONE);
+                cardImageCrop.setVisibility(View.GONE);
+            }
 
         }else{
             cardImage.setVisibility(View.GONE);
@@ -153,7 +168,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String title = dataObj.getTitle();
         editTitle = (EditText) view.findViewById(R.id.BLOG_TITLE);
-        if(title != null && !title.equals("")) {
+        if(title == null || !title.equals(CROSS_BUTTON_HIDE)) {
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
@@ -162,7 +177,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String header = dataObj.getHeaderBlog();
         heading = (EditText) view.findViewById(R.id.blog_heading);
-        if(header != null && !header.equals("")) {
+        if(header == null || !header.equals(CROSS_BUTTON_HIDE)) {
             heading.setText(header);
             heading.setTypeface(mycustomFont);
         }else{
@@ -171,7 +186,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String subHeading = dataObj.getSubHeader();
         subheading = (EditText) view.findViewById(R.id.blog_subheading);
-        if(subHeading != null && !subHeading.equals("")) {
+        if(subHeading == null || !subHeading.equals(CROSS_BUTTON_HIDE)) {
             subheading.setText(subHeading);
             subheading.setTypeface(mycustomFont);
         }else{
@@ -180,7 +195,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String paraGraph =  dataObj.getText_Para();
         paraGraphBlog = (EditText) view.findViewById(R.id.blog_paraGraph);
-        if(paraGraph != null && !paraGraph.equals("")){
+        if(paraGraph == null || !paraGraph.equals(CROSS_BUTTON_HIDE)){
             paraGraphBlog.setText(paraGraph);
             paraGraphBlog.setTypeface(mycustomFont);
         }else{
@@ -189,7 +204,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String headingBelow = dataObj.getHeaderBlogBlowing();
         heading_belo = (EditText) view.findViewById(R.id.blog_heading_belowing);
-        if(headingBelow != null && !headingBelow.equals(""))
+        if(headingBelow == null || !headingBelow.equals(CROSS_BUTTON_HIDE))
         {
             heading_belo.setText(headingBelow);
             heading_belo.setTypeface(mycustomFont);
@@ -200,7 +215,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         String subheadingBlow = dataObj.getSubHeaderBlowing();
         subheading_below = (EditText) view.findViewById(R.id.blog_subheading_belowing);
-        if(subheadingBlow != null && !subheadingBlow.equals("")){
+        if(subheadingBlow == null || !subheadingBlow.equals(CROSS_BUTTON_HIDE)){
             subheading_below.setText(subheadingBlow);
             subheading_below.setTypeface(mycustomFont);
         }else {
@@ -209,7 +224,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         paraGraphBlog_below = (EditText) view.findViewById(R.id.blog_paraGraph_belowing);
         String paraGraphBelow = dataObj.getText_ParaBlowing();
-        if(paraGraphBelow != null && !paraGraphBelow.equals("")){
+        if(paraGraphBelow == null || !paraGraphBelow.equals(CROSS_BUTTON_HIDE)){
             paraGraphBlog_below.setText(paraGraphBelow);
             paraGraphBlog_below.setTypeface(mycustomFont);
         }else{
@@ -298,14 +313,38 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     void init_editCampaign(){
 
         try {
-            deleteTitleBlogBtnView.setVisibility(View.VISIBLE);
-            deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
-            deleteHeadingBlogBtnView.setVisibility(View.VISIBLE);
-            deleteSubHeaderBlogBtnView.setVisibility(View.VISIBLE);
-            deleteParaBlogBtnView.setVisibility(View.VISIBLE);
-            deleteHeadingBelowimgBlogBtnView.setVisibility(View.VISIBLE);
-            deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.VISIBLE);
-            deleteParaBlogBelowimgBtnView.setVisibility(View.VISIBLE);
+                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
+                    deleteTitleBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getUrlOfImage() == null || !dataObj.getUrlOfImage().equals(CROSS_BUTTON_HIDE)) {
+                    deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getHeaderBlog() == null || !dataObj.getHeaderBlog().equals(CROSS_BUTTON_HIDE)) {
+                    deleteHeadingBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getSubHeader() == null || !dataObj.getSubHeader().equals(CROSS_BUTTON_HIDE)) {
+                    deleteSubHeaderBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getText_Para() == null || !dataObj.getText_Para().equals(CROSS_BUTTON_HIDE)) {
+                    deleteParaBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getHeaderBlogBlowing() == null || !dataObj.getHeaderBlogBlowing().equals(CROSS_BUTTON_HIDE)) {
+                    deleteHeadingBelowimgBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getSubHeaderBlowing() == null || !dataObj.getSubHeaderBlowing().equals(CROSS_BUTTON_HIDE)) {
+                    deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getText_ParaBlowing() == null || !dataObj.getText_ParaBlowing().equals(CROSS_BUTTON_HIDE)) {
+                    deleteParaBlogBelowimgBtnView.setVisibility(View.VISIBLE);
+                }
+
         }catch (NullPointerException e){
             Log.v(TAG,"Null in init_viewCampaign");
         }
@@ -393,43 +432,52 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         switch (v.getId()){
             case R.id.deleteTitleBlog:
                 editTitle.setVisibility(View.GONE);
-                editTitle.setText(null);
+                editTitle.setText(CROSS_BUTTON_HIDE);
+                dataObj.setTitle(CROSS_BUTTON_HIDE);
                 deleteTitleBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingBlogPage:
                 heading.setVisibility(View.GONE);
-                heading.setText(null);
+                heading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeaderBlog(CROSS_BUTTON_HIDE);
                 deleteHeadingBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeaderBlogPage:
                 subheading.setVisibility(View.GONE);
-                subheading.setText(null);
+                subheading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeader(CROSS_BUTTON_HIDE);
                 deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaBlogPage:
                 paraGraphBlog.setVisibility(View.GONE);
-                paraGraphBlog.setText(null);
+                paraGraphBlog.setText(CROSS_BUTTON_HIDE);
+                dataObj.setText_Para(CROSS_BUTTON_HIDE);
                 deleteParaBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteCARD_IMAGE:
                 cardImage.setVisibility(View.GONE);
                 cardImageCrop.setVisibility(View.GONE);
                 deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+                dataObj.setUrlOfImage(CROSS_BUTTON_HIDE);
+                cardImageUrl = CROSS_BUTTON_HIDE;
                 //cardRelativeLayout.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingBelowimgBlogPage:
                 heading_belo.setVisibility(View.GONE);
-                heading_belo.setText(null);
+                heading_belo.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeaderBlogBlowing(CROSS_BUTTON_HIDE);
                 deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeaderBelowimgBlog:
                 subheading_below.setVisibility(View.GONE);
-                subheading_below.setText(null);
+                subheading_below.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeaderBlowing(CROSS_BUTTON_HIDE);
                 deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaBelowimgBlogPage:
                 paraGraphBlog_below.setVisibility(View.GONE);
-                paraGraphBlog_below.setText(null);
+                paraGraphBlog_below.setText(CROSS_BUTTON_HIDE);
+                dataObj.setText_ParaBlowing(CROSS_BUTTON_HIDE);
                 deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
                 break;
             case R.id.Blog_STATIC_IMAGE:
@@ -573,43 +621,43 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextBlog" + title);
-        if (title != null) {
+        if (!title.equals("")) {
             dataObj.setTitle(title);
         }
 
         String header = String.valueOf(heading.getText());
         Log.d(TAG, "changeHeadingTxtBlog" + header);
-        if (header != null) {
+        if (!header.equals("")) {
             dataObj.setHeaderBlog(header);
         }
 
         String subheader = String.valueOf(subheading.getText());
         Log.d(TAG, "changeSubHeadingBlog" + subheader);
-        if (subheader != null) {
+        if (!subheader.equals("")) {
             dataObj.setSubHeader(subheader);
         }
 
         String para = String.valueOf(paraGraphBlog.getText());
         Log.d(TAG, "changeParaBlog" + para);
-        if (para != null) {
+        if (!para.equals("")) {
             dataObj.setText_Para(para);
         }
 
         String headerBelow = String.valueOf(heading_belo.getText());
         Log.d(TAG, "changeHeadingBelowTxtBlog" + headerBelow);
-        if (headerBelow != null) {
+        if (!headerBelow.equals("")) {
             dataObj.setHeaderBlogBlowing(headerBelow);
         }
 
         String subheaderBelow = String.valueOf(subheading_below.getText());
         Log.d(TAG, "changeSubHeadingBelowTxtBlog" + subheaderBelow);
-        if (subheaderBelow != null) {
+        if (!subheaderBelow.equals("")) {
             dataObj.setSubHeaderBlowing(subheaderBelow);
         }
 
         String paraBelow = String.valueOf(paraGraphBlog_below.getText());
         Log.d(TAG, "changeSubHeadingBelowTxtBlog" + paraBelow);
-        if (paraBelow != null) {
+        if (!paraBelow.equals("")) {
             dataObj.setText_ParaBlowing(paraBelow);
         }
 

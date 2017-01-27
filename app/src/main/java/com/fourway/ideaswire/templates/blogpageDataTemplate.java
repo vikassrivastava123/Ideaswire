@@ -2,9 +2,7 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
-import com.fourway.ideaswire.ui.FragmentAboutUsOnApp;
 import com.fourway.ideaswire.ui.FrgmentBlogOnApp;
-import com.fourway.ideaswire.ui.ServicesOnApp;
 import com.fourway.ideaswire.ui.activity_blogpage;
 
 /**
@@ -50,7 +48,7 @@ public class blogpageDataTemplate extends dataOfTemplate {
 
     void initDeafultdata(){
         title="Blog";
-        headerBlog = "Totam Aperiam Consect";
+        /*headerBlog = "Totam Aperiam Consect";
         subHeader = "There are many variation of passages";
         text_Para = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
@@ -60,7 +58,7 @@ public class blogpageDataTemplate extends dataOfTemplate {
         subHeaderBlowing = "There are many variation of passages";
         text_ParaBlowing = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";
+                "alternation in some form by injected humour";*/
 
     }
 

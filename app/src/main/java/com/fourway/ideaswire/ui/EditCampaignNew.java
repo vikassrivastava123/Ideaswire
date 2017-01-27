@@ -9,14 +9,11 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -61,9 +58,9 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
     private String mProfileId = null;
     public static String Tag = "EditCampaignNew";
-    CheckBox statusBox=null;
-    RadioButton statusOn = null;
-    RadioButton statusDraft = null;
+//    CheckBox statusBox=null;
+//    RadioButton statusOn = null;
+//    RadioButton statusDraft = null;
     private ArrayList<Profile> mProfileList;
     Button btn1;
 
@@ -77,6 +74,12 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_campaign_new);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //setSupportActionBar(toolbar);
         Typeface mycustomFont= Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         mProfileList = loginUi.mProfileList;
@@ -86,19 +89,19 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
         editCropImageView = (ImageView)findViewById(R.id.imageCropToEditNew);
         edCampaignName = (EditText)findViewById(R.id.etCampaignName);
 
-        statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
-        statusOn = (RadioButton)findViewById(R.id.StatusOn);
-        statusDraft.setTypeface(mycustomFont);
-        statusOn.setTypeface(mycustomFont);
-        statusBox = (CheckBox)findViewById(R.id.checkBoxStatus);
+//        statusDraft = (RadioButton)findViewById(R.id.StatusDraft);
+//        statusOn = (RadioButton)findViewById(R.id.StatusOn);
+//        statusDraft.setTypeface(mycustomFont);
+//        statusOn.setTypeface(mycustomFont);
+//        statusBox = (CheckBox)findViewById(R.id.checkBoxStatus);
         btn1 = (Button) findViewById(R.id.btn_createCampaignNew);
 
-        statusDraft.setTypeface(mycustomFont);
-        statusOn.setTypeface(mycustomFont);
-        statusBox.setTypeface(mycustomFont);
+//        statusDraft.setTypeface(mycustomFont);
+//        statusOn.setTypeface(mycustomFont);
+//        statusBox.setTypeface(mycustomFont);
         btn1.setTypeface(mycustomFont);
 
-        statusBox.setOnCheckedChangeListener(statusChangeListener);
+//        statusBox.setOnCheckedChangeListener(statusChangeListener);
 
 
         Profile p = loginUi.mProfileList.get(profilePosition);
@@ -178,30 +181,30 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
     UpdateProfileData.ProfileType mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_LOGO;
     public void onRadioButtonClicked(View view) {
 
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-        int id = view.getId();
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.StatusOn:
-                Log.v(Tag,"StausOn"+checked);
-                statusOn.toggle();
-                if (checked) {
-                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
-                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
-                }
-                Log.v(Tag,"StatusOn after toggle"+statusOn.isChecked());
-                break;
-            case R.id.StatusDraft:
-                Log.v(Tag,"statusDraft"+checked);
-                statusDraft.toggle();
-                if (checked) {
-                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
-                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_LOGO;
-                }
-                Log.v(Tag, "StatusOn after toggle" + statusDraft.isChecked());
-                break;
-        }
+//        // Is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//        int id = view.getId();
+//        // Check which radio button was clicked
+//        switch(view.getId()) {
+//            case R.id.StatusOn:
+//                Log.v(Tag,"StausOn"+checked);
+//                statusOn.toggle();
+//                if (checked) {
+//                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_DRAFT;
+//                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_INDIVIDUAL;
+//                }
+//                Log.v(Tag,"StatusOn after toggle"+statusOn.isChecked());
+//                break;
+//            case R.id.StatusDraft:
+//                Log.v(Tag,"statusDraft"+checked);
+//                statusDraft.toggle();
+//                if (checked) {
+//                    //mSetStatus = CreateProfileData.ProfileStatus.PROFILE_STATUS_ACTIVE;
+//                    mProfileType = UpdateProfileData.ProfileType.PROFILE_TYPE_LOGO;
+//                }
+//                Log.v(Tag, "StatusOn after toggle" + statusDraft.isChecked());
+//                break;
+//        }
 
     }
 
@@ -229,7 +232,7 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
 
 
             UpdateProfileData data = new UpdateProfileData(mProfileId, campaignName, "bussiness", "profile_department",
-                    loginUi.mLogintoken, sendFile, mProfileType,mSetStatus );
+                    loginUi.mLogintoken, sendFile, null,null );
 
             UpdateProfileRequest request = new UpdateProfileRequest(EditCampaignNew.this, data, this);
             request.executeRequest();

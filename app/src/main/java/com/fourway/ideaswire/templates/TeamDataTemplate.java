@@ -56,11 +56,11 @@ public class TeamDataTemplate extends dataOfTemplate {
     void initDeafultdata(){
 
         title="Team";
-        headerTeam = "Totam Aperiam Consect";
+        /*headerTeam = "Totam Aperiam Consect";
         subHeadingTeam = "There are many variation of passages";
         paraGraphTeam = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";
+                "alternation in some form by injected humour";*/
     }
 
 

@@ -46,11 +46,11 @@ public class ClientDataTemplate extends dataOfTemplate {
     void initDeafultdata(){
 
         title = "Client";
-        headerClient = "Totam Aperiam Consect";
+        /*headerClient = "Totam Aperiam Consect";
         subHeaderClient = "There are many variation of passages";
         paraClient = "There are many variation of passage " +
                 "Lorem Ipsum available but the majority have" +
-                " in some form bye inject humour";
+                " in some form bye inject humour";*/
 
     }
 

@@ -48,6 +48,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
+
 /**
  * Created by 4way on 25-10-2016.
  */
@@ -150,6 +152,11 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         deleteSubHeading =(ImageView)view.findViewById(R.id.deleteSubHeadingTeam);
         deletePara =(ImageView)view.findViewById(R.id.deleteParaGraphTeam);
 
+        deleteTitle.setVisibility(View.GONE);
+        deleteHeading.setVisibility(View.GONE);
+        deleteSubHeading.setVisibility(View.GONE);
+        deletePara.setVisibility(View.GONE);
+
         deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
@@ -158,7 +165,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
 
         String title=dataObj.getTitle();
-        if (title!=null && !title.equals("")){
+        if (title == null || !title.equals(CROSS_BUTTON_HIDE)){
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else {
@@ -166,7 +173,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
 
         String heading=dataObj.getHeaderTeam();
-        if (heading!=null && !heading.equals("")){
+        if (heading == null || !heading.equals(CROSS_BUTTON_HIDE)){
             editHeading.setText(heading);
             editHeading.setTypeface(mycustomFont);
         }else
@@ -175,7 +182,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
 
         String subHeading=dataObj.getSubHeadingTeam();
-        if (subHeading!=null && !subHeading.equals("")){
+        if (subHeading == null || !subHeading.equals(CROSS_BUTTON_HIDE)){
             editSubHeading.setText(subHeading);
             editSubHeading.setTypeface(mycustomFont);
         }else {
@@ -183,7 +190,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         }
 
         String para=dataObj.getParaGraphTeam();
-        if(para!=null && !para.equals("")){
+        if(para == null || !para.equals(CROSS_BUTTON_HIDE)){
             editParaGraph.setText(para);
             editParaGraph.setTypeface(mycustomFont);
         }else {
@@ -574,22 +581,26 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         switch (v.getId()){
             case R.id.deleteTitleTeam:
                 editTitle.setVisibility(View.GONE);
-                editTitle.setText("");
+                editTitle.setText(CROSS_BUTTON_HIDE);
+                dataObj.setTitle(CROSS_BUTTON_HIDE);
                 deleteTitle.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingTeam:
                 editHeading.setVisibility(View.GONE);
-                editHeading.setText("");
+                editHeading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeaderTeam(CROSS_BUTTON_HIDE);
                 deleteHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeadingTeam:
                 editSubHeading.setVisibility(View.GONE);
                 deleteSubHeading.setVisibility(View.GONE);
-                editSubHeading.setText("");
+                editSubHeading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeadingTeam(CROSS_BUTTON_HIDE);
                 break;
             case R.id.deleteParaGraphTeam:
                 editParaGraph.setVisibility(View.GONE);
-                editParaGraph.setText("");
+                editParaGraph.setText(CROSS_BUTTON_HIDE);
+                dataObj.setParaGraphTeam(CROSS_BUTTON_HIDE);
                 deletePara.setVisibility(View.GONE);
                 break;
 
@@ -606,25 +617,25 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextService" + title);
-        if (title != null) {
+        if (!title.equals("")) {
             dataObj.setTitle(title);
         }
 
         String header = String.valueOf(editHeading.getText());
         Log.d(TAG, "changeHeadingTxtService" + header);
-        if (header != null) {
+        if (!header.equals("")) {
             dataObj.setHeaderTeam(header);
         }
 
         String subheader = String.valueOf(editSubHeading.getText());
         Log.d(TAG, "changeSubHeadingService" + subheader);
-        if (subheader != null) {
+        if (!subheader.equals("")) {
             dataObj.setSubHeadingTeam(subheader);
         }
 
         String para = String.valueOf(editParaGraph.getText());
         Log.d(TAG, "changeParaService" + para);
-        if (para != null) {
+        if (!para.equals("")) {
             dataObj.setParaGraphTeam(para);
         }
 
@@ -723,10 +734,24 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     void init_editCampaign(){
         try {
 
-            deleteTitle.setVisibility(View.VISIBLE);
-            deleteHeading.setVisibility(View.VISIBLE);
-            deleteSubHeading.setVisibility(View.VISIBLE);
-            deletePara.setVisibility(View.VISIBLE);
+            if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
+                deleteTitle.setVisibility(View.VISIBLE);
+            }
+            if (dataObj.getHeaderTeam() == null || !dataObj.getHeaderTeam().equals(CROSS_BUTTON_HIDE)) {
+                deleteHeading.setVisibility(View.VISIBLE);
+            }
+            if (dataObj.getSubHeadingTeam() == null || !dataObj.getSubHeadingTeam().equals(CROSS_BUTTON_HIDE)) {
+                deleteSubHeading.setVisibility(View.VISIBLE);
+            }
+            if (dataObj.getParaGraphTeam() == null || !dataObj.getParaGraphTeam().equals(CROSS_BUTTON_HIDE)) {
+                deletePara.setVisibility(View.VISIBLE);
+            }
+
+
+
+
+
+
         }catch (NullPointerException e)
         {
             Log.v(TAG,"Null in init_viewCampaign");

@@ -3,18 +3,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText android:id="@+id/Contact_TITLE"
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/Contact_TITLE"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Enter Title"
+        android:hint="@string/titleHint"
         android:maxLines="1"
         android:textSize="20sp"
         android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor" />
+        android:background="?customBackgroundAttributeColor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/deleteTitleContact"
@@ -41,21 +46,6 @@
 
             android:id="@+id/relativeLayout">
 
-            <EditText
-                android:layout_marginTop="14dp"
-                android:background="@color/card"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/text"
-
-                android:text="Heading"
-                android:id="@+id/contactHeading"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:textStyle="bold"/>
-
             <ImageView
                 android:id="@+id/deleteHeadingContact"
                 android:layout_width="wrap_content"
@@ -76,7 +66,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="This is some random some heading"
+                android:hint="@string/subHeadingHint"
                 android:id="@+id/contactSubHeading"
                 android:layout_below="@+id/contactHeading"
                 android:layout_centerHorizontal="true" />
@@ -95,14 +85,17 @@
 
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/card"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="This is some random para dont read it .please it is a dummy text"
+                android:hint="@string/paragraphHint"
                 android:textSize="14sp"
                 android:textColor="@color/textWith_56p_opacity"
+                android:textColorHint="@color/textHintOnWhite"
                 android:textAlignment="center"
                 android:id="@+id/contactParaGraph"
                 android:layout_below="@+id/contactSubHeading"
@@ -138,14 +131,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Address line one ,address line 2 address line3"
+                android:hint="@string/addressHint"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:id="@+id/textView14"
                 android:layout_below="@+id/textView13"
                 android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:layout_centerHorizontal="true"/>
             <ImageView
                 android:id="@+id/deleteAddressContact"
                 android:layout_width="wrap_content"
@@ -177,7 +171,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Email Address"
+                android:hint="@string/emailHint"
                 android:id="@+id/textView16"
                 android:layout_below="@+id/textView15"
                 android:layout_centerHorizontal="true" />
@@ -210,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="011-45526119"
+                android:hint="@string/numberHint"
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:id="@+id/textView18"
@@ -245,7 +239,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp"
-                android:text="www.ideaswire.com"
+                android:textColor="@color/text"
+               android:hint="@string/websiteHint"
                 android:id="@+id/textView20"
                 android:layout_below="@+id/textView19"
                 android:layout_centerHorizontal="true" />
@@ -260,7 +255,25 @@
                 android:layout_marginRight="10dp"
                 android:background="@null" />
 
+            <EditText
+                android:maxLength="30"
+                android:layout_marginTop="14dp"
+                android:background="@color/card"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/text"
+                android:hint="@string/headingHint"
+                android:id="@+id/contactHeading"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                />
+
         </RelativeLayout>
     </ScrollView>
+
+
 
 </RelativeLayout>

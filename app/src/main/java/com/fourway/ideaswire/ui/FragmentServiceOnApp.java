@@ -38,6 +38,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
+
 /**
  * Created by 4way on 24-10-2016.
  */
@@ -105,6 +107,15 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         deleteSubHeadingBlow =(ImageView)view.findViewById(R.id.deleteSubHeadingBlowingService);
         deleteParaBlow =(ImageView)view.findViewById(R.id.deleteParaBlowingService);
 
+        deleteTitle.setVisibility(View.GONE);
+        deleteHeading.setVisibility(View.GONE);
+        deleteSubHeading.setVisibility(View.GONE);
+        deletePara.setVisibility(View.GONE);
+        deleteCardImage.setVisibility(View.GONE);
+        deleteHeadingBlow.setVisibility(View.GONE);
+        deleteSubHeadingBlow.setVisibility(View.GONE);
+        deleteParaBlow.setVisibility(View.GONE);
+
         deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
@@ -134,11 +145,14 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         String urlOfProfile = dataObj.getUrlOfImage();
 
         if(urlOfProfile != null){
-            // Uri cardImageUri = Uri.parse(urlOfProfile);
-            // cardImage.setImageURI(cardImageUri);
-            cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
-            cardImage.setBackground(null);
-            cardImageCrop.setVisibility(View.GONE);
+            if (!urlOfProfile.equals(CROSS_BUTTON_HIDE)) {
+                cardImage.setImageUrl(urlOfProfile, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
+                cardImage.setBackground(null);
+                cardImageCrop.setVisibility(View.GONE);
+            }else {
+                cardImage.setVisibility(View.GONE);
+                cardImageCrop.setVisibility(View.GONE);
+            }
 
         }else{
             cardImage.setVisibility(View.GONE);
@@ -148,7 +162,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");
 
         String title=dataObj.getTitle();
-        if (title!=null && !title.equals("")){
+        if (title == null || !title.equals(CROSS_BUTTON_HIDE)){
             editTitle.setText(title);
             editTitle.setTypeface(mycustomFont);
         }else{
@@ -156,7 +170,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String heading=dataObj.getHeading();
-        if (heading!=null && !heading.equals("")){
+        if (heading == null || !heading.equals(CROSS_BUTTON_HIDE)){
             editHeading.setText(heading);
             editHeading.setTypeface(mycustomFont);
         }else{
@@ -164,7 +178,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String subHeading=dataObj.getSubHeading();
-        if (subHeading!=null && !subHeading.equals("")){
+        if (subHeading == null || !subHeading.equals(CROSS_BUTTON_HIDE)){
             editSubHeading.setText(subHeading);
             editSubHeading.setTypeface(mycustomFont);
         }else{
@@ -172,7 +186,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String para=dataObj.getParaGraph();
-        if (para!=null && !para.equals("")){
+        if (para == null || !para.equals(CROSS_BUTTON_HIDE)){
             editParaGraph.setText(para);
             editParaGraph.setTypeface(mycustomFont);
         }else{
@@ -180,15 +194,15 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String headingBelow=dataObj.getHeading_below();
-        if (headingBelow!=null && ! headingBelow.equals("")){
+        if (headingBelow == null || !headingBelow.equals(CROSS_BUTTON_HIDE)){
             editHeading_below.setText(headingBelow);
             editHeading_below.setTypeface(mycustomFont);
         }else{
-            editSubHeading_below.setVisibility(View.GONE);
+            editHeading_below.setVisibility(View.GONE);
         }
 
         String subHeadingBelow=dataObj.getSubHeading_below();
-        if (subHeadingBelow!=null && !subHeadingBelow.equals("")){
+        if (subHeadingBelow == null || !subHeadingBelow.equals(CROSS_BUTTON_HIDE)){
             editSubHeading_below.setText(subHeadingBelow);
             editSubHeading_below.setTypeface(mycustomFont);
         }else{
@@ -196,7 +210,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         }
 
         String paraBelow=dataObj.getGetParaGraph_below();
-        if (paraBelow!=null && !paraBelow.equals("")){
+        if (paraBelow == null || !paraBelow.equals(CROSS_BUTTON_HIDE)){
             editParaGraph_below.setText(paraBelow);
             editParaGraph_below.setTypeface(mycustomFont);
         }else{
@@ -238,35 +252,51 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         switch (v.getId()){
             case R.id.deleteTitleService:
                 editTitle.setVisibility(View.GONE);
+                editTitle.setText(CROSS_BUTTON_HIDE);
+                dataObj.setTitle(CROSS_BUTTON_HIDE);
                 deleteTitle.setVisibility(View.GONE);
                 break;
             case R.id.deleteHeadingService:
                 editHeading.setVisibility(View.GONE);
+                editHeading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeading(CROSS_BUTTON_HIDE);
                 deleteHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeadingService:
                 editSubHeading.setVisibility(View.GONE);
+                editSubHeading.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeading(CROSS_BUTTON_HIDE);
                 deleteSubHeading.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaService:
                 editParaGraph.setVisibility(View.GONE);
+                editParaGraph.setText(CROSS_BUTTON_HIDE);
+                dataObj.setParaGraph(CROSS_BUTTON_HIDE);
                 deletePara.setVisibility(View.GONE);
                 break;
             case R.id.deleteCardService:
                 cardImage.setVisibility(View.GONE);
                 cardImageCrop.setVisibility(View.GONE);
                 deleteCardImage.setVisibility(View.GONE);
+                dataObj.setUrlOfImage(CROSS_BUTTON_HIDE);
+                cardImageUrl = CROSS_BUTTON_HIDE;
                 break;
             case R.id.deleteHeadingBlowingService:
                 editHeading_below.setVisibility(View.GONE);
+                editHeading_below.setText(CROSS_BUTTON_HIDE);
+                dataObj.setHeading_below(CROSS_BUTTON_HIDE);
                 deleteHeadingBlow.setVisibility(View.GONE);
                 break;
             case R.id.deleteSubHeadingBlowingService:
                 editSubHeading_below.setVisibility(View.GONE);
+                editSubHeading_below.setText(CROSS_BUTTON_HIDE);
+                dataObj.setSubHeading_below(CROSS_BUTTON_HIDE);
                 deleteSubHeadingBlow.setVisibility(View.GONE);
                 break;
             case R.id.deleteParaBlowingService:
                 editParaGraph_below.setVisibility(View.GONE);
+                editParaGraph_below.setText(CROSS_BUTTON_HIDE);
+                dataObj.setGetParaGraph_below(CROSS_BUTTON_HIDE);
                 deleteParaBlow.setVisibility(View.GONE);
                 break;
             case R.id.Service_STATIC_IMAGE:
@@ -509,43 +539,43 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     public  void changeText(){
         String title = String.valueOf(editTitle.getText());
         Log.d(TAG, "changeTitleTextService" + title);
-        if (title != null) {
+        if (!title.equals("")) {
             dataObj.setTitle(title);
         }
 
         String header = String.valueOf(editHeading.getText());
         Log.d(TAG, "changeHeadingTxtService" + header);
-        if (header != null) {
+        if (!header.equals("")) {
             dataObj.setHeading(header);
         }
 
         String subheader = String.valueOf(editSubHeading.getText());
         Log.d(TAG, "changeSubHeadingService" + subheader);
-        if (subheader != null) {
+        if (!subheader.equals("")) {
             dataObj.setSubHeading(subheader);
         }
 
         String para = String.valueOf(editParaGraph.getText());
         Log.d(TAG, "changeParaService" + para);
-        if (para != null) {
+        if (!para.equals("")) {
             dataObj.setParaGraph(para);
         }
 
         String headerBelow = String.valueOf(editHeading_below.getText());
         Log.d(TAG, "changeHeadingBelowTxtService" + headerBelow);
-        if (headerBelow != null) {
+        if (!headerBelow.equals("")) {
             dataObj.setHeading_below(headerBelow);
         }
 
         String subheaderBelow = String.valueOf(editSubHeading_below.getText());
         Log.d(TAG, "changeSubHeadingBelowTxService" + subheaderBelow);
-        if (subheaderBelow != null) {
+        if (!subheaderBelow.equals("")) {
             dataObj.setSubHeading_below(subheaderBelow);
         }
 
         String paraBelow = String.valueOf(editParaGraph_below.getText());
         Log.d(TAG, "changeSubHeadingBelowTxtService" + paraBelow);
-        if (paraBelow != null) {
+        if (!paraBelow.equals("")) {
             dataObj.setGetParaGraph_below(paraBelow);
         }
 
@@ -577,7 +607,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_CARD_IMAGE, dataObj.getUrlOfImage());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_1, dataObj.getParaGraph());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_2, dataObj.getParaGraph_below);
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_SERVICES_PARAGRAPH_2, dataObj.getGetParaGraph_below());
 
         Profile reqToMakeProfile;
 
@@ -642,14 +672,39 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
 
         try {
-            deleteTitle.setVisibility(View.VISIBLE);
-            deleteHeading.setVisibility(View.VISIBLE);
-            deleteSubHeading.setVisibility(View.VISIBLE);
-            deletePara.setVisibility(View.VISIBLE);
-            deleteCardImage.setVisibility(View.VISIBLE);
-            deleteHeadingBlow.setVisibility(View.VISIBLE);
-            deleteSubHeadingBlow.setVisibility(View.VISIBLE);
-            deleteParaBlow.setVisibility(View.VISIBLE);
+                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
+                    deleteTitle.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getHeading() == null || !dataObj.getHeading().equals(CROSS_BUTTON_HIDE)) {
+                    deleteHeading.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getSubHeading() == null || !dataObj.getSubHeading().equals(CROSS_BUTTON_HIDE)) {
+                    deleteSubHeading.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getParaGraph() == null || !dataObj.getParaGraph().equals(CROSS_BUTTON_HIDE)) {
+                    deletePara.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getUrlOfImage() == null || !dataObj.getUrlOfImage().equals(CROSS_BUTTON_HIDE)) {
+                    deleteCardImage.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getHeading_below() == null || !dataObj.getHeading_below().equals(CROSS_BUTTON_HIDE)) {
+                    deleteHeadingBlow.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getSubHeading_below() == null || !dataObj.getSubHeading_below().equals(CROSS_BUTTON_HIDE)) {
+                    deleteSubHeadingBlow.setVisibility(View.VISIBLE);
+                }
+
+                if (dataObj.getGetParaGraph_below() == null || !dataObj.getGetParaGraph_below().equals(CROSS_BUTTON_HIDE)) {
+                    deleteParaBlow.setVisibility(View.VISIBLE);
+                }
+
+
         }catch (NullPointerException e)
         {
             Log.v(TAG,"Null in init_viewCampaign");

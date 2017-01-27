@@ -9,4 +9,8 @@
         android:id="@+id/connectPage"
         android:title="@string/connect_page"/>
 
+    <item
+        android:id="@+id/delete_button"
+        android:title="@string/delete_button"/>
+
 </menu>

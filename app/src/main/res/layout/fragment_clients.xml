@@ -3,14 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText android:id="@+id/Client_TITLE"
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/Client_TITLE"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Enter Title"
+        android:hint="@string/titleHint"
         android:maxLines="1"
         android:textSize="20sp"
         android:textColorHint = "@color/cardHint"
@@ -43,6 +45,7 @@
             android:id="@+id/relativeLayout">
 
             <EditText
+                android:maxLength="30"
                 android:gravity="center"
                 android:layout_marginTop="14dp"
                 android:background="@color/card"
@@ -51,7 +54,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text"
-                android:hint="This is the main heading"
+                android:hint="@string/headingHint"
                 android:textColorHint="@color/textHintOnWhite"
                 android:id="@+id/ClientHeading"
                 android:layout_alignParentTop="true"
@@ -75,10 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="This is some random sub heading"
+                android:hint="@string/subHeadingHint"
                 android:id="@+id/ClientSubHeading"
                 android:layout_below="@+id/ClientHeading"
                 android:layout_centerHorizontal="true" />
@@ -96,6 +99,8 @@
                 />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +110,8 @@
                 android:layout_marginTop="14dp"
                 android:textSize="14sp"
                 android:textColor="@color/textWith_56p_opacity"
-                android:text="This is some random para dont read it is a dummy text."
+                android:textColorHint="@color/textHintOnWhite"
+                android:hint="@string/paragraphHint"
                 android:id="@+id/ClientParaGraph"
                 android:layout_below="@+id/ClientSubHeading"
                 android:layout_centerHorizontal="true" />

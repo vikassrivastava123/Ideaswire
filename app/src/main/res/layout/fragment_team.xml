@@ -3,6 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/Team_TITLE"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColor="@color/card"
+        android:gravity="center"
+        android:hint="@string/titleHint"
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:textColorHint = "@color/cardHint"
+        android:background="?customBackgroundAttributeColor"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ImageView
         android:id="@+id/deleteTitleTeam"
         android:layout_width="wrap_content"
@@ -38,7 +56,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="This is the main heading"
+                android:hint="@string/headingHint"
                 android:id="@+id/HeadingTeam"
                 android:layout_centerHorizontal="true" />
             <ImageView
@@ -60,7 +78,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="This is some random sub heading"
+                android:hint="@string/subHeadingHint"
                 android:id="@+id/SubHeadingTeam"
                 android:layout_below="@+id/HeadingTeam"
                 android:layout_centerHorizontal="true" />
@@ -75,6 +93,8 @@
                 android:background="@null" />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +104,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/textWith_56p_opacity"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="This is some random para dont read it is a dummy text."
+                android:hint="@string/paragraphHint"
                 android:id="@+id/paraGraphTeam"
                 android:layout_below="@+id/SubHeadingTeam"
                 android:layout_centerHorizontal="true" />
@@ -109,7 +129,7 @@
                 android:gravity="center"
                 android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="5dp"
+                android:verticalSpacing="dp"
                 android:horizontalSpacing="5dp"
                 android:layout_centerInParent="true"
                 android:focusable="true"
@@ -126,21 +146,7 @@
         </RelativeLayout>
     </ScrollView>
 
-    <EditText android:id="@+id/Team_TITLE"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColor="@color/card"
-        android:gravity="center"
-        android:hint="Enter Title"
-        android:textSize="20sp"
-        android:maxLines="1"
-        android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>

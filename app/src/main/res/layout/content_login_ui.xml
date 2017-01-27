@@ -71,6 +71,8 @@
             android:text="SIGN IN"
             android:textSize="16dp" />
 
+        <!-- TODO: uncomment when use forgot password -->
+
         <TextView android:id="@+id/link_forgotPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -78,7 +80,7 @@
             android:text="FORGOT PASSWORD ?"
             android:textColor="@color/primary"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:textSize="16sp"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/link_signup"
@@ -89,7 +91,7 @@
             android:background="@drawable/dont_have_c"
             android:text="Don't have an account yet? Sign Up"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 </ScrollView>
 

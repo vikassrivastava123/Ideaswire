@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -66,6 +67,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     static  int pageButtonViewId;
     static  boolean isChangeThemeManual = false;
     ProgressDialog mProgressDialog;
+    HorizontalScrollView sv;
 
 
     private static ViewPager mPager;
@@ -100,11 +102,11 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
 
         try {
-            if(dataObj != null) {
+//            if(dataObj != null) {
                 dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
-            }else{
-                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");
-            }
+//            }else{
+//                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");  //not need
+//            }
         }catch (NullPointerException e){
             Log.d(TAG,e.toString());
 
@@ -140,7 +142,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             }
         }
 
-
+        sv = (HorizontalScrollView) findViewById(R.id.scrollViewPages);
         showBaseMenu();
 
         fragmentToLaunch = dataObj.getFragmentToLaunchPage();
@@ -272,7 +274,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         int numberOfBtn = size;  // number of button when data come from server and preview mode
 
                         //try for null pointer catch . log catch in case it fails
-                        if (showPreview && dataObj.isEditDefaultOrUpdateData()){
+                        if (showPreview && dataObj.isEditOrUpdateMode()){
                             try {
                                 numberOfBtn = selectedPageList.size();  // buttons which page are add in profile data
                             }catch (NullPointerException e){
@@ -383,6 +385,10 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                  btn[pageButtonViewId].setBackgroundColor(fetchThemeBackgroundColor());
                  btn[pageButtonViewId].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[pageButtonViewId],0,0);
                  btn[pageButtonViewId].setTextColor(Color.WHITE);
+
+//                if (pageButtonViewId > 4) {
+//                    sv.scrollTo(10,0);
+//                }
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
@@ -667,7 +673,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                 {
                     String pageName = mPages.nameis();
                     if (currentPages != mPages) {
-                        MainActivity.listOfTemplatePagesObj.remove(position);
+                        MainActivity.listOfTemplatePagesObj.remove(position); //delete from main list
+                        MainActivity.getProfileObject().deletePageByName(pageName);
                         list.remove(position);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
@@ -835,6 +842,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             dataObj.setPriviewMode(false);
             if (select_layout_of_template.listOfTemplatePagesObjForAddPage != null)
             select_layout_of_template.listOfTemplatePagesObjForAddPage.clear();
+            MainActivity.requestToMakeProfile = null;
         }
     }
 }

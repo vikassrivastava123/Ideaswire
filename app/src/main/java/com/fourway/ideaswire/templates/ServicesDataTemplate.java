@@ -17,7 +17,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
     public String paraGraph = null;
     public String heading_below =null;
     public String subHeading_below =null;
-    public String getParaGraph_below=null;
+    public String paraGraph_below=null;
     private String urlOfImage =null;
 
     boolean   ismDefaultData = false;
@@ -50,7 +50,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
     void initDeafultdata(){
 
         title="Service";
-        heading = "Totam Aperiam Consect";
+        /*heading = "Totam Aperiam Consect";
         subHeading = "There are many variation of passages";
         paraGraph = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
@@ -60,7 +60,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
         subHeading_below = "There are many variation of passages";
         getParaGraph_below = "There are many variation of passage of Lorem" +
                 "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";
+                "alternation in some form by injected humour";*/
 
     }
 
@@ -113,11 +113,11 @@ public class ServicesDataTemplate extends dataOfTemplate {
     }
 
     public String getGetParaGraph_below() {
-        return getParaGraph_below;
+        return paraGraph_below;
     }
 
     public void setGetParaGraph_below(String getParaGraph_below) {
-        this.getParaGraph_below = getParaGraph_below;
+        this.paraGraph_below = getParaGraph_below;
     }
 
     public String getUrlOfImage() {

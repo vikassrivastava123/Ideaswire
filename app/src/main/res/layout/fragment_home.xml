@@ -3,7 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText android:id="@+id/Home_TITLE"
+    <EditText
+        android:maxLength="30"
+        android:id="@+id/Home_TITLE"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:focusable="true"
@@ -11,7 +13,7 @@
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Enter Title"
+        android:hint="@string/titleHint"
         android:maxLines="1"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor"
@@ -86,13 +88,14 @@
             </RelativeLayout>
 
             <EditText
+                android:maxLength="30"
                 android:background="@color/card"
                 android:gravity="center"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Heading"
+                android:hint="@string/headingHint"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
                 android:onClick="changeHeadingTextHome"
@@ -124,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="changeSubHeadingTextHome"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is some random heading"
+                android:hint="@string/subHeadingHint"
                 android:id="@+id/subHeadingHome"
                 android:layout_below="@+id/headingHome"
                 android:layout_centerHorizontal="true" />
@@ -139,6 +142,8 @@
                 android:background="@null" />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="14dp"
                 android:background="@color/card"
                 android:gravity="center"
@@ -149,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="changeparaGraphTextHome"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Some random para so as to fill the space lol.You actually reading it.come on man do some work."
+                android:hint="@string/paragraphHint"
                 android:textAlignment="center"
                 android:id="@+id/paraGraphHome"
                 android:layout_below="@+id/subHeadingHome"

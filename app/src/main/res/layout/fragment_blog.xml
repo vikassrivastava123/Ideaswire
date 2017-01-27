@@ -10,9 +10,10 @@
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
-        android:hint="Enter Title"
+        android:hint="@string/titleHint"
         android:textSize="20sp"
         android:maxLines="1"
+        android:maxLength="30"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor"
         />
@@ -45,6 +46,7 @@
 
 
             <EditText
+                android:maxLength="30"
                 android:layout_marginTop="14dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
@@ -53,7 +55,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
-                android:text="Heading"
+                android:hint="@string/headingHint"
                 android:gravity="center"
                 android:id="@+id/blog_heading"
                 android:layout_alignParentTop="true"
@@ -70,22 +72,6 @@
 
                 />
 
-            <EditText
-                android:background="@color/card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/text"
-                android:textColorHint="@color/textHintOnWhite"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is some random sub heading"
-                android:layout_marginTop="14dp"
-                android:id="@+id/blog_subheading"
-                android:layout_below="@+id/blog_heading"
-                android:layout_centerHorizontal="true"
-                />
-
             <ImageView
                 android:id="@+id/deleteSubHeaderBlogPage"
                 android:layout_width="wrap_content"
@@ -97,6 +83,8 @@
                 android:background="@null" />
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +93,7 @@
                 android:textColor="@color/textWith_56p_opacity"
                 android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Writing some random paragraph so as to fill the spacethis is the random text"
+                android:hint="@string/paragraphHint"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:id="@+id/blog_paraGraph"
@@ -165,13 +153,14 @@
             </RelativeLayout>
 
             <EditText
+                android:maxLength="30"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="14dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Heading below image view"
+                android:hint="@string/headingHint"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/text"
@@ -200,7 +189,7 @@
                 android:textColor="@color/text"
                 android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Some random funny sub-heading."
+                android:hint="@string/subHeadingHint"
                 android:id="@+id/blog_subheading_belowing"
                 android:layout_below="@+id/blog_heading_belowing"
                 android:layout_centerHorizontal="true"
@@ -221,6 +210,8 @@
 
 
             <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -230,7 +221,7 @@
                 android:textColor="@color/textWith_56p_opacity"
                 android:textColorHint="@color/textHintOnWhite"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="This is the random para to tet the text view put your own text re."
+               android:hint="@string/paragraphHint"
                 android:textAlignment="center"
                 android:id="@+id/blog_paraGraph_belowing"
                 android:layout_below="@+id/blog_subheading_belowing"
@@ -246,6 +237,21 @@
                 android:layout_marginRight="10dp"
                 android:background="@null"
                 />
+
+            <EditText
+                android:layout_below="@+id/blog_heading"
+                android:background="@color/card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/text"
+                android:textColorHint="@color/textHintOnWhite"
+                android:gravity="center"
+                android:layout_marginTop="14dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:hint="@string/subHeadingHint"
+                android:id="@+id/blog_subheading"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </ScrollView>

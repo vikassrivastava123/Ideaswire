@@ -47,6 +47,18 @@ public abstract class dataOfTemplate implements Serializable {
 
     }
 
+    /**
+     * isEditUpdate return true if it's update mode or edit mode
+     * @return
+     */
+    public boolean isEditOrUpdateMode() {
+        boolean editUpdate = false;
+        if (mUpdateProfile || mEditMode) {
+            editUpdate = true;
+        }
+        return editUpdate;
+    }
+
     public void setEditMode(boolean tf){
         mEditMode = tf;
     }
