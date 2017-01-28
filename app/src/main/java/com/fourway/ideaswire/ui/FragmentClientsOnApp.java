@@ -84,6 +84,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     String LogoUrl_5 = null;
     String LogoUrl_6 = null;
 
+    List<Drawable> defaultArrayList =new ArrayList<>(); //default drawable list
+
 
     int cropRestart=-1;
 
@@ -189,28 +191,36 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         gridView = (GridView) view.findViewById(R.id.ClientGridView);
 
+        Drawable defaultLogo = getResources().getDrawable( R.drawable.clients_logo );
+
 
 
 //todo null check
 
         if (dataObj.getClient_logo(0) == null || !dataObj.getClient_logo(0).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(0));
+            defaultArrayList.add(defaultLogo); //add drawable in list
         }
 
         if (dataObj.getClient_logo(1) == null || !dataObj.getClient_logo(1).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(1));
+            defaultArrayList.add(defaultLogo);//add drawable in list
         }
         if (dataObj.getClient_logo(2) == null || !dataObj.getClient_logo(2).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(2));
+            defaultArrayList.add(defaultLogo);//add drawable in list
         }
         if (dataObj.getClient_logo(3) == null || !dataObj.getClient_logo(3).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(3));
+            defaultArrayList.add(defaultLogo);//add drawable in list
         }
         if (dataObj.getClient_logo(4) == null || !dataObj.getClient_logo(4).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(4));
+            defaultArrayList.add(defaultLogo);//add drawable in list
         }
         if (dataObj.getClient_logo(5) == null || !dataObj.getClient_logo(5).equals(CROSS_BUTTON_HIDE)){
             clientsLogoUrl.add(dataObj.getClient_logo(5));
+            defaultArrayList.add(defaultLogo);//add drawable in list
         }
 
 
@@ -218,7 +228,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
 
         // use your custom layout
-        gridViewAdapter=new GridViewAdapter(getActivity(),android.R.layout.simple_list_item_1, clientsLogoUrl);
+        gridViewAdapter=new GridViewAdapter(getActivity(),android.R.layout.simple_list_item_1, clientsLogoUrl, defaultArrayList);
         gridView.setAdapter(gridViewAdapter);
 
 
@@ -235,7 +245,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
                         clientsLogoUrl.remove(position);
                         //gridViewAdapter.mThumbs[position].
-
+                        defaultArrayList.remove(position); //delete drawable from list acoording grid position
                         gridView.setAdapter(gridViewAdapter);
                         gridViewAdapter.notifyDataSetChanged();
 
@@ -306,7 +316,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             FileInputStream in = getActivity().openFileInput(imageName);
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             if (gridPosition != -1) {
-                gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
+                //gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
+                defaultArrayList.set(gridPosition,new BitmapDrawable(bitmap));//set new drable from gallary
                 gridViewAdapter.notifyDataSetChanged();
             }
 
@@ -413,11 +424,13 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     private class GridViewAdapter extends ArrayAdapter{
         Context context;
         List<String> clientLogoUrl=new ArrayList<>();
+        List<Drawable> defaultDrawableList = new ArrayList<>();
 
-        public GridViewAdapter(Context context, int resource,List<String> clientLogoUrl) {
+        public GridViewAdapter(Context context, int resource,List<String> clientLogoUrl,List<Drawable> defaultDrawableList) {
             super(context, resource, clientLogoUrl);
             this.context=context;
             this.clientLogoUrl=clientLogoUrl;
+            this.defaultDrawableList = defaultDrawableList;
         }
 
         @Override
@@ -468,7 +481,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                 /**/
                 clientLogo.setVisibility(View.GONE);
                 if (dataObj.isEditDefaultOrUpdateData() ) {
-                       clientStaticLogo.setImageDrawable(mThumbs[position]);
+                       clientStaticLogo.setImageDrawable(defaultDrawableList.get(position));
                 }else {
                        clientStaticLogo.setVisibility(View.GONE);
                 }
@@ -477,8 +490,8 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             return gridView;
         }
 
-        Drawable myIcon = getResources().getDrawable( R.drawable.clients_logo );
-        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
+//        Drawable myIcon = getResources().getDrawable( R.drawable.clients_logo );
+//        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
     }
 
     @Override

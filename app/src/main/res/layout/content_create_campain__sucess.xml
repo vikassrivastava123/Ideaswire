@@ -84,15 +84,14 @@
         android:id="@+id/btn_addTemplate"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:background="@drawable/loginbutton"
         android:textColor="@color/card"
         android:text="NOW CHOOSE TEMPLATE"
         android:onClick="addTemplate"
-        />
-
-
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

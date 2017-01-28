@@ -96,8 +96,8 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
 
     ProgressDialog pd;
     public void TestSearch(View view) {
-        pd=new ProgressDialog(this);
-        pd.setMessage("Searching...");
+        pd=new ProgressDialog(this,R.style.AppTheme_Dark_Dialog);
+        pd.setMessage("Searching...  ");
         pd.show();
         Log.v("TestSearch", "start");
        /* if(imgUri == null){
@@ -151,8 +151,9 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
                 errorDialog.setIcon(android.R.drawable.ic_dialog_alert);
                 switch (res) {
                     case COMMON_RES_CONNECTION_TIMEOUT:
-                        errorDialog.setMessage("Connection time out");
-                        errorDialog.show();
+                        startActivity(new Intent(EditPhotoSelectedUi.this, ImageNotFoundUi.class));
+//                        errorDialog.setMessage("Connection time out");
+//                        errorDialog.show();
                         break;
                     case COMMON_RES_FAILED_TO_UPLOAD:
                         errorDialog.setMessage("Image upload failed");
@@ -168,6 +169,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
                         break;
                     case COMMON_RES_IMAGE_NOT_FOUND:
                         startActivity(new Intent(EditPhotoSelectedUi.this, ImageNotFoundUi.class));
+                        finish();
                         break;
                     case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
                         errorDialog.setMessage("" + res);

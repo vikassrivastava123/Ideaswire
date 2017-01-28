@@ -32,6 +32,7 @@ public class ImageNotFoundUi extends Activity {
             Intent intent = new Intent(this, editCampaign.class);
             intent.putExtra(MainActivity.CREATE_CAMPAIGN_IMAGE_FROM,MainActivity.IMAGE_SEARCH);
             startActivity(intent);
+            finish();
         }else {
             startActivity(new Intent(this,loginUi.class));
         }
