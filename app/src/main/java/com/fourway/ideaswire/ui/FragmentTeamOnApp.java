@@ -251,7 +251,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                if (!showPreview && progressBar.getVisibility() == View.GONE) {
+                if (!showPreview && !FragmenMainActivity.isImageUploading) {
 
                     if (v.getId() == R.id.deleteTeamImage) {
                         memberImageUrl.remove(position);
@@ -428,6 +428,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -452,6 +453,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
             progressBar.setVisibility(View.VISIBLE);
+            FragmenMainActivity.isImageUploading = true;
 
         }
 
@@ -629,32 +631,34 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.deleteTitleTeam:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.setTitle(CROSS_BUTTON_HIDE);
-                deleteTitle.setVisibility(View.GONE);
-                break;
-            case R.id.deleteHeadingTeam:
-                editHeading.setVisibility(View.GONE);
-                editHeading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setHeaderTeam(CROSS_BUTTON_HIDE);
-                deleteHeading.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeadingTeam:
-                editSubHeading.setVisibility(View.GONE);
-                deleteSubHeading.setVisibility(View.GONE);
-                editSubHeading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setSubHeadingTeam(CROSS_BUTTON_HIDE);
-                break;
-            case R.id.deleteParaGraphTeam:
-                editParaGraph.setVisibility(View.GONE);
-                editParaGraph.setText(CROSS_BUTTON_HIDE);
-                dataObj.setParaGraphTeam(CROSS_BUTTON_HIDE);
-                deletePara.setVisibility(View.GONE);
-                break;
+        if (!FragmenMainActivity.isImageUploading) {
+            switch (v.getId()) {
+                case R.id.deleteTitleTeam:
+                    editTitle.setVisibility(View.GONE);
+                    editTitle.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setTitle(CROSS_BUTTON_HIDE);
+                    deleteTitle.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteHeadingTeam:
+                    editHeading.setVisibility(View.GONE);
+                    editHeading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setHeaderTeam(CROSS_BUTTON_HIDE);
+                    deleteHeading.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeadingTeam:
+                    editSubHeading.setVisibility(View.GONE);
+                    deleteSubHeading.setVisibility(View.GONE);
+                    editSubHeading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setSubHeadingTeam(CROSS_BUTTON_HIDE);
+                    break;
+                case R.id.deleteParaGraphTeam:
+                    editParaGraph.setVisibility(View.GONE);
+                    editParaGraph.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setParaGraphTeam(CROSS_BUTTON_HIDE);
+                    deletePara.setVisibility(View.GONE);
+                    break;
 
+            }
         }
     }
 
@@ -832,6 +836,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         progressBar.setVisibility(View.GONE);
+        FragmenMainActivity.isImageUploading = false;
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             int ImageId = data.getUniqueSequenceNumber();
 

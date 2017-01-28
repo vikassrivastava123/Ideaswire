@@ -429,63 +429,65 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.deleteTitleBlog:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.setTitle(CROSS_BUTTON_HIDE);
-                deleteTitleBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteHeadingBlogPage:
-                heading.setVisibility(View.GONE);
-                heading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setHeaderBlog(CROSS_BUTTON_HIDE);
-                deleteHeadingBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeaderBlogPage:
-                subheading.setVisibility(View.GONE);
-                subheading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setSubHeader(CROSS_BUTTON_HIDE);
-                deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteParaBlogPage:
-                paraGraphBlog.setVisibility(View.GONE);
-                paraGraphBlog.setText(CROSS_BUTTON_HIDE);
-                dataObj.setText_Para(CROSS_BUTTON_HIDE);
-                deleteParaBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteCARD_IMAGE:
-                cardImage.setVisibility(View.GONE);
-                cardImageCrop.setVisibility(View.GONE);
-                deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
-                dataObj.setUrlOfImage(CROSS_BUTTON_HIDE);
-                cardImageUrl = CROSS_BUTTON_HIDE;
-                //cardRelativeLayout.setVisibility(View.GONE);
-                break;
-            case R.id.deleteHeadingBelowimgBlogPage:
-                heading_belo.setVisibility(View.GONE);
-                heading_belo.setText(CROSS_BUTTON_HIDE);
-                dataObj.setHeaderBlogBlowing(CROSS_BUTTON_HIDE);
-                deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeaderBelowimgBlog:
-                subheading_below.setVisibility(View.GONE);
-                subheading_below.setText(CROSS_BUTTON_HIDE);
-                dataObj.setSubHeaderBlowing(CROSS_BUTTON_HIDE);
-                deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteParaBelowimgBlogPage:
-                paraGraphBlog_below.setVisibility(View.GONE);
-                paraGraphBlog_below.setText(CROSS_BUTTON_HIDE);
-                dataObj.setText_ParaBlowing(CROSS_BUTTON_HIDE);
-                deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.Blog_STATIC_IMAGE:
-                uploadToBlogOnApp();
-                break;
-            case R.id.Blog_CARD_IMAGE:
-                uploadToBlogOnApp();
-                break;
+        if (!FragmenMainActivity.isImageUploading) {
+            switch (v.getId()) {
+                case R.id.deleteTitleBlog:
+                    editTitle.setVisibility(View.GONE);
+                    editTitle.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setTitle(CROSS_BUTTON_HIDE);
+                    deleteTitleBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteHeadingBlogPage:
+                    heading.setVisibility(View.GONE);
+                    heading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setHeaderBlog(CROSS_BUTTON_HIDE);
+                    deleteHeadingBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeaderBlogPage:
+                    subheading.setVisibility(View.GONE);
+                    subheading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setSubHeader(CROSS_BUTTON_HIDE);
+                    deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteParaBlogPage:
+                    paraGraphBlog.setVisibility(View.GONE);
+                    paraGraphBlog.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setText_Para(CROSS_BUTTON_HIDE);
+                    deleteParaBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteCARD_IMAGE:
+                    cardImage.setVisibility(View.GONE);
+                    cardImageCrop.setVisibility(View.GONE);
+                    deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+                    dataObj.setUrlOfImage(CROSS_BUTTON_HIDE);
+                    cardImageUrl = CROSS_BUTTON_HIDE;
+                    //cardRelativeLayout.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteHeadingBelowimgBlogPage:
+                    heading_belo.setVisibility(View.GONE);
+                    heading_belo.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setHeaderBlogBlowing(CROSS_BUTTON_HIDE);
+                    deleteHeadingBelowimgBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeaderBelowimgBlog:
+                    subheading_below.setVisibility(View.GONE);
+                    subheading_below.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setSubHeaderBlowing(CROSS_BUTTON_HIDE);
+                    deleteSubHeaderBelowimgBlogBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteParaBelowimgBlogPage:
+                    paraGraphBlog_below.setVisibility(View.GONE);
+                    paraGraphBlog_below.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setText_ParaBlowing(CROSS_BUTTON_HIDE);
+                    deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.Blog_STATIC_IMAGE:
+                    uploadToBlogOnApp();
+                    break;
+                case R.id.Blog_CARD_IMAGE:
+                    uploadToBlogOnApp();
+                    break;
+            }
         }
     }
 
@@ -535,6 +537,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -569,6 +572,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
             pbImage = new ProgressDialog(getActivity());
             pbImage.setMessage("Uploading Image...");
             progressBar.setVisibility(View.VISIBLE);
+            FragmenMainActivity.isImageUploading = true;
 
         }
 
@@ -601,6 +605,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
         progressBar.setVisibility(View.GONE);
+        FragmenMainActivity.isImageUploading = false;
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();
             cardImageUrl = imageUrl;
@@ -714,7 +719,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     public void uploadToBlogOnApp() {
 
-        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
+        if(showPreview == false && !FragmenMainActivity.isImageUploading) {
             String campnName = null;
          /*
         * Need to open gallery directly from here

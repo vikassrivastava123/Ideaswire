@@ -16,8 +16,7 @@
         android:hint="@string/titleHint"
         android:maxLines="1"
         android:textColorHint = "@color/cardHint"
-        android:background="?customBackgroundAttributeColor"
-        android:onClick="changeTitleTextHome" />
+        android:background="?customBackgroundAttributeColor" />
 
     <ImageView
         android:id="@+id/deleteTitlehome"

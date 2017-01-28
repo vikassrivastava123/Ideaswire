@@ -69,6 +69,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     ProgressDialog mProgressDialog;
     HorizontalScrollView sv;
 
+    public static boolean isImageUploading = false; //check image uploading status, if it is "true" means image uploading in progress
+
 
     private static ViewPager mPager;
     private viewCampaign previewCampaign;
@@ -315,7 +317,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    if (pageButtonViewId != v.getId()) {
+                                    if (pageButtonViewId != v.getId() && !isImageUploading) {
                                         pageButtonViewId = v.getId();
                                         //Toast.makeText(getApplicationContext(),
                                         //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
@@ -426,37 +428,39 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
     boolean toglePreviewButton = false;
     public void previewTemplate(View view) {
-        previewCampaign = (viewCampaign)fragmentToLaunch ;//dataObj.getFragmentToLaunchPage();
-        TextView textViewShowPreview = (TextView)findViewById(R.id.textShow_preview);
+        if (!isImageUploading) {
+            previewCampaign = (viewCampaign) fragmentToLaunch;//dataObj.getFragmentToLaunchPage();
+            TextView textViewShowPreview = (TextView) findViewById(R.id.textShow_preview);
 
-        Button showPreviewBtn  = (Button)findViewById(R.id.showPreview);
+            Button showPreviewBtn = (Button) findViewById(R.id.showPreview);
 
 
-        if(toglePreviewButton == false) {    //this means app is in edit mode and user pressed
-                                             //priview button so now it should be priview mode
-            textViewShowPreview.setText("Edit");
-            fab.show();
-            showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
-            previewCampaign.init_ViewCampaign();
+            if (toglePreviewButton == false) {    //this means app is in edit mode and user pressed
+                //priview button so now it should be priview mode
+                textViewShowPreview.setText("Edit");
+                fab.show();
+                showPreviewBtn.setBackgroundResource(R.drawable.preview_edit);
+                previewCampaign.init_ViewCampaign();
 
-            dataObj.setPriviewMode(true);   //take app to priview mode
+                dataObj.setPriviewMode(true);   //take app to priview mode
 
-            //init_viewCampaign();
-            showPreview = true;
-            toglePreviewButton = true;
-            showBaseMenu();
-        }else {
-            textViewShowPreview.setText("Preview");
-            fab.hide();
-            showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
-            previewCampaign.init_ViewCampaign();
+                //init_viewCampaign();
+                showPreview = true;
+                toglePreviewButton = true;
+                showBaseMenu();
+            } else {
+                textViewShowPreview.setText("Preview");
+                fab.hide();
+                showPreviewBtn.setBackgroundResource(R.drawable.preview_about);
+                previewCampaign.init_ViewCampaign();
 
-            dataObj.setPriviewMode(false);  //take app to edit mode
+                dataObj.setPriviewMode(false);  //take app to edit mode
 
-            //init_editCampaign();
-            showPreview = false;
-            toglePreviewButton = false;
-            showBaseMenu();
+                //init_editCampaign();
+                showPreview = false;
+                toglePreviewButton = false;
+                showBaseMenu();
+            }
         }
 
         //   RelativeLayout previewLayout = (RelativeLayout)findViewById(R.id.previewLayout);
@@ -465,12 +469,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
     public void pageTemplate(View view) {
         //startActivity(new Intent(getApplicationContext(),about_us_page_template.class));
-        if (!showPreview)
+        if (!showPreview && !isImageUploading)
         addPage();
     }
 
     public void changeThemes(View view){
-        if (!showPreview){
+        if (!showPreview && !isImageUploading){
             AlertDialog themeDialog = new AlertDialog.Builder(this, R.style.AppTheme).create();
 
             View themeDialogView = LayoutInflater.from(this).inflate(R.layout.themes_chooser,null);
@@ -850,6 +854,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             if (select_layout_of_template.listOfTemplatePagesObjForAddPage != null)
             select_layout_of_template.listOfTemplatePagesObjForAddPage.clear();
             MainActivity.requestToMakeProfile = null;
+            isImageUploading = false;
         }
     }
 }

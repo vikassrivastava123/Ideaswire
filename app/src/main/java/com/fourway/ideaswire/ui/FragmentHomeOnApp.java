@@ -255,57 +255,60 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.deleteTitlehome:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.setTitle(CROSS_BUTTON_HIDE);
-                deleteTitle.setVisibility(View.GONE);
-                break;
-            case R.id.deleteCARD_IMAGE_1:
-                cardImage_1.setVisibility(View.GONE);
-                cardImageLayout1.setVisibility(View.GONE);
-                deleteCardImage_1.setVisibility(View.GONE);
-                dataObj.setUrlOfImage_1(CROSS_BUTTON_HIDE);
-                cardImageUrl_1 = CROSS_BUTTON_HIDE;
-                break;
-            case R.id.deleteHeadingHome:
-                editHeader.setVisibility(View.GONE);
-                editHeader.setText(CROSS_BUTTON_HIDE);
-                dataObj.setHeading(CROSS_BUTTON_HIDE);
-                deleteHeading.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeadingHome:
-                editSubheading.setVisibility(View.GONE);
-                editSubheading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setSubHeading(CROSS_BUTTON_HIDE);
-                deleteSubHeading.setVisibility(View.GONE);
-                break;
-            case R.id.deleteParaHome:
-                editParaGraph.setVisibility(View.GONE);
-                editParaGraph.setText(CROSS_BUTTON_HIDE);
-                dataObj.setParaGraph(CROSS_BUTTON_HIDE);
-                deletePara.setVisibility(View.GONE);
-                break;
-            case R.id.deleteCARD_IMAGE_2:
-                deleteCardImage_2.setVisibility(View.GONE);
-                cardImageCrop_2.setVisibility(View.GONE);
-                cardImage_2.setVisibility(View.GONE);
-                dataObj.setUrlOfImage_2(CROSS_BUTTON_HIDE);
-                cardImageUrl_2 = CROSS_BUTTON_HIDE;
-                break;
-            case R.id.Home_STATIC_IMAGE_1:
-                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
-                break;
-            case R.id.Home_CARD_IMAGE_1:
-                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
-                break;
-            case R.id.Home_STATIC_IMAGE_2:
-                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
-                break;
-            case R.id.Home_CARD_IMAGE_2:
-                uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
-                break;
+        if (!FragmenMainActivity.isImageUploading) {
+            switch (v.getId()) {
+                case R.id.deleteTitlehome:
+                    editTitle.setVisibility(View.GONE);
+                    editTitle.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setTitle(CROSS_BUTTON_HIDE);
+                    deleteTitle.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteCARD_IMAGE_1:
+                    cardImage_1.setVisibility(View.GONE);
+                    cardImageLayout1.setVisibility(View.GONE);
+                    deleteCardImage_1.setVisibility(View.GONE);
+                    dataObj.setUrlOfImage_1(CROSS_BUTTON_HIDE);
+                    cardImageUrl_1 = CROSS_BUTTON_HIDE;
+                    break;
+                case R.id.deleteHeadingHome:
+                    editHeader.setVisibility(View.GONE);
+                    editHeader.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setHeading(CROSS_BUTTON_HIDE);
+                    deleteHeading.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeadingHome:
+                    editSubheading.setVisibility(View.GONE);
+                    editSubheading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setSubHeading(CROSS_BUTTON_HIDE);
+                    deleteSubHeading.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteParaHome:
+                    editParaGraph.setVisibility(View.GONE);
+                    editParaGraph.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setParaGraph(CROSS_BUTTON_HIDE);
+                    deletePara.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteCARD_IMAGE_2:
+                    deleteCardImage_2.setVisibility(View.GONE);
+                    cardImageCrop_2.setVisibility(View.GONE);
+                    cardImage_2.setVisibility(View.GONE);
+                    dataObj.setUrlOfImage_2(CROSS_BUTTON_HIDE);
+                    cardImageUrl_2 = CROSS_BUTTON_HIDE;
+                    break;
+                case R.id.Home_STATIC_IMAGE_1:
+                    uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
+                    break;
+                case R.id.Home_CARD_IMAGE_1:
+                    uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_1, 1);
+                    break;
+                case R.id.Home_STATIC_IMAGE_2:
+                    uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
+                    break;
+                case R.id.Home_CARD_IMAGE_2:
+                    uploadToHomeOnApp(MainActivity.Home_TemplateImage_IMAGE_CROPED_NAME_2, 2);
+                    break;
+            }
+
         }
     }
 
@@ -336,7 +339,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
 
     public void uploadToHomeOnApp(String ImageName, int forWhichImage) {
 
-        if(showPreview == false && progressBar1.getVisibility() == View.GONE && progressBar2.getVisibility() == View.GONE) {
+        if(showPreview == false && !FragmenMainActivity.isImageUploading) {
             String campnName = null;
          /*
         * Need to open gallery directly from here
@@ -402,6 +405,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
                 req.executeRequest();
             } catch (FileNotFoundException e) {
                 progressBar1.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
                 e.printStackTrace();
             }
 
@@ -438,6 +442,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
             progressBar1.setVisibility(View.VISIBLE);
+            FragmenMainActivity.isImageUploading = true;
 
         }
 
@@ -470,6 +475,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar2.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -505,6 +511,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
             progressBar2.setVisibility(View.VISIBLE);
+            FragmenMainActivity.isImageUploading = true;
 
         }
 
@@ -518,6 +525,7 @@ public class FragmentHomeOnApp extends Fragment implements View.OnClickListener,
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        FragmenMainActivity.isImageUploading = false;
         progressBar1.setVisibility(View.GONE);
         progressBar2.setVisibility(View.GONE);
 

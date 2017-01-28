@@ -225,7 +225,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                if (!showPreview && progressBar.getVisibility() == View.GONE) {
+                if (!showPreview && !FragmenMainActivity.isImageUploading) {
 
                     if (v.getId() == R.id.deleteClientLogo) {
 
@@ -373,6 +373,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -396,6 +397,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
+            FragmenMainActivity.isImageUploading = true;
             progressBar.setVisibility(View.VISIBLE);
 
         }
@@ -481,33 +483,35 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        if (!FragmenMainActivity.isImageUploading) {
+            switch (v.getId()) {
 
-            case R.id.deleteTitleClient:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.setTitle(CROSS_BUTTON_HIDE);
-                deleteTitle.setVisibility(View.GONE);
-                break;
-            case R.id.deleteHeadingClient:
-                editHeading.setVisibility(View.GONE);
-                editHeading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setHeaderClient(CROSS_BUTTON_HIDE);
-                deleteHeading.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeadingClient:
-                editSubHeading.setVisibility(View.GONE);
-                editSubHeading.setText(CROSS_BUTTON_HIDE);
-                dataObj.setSubHeaderClient(CROSS_BUTTON_HIDE);
-                deleteSubHeading.setVisibility(View.GONE);
-                break;
-            case R.id.deleteParaClient:
-                editParaGraph.setVisibility(View.GONE);
-                editParaGraph.setText(CROSS_BUTTON_HIDE);
-                dataObj.setParaClient(CROSS_BUTTON_HIDE);
-                deleteParaGraph.setVisibility(View.GONE);
-                break;
+                case R.id.deleteTitleClient:
+                    editTitle.setVisibility(View.GONE);
+                    editTitle.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setTitle(CROSS_BUTTON_HIDE);
+                    deleteTitle.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteHeadingClient:
+                    editHeading.setVisibility(View.GONE);
+                    editHeading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setHeaderClient(CROSS_BUTTON_HIDE);
+                    deleteHeading.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeadingClient:
+                    editSubHeading.setVisibility(View.GONE);
+                    editSubHeading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setSubHeaderClient(CROSS_BUTTON_HIDE);
+                    deleteSubHeading.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteParaClient:
+                    editParaGraph.setVisibility(View.GONE);
+                    editParaGraph.setText(CROSS_BUTTON_HIDE);
+                    dataObj.setParaClient(CROSS_BUTTON_HIDE);
+                    deleteParaGraph.setVisibility(View.GONE);
+                    break;
 
+            }
         }
     }
 
@@ -627,6 +631,7 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        FragmenMainActivity.isImageUploading = false;
         progressBar.setVisibility(View.GONE);
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             int ImageId = data.getUniqueSequenceNumber();

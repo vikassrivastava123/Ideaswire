@@ -355,6 +355,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -389,6 +390,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             pbImage = new ProgressDialog(getActivity().getApplicationContext());
             pbImage.setMessage("Uploading Image...");
             progressBar.setVisibility(View.VISIBLE);
+            FragmenMainActivity.isImageUploading = true;
 
         }
 
@@ -421,7 +423,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
     public void uploadToServiceOnApp() {
 
-        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
+        if(showPreview == false && !FragmenMainActivity.isImageUploading) {
             String campnName = null;
          /*
         * Need to open gallery directly from here
@@ -518,6 +520,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
         pbImage.hide();
+        FragmenMainActivity.isImageUploading = false;
         progressBar.setVisibility(View.GONE);
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
             String imageUrl = data.getResponseUrl();

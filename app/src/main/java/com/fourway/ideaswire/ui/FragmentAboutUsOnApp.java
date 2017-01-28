@@ -411,7 +411,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     public void uploadToAboutUsOnApp() {
 
-        if(showPreview == false && progressBar.getVisibility() == View.GONE) {
+        if(showPreview == false && !FragmenMainActivity.isImageUploading) {
             String campnName = null;
          /*
         * Need to open gallery directly from here
@@ -438,7 +438,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
      @Override
     public void onUploadImageForUrlResponse(CommonRequest.ResponseCode res, UploadImageForUrlData data) {
-
+         FragmenMainActivity.isImageUploading = false;
          progressBar.setVisibility(View.GONE);
         //pbImage.dismiss();
         if(res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS) {
@@ -689,46 +689,48 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.deleteTitleAboutUs:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.set_title(CROSS_BUTTON_HIDE);
-                deleteTitleAboutUsBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteCARD_IMAGE:
-                cardImage.setVisibility(View.GONE);
-                cardImageCrop.setVisibility(View.GONE);
-                dataObj.set_url(CROSS_BUTTON_HIDE);
-                cardImageUrl = CROSS_BUTTON_HIDE;
-                cardImageRelativeLayout.setVisibility(View.GONE);
-                deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteHeadingAboutUs:
-                editHeader.setVisibility(View.GONE);
-                editHeader.setText(CROSS_BUTTON_HIDE);
-                dataObj.set_heading(CROSS_BUTTON_HIDE);
-                deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteSubHeaderAboutUs:
-                editSubHeading.setVisibility(View.GONE);
-                editSubHeading.setText(CROSS_BUTTON_HIDE);
-                dataObj.set_sub_heading(CROSS_BUTTON_HIDE);
-                deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.deleteParaAboutUs:
-                editParaGraphAboutUs.setVisibility(View.GONE);
-                editParaGraphAboutUs.setText(CROSS_BUTTON_HIDE);
-                dataObj.set_text_para(CROSS_BUTTON_HIDE);
-                deleteParaAboutUsBtnView.setVisibility(View.GONE);
-                break;
-            case R.id.ABOUT_US_STATIC_IMAGE:
-                uploadToAboutUsOnApp();
-                break;
-            case R.id.ABOUT_US_CARD_IMAGE:
-                uploadToAboutUsOnApp();
-                break;
+        if (!FragmenMainActivity.isImageUploading) { //if isImageUploading TRUE disabled onClick
+            switch (v.getId()) {
+                case R.id.deleteTitleAboutUs:
+                    editTitle.setVisibility(View.GONE);
+                    editTitle.setText(CROSS_BUTTON_HIDE);
+                    dataObj.set_title(CROSS_BUTTON_HIDE);
+                    deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteCARD_IMAGE:
+                    cardImage.setVisibility(View.GONE);
+                    cardImageCrop.setVisibility(View.GONE);
+                    dataObj.set_url(CROSS_BUTTON_HIDE);
+                    cardImageUrl = CROSS_BUTTON_HIDE;
+                    cardImageRelativeLayout.setVisibility(View.GONE);
+                    deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteHeadingAboutUs:
+                    editHeader.setVisibility(View.GONE);
+                    editHeader.setText(CROSS_BUTTON_HIDE);
+                    dataObj.set_heading(CROSS_BUTTON_HIDE);
+                    deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteSubHeaderAboutUs:
+                    editSubHeading.setVisibility(View.GONE);
+                    editSubHeading.setText(CROSS_BUTTON_HIDE);
+                    dataObj.set_sub_heading(CROSS_BUTTON_HIDE);
+                    deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.deleteParaAboutUs:
+                    editParaGraphAboutUs.setVisibility(View.GONE);
+                    editParaGraphAboutUs.setText(CROSS_BUTTON_HIDE);
+                    dataObj.set_text_para(CROSS_BUTTON_HIDE);
+                    deleteParaAboutUsBtnView.setVisibility(View.GONE);
+                    break;
+                case R.id.ABOUT_US_STATIC_IMAGE:
+                    uploadToAboutUsOnApp();
+                    break;
+                case R.id.ABOUT_US_CARD_IMAGE:
+                    uploadToAboutUsOnApp();
+                    break;
 
+            }
         }
     }
 
@@ -782,6 +784,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 progressBar.setVisibility(View.GONE);
+                FragmenMainActivity.isImageUploading = false;
             }
 
 
@@ -817,6 +820,7 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
             pbImage = new ProgressDialog(getActivity());
             pbImage.setMessage("Uploading Image...");
             //pbImage.show();
+            FragmenMainActivity.isImageUploading = true;
             progressBar.setVisibility(View.VISIBLE);
 
         }
