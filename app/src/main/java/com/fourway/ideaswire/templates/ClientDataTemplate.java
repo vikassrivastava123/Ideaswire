@@ -1,9 +1,11 @@
 package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
+import android.util.Log;
 
 import com.fourway.ideaswire.ui.ClientsOnapp;
 import com.fourway.ideaswire.ui.FragmentClientsOnApp;
+import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -23,6 +25,8 @@ public class ClientDataTemplate extends dataOfTemplate {
     public String client_logo_5=null;
     public String client_logo_6=null;
 
+    public String client_logo[];
+    final static String TAG = "ClientDataTemplate";
 
     boolean   ismDefaultData = false;
 
@@ -35,6 +39,8 @@ public class ClientDataTemplate extends dataOfTemplate {
         }
         ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
+
+        client_logo = new String[6];
 
     }
 
@@ -101,51 +107,40 @@ public class ClientDataTemplate extends dataOfTemplate {
         this.title = title;
     }
 
-    public String getClient_logo_1() {
-        return client_logo_1;
+    public String getClient_logo(int pos){
+        String url = client_logo[pos];
+        return url;
     }
 
-    public void setClient_logo_1(String client_logo_1) {
-        this.client_logo_1 = client_logo_1;
+    public int getAbsoluteValueOfLogoPosition(int position){
+        int retVal = position;
+
+        try {
+            for (int i = 0; i < 6; i++) {
+                int y = 0;
+                if (client_logo[i] != null &&client_logo[i].equals(MainActivity.CROSS_BUTTON_HIDE)) {
+                    retVal++;
+                    if(y==position){
+                        break;
+                    }
+                    y--;
+                }else{
+                 if(y==position){
+                        break;
+                 }
+                    y++;
+                }
+            }
+        }catch(NullPointerException e){
+            Log.d(TAG,"getAbsoluteValueOfLogoPosition");
+        }
+
+        return retVal;
     }
 
-    public String getClient_logo_2() {
-        return client_logo_2;
+    public void setClient_logo(String client_url,int pos){
+        client_logo[pos] = client_url;
     }
 
-    public void setClient_logo_2(String client_logo_2) {
-        this.client_logo_2 = client_logo_2;
-    }
 
-    public String getClient_logo_3() {
-        return client_logo_3;
-    }
-
-    public void setClient_logo_3(String client_logo_3) {
-        this.client_logo_3 = client_logo_3;
-    }
-
-    public String getClient_logo_4() {
-        return client_logo_4;
-    }
-
-    public void setClient_logo_4(String client_logo_4) {
-        this.client_logo_4 = client_logo_4;
-    }
-
-    public String getClient_logo_5() {
-        return client_logo_5;
-    }
-
-    public void setClient_logo_5(String client_logo_5) {
-        this.client_logo_5 = client_logo_5;
-    }
-
-    public String getClient_logo_6() {
-        return client_logo_6;
-    }
-
-    public void setClient_logo_6(String client_logo_6) {
-        this.client_logo_6 = client_logo_6;
-    }
 }

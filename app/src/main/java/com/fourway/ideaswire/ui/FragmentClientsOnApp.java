@@ -190,12 +190,29 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         gridView = (GridView) view.findViewById(R.id.ClientGridView);
 
 
-        clientsLogoUrl.add(dataObj.client_logo_1);
-        clientsLogoUrl.add(dataObj.client_logo_2);
-        clientsLogoUrl.add(dataObj.client_logo_3);
-        clientsLogoUrl.add(dataObj.client_logo_4);
-        clientsLogoUrl.add(dataObj.client_logo_5);
-        clientsLogoUrl.add(dataObj.client_logo_6);
+
+//todo null check
+
+        if (dataObj.getClient_logo(0) == null || !dataObj.getClient_logo(0).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(0));
+        }
+
+        if (dataObj.getClient_logo(1) == null || !dataObj.getClient_logo(1).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(1));
+        }
+        if (dataObj.getClient_logo(2) == null || !dataObj.getClient_logo(2).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(2));
+        }
+        if (dataObj.getClient_logo(3) == null || !dataObj.getClient_logo(3).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(3));
+        }
+        if (dataObj.getClient_logo(4) == null || !dataObj.getClient_logo(4).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(4));
+        }
+        if (dataObj.getClient_logo(5) == null || !dataObj.getClient_logo(5).equals(CROSS_BUTTON_HIDE)){
+            clientsLogoUrl.add(dataObj.getClient_logo(5));
+        }
+
 
 
 
@@ -211,9 +228,20 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
                 if (!showPreview && progressBar.getVisibility() == View.GONE) {
 
                     if (v.getId() == R.id.deleteClientLogo) {
+
+                        int j = position;
+                        int absPos = dataObj.getAbsoluteValueOfLogoPosition(position);
+                        dataObj.setClient_logo(CROSS_BUTTON_HIDE,absPos);
+
                         clientsLogoUrl.remove(position);
+                        //gridViewAdapter.mThumbs[position].
+
                         gridView.setAdapter(gridViewAdapter);
+                        gridViewAdapter.notifyDataSetChanged();
+
+
                     } else if (v.getId() == R.id.imgvTemplateCatrgory || v.getId() == R.id.Client_STATIC_LOGO) {
+
                         uploadToClientsOnApp(MainActivity.CLIENTS_LOGO_IMAGE_CROPED_NAME_ + position, position);
                         gridPosition = position;
 
@@ -392,13 +420,16 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         @Override
         public View getView(final int position, View convertView, final ViewGroup parent) {
+
             View gridView=LayoutInflater.from(context).inflate(R.layout.cl, null);
 
             NetworkImageView clientLogo = (NetworkImageView) gridView.findViewById(R.id.imgvTemplateCatrgory);
             final ImageView clientStaticLogo = (ImageView)gridView.findViewById(R.id.Client_STATIC_LOGO);
+
             clientLogoLayout =(RelativeLayout)gridView.findViewById(R.id.client_logo_layout);
             deleteClientLogo =(ImageView)gridView.findViewById(R.id.deleteClientLogo);
-            if (showPreview){
+
+           if (showPreview){
                 deleteClientLogo.setVisibility(View.GONE);
             }
 
@@ -425,17 +456,19 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             });
 
             String logoImageUrl =clientLogoUrl.get(position);
-            if( logoImageUrl!=null )
+
+            if( logoImageUrl!=null )/*In case no url from server*/
             {
                 clientStaticLogo.setVisibility(View.GONE);
                 clientLogo.setImageUrl(logoImageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
             }
             else {
+                /**/
                 clientLogo.setVisibility(View.GONE);
-                if (!showPreview || dataObj.isDefaultDataToCreateCampaign()) {
-                        clientStaticLogo.setImageDrawable(mThumbs[position]);
+                if (dataObj.isEditDefaultOrUpdateData() ) {
+                       clientStaticLogo.setImageDrawable(mThumbs[position]);
                 }else {
-                    clientStaticLogo.setVisibility(View.GONE);
+                       clientStaticLogo.setVisibility(View.GONE);
                 }
             }
 
@@ -444,7 +477,6 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         Drawable myIcon = getResources().getDrawable( R.drawable.clients_logo );
         Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
-//        int[] mThumbs = {R.drawable.clients_logo, R.drawable.clients_logo, R.drawable.clients_logo,R.drawable.clients_logo, R.drawable.clients_logo,R.drawable.clients_logo};
     }
 
     @Override
@@ -512,22 +544,22 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         }
 
         if (LogoUrl_1!=null){
-            dataObj.setClient_logo_1(LogoUrl_1);
+            dataObj.setClient_logo(LogoUrl_1,0);
         }
         if (LogoUrl_2!=null){
-            dataObj.setClient_logo_2(LogoUrl_2);
+            dataObj.setClient_logo(LogoUrl_2,1);
         }
         if (LogoUrl_3!=null){
-            dataObj.setClient_logo_3(LogoUrl_3);
+            dataObj.setClient_logo(LogoUrl_3,2);
         }
         if (LogoUrl_4!=null){
-            dataObj.setClient_logo_4(LogoUrl_4);
+            dataObj.setClient_logo(LogoUrl_4,3);
         }
         if (LogoUrl_5!=null){
-            dataObj.setClient_logo_5(LogoUrl_5);
+            dataObj.setClient_logo(LogoUrl_5,4);
         }
         if (LogoUrl_6!=null){
-            dataObj.setClient_logo_6(LogoUrl_6);
+            dataObj.setClient_logo(LogoUrl_6,5);
         }
 
     }
@@ -652,12 +684,12 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_HEADING, dataObj.getHeaderClient());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_SUBHEADING, dataObj.getSubHeaderClient());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_PARAGRAPH, dataObj.getParaClient());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_1, dataObj.getClient_logo_1());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_2, dataObj.getClient_logo_2());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_3, dataObj.getClient_logo_3());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_4, dataObj.getClient_logo_4());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_5, dataObj.getClient_logo_5());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_6, dataObj.getClient_logo_6());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_1, dataObj.getClient_logo(0));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_2, dataObj.getClient_logo(1));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_3, dataObj.getClient_logo(2));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_4, dataObj.getClient_logo(3));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_5, dataObj.getClient_logo(4));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_6, dataObj.getClient_logo(5));
 
         Profile reqToMakeProfile;
         reqToMakeProfile = MainActivity.getProfileObject();

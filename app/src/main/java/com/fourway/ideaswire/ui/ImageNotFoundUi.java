@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,13 +28,13 @@ public class ImageNotFoundUi extends Activity {
     }
 
     public void createApp(View view){
-//        if (session.isLoggedIn()){
-//            Intent intent = new Intent(this, editCampaign.class);
-//            intent.putExtra(MainActivity.CREATE_CAMPAIGN_IMAGE_FROM,MainActivity.IMAGE_SEARCH);
-//            startActivity(intent);
-//        }else {
-//            startActivity(new Intent(this,loginUi.class));
-//        }
+        if (session.isLoggedIn()){
+            Intent intent = new Intent(this, editCampaign.class);
+            intent.putExtra(MainActivity.CREATE_CAMPAIGN_IMAGE_FROM,MainActivity.IMAGE_SEARCH);
+            startActivity(intent);
+        }else {
+            startActivity(new Intent(this,loginUi.class));
+        }
     }
 
 }

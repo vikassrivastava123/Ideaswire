@@ -77,7 +77,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //theme = MainActivity.listOfTemplatePagesObj.get(0).themes(); //TODO: change theme login
+        theme = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).themes(); //TODO: change theme login
         switch (theme){
             case MainActivity.THEME_ORANGE:
                 setTheme(R.style.AppTheme_Orange);
@@ -251,6 +251,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             public void run() {
 
                 final int size = MainActivity.listOfTemplatePagesObj.size();
+                int numberOfBtn = 0;
                 final Button[] btn = new Button[size];
                 final int[] iconWhite = new int[size] ;
                 final int[] iconBlack = new  int[size];
@@ -271,7 +272,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             name = nameStrings[0];
                         }
 
-                        int numberOfBtn = size;  // number of button when data come from server and preview mode
+                        numberOfBtn = size;  // number of button when data come from server and preview mode
 
                         //try for null pointer catch . log catch in case it fails
                         if (showPreview && dataObj.isEditOrUpdateMode()){
@@ -386,19 +387,24 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                  btn[pageButtonViewId].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[pageButtonViewId],0,0);
                  btn[pageButtonViewId].setTextColor(Color.WHITE);
 
-//                if (pageButtonViewId > 4) {
-//                    sv.scrollTo(10,0);
-//                }
+
                 //btn[0].setFocusable(true);
                 // When adding another view, make sure you do it on the UI
                 // thread.
+                final int finalNumberOfBtn = numberOfBtn;
                 layout.post(new Runnable() {
 
                     public void run() {
 
                         layout.addView(row);
+//                        if (pageButtonViewId > 3) {//TODO: for auto scroll basemenu
+//                           for (int b = 0; b<(((finalNumberOfBtn -4)/2)+1); b++) {
+//                               sv.arrowScroll(View.FOCUS_RIGHT);
+//                           }
+//                        }
                     }
                 });
+
             }
         }, 500);
 
@@ -510,6 +516,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
               //      testForCahngeTheme();
                     isChangeThemeManual = true;
                     theme = mPager.getCurrentItem();
+                    MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).set_theme(theme);
                     recreate();
                 }
             });

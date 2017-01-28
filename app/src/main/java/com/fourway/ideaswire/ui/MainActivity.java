@@ -108,11 +108,11 @@ public class MainActivity extends AppCompatActivity{
         //startActivity(intent);
 
 
-       startActivity(new Intent(this,SplashScreen.class));
+     //  startActivity(new Intent(this,SplashScreen.class));
 
 
 
-//        startCreateCampaignWithDefaultData(1);
+        startCreateCampaignWithDefaultData(1);
     }
 
 
@@ -570,27 +570,27 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_1:
                     String logo_1 = atr.getContentValue();
-                    data.setClient_logo_1(logo_1);
+                    data.setClient_logo(logo_1,0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_2:
                     String logo_2 = atr.getContentValue();
-                    data.setClient_logo_2(logo_2);
+                    data.setClient_logo(logo_2,1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_3:
                     String logo_3 = atr.getContentValue();
-                    data.setClient_logo_3(logo_3);
+                    data.setClient_logo(logo_3,2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_4:
                     String logo_4 = atr.getContentValue();
-                    data.setClient_logo_4(logo_4);
+                    data.setClient_logo(logo_4,3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_5:
                     String logo_5 = atr.getContentValue();
-                    data.setClient_logo_5(logo_5);
+                    data.setClient_logo(logo_5,4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT_LOGO_6:
                     String logo_6 = atr.getContentValue();
-                    data.setClient_logo_6(logo_6);
+                    data.setClient_logo(logo_6,5);
                     break;
 
             }
