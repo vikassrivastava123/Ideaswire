@@ -114,22 +114,15 @@ public class ClientDataTemplate extends dataOfTemplate {
 
     public int getAbsoluteValueOfLogoPosition(int position){
         int retVal = position;
-
+        int y = 0,j=0;
         try {
-            for (int i = 0; i < 6; i++) {
-                int y = 0;
-                if (client_logo[i] != null &&client_logo[i].equals(MainActivity.CROSS_BUTTON_HIDE)) {
+            for (int i = 0; i <= position;) {
+                if (client_logo[j] != null &&client_logo[j].equals(MainActivity.CROSS_BUTTON_HIDE)) {
                     retVal++;
-                    if(y==position){
-                        break;
-                    }
-                    y--;
                 }else{
-                 if(y==position){
-                        break;
-                 }
-                    y++;
+                    i++;
                 }
+                j++;
             }
         }catch(NullPointerException e){
             Log.d(TAG,"getAbsoluteValueOfLogoPosition");
