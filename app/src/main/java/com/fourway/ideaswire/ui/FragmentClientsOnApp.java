@@ -51,7 +51,8 @@ import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
 /**
  * Created by 4way on 25-10-2016.
  */
-public class FragmentClientsOnApp extends Fragment implements View.OnClickListener, FragmenMainActivity.viewCampaign, UploadImageForUrlRequest.UploadImageForUrlCallback {
+public class FragmentClientsOnApp extends Fragment
+        implements View.OnClickListener, FragmenMainActivity.viewCampaign, UploadImageForUrlRequest.UploadImageForUrlCallback {
     private GridView gridView;
     ProgressBar progressBar;
     TextView mTitle,choose_cat;
@@ -191,42 +192,111 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
         gridView = (GridView) view.findViewById(R.id.ClientGridView);
 
-        Drawable defaultLogo = getResources().getDrawable( R.drawable.clients_logo );
+        Drawable defaultLogo = getResources().getDrawable(R.drawable.clients_logo);
+
+     //   int  sizeOfLogoList = dataObj.sizeOfLogoList();
+
+        //if(sizeOfLogoList<=0)
+        {
+            //todo null check
+            if ((dataObj.getClient_logo(0) == null || !dataObj.getClient_logo(0).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(0));
+                Drawable saved = null;
 
 
+                if(dataObj.isValInLogoList(0) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(0);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
 
-//todo null check
+                //  dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
 
-        if (dataObj.getClient_logo(0) == null || !dataObj.getClient_logo(0).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(0));
-            defaultArrayList.add(defaultLogo); //add drawable in list
+               // dataObj.dataOfLogoDrawables.add(0, defaultLogo);
+            }
+
+            if ((dataObj.getClient_logo(1) == null || !dataObj.getClient_logo(1).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(1));
+
+                Drawable saved = null;
+                if(dataObj.isValInLogoList(1) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(1);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
+
+                //dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
+                //dataObj.dataOfLogoDrawables.add(1, defaultLogo);
+            }
+            if ((dataObj.getClient_logo(2) == null || !dataObj.getClient_logo(2).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(2));
+
+                Drawable saved = null;
+
+                if(dataObj.isValInLogoList(2) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(2);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
+
+                //dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
+                //dataObj.dataOfLogoDrawables.add(2, defaultLogo);
+            }
+            if ((dataObj.getClient_logo(3) == null || !dataObj.getClient_logo(3).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(3));
+
+
+                Drawable saved = null;
+
+                if(dataObj.isValInLogoList(3) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(3);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
+
+                //dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
+                //dataObj.dataOfLogoDrawables.add(3, defaultLogo);
+            }
+            if ((dataObj.getClient_logo(4) == null || !dataObj.getClient_logo(4).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(4));
+
+                Drawable saved = null;
+                if(dataObj.isValInLogoList(4) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(4);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
+                //dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
+                //dataObj.dataOfLogoDrawables.add(4, defaultLogo);
+            }
+            if ((dataObj.getClient_logo(5) == null || !dataObj.getClient_logo(5).equals(CROSS_BUTTON_HIDE))) {
+                clientsLogoUrl.add(dataObj.getClient_logo(5));
+
+                Drawable saved = null;
+                if(dataObj.isValInLogoList(5) == true){
+                    saved = dataObj.dataOfLogoDrawables.get(5);
+                    defaultArrayList.add(saved); //add drawable in list
+                }else{
+                    defaultArrayList.add(defaultLogo); //add drawable in list
+                    dataObj.dataOfLogoDrawables.add(null);
+                }
+
+                //dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
+                //dataObj.dataOfLogoDrawables.add(5, defaultLogo);
+            }
         }
 
-        if (dataObj.getClient_logo(1) == null || !dataObj.getClient_logo(1).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(1));
-            defaultArrayList.add(defaultLogo);//add drawable in list
-        }
-        if (dataObj.getClient_logo(2) == null || !dataObj.getClient_logo(2).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(2));
-            defaultArrayList.add(defaultLogo);//add drawable in list
-        }
-        if (dataObj.getClient_logo(3) == null || !dataObj.getClient_logo(3).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(3));
-            defaultArrayList.add(defaultLogo);//add drawable in list
-        }
-        if (dataObj.getClient_logo(4) == null || !dataObj.getClient_logo(4).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(4));
-            defaultArrayList.add(defaultLogo);//add drawable in list
-        }
-        if (dataObj.getClient_logo(5) == null || !dataObj.getClient_logo(5).equals(CROSS_BUTTON_HIDE)){
-            clientsLogoUrl.add(dataObj.getClient_logo(5));
-            defaultArrayList.add(defaultLogo);//add drawable in list
-        }
-
-
-
-
-
+    //    dataObj.dataOfLogoDrawables.add(defaultLogo); //add drawable in list
         // use your custom layout
         gridViewAdapter=new GridViewAdapter(getActivity(),android.R.layout.simple_list_item_1, clientsLogoUrl, defaultArrayList);
         gridView.setAdapter(gridViewAdapter);
@@ -239,13 +309,15 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
 
                     if (v.getId() == R.id.deleteClientLogo) {
 
-                        int j = position;
                         int absPos = dataObj.getAbsoluteValueOfLogoPosition(position);
-                        dataObj.setClient_logo(CROSS_BUTTON_HIDE,absPos);
+                        dataObj.setClient_logo(CROSS_BUTTON_HIDE, absPos);
 
                         clientsLogoUrl.remove(position);
                         //gridViewAdapter.mThumbs[position].
-                        defaultArrayList.remove(position); //delete drawable from list acoording grid position
+                        //dataObj.dataOfLogoDrawables.remove(position); //delete drawable from list acoording grid position
+
+                        defaultArrayList.remove(position);
+
                         gridView.setAdapter(gridViewAdapter);
                         gridViewAdapter.notifyDataSetChanged();
 
@@ -317,7 +389,11 @@ public class FragmentClientsOnApp extends Fragment implements View.OnClickListen
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             if (gridPosition != -1) {
                 //gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
-                defaultArrayList.set(gridPosition,new BitmapDrawable(bitmap));//set new drable from gallary
+
+                BitmapDrawable bitFromGallrey = new BitmapDrawable(bitmap);
+                defaultArrayList.set(gridPosition, bitFromGallrey);//set new drable from gallary
+                dataObj.dataOfLogoDrawables.set(gridPosition,bitFromGallrey);
+                dataObj.posOfSavedImagesInLogo.add(gridPosition);
                 gridViewAdapter.notifyDataSetChanged();
             }
 

@@ -1,11 +1,15 @@
 package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.fourway.ideaswire.ui.ClientsOnapp;
 import com.fourway.ideaswire.ui.FragmentClientsOnApp;
 import com.fourway.ideaswire.ui.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -29,6 +33,30 @@ public class ClientDataTemplate extends dataOfTemplate {
     final static String TAG = "ClientDataTemplate";
 
     boolean   ismDefaultData = false;
+
+    public transient  List<Drawable> dataOfLogoDrawables =new ArrayList<Drawable>();
+
+    public transient  List<Integer> posOfSavedImagesInLogo = new ArrayList<Integer>();
+
+    public boolean isValInLogoList(int val){
+        boolean retVal = false;
+        int size = posOfSavedImagesInLogo.size();
+        for(int i = 0;i<size;i++ ){
+           if(posOfSavedImagesInLogo.get(i).intValue() == val){
+               retVal = true;
+           }
+        }
+        return retVal;
+
+    }
+
+    public int sizeOfLogoList(){
+        int retSize = -1;
+        if(dataOfLogoDrawables!=null){
+            retSize = dataOfLogoDrawables.size();
+        }
+       return retSize;
+    }
 
     public ClientDataTemplate(int templateSelected, boolean isDefaultData){
 
@@ -134,6 +162,8 @@ public class ClientDataTemplate extends dataOfTemplate {
     public void setClient_logo(String client_url,int pos){
         client_logo[pos] = client_url;
     }
+
+
 
 
 }
