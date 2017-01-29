@@ -225,8 +225,13 @@ public class teamonapp extends Activity {
         final List<String> memberTitle =new ArrayList<>();
 
 
+        for (int i=0; i<6; i++) {
+            memberName.add(dataObj.getTeamName(i));
+            memberTitle.add(dataObj.getTeamTitle(i));
+            memberImageUrl.add(dataObj.getTeamImage(i));
+        }
 
-        memberName.add(dataObj.getTeam_1_name());
+        /*memberName.add(dataObj.getTeam_1_name());
         memberName.add(dataObj.getTeam_2_name());
         memberName.add(dataObj.getTeam_3_name());
         memberName.add(dataObj.getTeam_4_name());
@@ -245,7 +250,7 @@ public class teamonapp extends Activity {
         memberImageUrl.add(dataObj.getTeam_3_image());
         memberImageUrl.add(dataObj.getTeam_4_image());
         memberImageUrl.add(dataObj.getTeam_5_image());
-        memberImageUrl.add(dataObj.getTeam_6_image());
+        memberImageUrl.add(dataObj.getTeam_6_image());*/
 
 
         final GridViewAdapter gridViewAdapter=new GridViewAdapter(this,android.R.layout.simple_list_item_1,memberImageUrl,memberName, memberTitle);

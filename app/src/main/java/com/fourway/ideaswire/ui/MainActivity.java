@@ -108,11 +108,11 @@ public class MainActivity extends AppCompatActivity{
         //startActivity(intent);
 
 
-     //  startActivity(new Intent(this,SplashScreen.class));
+       startActivity(new Intent(this,SplashScreen.class));
 
 
 
-        startCreateCampaignWithDefaultData(1);
+//        startCreateCampaignWithDefaultData(1);
     }
 
 
@@ -643,75 +643,75 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE:
                     String img_1 = atr.getContentValue();
-                    data.setTeam_1_image(img_1);
+                    data.setTeamImage(img_1,0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_IMAGE:
                     String img_2 = atr.getContentValue();
-                    data.setTeam_2_image(img_2);
+                    data.setTeamImage(img_2, 1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_IMAGE:
                     String img_3 = atr.getContentValue();
-                    data.setTeam_3_image(img_3);
+                    data.setTeamImage(img_3, 2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_IMAGE:
                     String img_4 = atr.getContentValue();
-                    data.setTeam_4_image(img_4);
+                    data.setTeamImage(img_4, 3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_IMAGE:
                     String img_5 = atr.getContentValue();
-                    data.setTeam_5_image(img_5);
+                    data.setTeamImage(img_5, 4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_IMAGE:
                     String img_6 = atr.getContentValue();
-                    data.setTeam_6_image(img_6);
+                    data.setTeamImage(img_6,5);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_NAME:
                     String name_1 = atr.getContentValue();
-                    data.setTeam_1_name(name_1);
+                    data.setTeamName(name_1,0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_NAME:
                     String name_2 = atr.getContentValue();
-                    data.setTeam_2_name(name_2);
+                    data.setTeamName(name_2,1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_NAME:
                     String name_3 = atr.getContentValue();
-                    data.setTeam_3_name(name_3);
+                    data.setTeamName(name_3,2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_NAME:
                     String name_4 = atr.getContentValue();
-                    data.setTeam_4_name(name_4);
+                    data.setTeamName(name_4,3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_NAME:
                     String name_5 = atr.getContentValue();
-                    data.setTeam_5_name(name_5);
+                    data.setTeamName(name_5,4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_NAME:
                     String name_6 = atr.getContentValue();
-                    data.setTeam_6_name(name_6);
+                    data.setTeamName(name_6,5);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_TITLE:
                     String title_1 = atr.getContentValue();
-                    data.setTeam_1_title(title_1);
+                    data.setTeamTitle(title_1,0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_TITLE:
                     String title_2 = atr.getContentValue();
-                    data.setTeam_2_title(title_2);
+                    data.setTeamTitle(title_2,1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_TITLE:
                     String title_3 = atr.getContentValue();
-                    data.setTeam_3_title(title_3);
+                    data.setTeamTitle(title_3,2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_TITLE:
                     String title_4 = atr.getContentValue();
-                    data.setTeam_4_title(title_4);
+                    data.setTeamTitle(title_4,3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_TITLE:
                     String title_5 = atr.getContentValue();
-                    data.setTeam_5_title(title_5);
+                    data.setTeamTitle(title_5,4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE:
                     String title_6 = atr.getContentValue();
-                    data.setTeam_6_title(title_6);
+                    data.setTeamTitle(title_6,5);
                     break;
 
 

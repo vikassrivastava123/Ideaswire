@@ -554,9 +554,8 @@ public class FragmentClientsOnApp extends Fragment
                 clientLogo.setImageUrl(logoImageUrl, VolleySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader());
             }
             else {
-                /**/
                 clientLogo.setVisibility(View.GONE);
-                if (dataObj.isEditDefaultOrUpdateData() ) {
+                if (dataObj.isEditOrUpdateMode()) {
                        clientStaticLogo.setImageDrawable(defaultDrawableList.get(position));
                 }else {
                        clientStaticLogo.setVisibility(View.GONE);
@@ -566,8 +565,6 @@ public class FragmentClientsOnApp extends Fragment
             return gridView;
         }
 
-//        Drawable myIcon = getResources().getDrawable( R.drawable.clients_logo );
-//        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
     }
 
     @Override

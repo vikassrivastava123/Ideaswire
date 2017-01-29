@@ -1,9 +1,15 @@
 package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.fourway.ideaswire.ui.FragmentTeamOnApp;
+import com.fourway.ideaswire.ui.MainActivity;
 import com.fourway.ideaswire.ui.teamonapp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -36,7 +42,30 @@ public class TeamDataTemplate extends dataOfTemplate {
     public String team_4_image=null;
     public String team_5_image=null;
     public String team_6_image=null;
+
+    public String team_image[];
+    public String team_name[];
+    public String team_title[];
+
+    final static String TAG = "TeamDataTemplate";
+
     boolean   ismDefaultData = false;
+
+    public transient List<Drawable> dataOfImageDrawables =new ArrayList<Drawable>();
+
+    public transient  List<Integer> posOfSavedImages = new ArrayList<Integer>();
+
+    public boolean isValInImageList(int val){
+        boolean retVal = false;
+        int size = posOfSavedImages.size();
+        for(int i = 0;i<size;i++ ){
+            if(posOfSavedImages.get(i).intValue() == val){
+                retVal = true;
+            }
+        }
+        return retVal;
+
+    }
 
     public TeamDataTemplate(int templateSelected, boolean isDefaultData) {
         if (isDefaultData) {
@@ -50,6 +79,10 @@ public class TeamDataTemplate extends dataOfTemplate {
 
         this.ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
+
+        team_image = new String[6];
+        team_title = new String[6];
+        team_name = new String[6];
     }
 
 
@@ -113,148 +146,55 @@ public class TeamDataTemplate extends dataOfTemplate {
         this.paraGraphTeam = paraGraphTeam;
     }
 
-    public String getTeam_1_name() {
-        return team_1_name;
+
+    public String getTeamImage(int pos) {
+        String url = team_image[pos];
+        return url;
     }
 
-    public void setTeam_1_name(String team_1_name) {
-        this.team_1_name = team_1_name;
+    public String getTeamName(int pos) {
+        String url = team_name[pos];
+        return url;
     }
 
-    public String getTeam_2_name() {
-        return team_2_name;
+    public String getTeamTitle(int pos) {
+        String url = team_title[pos];
+        return url;
     }
 
-    public void setTeam_2_name(String team_2_name) {
-        this.team_2_name = team_2_name;
+
+    public int getAbsoluteValueOfImagePosition(int position){
+        int retVal = position;
+        int y = 0,j=0;
+        try {
+            for (int i = 0; i <= position;) {
+                if (team_image[j] != null &&team_image[j].equals(MainActivity.CROSS_BUTTON_HIDE)) {
+                    retVal++;
+                }else{
+                    i++;
+                }
+                j++;
+            }
+        }catch(NullPointerException e){
+            Log.d(TAG,"getAbsoluteValueOfLogoPosition");
+        }
+
+        return retVal;
     }
 
-    public String getTeam_3_name() {
-        return team_3_name;
+
+
+
+    public void setTeamImage(String team_url, int pos) {
+        team_image[pos] = team_url;
     }
 
-    public void setTeam_3_name(String team_3_name) {
-        this.team_3_name = team_3_name;
+    public void setTeamName(String teamName, int pos) {
+        team_name[pos] = teamName;
     }
 
-    public String getTeam_4_name() {
-        return team_4_name;
-    }
-
-    public void setTeam_4_name(String team_4_name) {
-        this.team_4_name = team_4_name;
-    }
-
-    public String getTeam_5_name() {
-        return team_5_name;
-    }
-
-    public void setTeam_5_name(String team_5_name) {
-        this.team_5_name = team_5_name;
-    }
-
-    public String getTeam_6_name() {
-        return team_6_name;
-    }
-
-    public void setTeam_6_name(String team_6_name) {
-        this.team_6_name = team_6_name;
-    }
-
-    public String getTeam_1_title() {
-        return team_1_title;
-    }
-
-    public void setTeam_1_title(String team_1_title) {
-        this.team_1_title = team_1_title;
-    }
-
-    public String getTeam_2_title() {
-        return team_2_title;
-    }
-
-    public void setTeam_2_title(String team_2_title) {
-        this.team_2_title = team_2_title;
-    }
-
-    public String getTeam_3_title() {
-        return team_3_title;
-    }
-
-    public void setTeam_3_title(String team_3_title) {
-        this.team_3_title = team_3_title;
-    }
-
-    public String getTeam_4_title() {
-        return team_4_title;
-    }
-
-    public void setTeam_4_title(String team_4_title) {
-        this.team_4_title = team_4_title;
-    }
-
-    public String getTeam_5_title() {
-        return team_5_title;
-    }
-
-    public void setTeam_5_title(String team_5_title) {
-        this.team_5_title = team_5_title;
-    }
-
-    public String getTeam_6_title() {
-        return team_6_title;
-    }
-
-    public void setTeam_6_title(String team_6_title) {
-        this.team_6_title = team_6_title;
-    }
-
-    public String getTeam_1_image() {
-        return team_1_image;
-    }
-
-    public void setTeam_1_image(String team_1_image) {
-        this.team_1_image = team_1_image;
-    }
-
-    public String getTeam_2_image() {
-        return team_2_image;
-    }
-
-    public void setTeam_2_image(String team_2_image) {
-        this.team_2_image = team_2_image;
-    }
-
-    public String getTeam_3_image() {
-        return team_3_image;
-    }
-
-    public void setTeam_3_image(String team_3_image) {
-        this.team_3_image = team_3_image;
-    }
-
-    public String getTeam_4_image() {
-        return team_4_image;
-    }
-
-    public void setTeam_4_image(String team_4_image) {
-        this.team_4_image = team_4_image;
-    }
-
-    public String getTeam_5_image() {
-        return team_5_image;
-    }
-
-    public void setTeam_5_image(String team_5_image) {
-        this.team_5_image = team_5_image;
-    }
-
-    public String getTeam_6_image() {
-        return team_6_image;
-    }
-
-    public void setTeam_6_image(String team_6_image) {
-        this.team_6_image = team_6_image;
+    public void setTeamTitle(String teamTitle, int pos) {
+        team_title[pos] = teamTitle;
     }
 
     @Override

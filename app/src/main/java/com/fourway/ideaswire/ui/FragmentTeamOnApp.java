@@ -84,19 +84,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     String teamImgUrl_5 = null;
     String teamImgUrl_6 = null;
 
-    String teamName_1 = null;
-    String teamName_2 = null;
-    String teamName_3 = null;
-    String teamName_4 = null;
-    String teamName_5 = null;
-    String teamName_6 = null;
-
-    String teamTitle_1 = null;
-    String teamTitle_2 = null;
-    String teamTitle_3 = null;
-    String teamTitle_4 = null;
-    String teamTitle_5 = null;
-    String teamTitle_6 = null;
+    List<Drawable> defaultDrawableArrayList =new ArrayList<>(); //default drawable list
 
 
     int cropRestart=-1;
@@ -204,46 +192,29 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         final List<String> memberName=new ArrayList<>();
         final List<String> memberTitle =new ArrayList<>();
 
+        Drawable defaultImage = getResources().getDrawable( R.drawable.member_1 );
 
-        if (dataObj.getTeam_1_image() == null || !dataObj.getTeam_1_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_1_name());
-            memberTitle.add(dataObj.getTeam_1_title());
-            memberImageUrl.add(dataObj.getTeam_1_image());
-        }
 
-        if (dataObj.getTeam_2_image() == null || !dataObj.getTeam_2_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_2_name());
-            memberTitle.add(dataObj.getTeam_2_title());
-            memberImageUrl.add(dataObj.getTeam_2_image());
+        for (int i=0; i<6; i++) {
+            if (dataObj.getTeamImage(i) == null || !dataObj.getTeamImage(i).equals(CROSS_BUTTON_HIDE)) {
+                memberName.add(dataObj.getTeamName(i));
+                memberTitle.add(dataObj.getTeamTitle(i));
+                memberImageUrl.add(dataObj.getTeamImage(i));
 
-        }
+                Drawable saved = null;
 
-        if (dataObj.getTeam_3_image() == null || !dataObj.getTeam_3_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_3_name());
-            memberTitle.add(dataObj.getTeam_3_title());
-            memberImageUrl.add(dataObj.getTeam_3_image());
-        }
-
-        if (dataObj.getTeam_4_image() == null || !dataObj.getTeam_5_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_4_name());
-            memberTitle.add(dataObj.getTeam_4_title());
-            memberImageUrl.add(dataObj.getTeam_4_image());
-        }
-
-        if (dataObj.getTeam_5_image() == null || !dataObj.getTeam_5_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_5_name());
-            memberTitle.add(dataObj.getTeam_5_title());
-            memberImageUrl.add(dataObj.getTeam_5_image());
-        }
-
-        if (dataObj.getTeam_6_image() == null || !dataObj.getTeam_6_image().equals(CROSS_BUTTON_HIDE)){
-            memberName.add(dataObj.getTeam_6_name());
-            memberTitle.add(dataObj.getTeam_6_title());
-            memberImageUrl.add(dataObj.getTeam_6_image());
+                if (dataObj.isValInImageList(i) == true) {
+                    saved = dataObj.dataOfImageDrawables.get(i);
+                    defaultDrawableArrayList.add(saved); //add drawable in list
+                }else {
+                    defaultDrawableArrayList.add(defaultImage);
+                    dataObj.dataOfImageDrawables.add(null);
+                }
+            }
         }
 
 
-        gridViewAdapter=new GridViewAdapter(getActivity(),android.R.layout.simple_list_item_1,memberImageUrl,memberName, memberTitle);
+        gridViewAdapter=new GridViewAdapter(getActivity(),android.R.layout.simple_list_item_1,memberImageUrl,memberName, memberTitle, defaultDrawableArrayList);
 
         gridView.setAdapter(gridViewAdapter);
 
@@ -254,47 +225,23 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 if (!showPreview && !FragmenMainActivity.isImageUploading) {
 
                     if (v.getId() == R.id.deleteTeamImage) {
+
+                        int absPos = dataObj.getAbsoluteValueOfImagePosition(position);
+
+                        dataObj.setTeamImage(CROSS_BUTTON_HIDE, absPos);
+                        dataObj.setTeamName(CROSS_BUTTON_HIDE, absPos);
+                        dataObj.setTeamTitle(CROSS_BUTTON_HIDE, absPos);
+
                         memberImageUrl.remove(position);
                         memberName.remove(position);
                         memberTitle.remove(position);
-                        gridViewAdapter.notifyDataSetChanged();
-                        switch (position){
-                            case 0:
-                                dataObj.setTeam_1_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_1_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_1_title(CROSS_BUTTON_HIDE);
-                                break;
-                            case 1:
-                                dataObj.setTeam_2_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_2_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_2_title(CROSS_BUTTON_HIDE);
-                                break;
-                            case 2:
-                                dataObj.setTeam_3_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_3_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_3_title(CROSS_BUTTON_HIDE);
-                                break;
-                            case 3:
-                                dataObj.setTeam_4_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_4_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_4_title(CROSS_BUTTON_HIDE);
-                                break;
-                            case 4:
-                                dataObj.setTeam_5_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_5_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_5_title(CROSS_BUTTON_HIDE);
-                                break;
-                            case 5:
-                                dataObj.setTeam_6_image(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_6_name(CROSS_BUTTON_HIDE);
-                                dataObj.setTeam_6_title(CROSS_BUTTON_HIDE);
-                                break;
 
-
-                        }
-
+                        defaultDrawableArrayList.remove(position);
 
                         gridView.setAdapter(gridViewAdapter);
+                        gridViewAdapter.notifyDataSetChanged();
+
+
                     } else if (v.getId() == R.id.memberImage || v.getId() == R.id.Team_STATIC_img) {
                         uploadToTeamOnApp(MainActivity.TEAM_MEMBER_IMAGE_CROPED_NAME_ + position, position);
                         gridPosition = position;
@@ -364,7 +311,11 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             FileInputStream in = getActivity().openFileInput(imageName);
             Bitmap bitmap = BitmapFactory.decodeStream(in);
             if (gridPosition != -1) {
-                gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
+                BitmapDrawable bitFromGallary = new BitmapDrawable(bitmap);
+                defaultDrawableArrayList.set(gridPosition, bitFromGallary); //set new drawable from gallery
+                dataObj.dataOfImageDrawables.set(gridPosition, bitFromGallary);
+                dataObj.posOfSavedImages.add(gridPosition);
+//                gridViewAdapter.mThumbs[gridPosition] = new BitmapDrawable(bitmap);
                 gridViewAdapter.notifyDataSetChanged();
             }
         } catch (FileNotFoundException e) {
@@ -470,15 +421,17 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         List<String> memberImageUrl;
         List<String> memberNameList;
         List<String> memberTitleList;
+        List<Drawable> defaultDrawableList = new ArrayList<>();
 
 
-        public GridViewAdapter(Context context, int resource,List<String> memberImageUrl,List<String> memberNameList,List<String> memberPositionList) {
+        public GridViewAdapter(Context context, int resource,List<String> memberImageUrl,List<String> memberNameList,List<String> memberPositionList,List<Drawable> defaultDrawableList) {
             super(context, resource, memberImageUrl);
 
             this.context=context;
             this.memberImageUrl=memberImageUrl;
             this.memberNameList=memberNameList;
             this.memberTitleList =memberPositionList;
+            this.defaultDrawableList = defaultDrawableList;
         }
 
         @Override
@@ -540,20 +493,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 @Override
                 public void afterTextChanged(Editable s) {
                     String changeName=s.toString();
-                    switch (position){
-                        case 0: dataObj.setTeam_1_name(changeName); memberNameList.set(0, changeName);
-                            break;
-                        case 1: dataObj.setTeam_2_name(changeName); memberNameList.set(1, changeName);
-                            break;
-                        case 2: dataObj.setTeam_3_name(changeName); memberNameList.set(2, changeName);
-                            break;
-                        case 3: dataObj.setTeam_4_name(changeName); memberNameList.set(3, changeName);
-                            break;
-                        case 4: dataObj.setTeam_5_name(changeName); memberNameList.set(4, changeName);
-                            break;
-                        case 5: dataObj.setTeam_6_name(changeName); memberNameList.set(5, changeName);
-                            break;
-                    }
+                    dataObj.setTeamName(changeName, position); memberNameList.set(position, changeName);
+
                 }
             });
 
@@ -571,20 +512,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                 @Override
                 public void afterTextChanged(Editable s) {
                     String changeTitle=s.toString();
-                    switch (position){
-                        case 0: dataObj.setTeam_1_title(changeTitle); memberTitleList.set(0, changeTitle);
-                            break;
-                        case 1: dataObj.setTeam_2_title(changeTitle); memberTitleList.set(1, changeTitle);
-                            break;
-                        case 2: dataObj.setTeam_3_title(changeTitle); memberTitleList.set(2, changeTitle);
-                            break;
-                        case 3: dataObj.setTeam_4_title(changeTitle); memberTitleList.set(3, changeTitle);
-                            break;
-                        case 4: dataObj.setTeam_5_title(changeTitle); memberTitleList.set(4, changeTitle);
-                            break;
-                        case 5: dataObj.setTeam_6_title(changeTitle); memberTitleList.set(5, changeTitle);
-                            break;
-                    }
+                    dataObj.setTeamTitle(changeTitle,position); memberTitleList.set(position, changeTitle);
                 }
 
             });
@@ -612,8 +540,8 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             }
             else {
                 memberImg.setVisibility(View.GONE);
-                if (!showPreview || dataObj.isDefaultDataToCreateCampaign()) {
-                    memberStaticImg.setImageDrawable(mThumbs[position]);
+                if (dataObj.isEditOrUpdateMode()) {
+                    memberStaticImg.setImageDrawable(defaultDrawableList.get(position));
                 }else {
                     memberStaticImg.setVisibility(View.GONE);
                 }
@@ -622,8 +550,6 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             return gridView;
         }
 
-        Drawable myIcon = getResources().getDrawable( R.drawable.member_1 );
-        Drawable[] mThumbs = {myIcon,myIcon,myIcon,myIcon,myIcon,myIcon};
     }
 
 
@@ -694,62 +620,38 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             dataObj.setParaGraphTeam(para);
         }
 
-        if (teamImgUrl_1!=null){
-            dataObj.setTeam_1_image(teamImgUrl_1);
-        }
-        if (teamImgUrl_2!=null){
-            dataObj.setTeam_2_image(teamImgUrl_2);
-        }
-        if (teamImgUrl_3!=null){
-            dataObj.setTeam_3_image(teamImgUrl_3);
-        }
-        if (teamImgUrl_4!=null){
-            dataObj.setTeam_4_image(teamImgUrl_4);
-        }
-        if (teamImgUrl_5!=null){
-            dataObj.setTeam_5_image(teamImgUrl_5);
-        }
-        if (teamImgUrl_6!=null){
-            dataObj.setTeam_6_image(teamImgUrl_6);
+        String stringImageUrl_1 = dataObj.getTeamImage(0);
+
+        if (teamImgUrl_1!=null && (stringImageUrl_1 == null || !stringImageUrl_1.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_1,0);
         }
 
-//        if (teamName_1!=null){
-//            dataObj.setTeam_1_name(teamName_1);
-//        }
-//        if (teamName_2!=null){
-//            dataObj.setTeam_2_name(teamName_2);
-//        }
-//        if (teamName_3!=null){
-//            dataObj.setTeam_3_name(teamName_3);
-//        }
-//        if (teamName_4!=null){
-//            dataObj.setTeam_4_name(teamName_4);
-//        }
-//        if (teamName_5!=null){
-//            dataObj.setTeam_5_name(teamName_5);
-//        }
-//        if (teamName_6!=null){
-//            dataObj.setTeam_6_name(teamName_6);
-//        }
-//
-//        if (teamTitle_1!=null){
-//            dataObj.setTeam_1_title(teamTitle_1);
-//        }
-//        if (teamTitle_2!=null){
-//            dataObj.setTeam_2_title(teamTitle_2);
-//        }
-//        if (teamTitle_3!=null){
-//            dataObj.setTeam_3_title(teamTitle_3);
-//        }
-//        if (teamTitle_4!=null){
-//            dataObj.setTeam_4_title(teamTitle_4);
-//        }
-//        if (teamTitle_5!=null){
-//            dataObj.setTeam_5_title(teamTitle_5);
-//        }
-//        if (teamTitle_6!=null){
-//            dataObj.setTeam_6_title(teamTitle_6);
-//        }
+        String stringImageUrl_2 = dataObj.getTeamImage(1);
+        if (teamImgUrl_2!=null && (stringImageUrl_2 == null || !stringImageUrl_2.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_2,1);
+        }
+
+        String stringImageUrl_3 = dataObj.getTeamImage(2);
+        if (teamImgUrl_3!=null && (stringImageUrl_3 == null || !stringImageUrl_3.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_3,2);
+        }
+
+        String stringImageUrl_4 = dataObj.getTeamImage(3);
+        if (teamImgUrl_4!=null && (stringImageUrl_4 == null || !stringImageUrl_4.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_4,3);
+        }
+
+        String stringImageUrl_5 = dataObj.getTeamImage(4);
+        if (teamImgUrl_5!=null && (stringImageUrl_5 == null || !stringImageUrl_5.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_5,4);
+        }
+
+        String stringImageUrl_6 = dataObj.getTeamImage(5);
+        if (teamImgUrl_6!=null && (stringImageUrl_6 == null || !stringImageUrl_6.equals(CROSS_BUTTON_HIDE))){
+            dataObj.setTeamImage(teamImgUrl_6,5);
+        }
+
+
     }
 
 
@@ -894,26 +796,26 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_SUBHEADING, dataObj.getSubHeadingTeam());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_PARAGRAPH, dataObj.getParaGraphTeam());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE, dataObj.getTeam_1_image());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_IMAGE, dataObj.getTeam_2_image());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_IMAGE, dataObj.getTeam_3_image());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_IMAGE, dataObj.getTeam_4_image());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_IMAGE, dataObj.getTeam_5_image());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_IMAGE, dataObj.getTeam_6_image());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE, dataObj.getTeamImage(0));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_IMAGE, dataObj.getTeamImage(1));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_IMAGE, dataObj.getTeamImage(2));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_IMAGE, dataObj.getTeamImage(3));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_IMAGE, dataObj.getTeamImage(4));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_IMAGE, dataObj.getTeamImage(5));
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_NAME, dataObj.getTeam_1_name());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_NAME, dataObj.getTeam_2_name());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_NAME, dataObj.getTeam_3_name());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_NAME, dataObj.getTeam_4_name());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_NAME, dataObj.getTeam_5_name());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_NAME, dataObj.getTeam_6_name());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_NAME, dataObj.getTeamName(0));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_NAME, dataObj.getTeamName(1));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_NAME, dataObj.getTeamName(2));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_NAME, dataObj.getTeamName(3));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_NAME, dataObj.getTeamName(4));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_NAME, dataObj.getTeamName(5));
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_TITLE, dataObj.getTeam_1_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_TITLE, dataObj.getTeam_2_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_TITLE, dataObj.getTeam_3_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_TITLE, dataObj.getTeam_4_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_TITLE, dataObj.getTeam_5_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE, dataObj.getTeam_6_title());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_TITLE, dataObj.getTeamTitle(0));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_TITLE, dataObj.getTeamTitle(1));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_TITLE, dataObj.getTeamTitle(2));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_TITLE, dataObj.getTeamTitle(3));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_TITLE, dataObj.getTeamTitle(4));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE, dataObj.getTeamTitle(5));
 
 
         Profile reqToMakeProfile;
@@ -944,6 +846,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
             init_editCampaign();
             showPreview = false;
         }
+
     }
 
     @Override
