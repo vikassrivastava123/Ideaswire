@@ -17,13 +17,22 @@ public class AboutUsPage extends pages {
         }
     }
 
-
-
     public void setDataObj(AboutUsDataTemplate dataObj) {
         this.dataObj = dataObj;
     }
 
     @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new AboutUsDataTemplate(mTemplateType, true);
+        }
+        return dataObj;
+    }
+
+
+   @Override
    public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
@@ -34,10 +43,10 @@ public class AboutUsPage extends pages {
     }
 
     public dataOfTemplate getDataForTemplateAsReceivedFromServer(){
-        mTemplateType = 1;
+      //  mTemplateType = 1;
         dataObj = (AboutUsDataTemplate) getAlreadyCreatedDataObj();
         if(dataObj == null) {
-            dataObj = new AboutUsDataTemplate(1, false);
+            dataObj = new AboutUsDataTemplate(mTemplateType, false);
         }
         return dataObj;
     }

@@ -17,6 +17,16 @@ public class HomePage extends pages {
     }
 
     @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (HomePageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new HomePageDataTemplate(mTemplateType, true);
+        }
+        return dataObj;
+    }
+
+    @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = (HomePageDataTemplate) getAlreadyCreatedDataObj();

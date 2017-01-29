@@ -98,10 +98,6 @@ public class ClientDataTemplate extends dataOfTemplate {
         return new FragmentClientsOnApp();
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
 
     public String getSubHeaderClient() {
         return subHeaderClient;

@@ -15,10 +15,24 @@ public abstract class pages {
         }else{
             dataObj = getDataForTemplateAsReceivedFromServer();
         }
+        return dataObj;
+    }
+
+    public dataOfTemplate getTemplateData(boolean defaultData){
+
+        if(defaultData == true) {
+            dataObj = getDataForTemplate();
+
+        }else{
+            dataObj = getDataForTemplateAsReceivedFromServer();
+        }
 
         return dataObj;
 
     }
+
+
+    public abstract dataOfTemplate getDataForTemplate();
     public abstract dataOfTemplate getDataForTemplate(int templateType);
     public abstract dataOfTemplate getDataForTemplateAsReceivedFromServer();
 

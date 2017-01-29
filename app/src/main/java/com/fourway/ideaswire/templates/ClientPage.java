@@ -18,6 +18,17 @@ public class ClientPage extends pages {
 
 
     @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (ClientDataTemplate) getAlreadyCreatedDataObj();
+        if (dataObj == null){
+            dataObj = new ClientDataTemplate(mTemplateType,true);
+        }
+        return dataObj;
+    }
+
+
+    @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = (ClientDataTemplate) getAlreadyCreatedDataObj();

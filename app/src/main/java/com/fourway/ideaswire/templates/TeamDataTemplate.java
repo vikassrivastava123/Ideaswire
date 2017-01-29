@@ -108,11 +108,6 @@ public class TeamDataTemplate extends dataOfTemplate {
         return new FragmentTeamOnApp();
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
-
     public String getTitle() {
         return title;
     }

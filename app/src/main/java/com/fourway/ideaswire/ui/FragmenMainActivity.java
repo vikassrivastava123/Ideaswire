@@ -105,7 +105,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
         try {
 //            if(dataObj != null) {
-                dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(1, true);
+                dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(true);
 //            }else{
 //                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");  //not need
 //            }

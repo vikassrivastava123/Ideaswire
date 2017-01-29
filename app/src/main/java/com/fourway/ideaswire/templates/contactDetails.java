@@ -18,6 +18,19 @@ public class contactDetails extends pages {
 
 
     @Override
+    public dataOfTemplate getDataForTemplate() {
+
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (contactDetailsDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new contactDetailsDataTemplate(mTemplateType, true);
+
+        }
+        return dataObj;
+
+    }
+
+    @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
 
         mTemplateType = templateType;

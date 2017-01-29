@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-//        startCreateCampaignWithDefaultData(1);
+     //   startCreateCampaignWithDefaultData(1);
     }
 
 
@@ -643,7 +643,7 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_IMAGE:
                     String img_1 = atr.getContentValue();
-                    data.setTeamImage(img_1,0);
+                    data.setTeamImage(img_1, 0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_IMAGE:
                     String img_2 = atr.getContentValue();
@@ -663,27 +663,27 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_IMAGE:
                     String img_6 = atr.getContentValue();
-                    data.setTeamImage(img_6,5);
+                    data.setTeamImage(img_6, 5);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_NAME:
                     String name_1 = atr.getContentValue();
-                    data.setTeamName(name_1,0);
+                    data.setTeamName(name_1, 0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_NAME:
                     String name_2 = atr.getContentValue();
-                    data.setTeamName(name_2,1);
+                    data.setTeamName(name_2, 1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_NAME:
                     String name_3 = atr.getContentValue();
-                    data.setTeamName(name_3,2);
+                    data.setTeamName(name_3, 2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_NAME:
                     String name_4 = atr.getContentValue();
-                    data.setTeamName(name_4,3);
+                    data.setTeamName(name_4, 3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_NAME:
                     String name_5 = atr.getContentValue();
-                    data.setTeamName(name_5,4);
+                    data.setTeamName(name_5, 4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_NAME:
                     String name_6 = atr.getContentValue();
@@ -691,23 +691,23 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_1_TITLE:
                     String title_1 = atr.getContentValue();
-                    data.setTeamTitle(title_1,0);
+                    data.setTeamTitle(title_1, 0);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_2_TITLE:
                     String title_2 = atr.getContentValue();
-                    data.setTeamTitle(title_2,1);
+                    data.setTeamTitle(title_2, 1);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_3_TITLE:
                     String title_3 = atr.getContentValue();
-                    data.setTeamTitle(title_3,2);
+                    data.setTeamTitle(title_3, 2);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_4_TITLE:
                     String title_4 = atr.getContentValue();
-                    data.setTeamTitle(title_4,3);
+                    data.setTeamTitle(title_4, 3);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_5_TITLE:
                     String title_5 = atr.getContentValue();
-                    data.setTeamTitle(title_5,4);
+                    data.setTeamTitle(title_5, 4);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_TEAM_6_TITLE:
                     String title_6 = atr.getContentValue();

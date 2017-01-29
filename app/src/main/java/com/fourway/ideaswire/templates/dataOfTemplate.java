@@ -15,6 +15,9 @@ public abstract class dataOfTemplate implements Serializable {
     transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
     static boolean mEditMode = false , mUpdateProfile = false , mIsPriviewMode = false;
+    static int mSelectedTemplate = 1;
+
+    static int mSelectedLayout = 1;
 
     void setHeader(String header){
         this.header = header;
@@ -27,7 +30,26 @@ public abstract class dataOfTemplate implements Serializable {
     abstract public Class getIntentToLaunchPage();
     abstract public Fragment getFragmentToLaunchPage();
     abstract public boolean isDefaultDataToCreateCampaign();
-    abstract public int getTemplateSelected();
+    public int getTemplateSelected(){
+        return mSelectedTemplate;
+    }
+
+    public static void setTemplateSelected(int selectedTemplate){
+        mSelectedTemplate = selectedTemplate;
+    }
+
+    public static int getTemplateSelectedByUser(){
+        return mSelectedTemplate;
+    }
+
+    public static void setLayoutSelected(int selectedLayout){
+        mSelectedLayout = selectedLayout;
+    }
+
+    public static int getLayoutSelected(){
+        return mSelectedLayout;
+    }
+
 
     public boolean isEditMode(){
         return mEditMode;

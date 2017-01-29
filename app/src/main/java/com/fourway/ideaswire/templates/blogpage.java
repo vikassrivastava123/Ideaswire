@@ -25,6 +25,17 @@ public class blogpage extends pages {
         return dataObj;
     }
 
+    @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (blogpageDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new blogpageDataTemplate(mTemplateType, true);
+
+        }
+        return dataObj;
+    }
+
     String nameis = null;
     @Override
     public String nameis ()

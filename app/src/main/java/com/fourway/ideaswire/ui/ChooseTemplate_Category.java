@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.templates.dataOfTemplate;
 
 public class ChooseTemplate_Category extends Activity {
 
@@ -59,7 +60,7 @@ public class ChooseTemplate_Category extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.v("tets","test test");
-
+                dataOfTemplate.setTemplateSelected(position);
                 Intent sel = new Intent(ChooseTemplate_Category.this,select_layout_of_template.class);
                 startActivity(sel);
                 //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();

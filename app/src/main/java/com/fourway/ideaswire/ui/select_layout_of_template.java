@@ -83,8 +83,9 @@ public class select_layout_of_template extends Activity {
                 //TODO: uncomment code after test
                 //startModifyTemplate(position);
                 //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
+                 dataOfTemplate.setLayoutSelected(position);
 
-                startCreateCampaignWithDefaultData(1);
+               startCreateCampaignWithDefaultData();
 
             }});
 
@@ -92,8 +93,9 @@ public class select_layout_of_template extends Activity {
 
     }
 
-    private void startCreateCampaignWithDefaultData(int typeOfTemplateSelected){
+    private void startCreateCampaignWithDefaultData(){
 
+        int typeOfTemplateSelected  = dataOfTemplate.getTemplateSelectedByUser();
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
         listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
 

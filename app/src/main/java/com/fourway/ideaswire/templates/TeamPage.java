@@ -17,6 +17,16 @@ public class TeamPage extends pages {
     }
 
     @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (TeamDataTemplate) getAlreadyCreatedDataObj();
+        if (dataObj == null){
+            dataObj=new TeamDataTemplate(mTemplateType,true);
+        }
+        return dataObj;
+    }
+
+    @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;
         dataObj = (TeamDataTemplate) getAlreadyCreatedDataObj();

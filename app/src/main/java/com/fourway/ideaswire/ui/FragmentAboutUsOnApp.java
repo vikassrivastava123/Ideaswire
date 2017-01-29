@@ -89,13 +89,35 @@ public class FragmentAboutUsOnApp extends Fragment  implements UploadImageForUrl
     pages mthispage = null;
 
     private static String TAG = "FragmentAboutUsOnApp";
+
+
+    View  getViewBasedOnLayoutSelected(LayoutInflater inflater, ViewGroup container){
+        View view = null;
+
+        int selectedTemplate = dataObj.getLayoutSelected();
+
+        switch (selectedTemplate){
+            case 0:
+                view = inflater.inflate(R.layout.fragment_about, container, false);
+                break;
+            default:
+                view = inflater.inflate(R.layout.fragment_about_individual, container, false);
+                break;
+        }
+
+        return view;
+
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_about, container, false);
-
-        //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         dataObj = (AboutUsDataTemplate)((FragmenMainActivity)getActivity()).getDatObject();//savedInstanceState.getSerializable("dataKey");
+
+        View view= getViewBasedOnLayoutSelected(inflater,container);
+
+       //mEditMode = getActivity().getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
         if (dataObj.isEditDefaultOrUpdateData() == true){
 

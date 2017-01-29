@@ -14,6 +14,19 @@ public class ServicePage extends pages {
             nameis = "Services";
         }
     }
+
+    @Override
+    public dataOfTemplate getDataForTemplate() {
+        mTemplateType = dataOfTemplate.getTemplateSelectedByUser();
+        dataObj = (ServicesDataTemplate) getAlreadyCreatedDataObj();
+        if(dataObj == null) {
+            dataObj = new ServicesDataTemplate(mTemplateType,true);
+        }
+        return dataObj;
+    }
+
+
+
     @Override
     public dataOfTemplate getDataForTemplate(int templateType) {
         mTemplateType = templateType;

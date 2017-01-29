@@ -139,11 +139,4 @@ public class blogpageDataTemplate extends dataOfTemplate {
         return  new FrgmentBlogOnApp();
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
-
-
-
 }

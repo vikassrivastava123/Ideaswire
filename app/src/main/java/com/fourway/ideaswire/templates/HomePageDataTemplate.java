@@ -57,11 +57,6 @@ public class HomePageDataTemplate extends dataOfTemplate{
         return new FragmentHomeOnApp();
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
-
     public String getTitle() {
         return title;
     }

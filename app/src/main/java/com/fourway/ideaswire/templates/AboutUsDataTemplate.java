@@ -38,9 +38,6 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
     }
 
-
-
-
     public boolean isDefaultDataToCreateCampaign(){
 
         return ismDefaultData;
@@ -52,7 +49,18 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
     void initDeafultdata(){
 
-        title = "Business";
+        int temSel =  getTemplateSelected();
+
+        switch (temSel){
+            case 0:
+                title = "Business";
+                break;
+            default:
+                title = "Individual";
+                break;
+
+        }
+
       /*  headerAboutUs = "Totam Aperiam Consect";
         sub_header = "There are many variation of passages";
         text_para = "There are many variation of passage " +
@@ -140,12 +148,6 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     public Fragment getFragmentToLaunchPage() {
         return  new FragmentAboutUsOnApp();
     }
-
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
-
 
 
 }

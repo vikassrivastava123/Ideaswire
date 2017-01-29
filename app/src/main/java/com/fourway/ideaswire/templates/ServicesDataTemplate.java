@@ -139,9 +139,6 @@ public class ServicesDataTemplate extends dataOfTemplate {
         return new FragmentServiceOnApp();
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
+
 
 }

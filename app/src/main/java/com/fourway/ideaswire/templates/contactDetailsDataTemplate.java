@@ -69,12 +69,6 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
          return ismDefaultData;
     }
 
-    @Override
-    public int getTemplateSelected() {
-        return templateSelected;
-    }
-
-
     public String getHeaderContact() {
         return headerContact;
     }
