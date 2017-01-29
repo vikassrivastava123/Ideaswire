@@ -10,6 +10,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -48,8 +50,9 @@ public class VolleyErrorHelper {
                 case 401:
                 case 500:
                     String trimmedString;
+                    String json = null;
                     try {
-                        String json;
+
                         json = new String(response.data);
                         JSONObject obj = new JSONObject(json);
                         trimmedString = obj.getString("error");
@@ -57,7 +60,16 @@ public class VolleyErrorHelper {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        return "Something went wrong";
+
+                        try {
+                            JSONObject obj = new JSONObject(json);
+                            JSONArray jsonArray = obj.getJSONArray("errors");
+                            trimmedString = jsonArray.get(0).toString();
+                            return trimmedString;
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                            return "something went wrong";
+                        }
                     }
                 default:
                     return COMMON_NETWORK_ERROR_TIMEOUT;

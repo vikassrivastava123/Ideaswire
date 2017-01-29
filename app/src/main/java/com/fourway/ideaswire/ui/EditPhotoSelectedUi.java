@@ -172,7 +172,7 @@ public class EditPhotoSelectedUi extends Activity implements SearchProfileReques
                         finish();
                         break;
                     case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
-                        errorDialog.setMessage("" + res);
+                        errorDialog.setMessage(data.getErrorMessage());
                         errorDialog.show();
                         break;
                     default:

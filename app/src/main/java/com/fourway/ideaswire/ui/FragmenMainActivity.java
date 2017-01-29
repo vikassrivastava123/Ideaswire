@@ -779,7 +779,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                     errorDialog.show();
                     break;
                 case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
-                    errorDialog.setMessage("" + res);
+                    errorDialog.setMessage(data.getErrorMessage());
                     errorDialog.show();
                     break;
                 case COMMON_RES_PROFILE_DATA_NO_CONTENT:

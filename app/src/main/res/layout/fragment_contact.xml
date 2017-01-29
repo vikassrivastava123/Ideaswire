@@ -112,13 +112,13 @@
                 android:background="@null" />
             
             <View
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginLeft="14dp"
                 android:layout_marginTop="14dp"
-                android:layout_above="@+id/textView13"
+                android:layout_below="@+id/contactParaGraph"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/templateBackround"/>
+                android:layout_height="1dp"
+                android:background="#C0C0C0"/>
 
 
             <TextView

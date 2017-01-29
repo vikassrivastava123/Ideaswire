@@ -73,14 +73,14 @@
 
         <!-- TODO: uncomment when use forgot password -->
 
-        <TextView android:id="@+id/link_forgotPassword"
+       <!-- <TextView android:id="@+id/link_forgotPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="FORGOT PASSWORD ?"
             android:textColor="@color/primary"
             android:gravity="center"
-            android:textSize="16sp"/>
+            android:textSize="16sp"/>-->
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/link_signup"
