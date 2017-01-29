@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <group
+       <!-- <group
             android:id="@+id/group1"
                 android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
 
             android:title="About us" />
-        </group>
+        </group>-->
 
-        <group
-            android:id="@+id/group9"
-            android:checkableBehavior="single">
+
                 <item
                     android:id="@+id/nav_login"
 
                     android:title="Login" />
-        </group>
-        <group
+
+       <!-- <group
                 android:id="@+id/group2"
                 android:checkableBehavior="single">
         <item
@@ -59,7 +57,7 @@
             android:id="@+id/terms_service"
 
             android:title="Terms of Services" />
-        </group>
+        </group>-->
 
 
 

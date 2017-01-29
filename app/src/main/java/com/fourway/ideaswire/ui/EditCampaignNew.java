@@ -371,6 +371,18 @@ public class EditCampaignNew extends Activity implements GetProfileRequest.GetPr
                     startActivity(iny);
                 }
                 break;
+            case COMMON_RES_CONNECTION_TIMEOUT:
+            break;
+            case COMMON_RES_INTERNAL_ERROR:
+                break;
+            case COMMON_RES_FAILED_TO_CONNECT:
+                break;
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                Toast.makeText(this, data.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                break;
+            case COMMON_RES_PROFILE_DATA_NO_CONTENT:
+                break;
+
         }
     }
 }

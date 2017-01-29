@@ -346,6 +346,9 @@ public boolean phone_val(String ph_number)
             case COMMON_RES_FAILED_TO_CONNECT:
                 onSignUpSuccess("Check your connection !");
                 break;
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                onSignUpSuccess(data.getErrorMessage());
+                break;
             default:
                 onSignUpSuccess("Please try again");
                 break;

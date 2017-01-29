@@ -22,12 +22,12 @@
             app:navigationIcon="@drawable/back_1"
             android:visibility="visible">
 
-            <ImageButton
+            <!--<ImageButton
                 android:id="@+id/menu_button"
                 android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/more_vert"/>
+                android:background="@drawable/more_vert"/>-->
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

@@ -21,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -156,7 +157,7 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+       /* if (id == R.id.nav_camera) {
             // Handle the camera action
 //            main_fragment fragment = new main_fragment();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -173,31 +174,33 @@ public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageCha
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
 
-        }else if (id==R.id.nav_login) {
-            if (!session.isLoggedIn()) {
-                startActivity(new Intent(this, loginUi.class));
-            }else {
-                AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setIcon(android.R.drawable.ic_dialog_info);
-                builder.setTitle("Info");
-                builder.setMessage("Already login");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(HomepageBeforeLogin.this, CreateCampaign_homePage.class));
+        }else */if (id==R.id.nav_login) {
+            drawer.closeDrawer(Gravity.RIGHT);
+                    if (!session.isLoggedIn()) {
+                        startActivity(new Intent(this, loginUi.class));
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setIcon(android.R.drawable.ic_dialog_info);
+                        builder.setTitle("Info");
+                        builder.setMessage("Already login");
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(HomepageBeforeLogin.this, CreateCampaign_homePage.class));
+                            }
+                        });
+                        builder.show();
+
                     }
-                });
-                builder.show();
+             }
 
-            }
-
-        }else if (id == R.id.nav_slideshow) {
+//        }else if (id == R.id.nav_slideshow) {
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
 //            fragmentTransaction.commit();
 
-        } //else if (id == R.id.Recent_searches) {}
+//        } //else if (id == R.id.Recent_searches) {}
 //            SlidshowFrag fragment = new SlidshowFrag();
 //            android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.fragment_container,fragment);
