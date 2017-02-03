@@ -24,17 +24,24 @@
             android:name=".ui.loginUi"
             android:label="@string/title_activity_login_ui"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.signupUi"
             android:label="@string/title_activity_signup_ui"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.HomepageBeforeLogin"
             android:label="@string/title_activity_homepage_before_login"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.EditPhotoSelectedUi" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.EditPhotoSelectedUi"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.HomeScreenFirstLogin"
             android:label="@string/title_activity_home_screen_first_login"
@@ -42,42 +49,56 @@
         <activity
             android:name=".ui.CropedImage"
             android:label="@string/title_activity_croped_image"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.ImageNotFoundUi"
             android:label="@string/title_activity_image_not_found_ui"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.CreateCampaign_homePage"
             android:label="@string/title_activity_create_campaign_home_page"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.CreateCampaign_EnterData"
             android:label="@string/title_activity_create__campaign__enter_data"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.editCampaign"
             android:label="@string/title_activity_edit_campaign"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.CreateCampain_Sucess"
             android:label="@string/title_activity_create_campain__sucess"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.ChooseTemplate_Category"
             android:label="@string/title_activity_choose_template__category"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.AboutUsOnApp"
             android:label="@string/title_activity_about_us_ui_template1"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.HomePageUiTemplate1"
             android:label="@string/title_activity_home_page_ui_template1"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.select_layout_of_template" />
-        <activity android:name=".ui.tn_text_name" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.select_layout_of_template"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.tn_text_name"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity_about_us_btn_cros"
             android:label="@string/title_activity_activity_about_us_btn_cros"
@@ -85,7 +106,9 @@
         <activity
             android:name=".ui.about_us_inside_menu"
             android:label="@string/title_activity_about_us_inside_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".ui.button_link" />
         <activity
             android:name=".ui.home_page_onapp"
@@ -132,15 +155,19 @@
         <activity
             android:name=".ui.searchResults"
             android:label="@string/title_activity_serach_results"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.about_us_page_template"
             android:label="@string/title_activity_about_us_page_tamplate"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.FragmenMainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.SplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -149,7 +176,9 @@
         <activity
             android:name=".ui.EditCampaignNew"
             android:label="@string/title_activity_edit_campaign_new"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
