@@ -15,8 +15,8 @@ import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.AboutUsPage;
 import com.fourway.ideaswire.templates.ClientDataTemplate;
 import com.fourway.ideaswire.templates.ClientPage;
-import com.fourway.ideaswire.templates.HomePage;
-import com.fourway.ideaswire.templates.HomePageDataTemplate;
+import com.fourway.ideaswire.templates.HomePageLayout_1;
+import com.fourway.ideaswire.templates.HomePageLayout_1_DataTemplate;
 import com.fourway.ideaswire.templates.ServicePage;
 import com.fourway.ideaswire.templates.ServicesDataTemplate;
 import com.fourway.ideaswire.templates.TeamDataTemplate;
@@ -79,9 +79,31 @@ public class MainActivity extends AppCompatActivity{
     public static final String ExplicitEditModeKey = "ExplicitEditMode";
     public static final String CROSS_BUTTON_HIDE = "*#doNotShow#*";
 
+    public static final int TEM_BUSINESS = 0;
+    public static final int TEM_INDIVIDUAL = 1;
+    public static final int TEM_FINANCE = 2;
+    public static final int TEM_HEALTH = 3;
+    public static final int TEM_ENTERTAINMENT = 4;
+    public static final int TEM_INFORMATION = 5;
+    public static final int TEM_WEDDING = 6;
+    public static final int TEM_RESTAURANT = 7;
+    public static final int TEM_OTHERS = 8;
+
+
     public static final int THEME_DEFAULT = 0;
-    public static final int THEME_ORANGE = 1;
-    public static final int THEME_GREEN = 2;
+    public static final int THEME_APP = 1;
+    public static final int THEME_ORANGE = 2;
+    public static final int THEME_GREEN = 3;
+    public static final int THEME_BUSINESS = 4;
+    public static final int THEME_INDIVIDUAL = 5;
+    public static final int THEME_FINANCE = 6;
+    public static final int THEME_HEALTH = 7;
+    public static final int THEME_ENTERTAINMENT = 8;
+    public static final int THEME_INFORMATION = 9;
+    public static final int THEME_WEDDING = 10;
+    public static final int THEME_RESTAURANT = 11;
+    public static final int THEME_OTHERS = 12;
+
 
     public static Profile requestToMakeProfile = null;
     public static boolean isLoginData;
@@ -93,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
 
         /*listOfTemplatePagesObj = new ArrayList<pages>();
 
-        pages abtusObj = new AboutUsPage();
+        pages abtusObj = new HomePageLayout_1();
         listOfTemplatePagesObj.add(0, abtusObj);
 
         dataOfTemplate data = listOfTemplatePagesObj.get(0).getTemplateData(1);
@@ -107,12 +129,14 @@ public class MainActivity extends AppCompatActivity{
         //Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         //startActivity(intent);
 
-
-       startActivity(new Intent(this,SplashScreen.class));
-
+        startActivity(new Intent(this,ChooseTemplate_Category.class));
 
 
-     //   startCreateCampaignWithDefaultData(1);
+//       startActivity(new Intent(this,SplashScreen.class));
+
+
+
+//        startCreateCampaignWithDefaultData(1);
     }
 
 
@@ -122,8 +146,8 @@ public class MainActivity extends AppCompatActivity{
         listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
 
 
-        pages abtusObj = new AboutUsPage();
-        pages homeObj = new HomePage();
+        pages abtusObj = new HomePageLayout_1();
+        pages homeObj = new AboutUsPage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
         pages ServicePage = new ServicePage();
@@ -197,24 +221,36 @@ public class MainActivity extends AppCompatActivity{
     }
     private static String TAG = "MainActivity";
 
-    static void setAttributesForAboutUsPage(ArrayList<Attribute> attributesFromServer){
-        pages abtusObj = new AboutUsPage();
-        AboutUsDataTemplate data = (AboutUsDataTemplate)abtusObj.getTemplateData(1,false);
+    static void setAttributesForHomePageLayout1(ArrayList<Attribute> attributesFromServer){
+        pages homePageLayout_1 = new HomePageLayout_1();
+        HomePageLayout_1_DataTemplate data = (HomePageLayout_1_DataTemplate)homePageLayout_1.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    homePageLayout_1.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    homePageLayout_1.getDataForTemplate().setLayoutByServer(layout);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
-                    abtusObj.set_theme(theme);
+                    homePageLayout_1.set_theme(theme);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
                     String nameis = atr.getContentValue();
-                    abtusObj.set_nameis(nameis);
+                    homePageLayout_1.set_nameis(nameis);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS:
                     boolean status = Boolean.valueOf(atr.getContentValue());
-                    abtusObj.setPageStatus(status);
+                    homePageLayout_1.setPageStatus(status);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
@@ -252,37 +288,48 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
-        if (abtusObj.pageStatus()) {
-            listOfTemplatePagesObj.add(abtusObj);
+        if (homePageLayout_1.pageStatus()) {
+            listOfTemplatePagesObj.add(homePageLayout_1);
         }else if (isLoginData){
-            listOfTemplatePagesObj.add(abtusObj);
+            listOfTemplatePagesObj.add(homePageLayout_1);
         }
-        int index = listOfTemplatePagesObj.indexOf(abtusObj);
+        int index = listOfTemplatePagesObj.indexOf(homePageLayout_1);
         listOfTemplatePagesObj.get(index).setDataObj(data);
 
 
     }
 
 
-    static void setAttributesForHomePage(ArrayList<Attribute> attributesFromServer){
-        pages homePageObj = new HomePage();
-        HomePageDataTemplate data = (HomePageDataTemplate)homePageObj.getTemplateData(1,false);
+    static void setAttributesForAboutPage(ArrayList<Attribute> attributesFromServer){
+        pages aboutUsPage = new AboutUsPage();
+        AboutUsDataTemplate data = (AboutUsDataTemplate)aboutUsPage.getTemplateData(1,false);
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    aboutUsPage.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    aboutUsPage.getDataForTemplate().setLayoutByServer(layout);
+                    break;
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
-                    homePageObj.set_theme(theme);
+                    aboutUsPage.set_theme(theme);
                     break;
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                     String nameis = atr.getContentValue();
-                    homePageObj.set_nameis(nameis);
+                    aboutUsPage.set_nameis(nameis);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS:
                     boolean status = Boolean.valueOf(atr.getContentValue());
-                    homePageObj.setPageStatus(status);
+                    aboutUsPage.setPageStatus(status);
                     break;
 
                 case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
@@ -312,10 +359,10 @@ public class MainActivity extends AppCompatActivity{
                     break;
             }
         }
-        if (homePageObj.pageStatus()) {
-            listOfTemplatePagesObj.add(homePageObj);
+        if (aboutUsPage.pageStatus()) {
+            listOfTemplatePagesObj.add(aboutUsPage);
         }else if (isLoginData){
-            listOfTemplatePagesObj.add(homePageObj);
+            listOfTemplatePagesObj.add(aboutUsPage);
         }
 
     }
@@ -328,6 +375,17 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    blogPageObj.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    blogPageObj.getDataForTemplate().setLayoutByServer(layout);
+                    break;
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
@@ -399,6 +457,17 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    contactDetailsPageObj.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    contactDetailsPageObj.getDataForTemplate().setLayoutByServer(layout);
+                    break;
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
@@ -467,6 +536,18 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    servicePageObj.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    servicePageObj.getDataForTemplate().setLayoutByServer(layout);
+                    break;
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
@@ -536,11 +617,18 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
-                case ProfileFieldsEnum.PROFILE_THEME:
-                    String themeS = atr.getContentValue();
-                    int theme = Integer.parseInt(themeS);
-                    clientPage.set_theme(theme);
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    clientPage.getDataForTemplate().setTemplateByServer(template);
                     break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    clientPage.getDataForTemplate().setLayoutByServer(layout);
+                    break;
+
                 case ProfileFieldsEnum.PROFILE_PAGE_CLIENT:
                     String nameis = atr.getContentValue();
                     clientPage.set_nameis(nameis);
@@ -609,6 +697,17 @@ public class MainActivity extends AppCompatActivity{
         for(Attribute atr : attributesFromServer) {
             String attrName = atr.getContentNme();
             switch (attrName){
+                case ProfileFieldsEnum.PROFILE_TEMPLATE:
+                    String tempS = atr.getContentValue();
+                    int template = Integer.parseInt(tempS);
+                    teamPage.getDataForTemplate().setTemplateByServer(template);
+                    break;
+
+                case ProfileFieldsEnum.PROFILE_LAYOUT:
+                    String layoutS = atr.getContentValue();
+                    int layout = Integer.parseInt(layoutS);
+                    teamPage.getDataForTemplate().setLayoutByServer(layout);
+                    break;
                 case ProfileFieldsEnum.PROFILE_THEME:
                     String themeS = atr.getContentValue();
                     int theme = Integer.parseInt(themeS);
@@ -739,14 +838,14 @@ public class MainActivity extends AppCompatActivity{
 
                if(pageName == null || pageName.equals("null") == true){
                    ArrayList<Attribute> attributesFromServer = p.getAttributes();
-                   setAttributesForAboutUsPage(attributesFromServer);
+                   setAttributesForHomePageLayout1(attributesFromServer);
                    bCanShowProfile = true;
                 return bCanShowProfile;
                }
                ArrayList<Attribute>attributesFromServer = p.getAttributes();
                 switch (pageName){
                     case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
-                        setAttributesForAboutUsPage(attributesFromServer);
+                        setAttributesForHomePageLayout1(attributesFromServer);
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_BLOG:
@@ -758,7 +857,7 @@ public class MainActivity extends AppCompatActivity{
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
-                        setAttributesForHomePage(attributesFromServer);
+                        setAttributesForAboutPage(attributesFromServer);
                         bCanShowProfile = true;
                         break;
                     case ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US:
@@ -794,8 +893,8 @@ public class MainActivity extends AppCompatActivity{
 
 
     public static void addPagesToCreateTemplate(){
-        pages abtusObj = new AboutUsPage();
-        pages homeObj = new HomePage();
+        pages abtusObj = new HomePageLayout_1();
+        pages homeObj = new AboutUsPage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
         pages ServicePage = new ServicePage();

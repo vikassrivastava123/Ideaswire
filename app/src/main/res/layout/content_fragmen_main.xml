@@ -18,6 +18,24 @@
     </FrameLayout >
 
 
+    <RelativeLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="15dp">
+
+        <ImageView
+            android:id="@+id/backBtnViewFromFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_1"
+            android:onClick="backFromFragment"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+
+
     <HorizontalScrollView
 
         android:layout_width="match_parent"

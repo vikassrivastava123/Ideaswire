@@ -269,12 +269,12 @@ public class ClientsOnapp extends Activity implements SaveProfileData.SaveProfil
 
         final List<String> clientsLogoUrl =new ArrayList<>();
 
-        clientsLogoUrl.add(dataObj.client_logo_1);
+        /*clientsLogoUrl.add(dataObj.client_logo_1);
         clientsLogoUrl.add(dataObj.client_logo_2);
         clientsLogoUrl.add(dataObj.client_logo_3);
         clientsLogoUrl.add(dataObj.client_logo_4);
         clientsLogoUrl.add(dataObj.client_logo_5);
-        clientsLogoUrl.add(dataObj.client_logo_6);
+        clientsLogoUrl.add(dataObj.client_logo_6);*/
 
 
 

@@ -2,39 +2,44 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
-import com.fourway.ideaswire.ui.AboutUsOnApp;
+import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentAboutUsOnApp;
+import com.fourway.ideaswire.ui.MainActivity;
+import com.fourway.ideaswire.ui.home_page_onapp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ritika on 8/24/2016.
  */
 public class AboutUsDataTemplate extends dataOfTemplate{
 
-    int templateSelected = 1;
+    int templateSelected = 0;
+    int layoutSelected = 0;
 
-    public String headerAboutUs = null;
-    public String title =null;
-    private String urlOfImage =null;
-    public String header2 =null;
-    public String sub_header = null;
-    public String text_para =null;
-    public String button_text =null;
-    public String link_button = null;
-    private int pageNumberInList = 0;
-    private String btnUrl = null;
+
+
+    private String title=null;
+    private String heading=null;
+    private String subHeading=null;
+    private String paraGraph=null;
+    private String urlOfImage_1 =null;
+    private String urlOfImage_2 =null;
+    private List<Integer> resourceDrawableId;
 
     boolean   ismDefaultData = false;
-
     public AboutUsDataTemplate(int templateSelected, boolean isDefaultData){
 
         if(isDefaultData){
-          initDeafultdata();
-
+            resourceDrawableId = new ArrayList<>();
+            initDeafultdata();
         }else{
-        // when datasetis not installed
+            // when datasetis not installed
         }
         ismDefaultData = isDefaultData;
         this.templateSelected = templateSelected;
+
 
     }
 
@@ -43,110 +48,127 @@ public class AboutUsDataTemplate extends dataOfTemplate{
         return ismDefaultData;
     }
 
-    void setDataReceivedServer(){
+    @Override
+    public List<Integer> getDefaultDrawableResourceId() {
+        return resourceDrawableId;
+    }
 
+    @Override
+    public void setTemplateByServer(int temp) {
+        this.templateSelected = temp;
+    }
+
+    @Override
+    public int getTemplateByServer() {
+        return templateSelected;
+    }
+
+    @Override
+    public int getLayoutByServer() {
+        return layoutSelected;
+    }
+
+    @Override
+    public void setLayoutByServer(int layout) {
+        this.layoutSelected = layout;
     }
 
     void initDeafultdata(){
-
         int temSel =  getTemplateSelected();
 
         switch (temSel){
-            case 0:
-                title = "Business";
+            case MainActivity.TEM_BUSINESS:
+                resourceDrawableId.add(R.drawable.business_about_banner);
+                break;
+            case MainActivity.TEM_INDIVIDUAL:
+                resourceDrawableId.add(R.drawable.individual_about_banner);
+                break;
+            case MainActivity.TEM_FINANCE:
+                resourceDrawableId.add(R.drawable.finance_about_banner);
+                break;
+            case MainActivity.TEM_HEALTH:
+                resourceDrawableId.add(R.drawable.health_about_banner);
+                break;
+            case MainActivity.TEM_ENTERTAINMENT:
+                resourceDrawableId.add(R.drawable.entertainment_about_banner);
+                break;
+            case MainActivity.TEM_INFORMATION:
+                resourceDrawableId.add(R.drawable.information_about_banner);
+                break;
+            case MainActivity.TEM_WEDDING:
+                resourceDrawableId.add(R.drawable.wedding_about_banner);
+                break;
+            case MainActivity.TEM_RESTAURANT:
+                resourceDrawableId.add(R.drawable.restaurant_about_banner);
+                break;
+            case MainActivity.TEM_OTHERS:
+                resourceDrawableId.add(R.drawable.others_about_banner);
                 break;
             default:
-                title = "Individual";
+                resourceDrawableId.add(R.drawable.business_about_banner);
                 break;
 
         }
-
-      /*  headerAboutUs = "Totam Aperiam Consect";
-        sub_header = "There are many variation of passages";
-        text_para = "There are many variation of passage " +
-                "Lorem Ipsum available but the majority have" +
-                " in some form bye inject humour";
-        button_text = "BUTTON TEXT";*/
-
-    }
-
-
-    public String get_title(){
-        return title;
-    }
-
-    public void set_title(String atr){
-        title = atr;
-    }
-
-    public void set_url(String atr){
-        urlOfImage = atr;
-    }
-
-    public String get_url(){
-        return  urlOfImage;
-    }
-
-    public String get_heading(){
-        return headerAboutUs;
-    }
-
-    public void set_heading(String atr){
-        headerAboutUs = atr;
-    }
-
-
-    public String get_sub_heading(){
-        return sub_header;
-    }
-
-    public void set_sub_heading(String atr){
-        sub_header = atr;
-    }
-    public String get_text_para(){
-        return text_para;
-    }
-
-    public void set_text_para(String atr){
-       text_para = atr;
-    }
-
-    public String get_button_text(){
-        return button_text;
-    }
-
-    public void set_button_text(String atr){
-        button_text = atr;
-    }
-
-    public void set_submit_button_link(int pageNumberInList){
-        this.pageNumberInList = pageNumberInList;
-
-    }
-
-    public int get_submit_button_link(){
-     //   dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(pageNumberInList).getTemplateData(1);
-        return pageNumberInList;
-
-    }
-
-    public void set_buttonUrl(String url){
-        btnUrl = url;
-    }
-
-    public String get_buttonUrl(){
-        return btnUrl;
+        title="About Us";
+        /*heading = "Toatam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph= "This is custom random para to generate space dont read ti its useless";*/
     }
 
     @Override
     public Class getIntentToLaunchPage() {
-       return AboutUsOnApp.class;
+        return home_page_onapp.class;
     }
 
     @Override
-
     public Fragment getFragmentToLaunchPage() {
-        return  new FragmentAboutUsOnApp();
+        return new FragmentAboutUsOnApp();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getHeading() {
+        return heading;
+    }
+
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
+
+    public String getSubHeading() {
+        return subHeading;
+    }
+
+    public void setSubHeading(String subHeading) {
+        this.subHeading = subHeading;
+    }
+
+    public String getParaGraph() {
+        return paraGraph;
+    }
+
+    public void setParaGraph(String paraGraph) {
+        this.paraGraph = paraGraph;
+    }
+
+    public String getUrlOfImage_1() {
+        return urlOfImage_1;
+    }
+    public String getUrlOfImage_2() {
+        return urlOfImage_2;
+    }
+
+    public void setUrlOfImage_1(String urlOfImage_1) {
+        this.urlOfImage_1 = urlOfImage_1;
+    }
+    public void setUrlOfImage_2(String urlOfImage_2) {
+        this.urlOfImage_2 = urlOfImage_2;
     }
 
 

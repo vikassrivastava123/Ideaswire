@@ -33,7 +33,6 @@
                 android:textColorHint = "@color/cardHint"
                 android:textColor="@color/card"
                 android:hint="Name" />
-            <requestFocus />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Email Label -->
@@ -81,6 +80,19 @@
                 android:hint="Confirm Password"/>
         </android.support.design.widget.TextInputLayout>
 
+
+        <!--Spinner
+            android:layout_marginTop="8dp"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:id="@+id/spinner"
+            android:layout_gravity="left"
+            android:layout_weight="10"
+            android:spinnerMode="dropdown"
+
+            /-->
+
+
         <!--  Phonenumber Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -91,21 +103,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPhonetic"
+                android:layout_gravity="right"
                 android:textColorHint = "@color/cardHint"
                 android:textColor="@color/card"
                 android:hint="Mobile Number" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->
-        <!--Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:background="@drawable/spinner_background"
 
-            android:spinnerMode="dropdown"
-
-            /-->
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"

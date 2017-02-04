@@ -33,7 +33,7 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
     int profilePosition;
     ImageButton menuButton;
     ProgressDialog mProgressDialog;
-private static String TAG = "CreateCampaign_homePage";
+    private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

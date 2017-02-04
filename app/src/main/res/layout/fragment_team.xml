@@ -119,8 +119,11 @@
                 android:layout_marginRight="10dp"
                 android:background="@null" />
             <GridView
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/gridView"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_below="@id/paraGraphTeam"
                 android:layout_marginTop="14dp"

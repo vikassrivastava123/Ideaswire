@@ -153,7 +153,12 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
         }else{
             cardImage.setVisibility(View.GONE);
-            cardImageCrop.setImageResource(R.drawable.blog_banner);
+            try {
+                cardImageCrop.setImageResource(dataObj.getDefaultDrawableResourceId().get(0)); //set default image
+            }catch (NullPointerException e) {
+
+            }
+
 
         }
 

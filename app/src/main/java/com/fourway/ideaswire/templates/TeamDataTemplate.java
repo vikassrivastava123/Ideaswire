@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentTeamOnApp;
 import com.fourway.ideaswire.ui.MainActivity;
 import com.fourway.ideaswire.ui.teamonapp;
@@ -15,33 +16,15 @@ import java.util.List;
  * Created by Vijay on 03-10-2016.
  */
 public class TeamDataTemplate extends dataOfTemplate {
-    int templateSelected = 1;
+    int templateSelected = 0;
+    int layoutSelected = 0;
 
     public String title=null;
     public String headerTeam=null;
     public String subHeadingTeam =null;
     public String paraGraphTeam =null;
 
-    public String team_1_name=null;
-    public String team_2_name=null;
-    public String team_3_name=null;
-    public String team_4_name=null;
-    public String team_5_name=null;
-    public String team_6_name=null;
-
-    public String team_1_title=null;
-    public String team_2_title=null;
-    public String team_3_title=null;
-    public String team_4_title=null;
-    public String team_5_title=null;
-    public String team_6_title=null;
-
-    public String team_1_image=null;
-    public String team_2_image=null;
-    public String team_3_image=null;
-    public String team_4_image=null;
-    public String team_5_image=null;
-    public String team_6_image=null;
+    private List<Integer> resourceDrawableId;
 
     public String team_image[];
     public String team_name[];
@@ -69,7 +52,7 @@ public class TeamDataTemplate extends dataOfTemplate {
 
     public TeamDataTemplate(int templateSelected, boolean isDefaultData) {
         if (isDefaultData) {
-
+            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         } else {
@@ -89,6 +72,52 @@ public class TeamDataTemplate extends dataOfTemplate {
     void initDeafultdata(){
 
         title="Team";
+
+        int temSel =  getTemplateSelected();
+
+        switch (temSel){
+            case 0:
+                resourceDrawableId.add(R.drawable.business_member_1);
+                resourceDrawableId.add(R.drawable.business_member_2);
+                break;
+            case 1:
+                resourceDrawableId.add(R.drawable.individual_member_1);
+                resourceDrawableId.add(R.drawable.individual_member_2);
+                break;
+            case 2:
+                resourceDrawableId.add(R.drawable.finance_member_1);
+                resourceDrawableId.add(R.drawable.finance_member_2);
+                break;
+            case 3:
+                resourceDrawableId.add(R.drawable.health_member_1);
+                resourceDrawableId.add(R.drawable.health_member_2);
+                break;
+            case 4:
+                resourceDrawableId.add(R.drawable.entertainment_member_1);
+                resourceDrawableId.add(R.drawable.entertainment_member_2);
+                break;
+            case 5:
+                resourceDrawableId.add(R.drawable.information_member_1);
+                resourceDrawableId.add(R.drawable.information_member_2);
+                break;
+            case 6:
+                resourceDrawableId.add(R.drawable.wedding_member_1);
+                resourceDrawableId.add(R.drawable.wedding_member_2);
+                break;
+            case 7:
+                resourceDrawableId.add(R.drawable.restaurant_member_1);
+                resourceDrawableId.add(R.drawable.restaurant_member_2);
+                break;
+            case 8:
+                resourceDrawableId.add(R.drawable.others_member_1);
+                resourceDrawableId.add(R.drawable.others_member_2);
+                break;
+            default:
+                resourceDrawableId.add(R.drawable.business_member_1);
+                resourceDrawableId.add(R.drawable.business_member_2);
+                break;
+
+        }
         /*headerTeam = "Totam Aperiam Consect";
         subHeadingTeam = "There are many variation of passages";
         paraGraphTeam = "There are many variation of passage of Lorem" +
@@ -195,5 +224,30 @@ public class TeamDataTemplate extends dataOfTemplate {
     @Override
     public boolean isDefaultDataToCreateCampaign() {
         return ismDefaultData;
+    }
+
+    @Override
+    public List<Integer> getDefaultDrawableResourceId() {
+        return resourceDrawableId;
+    }
+
+    @Override
+    public void setTemplateByServer(int temp) {
+        this.templateSelected = temp;
+    }
+
+    @Override
+    public int getTemplateByServer() {
+        return templateSelected;
+    }
+
+    @Override
+    public int getLayoutByServer() {
+        return layoutSelected;
+    }
+
+    @Override
+    public void setLayoutByServer(int layout) {
+        this.layoutSelected = layout;
     }
 }

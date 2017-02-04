@@ -70,4 +70,6 @@ public abstract class pages {
 
     public abstract void setPageStatus(boolean status);
     public abstract boolean pageStatus();
+
+    public abstract int getImageForMainPage_BasedOnTemplate_Layout(int temp, int layout);
 }

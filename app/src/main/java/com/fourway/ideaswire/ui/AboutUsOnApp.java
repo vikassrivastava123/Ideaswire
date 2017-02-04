@@ -43,7 +43,7 @@ import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
 import com.fourway.ideaswire.request.helper.VolleySingleton;
-import com.fourway.ideaswire.templates.AboutUsDataTemplate;
+import com.fourway.ideaswire.templates.HomePageLayout_1_DataTemplate;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
@@ -73,7 +73,7 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     ImageView deleteSubHeaderAboutUsBtnView = null;
     ImageView deleteParaAboutUsBtnView = null;
 
-    AboutUsDataTemplate dataObj;
+    HomePageLayout_1_DataTemplate dataObj;
     boolean inPreviewMode = false;
     private boolean showPreview = false;
 
@@ -314,18 +314,18 @@ public class AboutUsOnApp extends Activity implements SaveProfileData.SaveProfil
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_us_template1_on_app);
-        // AboutUsDataTemplate dataObj = new AboutUsDataTemplate(1,true);
+        // HomePageLayout_1_DataTemplate dataObj = new HomePageLayout_1_DataTemplate(1,true);
         layout = (RelativeLayout) findViewById(R.id.dynamicPages);
 
         showBaseMenu();
 
 
-        dataObj=(AboutUsDataTemplate)getIntent().getSerializableExtra("data");
+        dataObj=(HomePageLayout_1_DataTemplate)getIntent().getSerializableExtra("data");
 
        // int pos = dataObj.getPositionInList();
         //if(pos > -1)
         if(dataObj.isDefaultDataToCreateCampaign() == true){
-      //          dataObj = (AboutUsDataTemplate) MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+      //          dataObj = (HomePageLayout_1_DataTemplate) MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
         }
 
 

@@ -82,8 +82,8 @@ public class CreateCampain_Sucess extends Activity {
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
 
 
-        pages abtusObj = new AboutUsPage();
-        pages homeObj = new HomePage();
+        pages abtusObj = new HomePageLayout_1();
+        pages homeObj = new AboutUsPage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
         pages ServicePage = new ServicePage();

@@ -15,14 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.templates.AboutUsPage;
 
 public class AddPages extends ListActivity  {
     ArrayAdapter<String> adapter;
@@ -298,7 +296,7 @@ holderObj.switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedCh
         Toast.makeText(this, "Clicked row " + position, Toast.LENGTH_SHORT).show();
 
         //add here
-        //select_layout_of_template.listOfTemplatePagesObj.add(position,new AboutUsPage());       }
+        //select_layout_of_template.listOfTemplatePagesObj.add(position,new HomePageLayout_1());       }
     }
 
 }

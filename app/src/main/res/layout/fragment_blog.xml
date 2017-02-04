@@ -120,13 +120,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:id="@+id/Blog_CARD_IMAGE"
                     android:scaleType="centerCrop"
                     android:background="@drawable/blog_banner"
                     android:layout_centerHorizontal="true" />
 
                 <ImageView
-
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/Blog_STATIC_IMAGE"

@@ -1,6 +1,7 @@
 package com.fourway.ideaswire.templates;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.ui.MainActivity;
 
 /**
  * Created by Vijay on 03-10-2016.
@@ -94,6 +95,49 @@ public class ClientPage extends pages {
     @Override
     public boolean pageStatus() {
         return status;
+    }
+
+    @Override
+    public int getImageForMainPage_BasedOnTemplate_Layout(int temp, int layout) {
+        int  imageResourceId = 0;
+        if (layout == 1) {
+            switch (temp) {
+                case MainActivity.TEM_BUSINESS:
+                    imageResourceId = R.drawable.business_clients_category;
+                    break;
+                case MainActivity.TEM_INDIVIDUAL:
+                    imageResourceId = R.drawable.individual_clients_category;
+                    break;
+                case MainActivity.TEM_FINANCE:
+                    imageResourceId = R.drawable.finance_clients_category;
+                    break;
+                case MainActivity.TEM_HEALTH:
+                    imageResourceId = R.drawable.health_clients_category;
+                    break;
+                case MainActivity.TEM_ENTERTAINMENT:
+                    imageResourceId = R.drawable.entertainment_clients_category;
+                    break;
+                case MainActivity.TEM_INFORMATION:
+                    imageResourceId = R.drawable.information_clients_category;
+                    break;
+                case MainActivity.TEM_WEDDING:
+                    imageResourceId = R.drawable.wedding_clients_category;
+                    break;
+                case MainActivity.TEM_RESTAURANT:
+                    imageResourceId = R.drawable.restaurant_clients_category;
+                    break;
+                case MainActivity.TEM_OTHERS:
+                    imageResourceId = R.drawable.others_clients_category;
+                    break;
+                default:
+                    imageResourceId = R.drawable.business_clients_category;
+                    break;
+
+            }
+        }else if (layout == 2){
+            imageResourceId = R.drawable.clients_icon;
+        }
+        return imageResourceId;
     }
 
     int theme;

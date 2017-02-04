@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
 import com.fourway.ideaswire.templates.ClientPage;
-import com.fourway.ideaswire.templates.HomePage;
+import com.fourway.ideaswire.templates.HomePageLayout_1;
 import com.fourway.ideaswire.templates.ServicePage;
 import com.fourway.ideaswire.templates.TeamPage;
 import com.fourway.ideaswire.templates.blogpage;
@@ -39,10 +39,8 @@ public class select_layout_of_template extends Activity {
 
     private final String TAG = "seleclayouttemplate";
     TextView mTitle,t;
-    void startModifyTemplate(int typeOfTemplateSelected){
+    Typeface myCustomFont;
 
-
-    }
 
 
 
@@ -50,7 +48,8 @@ public class select_layout_of_template extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_layout_of_template);
-        Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+
+        myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -63,45 +62,104 @@ public class select_layout_of_template extends Activity {
             }
         });
         t= (TextView) findViewById(R.id.HeaderOfSelectLAyout);
-        mTitle.setTypeface(mycustomFont);
-        t.setTypeface(mycustomFont);
+        mTitle.setTypeface(myCustomFont);
+        t.setTypeface(myCustomFont);
         gridView = (GridView) findViewById(R.id.gridViewForSelectLayout);
 
-        String[] values = new String[] { "business", "entertainment", "finance",
-                "health"};
+        String[] values = new String[] { "Layout 1", "Layout 2", "Layout 3",
+                "Layout 4"};
 
         // use your custom layout
-        ArrayAdapter<String> adapter = new GridViewAdapter<String>(this,
-                values);
+        int selTemp = dataOfTemplate.getTemplateSelectedByUser();
+        int layoutResource[] = getLayoutResourceBasedOnTemplate(selTemp);
+        ArrayAdapter adapter = new GridViewAdapter(this, values, layoutResource);
         gridView.setAdapter(adapter);
 
-        ////
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                Log.v(TAG, "CL hi"+position);
-                //TODO: uncomment code after test
-                //startModifyTemplate(position);
-                //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
-                 dataOfTemplate.setLayoutSelected(position);
+                if (position != 3) {
+                    dataOfTemplate.setLayoutSelected(position);
 
-               startCreateCampaignWithDefaultData();
+                    startCreateCampaignWithDefaultData();
+                }else {
+                    Toast.makeText(select_layout_of_template.this, "Coming soon", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-            }});
 
-        ////
+
+    }
+
+    int[] getLayoutResourceBasedOnTemplate(int selTemp) {
+
+        switch (selTemp) {
+            case MainActivity.TEM_BUSINESS:
+                int layoutResourceBusiness[] = {R.drawable.business_homepage_layout1, R.drawable.business_homepage_layout2,
+                        R.drawable.business_homepage_layout3, R.drawable.business_homepage_layout4};
+                return layoutResourceBusiness;
+
+            case MainActivity.TEM_INFORMATION:
+                int layoutResourceInfo[] = {R.drawable.information_homepage_layout_1, R.drawable.information_homepage_layout_2,
+                        R.drawable.information_homepage_layout_3, R.drawable.information_homepage_layout_4};
+                return layoutResourceInfo;
+
+            case MainActivity.TEM_INDIVIDUAL:
+                int layoutResourceIndividual[] = {R.drawable.individual_homepage_1, R.drawable.individual_homepage_2,
+                        R.drawable.individual_homepage_3, R.drawable.individual_homepage_4};
+                return layoutResourceIndividual;
+
+            case MainActivity.TEM_FINANCE:
+                int layoutResourceFinance[] = {R.drawable.finance_homepage_layout_1, R.drawable.finance_homepage_layout_2,
+                        R.drawable.finance_homepage_layout_3, R.drawable.finance_homepage_layout_4};
+                return layoutResourceFinance;
+
+            case MainActivity.TEM_HEALTH:
+                int layoutResourceHealth[] = {R.drawable.health_homepage_layout_1, R.drawable.health_homepage_layout_2,
+                        R.drawable.health_homepage_layout_3, R.drawable.health_homepage_layout_4};
+                return layoutResourceHealth;
+
+            case MainActivity.TEM_WEDDING:
+                int layoutResourceWedding[] = {R.drawable.wedding_homepage_layout_1, R.drawable.wedding_homepage_layout_2,
+                        R.drawable.wedding_homepage_layout_3, R.drawable.wedding_homepage_layout_4};
+                return layoutResourceWedding;
+
+            case MainActivity.TEM_ENTERTAINMENT:
+                int layoutResourceEnt[] = {R.drawable.entertaiment_homepage_layout_1, R.drawable.entertaiment_homepage_layout_2,
+                        R.drawable.entertaiment_homepage_layout_3, R.drawable.entertaiment_homepage_layout_4};
+                return layoutResourceEnt;
+
+            case MainActivity.TEM_RESTAURANT:
+                int layoutResourceResto[] = {R.drawable.restro_homepage_layout_1, R.drawable.restro_homepage_layout_2,
+                        R.drawable.restro_homepage_layout_3, R.drawable.restro_homepage_layout_4};
+                return layoutResourceResto;
+
+            case MainActivity.TEM_OTHERS:
+                int layoutResourceOther[] = {R.drawable.others_homepage_layout_1, R.drawable.others_homepage_layout_2,
+                        R.drawable.others_homepage_layout_3, R.drawable.others_homepage_layout_4};
+                return layoutResourceOther;
+
+            default:
+                int layoutResourceBusinessD[] = {R.drawable.business_homepage_layout1, R.drawable.business_homepage_layout2,
+                        R.drawable.business_homepage_layout3, R.drawable.business_homepage_layout4};
+                return layoutResourceBusinessD;
+
+        }
 
     }
 
     private void startCreateCampaignWithDefaultData(){
 
         int typeOfTemplateSelected  = dataOfTemplate.getTemplateSelectedByUser();
+        int layoutSelected  = dataOfTemplate.getLayoutSelected();
         MainActivity.listOfTemplatePagesObj = new ArrayList<pages>();
         listOfTemplatePagesObjForAddPage = new ArrayList<pages>();
 
 
-        pages abtusObj = new AboutUsPage();
-        pages homeObj = new HomePage();
+        pages homePageLayout_1 = new HomePageLayout_1();
+        pages aboutUsPage = new AboutUsPage();
         pages blogpage = new blogpage();
         pages contactdetails = new contactDetails();
         pages ServicePage = new ServicePage();
@@ -111,42 +169,55 @@ public class select_layout_of_template extends Activity {
 
 
 
-        MainActivity.listOfTemplatePagesObj.add(0, abtusObj);
-        abtusObj.setPageIndex(0);
-        MainActivity.listOfTemplatePagesObj.add(1, homeObj);
-        abtusObj.setPageIndex(1);
-        MainActivity.listOfTemplatePagesObj.add(2, blogpage);
-        abtusObj.setPageIndex(2);
-        MainActivity.listOfTemplatePagesObj.add(3, contactdetails);
-        abtusObj.setPageIndex(3);
-        MainActivity.listOfTemplatePagesObj.add(4, ServicePage);
-        abtusObj.setPageIndex(4);
-        MainActivity.listOfTemplatePagesObj.add(5, clientobj);
-        abtusObj.setPageIndex(5);
-        MainActivity.listOfTemplatePagesObj.add(6, teamPages);
-        abtusObj.setPageIndex(6);
+
+//        abtusObj.setPageIndex(0);
+        if (layoutSelected == 0) {
+            MainActivity.listOfTemplatePagesObj.add(homePageLayout_1);
+        }
+        MainActivity.listOfTemplatePagesObj.add(aboutUsPage);
+        MainActivity.listOfTemplatePagesObj.add(ServicePage);
+        MainActivity.listOfTemplatePagesObj.add(clientobj);
+        MainActivity.listOfTemplatePagesObj.add(blogpage);
+        MainActivity.listOfTemplatePagesObj.add(teamPages);
+//        abtusObj.setPageIndex(1);
+
+//        abtusObj.setPageIndex(2);
+        MainActivity.listOfTemplatePagesObj.add(contactdetails);
+//        abtusObj.setPageIndex(3);
+
+//        abtusObj.setPageIndex(4);
+
+//        abtusObj.setPageIndex(5);
+
+//        abtusObj.setPageIndex(6);
 
 
-        listOfTemplatePagesObjForAddPage.add(0, abtusObj);
-        listOfTemplatePagesObjForAddPage.add(1, homeObj);
-        listOfTemplatePagesObjForAddPage.add(2, blogpage);
-        listOfTemplatePagesObjForAddPage.add(3, contactdetails);
-        listOfTemplatePagesObjForAddPage.add(4, ServicePage);
-        listOfTemplatePagesObjForAddPage.add(5, clientobj);
-        listOfTemplatePagesObjForAddPage.add(6, teamPages);
+        listOfTemplatePagesObjForAddPage.add(aboutUsPage);
+        listOfTemplatePagesObjForAddPage.add(ServicePage);
+        listOfTemplatePagesObjForAddPage.add(clientobj);
+        //listOfTemplatePagesObjForAddPage.add(homeObj);
+        listOfTemplatePagesObjForAddPage.add(blogpage);
+        listOfTemplatePagesObjForAddPage.add(teamPages);
+        listOfTemplatePagesObjForAddPage.add(contactdetails);
 
 
 
-        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(typeOfTemplateSelected, true);
+
+
+
+
+
+        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(true);
         data.setEditMode(true);
         data.setIsInUpdateProfileMode(false);
-//        Class intenetToLaunch = data.getIntentToLaunchPage();
-//        Log.v("Create homepage", "5" + intenetToLaunch);
-//        Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-//
-//        //Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
-//        intent.putExtra("data",data);
-//        startActivity(intent);
+        for (int i=0;i<MainActivity.listOfTemplatePagesObj.size();i++) {
+            MainActivity.listOfTemplatePagesObj.get(i).getTemplateData(true).setTemplateByServer(typeOfTemplateSelected);
+            MainActivity.listOfTemplatePagesObj.get(i).getTemplateData(true).setLayoutByServer(layoutSelected);
+
+//            listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setTemplateByServer(typeOfTemplateSelected);
+//            listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setLayoutByServer(layoutSelected);
+
+        }
 
         Intent intent = new Intent(getApplicationContext(), FragmenMainActivity.class);
 
@@ -156,16 +227,17 @@ public class select_layout_of_template extends Activity {
 
     }
 
-    private class GridViewAdapter<String> extends ArrayAdapter<String> {
+    private class GridViewAdapter extends ArrayAdapter {
 
         private final Context context;
         private final String[] values;
-        int layoutResource[] = {R.drawable.homepage_layout1, R.drawable.homepage_layout2, R.drawable.homepage_layout3, R.drawable.homepage_layout4 };
+        int layoutResource[];
 
-        public GridViewAdapter(Context context, String[] values) {
+        public GridViewAdapter(Context context, String[] values,int layoutResource[]) {
             super(context, R.layout.choose_category_grid_layout, values);
             this.context = context;
             this.values = values;
+            this.layoutResource = layoutResource;
         }
 
 
@@ -189,6 +261,7 @@ public class select_layout_of_template extends Activity {
 
                 holderObj.imgView = (ImageView) convertView.findViewById(R.id.imgvTemplateLayout);
                 holderObj.txtView = (TextView) convertView.findViewById(R.id.layoutText);
+                holderObj.txtView.setTypeface(myCustomFont);
 
                 convertView.setTag(holderObj);
 
@@ -197,22 +270,8 @@ public class select_layout_of_template extends Activity {
             }
 
             holderObj.imgView.setImageResource(layoutResource[position]);
+            holderObj.txtView.setText(values[position]);
 
-            Log.v("chooseLayoutAdapter", "position" + position + " " + values[position]);
-            switch (position) {
-                case 0:
-                    holderObj.txtView.setText("Layout 1");
-                    break;
-                case 1:
-                    holderObj.txtView.setText("Layout 2");
-                    break;
-                case 2:
-                    holderObj.txtView.setText("Layout 3");
-                    break;
-                case 3:
-                    holderObj.txtView.setText("Layout 4");
-                    break;
-            }
 
 
             return convertView;

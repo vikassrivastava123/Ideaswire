@@ -15,9 +15,9 @@ public abstract class dataOfTemplate implements Serializable {
     transient List<pages> listOfFooter = MainActivity.listOfTemplatePagesObj;
     String header;
     static boolean mEditMode = false , mUpdateProfile = false , mIsPriviewMode = false;
-    static int mSelectedTemplate = 1;
+    static int mSelectedTemplate = 0;
 
-    static int mSelectedLayout = 1;
+    static int mSelectedLayout = 0;
 
     void setHeader(String header){
         this.header = header;
@@ -30,6 +30,16 @@ public abstract class dataOfTemplate implements Serializable {
     abstract public Class getIntentToLaunchPage();
     abstract public Fragment getFragmentToLaunchPage();
     abstract public boolean isDefaultDataToCreateCampaign();
+    abstract public List<Integer> getDefaultDrawableResourceId();
+
+    /**
+     * temporary method
+     * @param temp
+     */
+    abstract public void setTemplateByServer(int temp);
+    abstract public int getTemplateByServer();
+    abstract public int getLayoutByServer();
+    abstract public void setLayoutByServer(int layout);
     public int getTemplateSelected(){
         return mSelectedTemplate;
     }

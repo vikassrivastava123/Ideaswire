@@ -58,7 +58,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                dialog=new ProgressDialog(searchResults.this);
+                dialog=new ProgressDialog(searchResults.this,R.style.AppTheme_Dark_Dialog);
                 dialog.setMessage("Please wait, loading...");
                 if(view.getId()==R.id.imgViewProfile) {
                     Profile p = EditPhotoSelectedUi.mSearchProfileList.get(position);

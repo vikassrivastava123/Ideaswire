@@ -156,7 +156,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
         }else{
             cardImage.setVisibility(View.GONE);
-            cardImageCrop.setImageResource(R.drawable.services_banner);
+            cardImageCrop.setImageResource(dataObj.getDefaultDrawableResourceId().get(0)); //set default image
         }
 
         Typeface mycustomFont=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Montserrat-Regular.otf");

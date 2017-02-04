@@ -34,7 +34,7 @@ import com.fourway.ideaswire.data.UploadImageForUrlData;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
 import com.fourway.ideaswire.request.UploadImageForUrlRequest;
-import com.fourway.ideaswire.templates.HomePageDataTemplate;
+import com.fourway.ideaswire.templates.AboutUsDataTemplate;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 import com.fourway.ideaswire.templates.pages;
 
@@ -70,7 +70,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
 
     public String TAG="home_page_onapp";
 
-    HomePageDataTemplate dataObj;
+    AboutUsDataTemplate dataObj;
     private boolean showPreview = false;
 
     void init_viewCampaign(){
@@ -162,7 +162,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_onapp);
-        dataObj = (HomePageDataTemplate)getIntent().getSerializableExtra("data");
+        dataObj = (AboutUsDataTemplate)getIntent().getSerializableExtra("data");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);

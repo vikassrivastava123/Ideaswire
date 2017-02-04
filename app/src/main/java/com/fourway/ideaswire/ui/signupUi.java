@@ -3,14 +3,11 @@ package com.fourway.ideaswire.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,9 +40,10 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
     Button _signupButton;
     @InjectView(R.id.link_login)
     TextView _loginLink;
-    //Spinner spinner;
-    String count_code;
-    private String[] states;
+//    Spinner spinner;
+//    String count_code;
+//    private String[] states;
+//    private String[] countryNameStrings;
     String mobile_num_new;
     ProgressDialog progressDialog;
     @Override
@@ -55,14 +53,18 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         ButterKnife.inject(this);
 
-        states = getResources().getStringArray(R.array.CountryCodes);
+//        states = getResources().getStringArray(R.array.CountryCodes);
+
+
 //        imgs = getResources().obtainTypedArray(R.array.countries_flag_list);
 
 //        image = (ImageView) findViewById(R.id.country_image);
-       // spinner = (Spinner) findViewById(R.id.spinner);
+//        spinner = (Spinner) findViewById(R.id.spinner);
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, states){
+/*        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, countryNameStrings){
+
+
 
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
@@ -70,6 +72,10 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
                 Typeface externalFont=Typeface.createFromAsset(getAssets(), "fonts/Montserrat-Regular.otf");
                 ((TextView) v).setTypeface(externalFont);
                 ((TextView) v).setTextColor(Color.WHITE);
+
+                String[] g = states[position].split(",");
+                ((TextView) v).setText("(+"+g[0]+")");
+
 
                 return v;
             }
@@ -87,7 +93,8 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         };
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 
-        /*spinner.setAdapter(dataAdapter);
+        spinner.setAdapter(dataAdapter);
+        spinner.setSelection(80); //by default +91 India selected
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -97,7 +104,8 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
 //                image.setImageResource(imgs.getResourceId(
 //                        spinner.getSelectedItemPosition(), -1));
 
-                count_code = spinner.getSelectedItem().toString();
+//                count_code = spinner.getSelectedItem().toString();
+                count_code = states[position];
                 Log.d("country is",count_code);
             }
 
@@ -169,9 +177,10 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         String email = String.valueOf(_emailText.getText());
         String password = String.valueOf(_passwordText.getText());
         String mobile_num = String.valueOf(_phonenumberText.getText());
-        String[] Code_is = count_code.split(",");
-        String Code  = "+"+Code_is[0];
-        mobile_num_new = Code+mobile_num;
+//        String[] Code_is = count_code.split(",");
+//        String Code  = "+"+Code_is[0];
+//        mobile_num_new = Code+mobile_num;
+        mobile_num_new = "+91"+mobile_num;
         Log.d("here",mobile_num_new);
        SignUpData data = new SignUpData(username,password,username,username,email,mobile_num_new);
        SignUpRequest req = new SignUpRequest(signupUi.this, data, this);
@@ -195,6 +204,22 @@ public class signupUi extends Activity implements SignUpRequest.SignUpResponseCa
         return CountryZipCode;
     }
 
+    /*private String GetCountryNameByZipCode(String ssid){
+        Locale loc = new Locale("", ssid);
+
+        return loc.getDisplayCountry().trim();
+    }
+
+    public String[] getCountryCodeWithNameArray(String[] countryCodeArray) {
+        String[] countryNameWithCode = new String[206];
+        for (int i=0; i<countryCodeArray.length; i++) {
+            String g[] = countryCodeArray[i].split(",");
+            String cName = GetCountryNameByZipCode(g[1]);
+            countryNameWithCode[i] = "(+"+g[0]+") "+cName;
+        }
+        return countryNameWithCode;
+    }*/
+
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -216,7 +241,7 @@ public boolean phone_val(String ph_number)
         boolean check=false;
         if(!Pattern.matches("[a-zA-Z]+", phone2))
         {
-            if(phone2.length() < 12 || phone2.length() > 12)
+            if(phone2.length() < 13 || phone2.length() > 13)
             {
                 check = false;
 
@@ -246,10 +271,11 @@ public boolean phone_val(String ph_number)
 //        String Code  = "+"+Code_is[0];
 //        mobile_num_new = Code+ph_number;
 
-        count_code = GetCountryZipCode();
-        String[] Code_is = count_code.split(",");
-        String Code  = "+"+Code_is[0];
-        mobile_num_new = Code+ph_number;
+//        count_code = GetCountryZipCode();
+//        String[] Code_is = count_code.split(",");
+//        String Code  = "+"+Code_is[0];
+//        mobile_num_new = Code+ph_number;
+        mobile_num_new = "+91"+ph_number;
         Log.d("here",mobile_num_new);
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         try {

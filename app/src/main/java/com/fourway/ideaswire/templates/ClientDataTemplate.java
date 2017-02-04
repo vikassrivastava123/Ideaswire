@@ -15,19 +15,13 @@ import java.util.List;
  * Created by Vijay on 03-10-2016.
  */
 public class ClientDataTemplate extends dataOfTemplate {
-    int templateSelected = 1;
+    int templateSelected = 0;
+    int layoutSelected = 0;
 
     public String headerClient=null;
     public String subHeaderClient=null;
     public String paraClient=null;
     public String title=null;
-
-    public String client_logo_1=null;
-    public String client_logo_2=null;
-    public String client_logo_3=null;
-    public String client_logo_4=null;
-    public String client_logo_5=null;
-    public String client_logo_6=null;
 
     public String client_logo[];
     final static String TAG = "ClientDataTemplate";
@@ -75,6 +69,31 @@ public class ClientDataTemplate extends dataOfTemplate {
     public boolean isDefaultDataToCreateCampaign(){
 
         return ismDefaultData;
+    }
+
+    @Override
+    public List<Integer> getDefaultDrawableResourceId() {
+        return null;
+    }
+
+    @Override
+    public void setTemplateByServer(int temp) {
+        this.templateSelected = temp;
+    }
+
+    @Override
+    public int getTemplateByServer() {
+        return templateSelected;
+    }
+
+    @Override
+    public int getLayoutByServer() {
+        return layoutSelected;
+    }
+
+    @Override
+    public void setLayoutByServer(int layout) {
+        this.layoutSelected = layout;
     }
 
     void initDeafultdata(){

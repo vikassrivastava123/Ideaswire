@@ -5,6 +5,8 @@ package com.fourway.ideaswire.data;
  */
 
 public class ProfileFieldsEnum {
+    public static final String PROFILE_TEMPLATE = "Profile_Template";
+    public static final String PROFILE_LAYOUT = "Profile_Layout";
     public static final String PROFILE_THEME = "Profile_Theme";
 
     public static final String PROFILE_PAGE_HOMEPAGE = "Home";

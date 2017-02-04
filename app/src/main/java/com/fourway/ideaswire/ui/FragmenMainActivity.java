@@ -36,8 +36,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
+import com.fourway.ideaswire.data.Attribute;
 import com.fourway.ideaswire.data.GetUserProfileRequestData;
+import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.data.ProfileFieldsEnum;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.request.SaveProfileData;
@@ -68,6 +71,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     static  boolean isChangeThemeManual = false;
     ProgressDialog mProgressDialog;
     HorizontalScrollView sv;
+    int selectedLayout;
+    int selectedTemplate;
+    ImageView fragmentBackBtn; //back button for Layout 2 and Layout 3
+
+    Fragment fragmentLayout2 = new FragmentLayout2();
+    Fragment fragmentLayout3 = new FragmentLayout3();
+    public static boolean isFragmentMainPage = true;
+
 
     public static boolean isImageUploading = false; //check image uploading status, if it is "true" means image uploading in progress
 
@@ -79,18 +90,35 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        theme = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).themes(); //TODO: change theme login
-        switch (theme){
-            case MainActivity.THEME_ORANGE:
-                setTheme(R.style.AppTheme_Orange);
-                break;
-            case MainActivity.THEME_GREEN:
-                setTheme(R.style.AppTheme_Green);
-                break;
-            default:
-                setTheme(R.style.AppTheme);
+        try {
+//            if(dataObj != null) {
+            dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(true);
+//            }else{
+//                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");  //not need
+//            }
+        }catch (NullPointerException e){
+            Log.d(TAG,e.toString());
+
+        }catch (IndexOutOfBoundsException e){
+            Log.d(TAG,e.toString());
         }
+
+        if (isChangeThemeManual) {
+            isChangeThemeManual = false;
+        }
+
+        theme = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).themes(); //theme selected by user
+        selectedTemplate = dataObj.getTemplateByServer();//dataObj.getTemplateSelected(); //template selected by user
+        int themeForApply = getThemeForApply(selectedTemplate, theme); // getting theme for apply according template and user selected them
+
+        applyTheme(themeForApply); //apply theme
+
         super.onCreate(savedInstanceState);
+
+
+
+
+
         setContentView(R.layout.activity_fragmen_main);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -102,19 +130,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
        // mEditMode = super.getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
 
-
-        try {
-//            if(dataObj != null) {
-                dataObj = MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).getTemplateData(true);
-//            }else{
-//                dataObj = (dataOfTemplate) getIntent().getSerializableExtra("data");  //not need
-//            }
-        }catch (NullPointerException e){
-            Log.d(TAG,e.toString());
-
-        }catch (IndexOutOfBoundsException e){
-            Log.d(TAG,e.toString());
+        fragmentBackBtn = (ImageView)findViewById(R.id.backBtnViewFromFragment);
+        if (isFragmentMainPage) {
+            fragmentBackBtn.setVisibility(View.GONE);
         }
+
+        selectedLayout = dataObj.getLayoutByServer();//dataObj.getLayoutSelected(); // selected layout by User
 
 
 
@@ -147,27 +168,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         sv = (HorizontalScrollView) findViewById(R.id.scrollViewPages);
         showBaseMenu();
 
-        fragmentToLaunch = dataObj.getFragmentToLaunchPage();
-        FragmentManager fragmentManager=getFragmentManager();
-        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        IndexKey = pageButtonViewId;
 
-        try {
-            if(selectedPageList.size()>1) {
-                transaction.replace(R.id.mainRLayout, fragmentToLaunch);
-            }
-            else {
-                transaction.add(R.id.mainRLayout, fragmentToLaunch); //TODO: uncomment after test     ???
-            }
-        }catch (NullPointerException e){
-            Log.v(TAG, e.toString());
-            transaction.add(R.id.mainRLayout, fragmentToLaunch);
-        }
-
-
-        //transaction.add(R.id.mainRLayout,new FragmentLayout3());//TODO: remove code after test ???
-        transaction.commit();
+        launchMainFragmentBasedOnSelectedLayout(selectedLayout); //Launch Main fragment based on layout
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
@@ -186,6 +188,18 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     }
 
 
+    private void setTemplateLayoutThemeAtZerothIndex() {
+        Page zerothPage = MainActivity.getProfileObject().getPageAtIndex(0);
+        String mParentId = zerothPage.getPageId();
+        String mProfileId = editCampaign.mCampaignIdFromServer;
+        Attribute attributeTemplate = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_TEMPLATE,String.valueOf(selectedTemplate));
+        Attribute attributeLayout = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_LAYOUT,String.valueOf(selectedLayout));
+        Attribute attributeTheme = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_THEME,String.valueOf(theme));
+
+        zerothPage.addAttribute(attributeTemplate);
+        zerothPage.addAttribute(attributeLayout);
+        zerothPage.addAttribute(attributeTheme);
+    }
 
 
     private void aboutUsButtonAction() {
@@ -197,6 +211,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         previewCampaign = (viewCampaign)fragmentToLaunch ;
         previewCampaign.addLastPage();
 
+        setTemplateLayoutThemeAtZerothIndex();
         Profile reqToMakeProfile =  null;
         reqToMakeProfile = MainActivity.getProfileObject(); //data for profile
 
@@ -207,6 +222,8 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         }else {
             mProgressDialog.setMessage("Please wait...  ");
         }
+
+
 
         int numOfPages = reqToMakeProfile.getTotalNumberOfPagesAdded();
 
@@ -233,76 +250,89 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         return dataObj;
     }
 
+    public void setDataObj(dataOfTemplate dataObj) {
+        this.dataObj = dataObj;
+        fragmentBackBtn.setVisibility(View.VISIBLE);
+    }
+
+    public void setFragmentToLaunch(Fragment fragmentToLaunch) {
+        this.fragmentToLaunch = fragmentToLaunch;
+    }
+
     public int getIndexOfPresentview(){
 
         return IndexKey;
+    }
+public void setIndexOfPresentview(int index){
+
+        IndexKey = index;
     }
 
 
 
 
-    void showBaseMenu(){
+    void showBaseMenu() {
+        if (selectedLayout == 0) {
 
-        final Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
+            final Typeface mycustomFont = Typeface.createFromAsset(getAssets(), "fonts/Montserrat-Regular.otf");
 
-        final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
-        layout.removeAllViews();
-        final Timer timing = new Timer();
-        timing.schedule(new TimerTask() {
-            @Override
-            public void run() {
+            final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dynamicPages);
+            layout.removeAllViews();
+            final Timer timing = new Timer();
+            timing.schedule(new TimerTask() {
+                @Override
+                public void run() {
 
-                final int size = MainActivity.listOfTemplatePagesObj.size();
-                int numberOfBtn = 0;
-                final Button[] btn = new Button[size];
-                final int[] iconWhite = new int[size] ;
-                final int[] iconBlack = new  int[size];
-                int i = 0;
-                final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
-                row.setBackgroundColor(fetchThemeBackgroundColor());
-                row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT , LinearLayout.LayoutParams.WRAP_CONTENT));
-                //if (size>1)
-                    for(pages obj: MainActivity.listOfTemplatePagesObj) {
+                    final int size = MainActivity.listOfTemplatePagesObj.size();
+                    int numberOfBtn = 0;
+                    final Button[] btn = new Button[size];
+                    final int[] iconWhite = new int[size];
+                    final int[] iconBlack = new int[size];
+                    int i = 0;
+                    final LinearLayout row = new LinearLayout(FragmenMainActivity.this);
+                    row.setBackgroundColor(fetchThemeBackgroundColor());
+                    row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    //if (size>1)
+                    for (pages obj : MainActivity.listOfTemplatePagesObj) {
                         iconWhite[i] = obj.iconis();
                         iconBlack[i] = obj.iconBlack();
                         String[] nameStrings = obj.nameis().split(" ", 2);
-                        String name=null;
+                        String name = null;
 
-                        if (nameStrings.length>1){
+                        if (nameStrings.length > 1) {
                             name = nameStrings[1];
-                        }else {
+                        } else {
                             name = nameStrings[0];
                         }
 
                         numberOfBtn = size;  // number of button when data come from server and preview mode
 
-                        //try for null pointer catch . log catch in case it fails
-                        if (showPreview && dataObj.isEditOrUpdateMode()){
+
+                        if (showPreview && dataObj.isEditOrUpdateMode()) {
                             try {
                                 numberOfBtn = selectedPageList.size();  // buttons which page are add in profile data
-                            }catch (NullPointerException e){
+                            } catch (NullPointerException e) {
                                 Log.d(TAG, e.toString());
                             }
 
                         }
 
-                         float displayWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics())/2;
-                        float x ;//=  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
-                        if (numberOfBtn>3){
-                            x =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
-                        }else {
-                            x=displayWidth/numberOfBtn;
+                        float displayWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics()) / 2;
+                        float x;//=  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+                        if (numberOfBtn > 3) {
+                            x = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
+                        } else {
+                            x = displayWidth / numberOfBtn;
                         }
 
-                        float y =  TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
-
+                        float y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics());
 
 
                         LinearLayout.LayoutParams buttonLayoutParams =
                                 new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
-                                        (int)x,
-                                        (int)y));
-                        buttonLayoutParams.setMargins(2,2, 0, 0);
+                                        (int) x,
+                                        (int) y));
+                        buttonLayoutParams.setMargins(2, 2, 0, 0);
 
                         //if (i!=0)
                         {
@@ -313,7 +343,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                             btn[i].setAllCaps(true);
                             btn[i].setTypeface(mycustomFont);
                             btn[i].setId(i);
-                            btn[i].setCompoundDrawablesWithIntrinsicBounds(0,iconBlack[i],0,0);
+                            btn[i].setCompoundDrawablesWithIntrinsicBounds(0, iconBlack[i], 0, 0);
                             btn[i].setBackgroundColor(getResources().getColor(R.color.card));
                             btn[i].setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
@@ -366,7 +396,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
 
                                 }
                             });
-                            if (dataObj.isDefaultDataToCreateCampaign() && showPreview){
+                            if (dataObj.isDefaultDataToCreateCampaign() && showPreview) {
                                 boolean addV = false;
                                 for (int m = 0; m < selectedPageList.size(); m++) {
                                     if (selectedPageList.get(m) == i) {
@@ -374,10 +404,10 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                                         break;
                                     }
                                 }
-                                if (addV){
+                                if (addV) {
                                     row.addView(btn[i]);
                                 }
-                            }else {
+                            } else {
                                 row.addView(btn[i]);
                             }
 
@@ -385,32 +415,33 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                         // Add the LinearLayout element to the ScrollView
                         i++;
                     }
-                 btn[pageButtonViewId].setBackgroundColor(fetchThemeBackgroundColor());
-                 btn[pageButtonViewId].setCompoundDrawablesWithIntrinsicBounds(0,iconWhite[pageButtonViewId],0,0);
-                 btn[pageButtonViewId].setTextColor(Color.WHITE);
+                    btn[pageButtonViewId].setBackgroundColor(fetchThemeBackgroundColor());
+                    btn[pageButtonViewId].setCompoundDrawablesWithIntrinsicBounds(0, iconWhite[pageButtonViewId], 0, 0);
+                    btn[pageButtonViewId].setTextColor(Color.WHITE);
 
 
-                //btn[0].setFocusable(true);
-                // When adding another view, make sure you do it on the UI
-                // thread.
-                final int finalNumberOfBtn = numberOfBtn;
-                layout.post(new Runnable() {
+                    //btn[0].setFocusable(true);
+                    // When adding another view, make sure you do it on the UI
+                    // thread.
+                    final int finalNumberOfBtn = numberOfBtn;
+                    layout.post(new Runnable() {
 
-                    public void run() {
+                        public void run() {
 
-                        layout.addView(row);
+                            layout.addView(row);
 //                        if (pageButtonViewId > 3) {//TODO: for auto scroll basemenu
 //                           for (int b = 0; b<(((finalNumberOfBtn -4)/2)+1); b++) {
 //                               sv.arrowScroll(View.FOCUS_RIGHT);
 //                           }
 //                        }
-                    }
-                });
+                        }
+                    });
 
-            }
-        }, 500);
+                }
+            }, 500);
 
 
+        }
     }
 
 
@@ -519,7 +550,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
                  //  previewCampaign.changeText();
               //      testForCahngeTheme();
                     isChangeThemeManual = true;
-                    theme = mPager.getCurrentItem();
+                    theme = mPager.getCurrentItem() + 1;
                     MainActivity.listOfTemplatePagesObj.get(pageButtonViewId).set_theme(theme);
                     recreate();
                 }
@@ -717,6 +748,12 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             public void onClick(DialogInterface dialog, int which) {
                 pageDialog.dismiss();
                 showBaseMenu();
+                if (selectedLayout > 0 && isFragmentMainPage) {
+                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(fragmentToLaunch);
+                    ft.attach(fragmentToLaunch);
+                    ft.commit();
+                }
             }
         });
 
@@ -823,7 +860,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     protected void onRestart() {
         super.onRestart();
 
-        if (isChangeThemeManual) {
+        /*if (isChangeThemeManual) {
             theme = MainActivity.listOfTemplatePagesObj.get(0).themes();
             switch (theme) {
                 case MainActivity.THEME_ORANGE:
@@ -840,6 +877,7 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             showBaseMenu();
             isChangeThemeManual = false;
         }
+        Toast.makeText(this, "onrestart", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -855,6 +893,192 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
             select_layout_of_template.listOfTemplatePagesObjForAddPage.clear();
             MainActivity.requestToMakeProfile = null;
             isImageUploading = false;
+            isFragmentMainPage = true;
+        }
+    }
+
+    /**
+     * launch main fragment based on selected layout
+     * @param selectedLayout
+     */
+
+    private void launchMainFragmentBasedOnSelectedLayout(int selectedLayout) {
+
+
+        FragmentManager fragmentManager=getFragmentManager();
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        IndexKey = pageButtonViewId;
+
+        if (isFragmentMainPage) {
+            switch (selectedLayout) {
+
+                case 0:
+                    fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+                    break;
+                case 1:
+                    fragmentToLaunch = fragmentLayout2;
+                    break;
+                case 2:
+                    fragmentToLaunch = fragmentLayout3;
+                    break;
+                case 3:
+                    break;
+
+            }
+        }else {
+            fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+        }
+
+        Bundle args = new Bundle();
+        args.putSerializable("dataKey", dataObj);
+        args.putInt("IndexKey", IndexKey);
+
+        fragmentToLaunch.setArguments(args);
+
+        try {
+            if(selectedPageList.size()>1) {
+                transaction.replace(R.id.mainRLayout, fragmentToLaunch);
+            }
+            else {
+                transaction.add(R.id.mainRLayout, fragmentToLaunch);
+            }
+        }catch (NullPointerException e){
+            Log.v(TAG, e.toString());
+            transaction.add(R.id.mainRLayout, fragmentToLaunch);
+        }
+
+        transaction.commit();
+
+    }
+
+    /**
+     * back arrow button for Layout 2 and Layout 3
+     * @param view
+     */
+
+    public void backFromFragment(View view) {
+        fragmentBackBtn.setVisibility(View.GONE);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(fragmentToLaunch);
+
+        switch (selectedLayout) {
+
+            case 0:
+                break;
+            case 1:
+                this.fragmentToLaunch = fragmentLayout2;
+                break;
+            case 2:
+                this.fragmentToLaunch = fragmentLayout3;
+                break;
+            case 3:
+                break;
+
+        }
+        setFragmentToLaunch(fragmentToLaunch);
+        transaction.replace(R.id.mainRLayout, fragmentToLaunch);
+        transaction.commit();
+
+        isFragmentMainPage = true;
+    }
+
+    /**
+     * this function return absolute theme for apply
+     * if "themeSelected == THEME_DEFAULT" means user not selected any theme, so return theme according selected template
+     * else return user selected theme
+     * @param temSel
+     * @param themeSelected
+     * @return
+     */
+
+    public int getThemeForApply(int temSel, int themeSelected) {
+        int themeForApply = 0;
+
+        if (themeSelected == MainActivity.THEME_DEFAULT) {
+            switch (temSel) {
+
+                case MainActivity.TEM_BUSINESS:
+                    themeForApply = MainActivity.THEME_BUSINESS;
+                    break;
+                case MainActivity.TEM_INDIVIDUAL:
+                    themeForApply = MainActivity.THEME_INDIVIDUAL;
+                    break;
+                case MainActivity.TEM_FINANCE:
+                    themeForApply = MainActivity.THEME_FINANCE;
+                    break;
+                case MainActivity.TEM_HEALTH:
+                    themeForApply = MainActivity.THEME_HEALTH;
+                    break;
+                case MainActivity.TEM_ENTERTAINMENT:
+                    themeForApply = MainActivity.THEME_ENTERTAINMENT;
+                    break;
+                case MainActivity.TEM_INFORMATION:
+                    themeForApply = MainActivity.THEME_INFORMATION;
+                    break;
+                case MainActivity.TEM_WEDDING:
+                    themeForApply = MainActivity.THEME_WEDDING;
+                    break;
+                case MainActivity.TEM_RESTAURANT:
+                    themeForApply = MainActivity.THEME_RESTAURANT;
+                    break;
+                case MainActivity.TEM_OTHERS:
+                    themeForApply = MainActivity.THEME_OTHERS;
+                    break;
+            }
+        }else {
+           themeForApply = themeSelected;
+        }
+        return themeForApply;
+    }
+
+    /**
+     *
+     * @param themeForApply
+     */
+    public void applyTheme(int themeForApply) {
+        switch (themeForApply){
+
+            case MainActivity.THEME_APP:
+                setTheme(R.style.AppTheme);
+                break;
+            case MainActivity.THEME_ORANGE:
+                setTheme(R.style.AppTheme_Orange);
+                break;
+            case MainActivity.THEME_GREEN:
+                setTheme(R.style.AppTheme_Green);
+                break;
+            case MainActivity.THEME_BUSINESS:
+                setTheme(R.style.AppTheme_Business);
+                break;
+            case MainActivity.THEME_INDIVIDUAL:
+                setTheme(R.style.AppTheme_Individual);
+                break;
+            case MainActivity.THEME_FINANCE:
+                setTheme(R.style.AppTheme_Finance);
+                break;
+            case MainActivity.THEME_HEALTH:
+                setTheme(R.style.AppTheme_Health);
+                break;
+            case MainActivity.THEME_ENTERTAINMENT:
+                setTheme(R.style.AppTheme_Entertainment);
+                break;
+            case MainActivity.THEME_INFORMATION:
+                setTheme(R.style.AppTheme_Information);
+                break;
+            case MainActivity.THEME_WEDDING:
+                setTheme(R.style.AppTheme_Wedding);
+                break;
+            case MainActivity.THEME_RESTAURANT:
+                setTheme(R.style.AppTheme_Restaurant);
+                break;
+            case MainActivity.THEME_OTHERS:
+                setTheme(R.style.AppTheme_Others);
+                break;
+
+            default:
+                setTheme(R.style.AppTheme);
         }
     }
 }

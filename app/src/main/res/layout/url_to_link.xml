@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextAddUrl"
-        android:hint="Url"
+        android:hint="www.example.com"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 

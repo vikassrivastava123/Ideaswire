@@ -192,7 +192,18 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         final List<String> memberName=new ArrayList<>();
         final List<String> memberTitle =new ArrayList<>();
 
-        Drawable defaultImage = getResources().getDrawable( R.drawable.member_1 );
+        Drawable defaultImageMember_1 = null;
+        Drawable defaultImageMember_2 = null;
+        try {
+            defaultImageMember_1 = getResources().getDrawable( dataObj.getDefaultDrawableResourceId().get(0)); //default image drawable for member 1
+
+            defaultImageMember_2= getResources().getDrawable( dataObj.getDefaultDrawableResourceId().get(1)); //default image drawable for member 2
+        }catch (NullPointerException e) {
+
+        }catch (IndexOutOfBoundsException e2){
+
+        }
+
 
 
         for (int i=0; i<6; i++) {
@@ -207,7 +218,11 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
                     saved = dataObj.dataOfImageDrawables.get(i);
                     defaultDrawableArrayList.add(saved); //add drawable in list
                 }else {
-                    defaultDrawableArrayList.add(defaultImage);
+                    if (i == 0 || i%2==0) {                                 // set default image into grid alternately
+                        defaultDrawableArrayList.add(defaultImageMember_1);
+                    }else {
+                        defaultDrawableArrayList.add(defaultImageMember_2);
+                    }
                     dataObj.dataOfImageDrawables.add(null);
                 }
             }

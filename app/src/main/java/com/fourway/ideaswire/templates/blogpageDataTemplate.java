@@ -2,15 +2,20 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
+import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FrgmentBlogOnApp;
 import com.fourway.ideaswire.ui.activity_blogpage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vaibhav Gusain on 9/8/2016.
  */
 
 public class blogpageDataTemplate extends dataOfTemplate {
-    int templateSelected = 1;
+    int templateSelected = 0;
+    int layoutSelected = 0;
 
     public String title=null;
     public String headerBlog=null;
@@ -19,17 +24,18 @@ public class blogpageDataTemplate extends dataOfTemplate {
     public String text_Para=null;
     public String headerBlogBlowing=null;
     public String subHeaderBlowing=null;
+    private List<Integer> resourceDrawableId;
 
     boolean   ismDefaultData = false;
 
     public String text_ParaBlowing=null;
 
 
-    //public String website = null;
-    public blogpageDataTemplate(int templateSelected, boolean isDefaultData)
-    {
-        if(isDefaultData){
 
+    public blogpageDataTemplate(int templateSelected, boolean isDefaultData) {
+
+        if(isDefaultData){
+            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         }else{
@@ -46,8 +52,69 @@ public class blogpageDataTemplate extends dataOfTemplate {
         return ismDefaultData;
     }
 
+    @Override
+    public List<Integer> getDefaultDrawableResourceId() {
+        return resourceDrawableId;
+    }
+
+    @Override
+    public void setTemplateByServer(int temp) {
+        this.templateSelected = temp;
+    }
+
+    @Override
+    public int getTemplateByServer() {
+        return templateSelected;
+    }
+
+    @Override
+    public int getLayoutByServer() {
+        return layoutSelected;
+    }
+
+    @Override
+    public void setLayoutByServer(int layout) {
+        this.layoutSelected = layout;
+    }
+
     void initDeafultdata(){
         title="Blog";
+
+        int temSel =  getTemplateSelected();
+
+        switch (temSel){
+            case 0:
+                resourceDrawableId.add(R.drawable.business_blog_banner);
+                break;
+            case 1:
+                resourceDrawableId.add(R.drawable.individual_blog_banner);
+                break;
+            case 2:
+                resourceDrawableId.add(R.drawable.finance_blog_banner);
+                break;
+            case 3:
+                resourceDrawableId.add(R.drawable.health_blog_banner);
+                break;
+            case 4:
+                resourceDrawableId.add(R.drawable.entertainment_blog_banner);
+                break;
+            case 5:
+                resourceDrawableId.add(R.drawable.information_blog_banner);
+                break;
+            case 6:
+                resourceDrawableId.add(R.drawable.wedding_blog_banner);
+                break;
+            case 7:
+                resourceDrawableId.add(R.drawable.restaurant_blog_banner);
+                break;
+            case 8:
+                resourceDrawableId.add(R.drawable.others_blog_banner);
+                break;
+            default:
+                resourceDrawableId.add(R.drawable.business_blog_banner);
+                break;
+
+        }
         /*headerBlog = "Totam Aperiam Consect";
         subHeader = "There are many variation of passages";
         text_Para = "There are many variation of passage of Lorem" +

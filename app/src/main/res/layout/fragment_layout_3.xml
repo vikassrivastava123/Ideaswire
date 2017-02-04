@@ -6,12 +6,13 @@
     <TextView
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
+        android:textSize="20sp"
         android:focusableInTouchMode="true"
         android:textColor="@color/card"
         android:gravity="center"
         android:hint="Title"
-        android:text="Title"
+        android:text="Ideaswire"
         android:textColorHint = "@color/cardHint"
         android:background="?customBackgroundAttributeColor" />
 

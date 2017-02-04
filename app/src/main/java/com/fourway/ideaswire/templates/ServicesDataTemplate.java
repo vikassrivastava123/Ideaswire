@@ -2,15 +2,19 @@ package com.fourway.ideaswire.templates;
 
 import android.app.Fragment;
 
+import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentServiceOnApp;
 import com.fourway.ideaswire.ui.ServicesOnApp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vaibhav Gusain on 9/8/2016.
  */
 public class ServicesDataTemplate extends dataOfTemplate {
-    int templateSelected = 1;
-
+    int templateSelected = 0;
+    int layoutSelected = 0;
     public String title=null;
     public String heading =null;
     public String subHeading =null;
@@ -19,6 +23,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
     public String subHeading_below =null;
     public String paraGraph_below=null;
     private String urlOfImage =null;
+    private List<Integer> resourceDrawableId;
 
     boolean   ismDefaultData = false;
 
@@ -29,7 +34,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
     public ServicesDataTemplate(int templateSelected, boolean isDefaultData)
     {
         if(isDefaultData){
-
+            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         }else{
@@ -47,9 +52,70 @@ public class ServicesDataTemplate extends dataOfTemplate {
         return ismDefaultData;
     }
 
+    @Override
+    public List<Integer> getDefaultDrawableResourceId() {
+        return resourceDrawableId;
+    }
+
+    @Override
+    public void setTemplateByServer(int temp) {
+        this.templateSelected = temp;
+    }
+
+    @Override
+    public int getTemplateByServer() {
+        return templateSelected;
+    }
+
+    @Override
+    public int getLayoutByServer() {
+        return layoutSelected;
+    }
+
+    @Override
+    public void setLayoutByServer(int layout) {
+        this.layoutSelected = layout;
+    }
+
     void initDeafultdata(){
 
         title="Service";
+
+        int temSel =  getTemplateSelected();
+
+        switch (temSel){
+            case 0:
+                resourceDrawableId.add(R.drawable.business_services_banner);
+                break;
+            case 1:
+                resourceDrawableId.add(R.drawable.individual_services_banner);
+                break;
+            case 2:
+                resourceDrawableId.add(R.drawable.finance_services_banner);
+                break;
+            case 3:
+                resourceDrawableId.add(R.drawable.health_services_banner);
+                break;
+            case 4:
+                resourceDrawableId.add(R.drawable.entertainment_services_banner);
+                break;
+            case 5:
+                resourceDrawableId.add(R.drawable.information_services_banner);
+                break;
+            case 6:
+                resourceDrawableId.add(R.drawable.wedding_services_banner);
+                break;
+            case 7:
+                resourceDrawableId.add(R.drawable.restaurant_services_banner);
+                break;
+            case 8:
+                resourceDrawableId.add(R.drawable.others_services_banner);
+                break;
+            default:
+                resourceDrawableId.add(R.drawable.business_services_banner);
+                break;
+
+        }
         /*heading = "Totam Aperiam Consect";
         subHeading = "There are many variation of passages";
         paraGraph = "There are many variation of passage of Lorem" +

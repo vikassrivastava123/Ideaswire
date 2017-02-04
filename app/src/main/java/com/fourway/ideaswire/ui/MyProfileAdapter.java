@@ -78,6 +78,7 @@ public class MyProfileAdapter extends BaseAdapter {
         }
 
         String cName = (mProfileList.get(position)).getProfileName();
+
         if (cName !=null ){
             vh.campaignName.setText(cName);
         }
