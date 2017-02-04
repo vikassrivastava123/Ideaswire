@@ -59,7 +59,6 @@ public class SearchProfileListAdapter extends BaseAdapter{
             vh.textView =(TextView)v.findViewById(R.id.campaignName);
             vh.button =(ImageButton)v.findViewById(R.id.editCampaign);
             vh.button.setVisibility(View.GONE);
-            vh.textView.setVisibility(View.GONE);
             v.setTag(vh);
         }
         else
@@ -70,10 +69,15 @@ public class SearchProfileListAdapter extends BaseAdapter{
 
        // if(position>listSize-2) {
             vh.nIv.setImageResource(R.drawable.image_loader);
+            String pName = (mProfileList.get(position)).getProfileName();
             String url = (mProfileList.get(position)).getImageUrl();
             if (url != null && !url.equalsIgnoreCase("null")) {
                 vh.nIv.setImageUrl(url, VolleySingleton.getInstance(mContext).getImageLoader());
            }
+
+        if (pName != null) {
+            vh.textView.setText(pName);
+        }
         //}else {
           //  vh.nIv.setVisibility(View.GONE);
 

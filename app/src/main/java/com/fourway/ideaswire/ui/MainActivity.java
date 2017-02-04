@@ -844,7 +844,7 @@ public class MainActivity extends AppCompatActivity{
                }
                ArrayList<Attribute>attributesFromServer = p.getAttributes();
                 switch (pageName){
-                    case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
+                    case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                         setAttributesForHomePageLayout1(attributesFromServer);
                         bCanShowProfile = true;
                         break;
@@ -856,7 +856,7 @@ public class MainActivity extends AppCompatActivity{
                         setAttributesForClientPage(attributesFromServer);
                         bCanShowProfile = true;
                         break;
-                    case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
+                    case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
                         setAttributesForAboutPage(attributesFromServer);
                         bCanShowProfile = true;
                         break;

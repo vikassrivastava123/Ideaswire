@@ -89,11 +89,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
 
 
 
-    public String name()
-    {
-        return "Home Page";
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);

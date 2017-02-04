@@ -31,8 +31,10 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     boolean   ismDefaultData = false;
     public AboutUsDataTemplate(int templateSelected, boolean isDefaultData){
 
+        resourceDrawableId = new ArrayList<>();
+        initDefaultResources();
+
         if(isDefaultData){
-            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
         }else{
             // when datasetis not installed
@@ -74,6 +76,14 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     }
 
     void initDeafultdata(){
+
+        title="About Us";
+        /*heading = "Toatam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph= "This is custom random para to generate space dont read ti its useless";*/
+    }
+
+    void initDefaultResources() {
         int temSel =  getTemplateSelected();
 
         switch (temSel){
@@ -109,10 +119,6 @@ public class AboutUsDataTemplate extends dataOfTemplate{
                 break;
 
         }
-        title="About Us";
-        /*heading = "Toatam Aperiam Consect";
-        subHeading = "There are many variation of passages";
-        paraGraph= "This is custom random para to generate space dont read ti its useless";*/
     }
 
     @Override

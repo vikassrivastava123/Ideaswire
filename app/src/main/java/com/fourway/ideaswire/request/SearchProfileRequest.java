@@ -24,10 +24,7 @@ import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RE
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SERVER_ERROR_WITH_MESSAGE;
 import static com.fourway.ideaswire.request.CommonRequest.ResponseCode.COMMON_RES_SUCCESS;
 import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_ATTR;
-import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_CATEGORY;
-import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_DEPT;
 import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_NAME;
-import static com.fourway.ideaswire.request.CreateProfileRequest.CREATE_PROFILE_JSON_TAG_TYPE;
 
 /**
  * Created by Vikas on 7/23/2016.
@@ -103,9 +100,9 @@ public class SearchProfileRequest {
         for (int i=0; i<size; i++){
             JSONObject profile = profileList.getJSONObject(i);
             String id = profile.getString("id");
-            String templateId = profile.getString("templateId");/* //Comment: Not needed as of now
+            String templateId = profile.getString("templateId");
             JSONObject data = profile.getJSONObject(CREATE_PROFILE_JSON_TAG_ATTR);
-            String p_name = data.getString(CREATE_PROFILE_JSON_TAG_NAME);
+            String p_name = data.getString(CREATE_PROFILE_JSON_TAG_NAME);/* //Comment: Not needed as of now
             String p_cat = data.getString(CREATE_PROFILE_JSON_TAG_CATEGORY);
             String p_type = data.getString(CREATE_PROFILE_JSON_TAG_TYPE);
             String p_dept = data.getString(CREATE_PROFILE_JSON_TAG_DEPT);*/
@@ -113,6 +110,7 @@ public class SearchProfileRequest {
 
             Profile p = new Profile(id, Profile.getTemplateIdFromString(templateId));
             p.setImageUrl(p_img_url);
+            p.setProfileName(p_name);
             mImageData.addProfile(p);
         }
     }
