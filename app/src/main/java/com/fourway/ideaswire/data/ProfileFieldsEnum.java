@@ -9,26 +9,51 @@ public class ProfileFieldsEnum {
     public static final String PROFILE_LAYOUT = "Profile_Layout";
     public static final String PROFILE_THEME = "Profile_Theme";
 
-    public static final String PROFILE_PAGE_HOMEPAGE = "Home";
-    public static final String PROFILE_PAGE_HOMEPAGE_STATUS = "Homepage_Status";
-    public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
-    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1 = "Homepage_Card_image_1";
-    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2 = "Homepage_Card_image_2";
-    public static final String PROFILE_PAGE_HOMEPAGE_HEADING = "Homepage_Heading";
-    public static final String PROFILE_PAGE_HOMEPAGE_SUBHEADING = "Homepage_Subheading";
-    public static final String PROFILE_PAGE_HOMEPAGE_PARAGRAPH = "Homepage_Paragraph";
-    public static final String PROFILE_PAGE_HOMEPAGE_BUTTON = "Homepage_Button";
+////    public static final String PROFILE_PAGE_HOMEPAGE = "Home";
+////    public static final String PROFILE_PAGE_HOMEPAGE_STATUS = "Homepage_Status";
+////    public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
+////    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1 = "Homepage_Card_image_1";
+////    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2 = "Homepage_Card_image_2";
+//    public static final String PROFILE_PAGE_HOMEPAGE_HEADING = "Homepage_Heading";
+//    public static final String PROFILE_PAGE_HOMEPAGE_SUBHEADING = "Homepage_Subheading";
+//    public static final String PROFILE_PAGE_HOMEPAGE_PARAGRAPH = "Homepage_Paragraph";
+//    public static final String PROFILE_PAGE_HOMEPAGE_BUTTON = "Homepage_Button";
+
+//    public static final String PROFILE_PAGE_ABOUT_US = "About";
+//    public static final String PROFILE_PAGE_ABOUT_US_STATUS = "About_Status";
+//    public static final String PROFILE_PAGE_ABOUT_TITLE = "About_Us_Title";
+//    public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE = "About_Us_Card_Image";
+//    public static final String PROFILE_PAGE_ABOUT_US_HEADING = "About_Us_Heading";
+//    public static final String PROFILE_PAGE_ABOUT_US_SUBHEADING = "About_Us_Subheading";
+//    public static final String PROFILE_PAGE_ABOUT_US_PARAGRAPH = "About_Us_Paragraph";
+//    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_TEXT = "Button";
+//    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE = "Button Sub Link";
+//    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT = "url";
+
 
     public static final String PROFILE_PAGE_ABOUT_US = "About";
     public static final String PROFILE_PAGE_ABOUT_US_STATUS = "About_Status";
     public static final String PROFILE_PAGE_ABOUT_TITLE = "About_Us_Title";
-    public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE = "About_Us_Card_Image";
+    public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE_1 = "About_Us_Card_image_1";
+    public static final String PROFILE_PAGE_ABOUT_US_CARD_IMAGE_2 = "About_Us_Card_image_2";
     public static final String PROFILE_PAGE_ABOUT_US_HEADING = "About_Us_Heading";
     public static final String PROFILE_PAGE_ABOUT_US_SUBHEADING = "About_Us_Subheading";
     public static final String PROFILE_PAGE_ABOUT_US_PARAGRAPH = "About_Us_Paragraph";
-    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_TEXT = "Button";
-    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE = "Button Sub Link";
-    public static final String PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT = "url";
+
+
+
+
+    public static final String PROFILE_PAGE_HOMEPAGE = "Home";
+    public static final String PROFILE_PAGE_HOMEPAGE_STATUS = "Homepage_Status";
+    public static final String PROFILE_PAGE_HOMEPAGE_TITLE = "Homepage_Title";
+    public static final String PROFILE_PAGE_HOMEPAGE_CARD_IMAGE = "Homepage_Card_Image";
+    public static final String PROFILE_PAGE_HOMEPAGE_HEADING = "Homepage_Heading";
+    public static final String PROFILE_PAGE_HOMEPAGE_SUBHEADING = "Homepage_Subheading";
+    public static final String PROFILE_PAGE_HOMEPAGE_PARAGRAPH = "Homepage_Paragraph";
+    public static final String PROFILE_PAGE_HOMEPAGE_BUTTON_TEXT = "Button";
+    public static final String PROFILE_PAGE_HOMEPAGE_BUTTON_SUBNAME_LINKED_PAGE = "Button Sub Link";
+    public static final String PROFILE_PAGE_HOMEPAGE_BUTTON_URL_TEXT = "url";
+
 
     public static final String PROFILE_PAGE_BLOG = "Blog";
     public static final String PROFILE_PAGE_BLOG_STATUS = "Blog_Status";

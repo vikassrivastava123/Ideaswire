@@ -728,16 +728,16 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
     private void addPageToRequest(){
         init_homeUsPage_request();
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE, mthispage.nameis());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS, String.valueOf(mthispage.pageStatus()));
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING, dataObj.getHeading());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.getSubHeading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS, String.valueOf(mthispage.pageStatus()));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.getHeading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.getSubHeading());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE, dataObj.getTitle());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1, dataObj.getUrlOfImage_1());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2, dataObj.getUrlOfImage_2());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.getTitle());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE_1, dataObj.getUrlOfImage_1());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE_2, dataObj.getUrlOfImage_2());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH, dataObj.getParaGraph());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.getParaGraph());
 
 
         Profile reqToMakeProfile;

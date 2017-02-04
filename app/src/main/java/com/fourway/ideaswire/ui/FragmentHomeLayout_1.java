@@ -411,21 +411,21 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
 
         setAttribute(ProfileFieldsEnum.PROFILE_THEME, String.valueOf(FragmenMainActivity.theme) );
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US, mthispage.nameis() );
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS, String.valueOf(mthispage.pageStatus()));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE, mthispage.nameis() );
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS, String.valueOf(mthispage.pageStatus()));
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING, dataObj.get_heading());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING, dataObj.get_sub_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING, dataObj.get_heading());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.get_sub_heading());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE, dataObj.get_title());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE, dataObj.get_url());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE, dataObj.get_title());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE, dataObj.get_url());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH, dataObj.get_text_para());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT, dataObj.get_button_text());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH, dataObj.get_text_para());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_TEXT, dataObj.get_button_text());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT, dataObj.get_buttonUrl());
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_URL_TEXT, dataObj.get_buttonUrl());
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
+        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_SUBNAME_LINKED_PAGE, String.valueOf(dataObj.get_submit_button_link()));
 
 
         Profile reqToMakeProfile =  null;

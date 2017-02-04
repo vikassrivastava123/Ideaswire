@@ -129,10 +129,10 @@ public class MainActivity extends AppCompatActivity{
         //Intent intent = new Intent(getApplicationContext(), HomepageBeforeLogin.class);
         //startActivity(intent);
 
-        startActivity(new Intent(this,ChooseTemplate_Category.class));
+//        startActivity(new Intent(this,ChooseTemplate_Category.class));
 
 
-//       startActivity(new Intent(this,SplashScreen.class));
+       startActivity(new Intent(this,SplashScreen.class));
 
 
 
@@ -244,44 +244,44 @@ public class MainActivity extends AppCompatActivity{
                     int theme = Integer.parseInt(themeS);
                     homePageLayout_1.set_theme(theme);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
                     String nameis = atr.getContentValue();
                     homePageLayout_1.set_nameis(nameis);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS:
                     boolean status = Boolean.valueOf(atr.getContentValue());
                     homePageLayout_1.setPageStatus(status);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.set_title(abtTitle);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE:
                     String url = atr.getContentValue();
                     data.set_url(url);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING:
                     String heading2 = atr.getContentValue();
                     data.set_heading(heading2);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING:
                     String subHeading = atr.getContentValue();
                     data.set_sub_heading(subHeading);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH:
                     String para = atr.getContentValue();
                     data.set_text_para(para);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_SUBNAME_LINKED_PAGE:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_SUBNAME_LINKED_PAGE:
                     String linkPageNumber = atr.getContentValue();
                     int pageNumber = Integer.parseInt(linkPageNumber);
                     data.set_submit_button_link(pageNumber);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_TEXT:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_TEXT:
                     String btnText = atr.getContentValue();
                     data.set_button_text(btnText);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_BUTTON_URL_TEXT:
+                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_BUTTON_URL_TEXT:
                     String btnUrl = atr.getContentValue();
                     data.set_buttonUrl(btnUrl);
                     break;
@@ -322,38 +322,38 @@ public class MainActivity extends AppCompatActivity{
                     int theme = Integer.parseInt(themeS);
                     aboutUsPage.set_theme(theme);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US:
                     String nameis = atr.getContentValue();
                     aboutUsPage.set_nameis(nameis);
                     break;
 
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_STATUS:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_STATUS:
                     boolean status = Boolean.valueOf(atr.getContentValue());
                     aboutUsPage.setPageStatus(status);
                     break;
 
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_TITLE:
                     String abtTitle = atr.getContentValue();
                     data.setTitle(abtTitle);
 
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE_1:
                     String url_1 = atr.getContentValue();
                     data.setUrlOfImage_1(url_1);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_2:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_CARD_IMAGE_2:
                     String url_2 = atr.getContentValue();
                     data.setUrlOfImage_2(url_2);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_HEADING:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_HEADING:
                     String heading= atr.getContentValue();
                     data.setHeading(heading);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_SUBHEADING:
                     String subHeading = atr.getContentValue();
                     data.setSubHeading(subHeading);
                     break;
-                case ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH:
+                case ProfileFieldsEnum.PROFILE_PAGE_ABOUT_US_PARAGRAPH:
                     String para = atr.getContentValue();
                     data.setParaGraph(para);
                     break;

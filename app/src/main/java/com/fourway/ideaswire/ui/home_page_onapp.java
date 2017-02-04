@@ -450,7 +450,7 @@ public class home_page_onapp extends Activity implements SaveProfileData.SavePro
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_SUBHEADING, dataObj.getSubHeading());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_TITLE, dataObj.getTitle());
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1, dataObj.getUrlOfImage_1());
+//        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_CARD_IMAGE_1, dataObj.getUrlOfImage_1());
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_HOMEPAGE_PARAGRAPH, dataObj.getParaGraph());
 
