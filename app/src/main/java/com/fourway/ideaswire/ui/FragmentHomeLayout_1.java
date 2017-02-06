@@ -57,7 +57,7 @@ import static com.fourway.ideaswire.ui.MainActivity.CROSS_BUTTON_HIDE;
  */
 public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrlRequest.UploadImageForUrlCallback , View.OnClickListener, FragmenMainActivity.viewCampaign {
 
-    ImageView deleteTitleAboutUsBtnView = null,deleteCARD_IMAGEBtnView = null;
+    ImageView deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingAboutUsBtnView = null;
     ImageView deleteSubHeaderAboutUsBtnView = null;
     ImageView deleteParaAboutUsBtnView = null;
@@ -141,13 +141,13 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
 
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
-        deleteTitleAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteTitleAboutUs);
+
         deleteCARD_IMAGEBtnView = (ImageView)view.findViewById(R.id.deleteCARD_IMAGE);
         deleteHeadingAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteHeadingAboutUs);
         deleteSubHeaderAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteSubHeaderAboutUs);
         deleteParaAboutUsBtnView = (ImageView)view.findViewById(R.id.deleteParaAboutUs);
 
-        deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+
         deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
         deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
         deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
@@ -156,7 +156,7 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
 
         cardImageRelativeLayout = (RelativeLayout)view.findViewById(R.id.cardImageLayout);
 
-        deleteTitleAboutUsBtnView.setOnClickListener(this);
+
         deleteCARD_IMAGEBtnView .setOnClickListener(this);
         deleteHeadingAboutUsBtnView.setOnClickListener(this);
         deleteSubHeaderAboutUsBtnView.setOnClickListener(this);
@@ -329,7 +329,7 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
     void init_viewCampaign(){
 
         try {
-            deleteTitleAboutUsBtnView.setVisibility(View.GONE);
+
             deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
             deleteHeadingAboutUsBtnView.setVisibility(View.GONE);
             deleteSubHeaderAboutUsBtnView.setVisibility(View.GONE);
@@ -362,9 +362,7 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
     void init_editCampaign(){
 
         try {
-                if (dataObj.get_title() == null || !dataObj.get_title().equals(CROSS_BUTTON_HIDE)) {
-                    deleteTitleAboutUsBtnView.setVisibility(View.VISIBLE);
-                }
+
 
                 if (dataObj.get_url() == null || !dataObj.get_url().equals(CROSS_BUTTON_HIDE)) {
                     deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
@@ -729,12 +727,6 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
     public void onClick(View v) {
         if (!FragmenMainActivity.isImageUploading) { //if isImageUploading TRUE disabled onClick
             switch (v.getId()) {
-                case R.id.deleteTitleAboutUs:
-                    editTitle.setVisibility(View.GONE);
-                    editTitle.setText(CROSS_BUTTON_HIDE);
-                    dataObj.set_title(CROSS_BUTTON_HIDE);
-                    deleteTitleAboutUsBtnView.setVisibility(View.GONE);
-                    break;
                 case R.id.deleteCARD_IMAGE:
                     cardImage.setVisibility(View.GONE);
                     cardImageCrop.setVisibility(View.GONE);

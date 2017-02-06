@@ -63,8 +63,7 @@ public class FragmentClientsOnApp extends Fragment
             editSubHeading =null,
             editParaGraph =null;
 
-    ImageView deleteTitle=null,
-            deleteHeading=null,
+    ImageView deleteHeading=null,
             deleteSubHeading=null,
             deleteParaGraph=null;
 
@@ -139,17 +138,16 @@ public class FragmentClientsOnApp extends Fragment
         editSubHeading =(EditText)view.findViewById(R.id.ClientSubHeading);
         editParaGraph =(EditText)view.findViewById(R.id.ClientParaGraph);
 
-        deleteTitle =(ImageView)view.findViewById(R.id.deleteTitleClient);
+
         deleteHeading =(ImageView)view.findViewById(R.id.deleteHeadingClient);
         deleteSubHeading =(ImageView)view.findViewById(R.id.deleteSubHeadingClient);
         deleteParaGraph =(ImageView)view.findViewById(R.id.deleteParaClient);
 
-        deleteTitle.setVisibility(View.GONE);
+
         deleteHeading.setVisibility(View.GONE);
         deleteSubHeading.setVisibility(View.GONE);
         deleteParaGraph.setVisibility(View.GONE);
 
-        deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
         deleteParaGraph.setOnClickListener(this);
@@ -572,12 +570,6 @@ public class FragmentClientsOnApp extends Fragment
         if (!FragmenMainActivity.isImageUploading) {
             switch (v.getId()) {
 
-                case R.id.deleteTitleClient:
-                    editTitle.setVisibility(View.GONE);
-                    editTitle.setText(CROSS_BUTTON_HIDE);
-                    dataObj.setTitle(CROSS_BUTTON_HIDE);
-                    deleteTitle.setVisibility(View.GONE);
-                    break;
                 case R.id.deleteHeadingClient:
                     editHeading.setVisibility(View.GONE);
                     editHeading.setText(CROSS_BUTTON_HIDE);
@@ -797,7 +789,6 @@ public class FragmentClientsOnApp extends Fragment
 
     void init_viewCampaign(){
         try {
-            deleteTitle.setVisibility(View.GONE);
             deleteHeading.setVisibility(View.GONE);
             deleteSubHeading.setVisibility(View.GONE);
             deleteParaGraph.setVisibility(View.GONE);
@@ -826,9 +817,6 @@ public class FragmentClientsOnApp extends Fragment
 
     void init_editCampaign(){
         try {
-                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                    deleteTitle.setVisibility(View.VISIBLE);
-                }
 
                 if (dataObj.getHeaderClient() == null || !dataObj.getHeaderClient().equals(CROSS_BUTTON_HIDE)) {
                     deleteHeading.setVisibility(View.VISIBLE);

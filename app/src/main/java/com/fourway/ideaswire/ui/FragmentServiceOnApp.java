@@ -47,7 +47,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     EditText editTitle, editHeading, editSubHeading, editParaGraph, editHeading_below, editSubHeading_below, editParaGraph_below;
     TextView mTitle=null;
 
-    ImageView deleteTitle=null,
+    ImageView
             deleteHeading=null,
             deleteSubHeading=null,
             deletePara=null,
@@ -98,7 +98,6 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
             showPreview = true;     //in preview or server data
         }
 
-        deleteTitle =(ImageView)view.findViewById(R.id.deleteTitleService);
         deleteHeading =(ImageView)view.findViewById(R.id.deleteHeadingService);
         deleteSubHeading =(ImageView)view.findViewById(R.id.deleteSubHeadingService);
         deletePara =(ImageView)view.findViewById(R.id.deleteParaService);
@@ -107,7 +106,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         deleteSubHeadingBlow =(ImageView)view.findViewById(R.id.deleteSubHeadingBlowingService);
         deleteParaBlow =(ImageView)view.findViewById(R.id.deleteParaBlowingService);
 
-        deleteTitle.setVisibility(View.GONE);
+
         deleteHeading.setVisibility(View.GONE);
         deleteSubHeading.setVisibility(View.GONE);
         deletePara.setVisibility(View.GONE);
@@ -116,7 +115,6 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
         deleteSubHeadingBlow.setVisibility(View.GONE);
         deleteParaBlow.setVisibility(View.GONE);
 
-        deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
         deletePara.setOnClickListener(this);
@@ -255,12 +253,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.deleteTitleService:
-                editTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataObj.setTitle(CROSS_BUTTON_HIDE);
-                deleteTitle.setVisibility(View.GONE);
-                break;
+
             case R.id.deleteHeadingService:
                 editHeading.setVisibility(View.GONE);
                 editHeading.setText(CROSS_BUTTON_HIDE);
@@ -631,7 +624,6 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
     void init_viewCampaign(){
 
         try {
-            deleteTitle.setVisibility(View.GONE);
             deleteHeading.setVisibility(View.GONE);
             deleteSubHeading.setVisibility(View.GONE);
             deletePara.setVisibility(View.GONE);
@@ -680,9 +672,7 @@ public class FragmentServiceOnApp extends Fragment implements UploadImageForUrlR
 
 
         try {
-                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                    deleteTitle.setVisibility(View.VISIBLE);
-                }
+
 
                 if (dataObj.getHeading() == null || !dataObj.getHeading().equals(CROSS_BUTTON_HIDE)) {
                     deleteHeading.setVisibility(View.VISIBLE);

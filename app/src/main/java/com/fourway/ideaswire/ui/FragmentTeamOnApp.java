@@ -70,8 +70,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     ImageView deleteTeamImg;
     RelativeLayout teamImgLayout;
 
-    ImageView deleteTitle=null,
-            deleteHeading=null,
+    ImageView deleteHeading=null,
             deleteSubHeading=null,
             deletePara=null;
     pages mthispage = null;
@@ -135,17 +134,17 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
         editSubHeading.setText(dataObj.getSubHeadingTeam());
         editParaGraph.setText(dataObj.getParaGraphTeam());
 
-        deleteTitle=(ImageView)view.findViewById(R.id.deleteTitleTeam);
+
         deleteHeading =(ImageView)view.findViewById(R.id.deleteHeadingTeam);
         deleteSubHeading =(ImageView)view.findViewById(R.id.deleteSubHeadingTeam);
         deletePara =(ImageView)view.findViewById(R.id.deleteParaGraphTeam);
 
-        deleteTitle.setVisibility(View.GONE);
+
         deleteHeading.setVisibility(View.GONE);
         deleteSubHeading.setVisibility(View.GONE);
         deletePara.setVisibility(View.GONE);
 
-        deleteTitle.setOnClickListener(this);
+
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
         deletePara.setOnClickListener(this);
@@ -574,12 +573,7 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         if (!FragmenMainActivity.isImageUploading) {
             switch (v.getId()) {
-                case R.id.deleteTitleTeam:
-                    editTitle.setVisibility(View.GONE);
-                    editTitle.setText(CROSS_BUTTON_HIDE);
-                    dataObj.setTitle(CROSS_BUTTON_HIDE);
-                    deleteTitle.setVisibility(View.GONE);
-                    break;
+
                 case R.id.deleteHeadingTeam:
                     editHeading.setVisibility(View.GONE);
                     editHeading.setText(CROSS_BUTTON_HIDE);
@@ -673,7 +667,6 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
     void init_viewCampaign(){
         try {
 
-            deleteTitle.setVisibility(View.GONE);
             deleteHeading.setVisibility(View.GONE);
             deleteSubHeading.setVisibility(View.GONE);
             deletePara.setVisibility(View.GONE);
@@ -705,10 +698,6 @@ public class FragmentTeamOnApp extends Fragment implements View.OnClickListener,
 
     void init_editCampaign(){
         try {
-
-            if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                deleteTitle.setVisibility(View.VISIBLE);
-            }
             if (dataObj.getHeaderTeam() == null || !dataObj.getHeaderTeam().equals(CROSS_BUTTON_HIDE)) {
                 deleteHeading.setVisibility(View.VISIBLE);
             }

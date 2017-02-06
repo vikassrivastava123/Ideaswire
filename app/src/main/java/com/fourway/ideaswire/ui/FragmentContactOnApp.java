@@ -28,7 +28,6 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     EditText editTitle, editHeading, editSubheading, editPara, editAddress, editEmail_add,editNumber,editWebsite;
     TextView mTitle;
 
-    ImageView deleteTitle=null;
     ImageView deleteHeading=null;
     ImageView deleteSubHeading=null;
     ImageView deleteParaGraph=null;
@@ -86,7 +85,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         numberTextView = (TextView)view.findViewById(R.id.textView17);
         websiteTextView = (TextView)view.findViewById(R.id.textView19);
 
-        deleteTitle=(ImageView)view.findViewById(R.id.deleteTitleContact);
+
         deleteHeading=(ImageView)view.findViewById(R.id.deleteHeadingContact);
         deleteSubHeading=(ImageView)view.findViewById(R.id.deleteSubHeadingContact);
         deleteParaGraph=(ImageView)view.findViewById(R.id.deleteParaGraphContact);
@@ -95,7 +94,6 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         deletePhone=(ImageView)view.findViewById(R.id.deletePhoneContact);
         deleteWeb=(ImageView)view.findViewById(R.id.deleteWebContact);
 
-        deleteTitle.setVisibility(View.GONE);
         deleteHeading.setVisibility(View.GONE);
         deleteSubHeading.setVisibility(View.GONE);
         deleteParaGraph.setVisibility(View.GONE);
@@ -104,7 +102,6 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         deletePhone.setVisibility(View.GONE);
         deleteWeb.setVisibility(View.GONE);
 
-        deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
         deleteParaGraph.setOnClickListener(this);
@@ -271,12 +268,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.deleteTitleContact:
-                editTitle.setVisibility(View.GONE);
-                deleteTitle.setVisibility(View.GONE);
-                editTitle.setText(CROSS_BUTTON_HIDE);
-                dataobj.setTitle(CROSS_BUTTON_HIDE);
-                break;
+
             case R.id.deleteHeadingContact:
                 editHeading.setVisibility(View.GONE);
                 deleteHeading.setVisibility(View.GONE);
@@ -328,7 +320,7 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
 
     void init_viewCampaign() {
         try {
-            deleteTitle.setVisibility(View.GONE);
+
             deleteHeading.setVisibility(View.GONE);
             deleteSubHeading.setVisibility(View.GONE);
             deleteParaGraph.setVisibility(View.GONE);
@@ -385,9 +377,6 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
     void init_editCampaign(){
 
         try {
-            if (dataobj.getTitle() == null || !dataobj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                deleteTitle.setVisibility(View.VISIBLE);
-            }
 
             if (dataobj.getHeaderContact() == null || !dataobj.getHeaderContact().equals(CROSS_BUTTON_HIDE)) {
                 deleteHeading.setVisibility(View.VISIBLE);

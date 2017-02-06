@@ -62,7 +62,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
 
     private static String TAG = "BlogOnApp";
 
-    ImageView deleteTitleBlogBtnView = null,deleteCARD_IMAGEBtnView = null;
+    ImageView deleteCARD_IMAGEBtnView = null;
     ImageView deleteHeadingBlogBtnView = null;
     ImageView deleteSubHeaderBlogBtnView = null;
     ImageView deleteParaBlogBtnView = null;
@@ -100,7 +100,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
             showPreview = true;         //in preview or server data
         }
 
-        deleteTitleBlogBtnView=(ImageView)view.findViewById(R.id.deleteTitleBlog);
+
         deleteCARD_IMAGEBtnView=(ImageView)view.findViewById(R.id.deleteCARD_IMAGE);
         deleteHeadingBlogBtnView=(ImageView)view.findViewById(R.id.deleteHeadingBlogPage);
         deleteSubHeaderBlogBtnView=(ImageView)view.findViewById(R.id.deleteSubHeaderBlogPage);
@@ -110,7 +110,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         deleteSubHeaderBelowimgBlogBtnView=(ImageView)view.findViewById(R.id.deleteSubHeaderBelowimgBlog);
         deleteParaBlogBelowimgBtnView=(ImageView)view.findViewById(R.id.deleteParaBelowimgBlogPage);
 
-        deleteTitleBlogBtnView.setVisibility(View.GONE);
+
         deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
         deleteHeadingBlogBtnView.setVisibility(View.GONE);
         deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
@@ -120,7 +120,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
         deleteParaBlogBelowimgBtnView.setVisibility(View.GONE);
 
 
-        deleteTitleBlogBtnView.setOnClickListener(this);
+
         deleteCARD_IMAGEBtnView.setOnClickListener(this);
         deleteHeadingBlogBtnView.setOnClickListener(this);
         deleteSubHeaderBlogBtnView.setOnClickListener(this);
@@ -266,7 +266,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     void init_viewCampaign(){
 
         try {
-            deleteTitleBlogBtnView.setVisibility(View.GONE);
+
             deleteCARD_IMAGEBtnView.setVisibility(View.GONE);
             deleteHeadingBlogBtnView.setVisibility(View.GONE);
             deleteSubHeaderBlogBtnView.setVisibility(View.GONE);
@@ -318,9 +318,6 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     void init_editCampaign(){
 
         try {
-                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                    deleteTitleBlogBtnView.setVisibility(View.VISIBLE);
-                }
 
                 if (dataObj.getUrlOfImage() == null || !dataObj.getUrlOfImage().equals(CROSS_BUTTON_HIDE)) {
                     deleteCARD_IMAGEBtnView.setVisibility(View.VISIBLE);
@@ -436,12 +433,7 @@ public class FrgmentBlogOnApp extends Fragment  implements  UploadImageForUrlReq
     public void onClick(View v) {
         if (!FragmenMainActivity.isImageUploading) {
             switch (v.getId()) {
-                case R.id.deleteTitleBlog:
-                    editTitle.setVisibility(View.GONE);
-                    editTitle.setText(CROSS_BUTTON_HIDE);
-                    dataObj.setTitle(CROSS_BUTTON_HIDE);
-                    deleteTitleBlogBtnView.setVisibility(View.GONE);
-                    break;
+
                 case R.id.deleteHeadingBlogPage:
                     heading.setVisibility(View.GONE);
                     heading.setText(CROSS_BUTTON_HIDE);

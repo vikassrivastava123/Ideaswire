@@ -59,8 +59,7 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
 
     RelativeLayout cardImageLayout1;
 
-    ImageView deleteTitle=null,
-            deleteHeading=null,
+    ImageView deleteHeading=null,
             deleteSubHeading=null,
             deletePara=null,
             deleteCardImage_1=null,
@@ -125,7 +124,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
 
         cardImageLayout1 =(RelativeLayout)view.findViewById(R.id.cardImageLayout1);
 
-        deleteTitle =(ImageView)view.findViewById(R.id.deleteTitlehome);
         deleteHeading =(ImageView)view.findViewById(R.id.deleteHeadingHome);
         deleteSubHeading =(ImageView)view.findViewById(R.id.deleteSubHeadingHome);
         deletePara =(ImageView)view.findViewById(R.id.deleteParaHome);
@@ -133,7 +131,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
         deleteCardImage_1 =(ImageView)view.findViewById(R.id.deleteCARD_IMAGE_1);
         deleteCardImage_2 =(ImageView) view.findViewById(R.id.deleteCARD_IMAGE_2);
 
-        deleteTitle.setVisibility(View.GONE);
         deleteHeading.setVisibility(View.GONE);
         deleteSubHeading.setVisibility(View.GONE);
         deletePara.setVisibility(View.GONE);
@@ -142,7 +139,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
 
 
         cardImageCrop_1.setOnClickListener(this);
-        deleteTitle.setOnClickListener(this);
         deleteHeading.setOnClickListener(this);
         deleteSubHeading.setOnClickListener(this);
         deletePara.setOnClickListener(this);
@@ -262,12 +258,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         if (!FragmenMainActivity.isImageUploading) {
             switch (v.getId()) {
-                case R.id.deleteTitlehome:
-                    editTitle.setVisibility(View.GONE);
-                    editTitle.setText(CROSS_BUTTON_HIDE);
-                    dataObj.setTitle(CROSS_BUTTON_HIDE);
-                    deleteTitle.setVisibility(View.GONE);
-                    break;
                 case R.id.deleteCARD_IMAGE_1:
                     cardImage_1.setVisibility(View.GONE);
                     cardImageLayout1.setVisibility(View.GONE);
@@ -643,7 +633,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
     void init_viewCampaign(){
 
         try {
-            deleteTitle.setVisibility(View.GONE);
             deleteHeading.setVisibility(View.GONE);
             deleteSubHeading.setVisibility(View.GONE);
             deletePara.setVisibility(View.GONE);
@@ -674,9 +663,6 @@ public class FragmentAboutUsOnApp extends Fragment implements View.OnClickListen
     void init_editCampaign(){
         try {
 
-                if (dataObj.getTitle() == null || !dataObj.getTitle().equals(CROSS_BUTTON_HIDE)) {
-                    deleteTitle.setVisibility(View.VISIBLE);
-                }
 
                 if (dataObj.getHeading() == null || !dataObj.getHeading().equals(CROSS_BUTTON_HIDE)) {
                     deleteHeading.setVisibility(View.VISIBLE);
