@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AboutUsDataTemplate extends dataOfTemplate{
 
-    int templateSelected = 0;
-    int layoutSelected = 0;
+    private int templateSelected = 0;
+    private int layoutSelected = 0;
 
 
 
@@ -28,10 +28,9 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     private String urlOfImage_2 =null;
     private List<Integer> resourceDrawableId;
 
-    boolean   ismDefaultData = false;
+    boolean ismDefaultData = false;
     public AboutUsDataTemplate(int templateSelected, boolean isDefaultData){
 
-        resourceDrawableId = new ArrayList<>();
         initDefaultResources();
 
         if(isDefaultData){
@@ -40,7 +39,7 @@ public class AboutUsDataTemplate extends dataOfTemplate{
             // when datasetis not installed
         }
         ismDefaultData = isDefaultData;
-        this.templateSelected = templateSelected;
+//        this.templateSelected = templateSelected;
 
 
     }
@@ -52,6 +51,7 @@ public class AboutUsDataTemplate extends dataOfTemplate{
 
     @Override
     public List<Integer> getDefaultDrawableResourceId() {
+        initDefaultResources();
         return resourceDrawableId;
     }
 
@@ -84,9 +84,10 @@ public class AboutUsDataTemplate extends dataOfTemplate{
     }
 
     void initDefaultResources() {
-        int temSel =  getTemplateSelected();
+        resourceDrawableId = new ArrayList<>();
+//        int temSel =  getTemplateSelected();
 
-        switch (temSel){
+        switch (templateSelected){
             case MainActivity.TEM_BUSINESS:
                 resourceDrawableId.add(R.drawable.business_about_banner);
                 break;

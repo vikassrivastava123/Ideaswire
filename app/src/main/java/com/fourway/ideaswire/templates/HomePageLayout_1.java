@@ -115,7 +115,7 @@ public class HomePageLayout_1 extends pages {
     @Override
     public int getImageForMainPage_BasedOnTemplate_Layout(int temp, int layout) {
         int  imageResourceId = 0;
-        if (layout == 1) {
+        if (layout != 2) {
             switch (temp) {
                 case MainActivity.TEM_BUSINESS:
                     imageResourceId = R.drawable.business_about_category;
@@ -149,7 +149,7 @@ public class HomePageLayout_1 extends pages {
                     break;
 
             }
-        }else if (layout == 2) {
+        }else{
             imageResourceId = R.drawable.about_icon;
         }
         return imageResourceId;

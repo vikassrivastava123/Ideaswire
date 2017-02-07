@@ -244,11 +244,32 @@ public class loginUi extends Activity implements LoginRequest.LoginResponseCallb
 
     @Override
     public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
-        if (res == CommonRequest.ResponseCode.COMMON_RES_SUCCESS){
-            mProfileList = data.getProfileList();
-            if (loginSuccess){
-                onLoginSuccess();
-            }
+        mProgressDialog.dismiss();
+        switch (res) {
+            case COMMON_RES_SUCCESS:
+                mProfileList = data.getProfileList();
+                if (loginSuccess){
+                    onLoginSuccess();
+                }
+                break;
+            case COMMON_RES_INTERNAL_ERROR:
+                onLoginFailed("Login Failed ,Please try again");
+                break;
+            case COMMON_RES_CONNECTION_TIMEOUT:
+                onLoginFailed("Connection Timeout !");
+                break;
+            case COMMON_RES_FAILED_TO_CONNECT:
+                onLoginFailed("Please check internet connection !");
+                break;
+            case COMMON_RES_SERVER_ERROR_WITH_MESSAGE:
+                String errorMsg = data.getErrorMessage();
+                onLoginFailed(errorMsg);
+
+                break;
+            default:
+                onLoginFailed("Login Failed ,Please try again");
+                break;
         }
+
     }
 }

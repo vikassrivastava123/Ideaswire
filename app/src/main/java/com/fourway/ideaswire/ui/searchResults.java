@@ -28,6 +28,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
     SearchProfileListAdapter msearchProfileAdapter;
     private static String TAG = "SearchResults";
     ProgressDialog dialog;
+    TextView mTitle;
     
 
     @Override
@@ -35,9 +36,10 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serach_results);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         Typeface mycustomFont=Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Regular.otf");
         mTitle.setTypeface(mycustomFont);
+        mTitle.setText(EditPhotoSelectedUi.mSearchProfileList.size()+" Result Found");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

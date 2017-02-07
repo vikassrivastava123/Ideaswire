@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.templates.AboutUsPage;
@@ -79,13 +78,13 @@ public class select_layout_of_template extends Activity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                if (position != 3) {
+//                if (position != 3) {
                     dataOfTemplate.setLayoutSelected(position);
 
                     startCreateCampaignWithDefaultData();
-                }else {
-                    Toast.makeText(select_layout_of_template.this, "Coming soon", Toast.LENGTH_SHORT).show();
-                }
+//                }else {
+//                    Toast.makeText(select_layout_of_template.this, "Coming soon", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -166,12 +165,13 @@ public class select_layout_of_template extends Activity {
         pages clientobj = new ClientPage();
         pages teamPages =new TeamPage();
 
-
+        homePageLayout_1.getDataForTemplate().setLayoutByServer(layoutSelected);
+        homePageLayout_1.getDataForTemplate().setTemplateByServer(typeOfTemplateSelected);
 
 
 
 //        abtusObj.setPageIndex(0);
-        if (layoutSelected == 0) {
+        if (layoutSelected == 0 || layoutSelected == 3) {
             MainActivity.listOfTemplatePagesObj.add(homePageLayout_1);
         }
         MainActivity.listOfTemplatePagesObj.add(aboutUsPage);

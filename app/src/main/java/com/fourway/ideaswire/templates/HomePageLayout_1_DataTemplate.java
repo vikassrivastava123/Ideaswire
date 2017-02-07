@@ -33,15 +33,16 @@ public class HomePageLayout_1_DataTemplate extends dataOfTemplate{
 
     public HomePageLayout_1_DataTemplate(int templateSelected, boolean isDefaultData){
 
+        ismDefaultData = isDefaultData;
+        this.templateSelected = templateSelected;
+
+        initDefaultResources();
         if(isDefaultData){
-            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         }else{
-        // when datasetis not installed
+            // when datasetis not installed
         }
-        ismDefaultData = isDefaultData;
-        this.templateSelected = templateSelected;
 
 
     }
@@ -53,6 +54,7 @@ public class HomePageLayout_1_DataTemplate extends dataOfTemplate{
 
     @Override
     public List<Integer> getDefaultDrawableResourceId() {
+        initDefaultResources();
         return resourceDrawableId;
     }
 
@@ -82,59 +84,110 @@ public class HomePageLayout_1_DataTemplate extends dataOfTemplate{
 
     void initDeafultdata(){
 
-
-        int temSel =  getTemplateSelected();
-
-        switch (temSel){
-            case 0:
-                title = "Business";
-                resourceDrawableId.add(R.drawable.business_home_banner);
-                break;
-            case 1:
-                title = "Individual";
-                resourceDrawableId.add(R.drawable.individual_home_banner);
-                break;
-            case 2:
-                title = "Finance";
-                resourceDrawableId.add(R.drawable.finance_home_banner);
-                break;
-            case 3:
-                title = "Health";
-                resourceDrawableId.add(R.drawable.health_home_banner);
-                break;
-            case 4:
-                title = "Entertainment";
-                resourceDrawableId.add(R.drawable.entertainment_home_banner);
-                break;
-            case 5:
-                title = "Information";
-                resourceDrawableId.add(R.drawable.information_home_banner);
-                break;
-            case 6:
-                title = "Wedding";
-                resourceDrawableId.add(R.drawable.wedding_home_banner);
-                break;
-            case 7:
-                title = "Restaurant";
-                resourceDrawableId.add(R.drawable.restaurant_home_banner);
-                break;
-            case 8:
-                title = "Others";
-                resourceDrawableId.add(R.drawable.others_home_banner);
-                break;
-            default:
-                title = "Business";
-                resourceDrawableId.add(R.drawable.business_home_banner);
-                break;
-
-        }
-
       /*  headerAboutUs = "Totam Aperiam Consect";
         sub_header = "There are many variation of passages";
         text_para = "There are many variation of passage " +
                 "Lorem Ipsum available but the majority have" +
                 " in some form bye inject humour";
         button_text = "BUTTON TEXT";*/
+
+    }
+
+    void initDefaultResources() {
+
+//        int temSel =  getTemplateSelected();
+//        int layoutSel = getLayoutSelected();
+        resourceDrawableId = new ArrayList<>();
+        int layoutSel = layoutSelected;
+
+        switch (templateSelected){
+            case 0:
+                title = "Business";
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.business_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.business_home_banner_l4);
+                }
+                break;
+            case 1:
+                title = "Individual";
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.individual_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.individual_home_banner_l4);
+                }
+                break;
+            case 2:
+                title = "Finance";
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.finance_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.finance_home_banner_l4);
+                }
+                break;
+            case 3:
+                title = "Health";
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.health_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.health_home_banner_l4);
+                }
+                break;
+            case 4:
+                title = "Entertainment";
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.entertainment_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.entertainment_home_banner_l4);
+                }
+                break;
+            case 5:
+                title = "Information";
+
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.information_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.information_home_banner_l4);
+                }
+                break;
+            case 6:
+                title = "Wedding";
+
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.wedding_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.wedding_home_banner_l4);
+                }
+                break;
+            case 7:
+                title = "Restaurant";
+
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.restaurant_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.restaurant_home_banner_l4);
+                }
+                break;
+            case 8:
+                title = "Others";
+
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.others_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.others_home_banner_l4);
+                }
+                break;
+            default:
+                title = "Business";
+
+                if (layoutSel == 0) {
+                    resourceDrawableId.add(R.drawable.business_home_banner);
+                }else {
+                    resourceDrawableId.add(R.drawable.business_home_banner_l4);
+                }
+                break;
+
+        }
 
     }
 

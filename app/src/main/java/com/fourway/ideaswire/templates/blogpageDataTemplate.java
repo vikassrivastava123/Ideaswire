@@ -34,8 +34,8 @@ public class blogpageDataTemplate extends dataOfTemplate {
 
     public blogpageDataTemplate(int templateSelected, boolean isDefaultData) {
 
+        initDefaultResources();
         if(isDefaultData){
-            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         }else{
@@ -48,12 +48,12 @@ public class blogpageDataTemplate extends dataOfTemplate {
     }
 
     public boolean isDefaultDataToCreateCampaign(){
-
         return ismDefaultData;
     }
 
     @Override
     public List<Integer> getDefaultDrawableResourceId() {
+        initDefaultResources();
         return resourceDrawableId;
     }
 
@@ -80,9 +80,26 @@ public class blogpageDataTemplate extends dataOfTemplate {
     void initDeafultdata(){
         title="Blog";
 
-        int temSel =  getTemplateSelected();
 
-        switch (temSel){
+        /*headerBlog = "Totam Aperiam Consect";
+        subHeader = "There are many variation of passages";
+        text_Para = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";
+
+        headerBlogBlowing = "Totam Aperiam Consect";
+        subHeaderBlowing = "There are many variation of passages";
+        text_ParaBlowing = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";*/
+
+    }
+
+    void initDefaultResources() {
+        resourceDrawableId = new ArrayList<>();
+//        int temSel =  getTemplateSelected();
+
+        switch (templateSelected){
             case 0:
                 resourceDrawableId.add(R.drawable.business_blog_banner);
                 break;
@@ -115,18 +132,6 @@ public class blogpageDataTemplate extends dataOfTemplate {
                 break;
 
         }
-        /*headerBlog = "Totam Aperiam Consect";
-        subHeader = "There are many variation of passages";
-        text_Para = "There are many variation of passage of Lorem" +
-                "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";
-
-        headerBlogBlowing = "Totam Aperiam Consect";
-        subHeaderBlowing = "There are many variation of passages";
-        text_ParaBlowing = "There are many variation of passage of Lorem" +
-                "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";*/
-
     }
 
 

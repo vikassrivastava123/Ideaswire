@@ -15,15 +15,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -54,7 +57,8 @@ import java.util.TimerTask;
 
 import static com.fourway.ideaswire.ui.loginUi.mLogintoken;
 
-public class FragmenMainActivity extends Activity implements SaveProfileData.SaveProfileResponseCallback,GetUserProfileRequest.GetUserProfilesResponseCallback {
+public class FragmenMainActivity extends Activity implements SaveProfileData.SaveProfileResponseCallback,
+        GetUserProfileRequest.GetUserProfilesResponseCallback {
 
     Fragment fragment;
     dataOfTemplate dataObj = null;
@@ -73,11 +77,14 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
     HorizontalScrollView sv;
     int selectedLayout;
     int selectedTemplate;
-    ImageView fragmentBackBtn; //back button for Layout 2 and Layout 3
+    ImageView fragmentBackBtn,navButton; //back button for Layout 2 and Layout 3
 
     Fragment fragmentLayout2 = new FragmentLayout2();
     Fragment fragmentLayout3 = new FragmentLayout3();
     public static boolean isFragmentMainPage = true;
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
 
 
     public static boolean isImageUploading = false; //check image uploading status, if it is "true" means image uploading in progress
@@ -129,14 +136,20 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         });
 
        // mEditMode = super.getIntent().getBooleanExtra(MainActivity.ExplicitEditModeKey, false);
-
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         fragmentBackBtn = (ImageView)findViewById(R.id.backBtnViewFromFragment);
+        navButton = (ImageView)findViewById(R.id.navigation_button);
         if (isFragmentMainPage) {
             fragmentBackBtn.setVisibility(View.GONE);
         }
 
         selectedLayout = dataObj.getLayoutByServer();//dataObj.getLayoutSelected(); // selected layout by User
-
+        if (selectedLayout == 3) {
+            navButton.setVisibility(View.VISIBLE);
+        }else {
+            navButton.setVisibility(View.GONE);
+        }
 
 
        /**
@@ -185,20 +198,24 @@ public class FragmenMainActivity extends Activity implements SaveProfileData.Sav
         });
 
 
+
     }
 
 
     private void setTemplateLayoutThemeAtZerothIndex() {
-        Page zerothPage = MainActivity.getProfileObject().getPageAtIndex(0);
-        String mParentId = zerothPage.getPageId();
-        String mProfileId = editCampaign.mCampaignIdFromServer;
-        Attribute attributeTemplate = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_TEMPLATE,String.valueOf(selectedTemplate));
-        Attribute attributeLayout = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_LAYOUT,String.valueOf(selectedLayout));
-        Attribute attributeTheme = new Attribute(mProfileId,mParentId, ProfileFieldsEnum.PROFILE_THEME,String.valueOf(theme));
+        int noOfPage = MainActivity.getProfileObject().getTotalNumberOfPages();
+        for (int i = 0;i<noOfPage;i++) {
+            Page zerothPage = MainActivity.getProfileObject().getPageAtIndex(i);
+            String mParentId = zerothPage.getPageId();
+            String mProfileId = editCampaign.mCampaignIdFromServer;
+            Attribute attributeTemplate = new Attribute(mProfileId, mParentId, ProfileFieldsEnum.PROFILE_TEMPLATE, String.valueOf(selectedTemplate));
+            Attribute attributeLayout = new Attribute(mProfileId, mParentId, ProfileFieldsEnum.PROFILE_LAYOUT, String.valueOf(selectedLayout));
+            Attribute attributeTheme = new Attribute(mProfileId, mParentId, ProfileFieldsEnum.PROFILE_THEME, String.valueOf(theme));
 
-        zerothPage.addAttribute(attributeTemplate);
-        zerothPage.addAttribute(attributeLayout);
-        zerothPage.addAttribute(attributeTheme);
+            zerothPage.addAttribute(attributeTemplate);
+            zerothPage.addAttribute(attributeLayout);
+            zerothPage.addAttribute(attributeTheme);
+        }
     }
 
 
@@ -479,6 +496,7 @@ public void setIndexOfPresentview(int index){
                 showPreview = true;
                 toglePreviewButton = true;
                 showBaseMenu();
+                showDrawerMenu();
             } else {
                 textViewShowPreview.setText("Preview");
                 fab.hide();
@@ -491,6 +509,7 @@ public void setIndexOfPresentview(int index){
                 showPreview = false;
                 toglePreviewButton = false;
                 showBaseMenu();
+                showDrawerMenu();
             }
         }
 
@@ -748,6 +767,7 @@ public void setIndexOfPresentview(int index){
             public void onClick(DialogInterface dialog, int which) {
                 pageDialog.dismiss();
                 showBaseMenu();
+                showDrawerMenu();
                 if (selectedLayout > 0 && isFragmentMainPage) {
                     final FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.detach(fragmentToLaunch);
@@ -761,6 +781,7 @@ public void setIndexOfPresentview(int index){
             @Override
             public void onDismiss(DialogInterface dialog) {
                 showBaseMenu();
+                showDrawerMenu();
             }
         });
 
@@ -902,6 +923,7 @@ public void setIndexOfPresentview(int index){
      * @param selectedLayout
      */
 
+
     private void launchMainFragmentBasedOnSelectedLayout(int selectedLayout) {
 
 
@@ -923,6 +945,8 @@ public void setIndexOfPresentview(int index){
                     fragmentToLaunch = fragmentLayout3;
                     break;
                 case 3:
+                    fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+                    showDrawerMenu();
                     break;
 
             }
@@ -982,6 +1006,10 @@ public void setIndexOfPresentview(int index){
         transaction.commit();
 
         isFragmentMainPage = true;
+    }
+
+    public void action_nav(View view) {
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     /**
@@ -1081,7 +1109,133 @@ public void setIndexOfPresentview(int index){
                 setTheme(R.style.AppTheme);
         }
     }
+
+
+    void showDrawerMenu() {
+
+        int numberOfPage = 0;
+        String[] listName;
+        if (!(dataObj.isEditOrUpdateMode() && showPreview)) {
+            numberOfPage = MainActivity.listOfTemplatePagesObj.size();
+            listName = new String[numberOfPage];
+            for (int i = 0; i < numberOfPage; i++) {
+                String[] nameStrings = MainActivity.listOfTemplatePagesObj.get(i).nameis().split(" ", 2);
+                String name;
+
+
+                if (nameStrings.length > 1) {
+                    name = nameStrings[1];
+                } else {
+                    name = nameStrings[0];
+                }
+                listName[i] = name;
+
+            }
+        }else {
+            numberOfPage = selectedPageList.size();
+            int[] selectedPagePosition = new int[numberOfPage];
+            String[] selectedPageName = new String[numberOfPage];
+            for (int i = 0; i < numberOfPage; i++) {
+                String[] nameStrings = MainActivity.listOfTemplatePagesObj.get(FragmenMainActivity.selectedPageList.get(i)).nameis().split(" ", 2);
+                String name;
+
+                if (nameStrings.length > 1) {
+                    name = nameStrings[1];
+                } else {
+                    name = nameStrings[0];
+                }
+                selectedPageName[i] = name;
+                selectedPagePosition[i] = FragmenMainActivity.selectedPageList.get(i);
+            }
+
+            listName = selectedPageName;
+        }
+
+        mDrawerList = (ListView) findViewById(R.id.right_drawer);
+
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this,android.R.layout.simple_list_item_1,listName);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setItemsCanFocus(true);
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (dataObj.isEditOrUpdateMode() && showPreview) {   //set position when edit or update mode and preview mode
+                    position = selectedPageList.get(position);
+                }
+
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                if (position != pageButtonViewId) {
+                    pageButtonViewId = position;
+                    //Toast.makeText(getApplicationContext(),
+                    //       "button is clicked" + v.getId(), Toast.LENGTH_LONG).show();
+                    if (dataObj.isEditDefaultOrUpdateData() && !showPreview) {
+                        boolean add = true;
+                        for (int x = 0; x < selectedPageList.size(); x++) {
+                            if (selectedPageList.get(x) == position) {
+                                add = false;
+                                break;
+                            }
+                        }
+                        if (add) {
+                            selectedPageList.add(position);
+                        }
+                    }
+                    dataObj = MainActivity.listOfTemplatePagesObj.get(position).getTemplateData(1, dataObj.isDefaultDataToCreateCampaign());
+
+                    FragmentManager fragmentManager = getFragmentManager();
+
+
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.hide(fragmentToLaunch);
+                    fragmentToLaunch = dataObj.getFragmentToLaunchPage();
+                    Bundle args = new Bundle();
+                    args.putSerializable("dataKey", dataObj);
+                    args.putInt("IndexKey", position);
+                    IndexKey =position;
+                    args.putBoolean("showPreviewKey", showPreview);
+                    fragmentToLaunch.setArguments(args);
+
+                    transaction.replace(R.id.mainRLayout, fragmentToLaunch);
+                    transaction.commit();
+                }
+            }
+        });
+    }
+
+
+    class DrawerItemCustomAdapter extends ArrayAdapter {
+
+        private Context context;
+        private String[] listName;
+        Typeface mycustomFont;
+
+        public DrawerItemCustomAdapter(Context context, int resource, String[] listName) {
+            super(context, resource, listName);
+
+            this.context = context;
+            this.listName = listName;
+            mycustomFont=Typeface.createFromAsset(context.getAssets(),"fonts/Montserrat-Regular.otf");
+        }
+
+
+        @Override
+        public View getView(final int position, View convertView, final ViewGroup parent) {
+            View view = LayoutInflater.from(context).inflate(R.layout.drawer_list,null);
+
+            TextView listNameTextView = (TextView)view.findViewById(R.id.menuName);
+            listNameTextView.setText(listName[position]);
+            listNameTextView.setTypeface(mycustomFont);
+
+            return view;
+        }
+    }
 }
+
+
+
+
+
 
 
 

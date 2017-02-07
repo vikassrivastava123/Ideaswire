@@ -33,8 +33,8 @@ public class ServicesDataTemplate extends dataOfTemplate {
     //public String website = null;
     public ServicesDataTemplate(int templateSelected, boolean isDefaultData)
     {
+        initDefaultResources();
         if(isDefaultData){
-            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         }else{
@@ -54,6 +54,7 @@ public class ServicesDataTemplate extends dataOfTemplate {
 
     @Override
     public List<Integer> getDefaultDrawableResourceId() {
+        initDefaultResources();
         return resourceDrawableId;
     }
 
@@ -81,9 +82,26 @@ public class ServicesDataTemplate extends dataOfTemplate {
 
         title="Service";
 
-        int temSel =  getTemplateSelected();
 
-        switch (temSel){
+        /*heading = "Totam Aperiam Consect";
+        subHeading = "There are many variation of passages";
+        paraGraph = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";
+
+        heading_below = "Totam Aperiam Consect";
+        subHeading_below = "There are many variation of passages";
+        getParaGraph_below = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";*/
+
+    }
+
+    void initDefaultResources() {
+//        int temSel =  getTemplateSelected();
+        resourceDrawableId = new ArrayList<>();
+
+        switch (templateSelected){
             case 0:
                 resourceDrawableId.add(R.drawable.business_services_banner);
                 break;
@@ -116,18 +134,6 @@ public class ServicesDataTemplate extends dataOfTemplate {
                 break;
 
         }
-        /*heading = "Totam Aperiam Consect";
-        subHeading = "There are many variation of passages";
-        paraGraph = "There are many variation of passage of Lorem" +
-                "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";
-
-        heading_below = "Totam Aperiam Consect";
-        subHeading_below = "There are many variation of passages";
-        getParaGraph_below = "There are many variation of passage of Lorem" +
-                "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";*/
-
     }
 
     public String getTitle() {

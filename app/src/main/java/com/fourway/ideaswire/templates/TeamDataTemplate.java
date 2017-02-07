@@ -51,8 +51,8 @@ public class TeamDataTemplate extends dataOfTemplate {
     }
 
     public TeamDataTemplate(int templateSelected, boolean isDefaultData) {
+        initDefaultResources();
         if (isDefaultData) {
-            resourceDrawableId = new ArrayList<>();
             initDeafultdata();
 
         } else {
@@ -73,9 +73,19 @@ public class TeamDataTemplate extends dataOfTemplate {
 
         title="Team";
 
-        int temSel =  getTemplateSelected();
+        /*headerTeam = "Totam Aperiam Consect";
+        subHeadingTeam = "There are many variation of passages";
+        paraGraphTeam = "There are many variation of passage of Lorem" +
+                "Ipsum available, but the majority have suffered " +
+                "alternation in some form by injected humour";*/
+    }
 
-        switch (temSel){
+
+    void initDefaultResources() {
+//        int temSel =  getTemplateSelected();
+        resourceDrawableId = new ArrayList<>();
+
+        switch (templateSelected){
             case 0:
                 resourceDrawableId.add(R.drawable.business_member_1);
                 resourceDrawableId.add(R.drawable.business_member_2);
@@ -118,16 +128,9 @@ public class TeamDataTemplate extends dataOfTemplate {
                 break;
 
         }
-        /*headerTeam = "Totam Aperiam Consect";
-        subHeadingTeam = "There are many variation of passages";
-        paraGraphTeam = "There are many variation of passage of Lorem" +
-                "Ipsum available, but the majority have suffered " +
-                "alternation in some form by injected humour";*/
     }
 
-
-
-        @Override
+    @Override
     public Class getIntentToLaunchPage() {
         return teamonapp.class;
     }
@@ -228,6 +231,7 @@ public class TeamDataTemplate extends dataOfTemplate {
 
     @Override
     public List<Integer> getDefaultDrawableResourceId() {
+        initDefaultResources();
         return resourceDrawableId;
     }
 
