@@ -5,7 +5,6 @@ import android.app.Fragment;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentAboutUsOnApp;
 import com.fourway.ideaswire.ui.MainActivity;
-import com.fourway.ideaswire.ui.home_page_onapp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,10 +121,6 @@ public class AboutUsDataTemplate extends dataOfTemplate{
         }
     }
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return home_page_onapp.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

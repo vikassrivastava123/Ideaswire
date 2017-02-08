@@ -4,7 +4,6 @@ import android.app.Fragment;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FrgmentBlogOnApp;
-import com.fourway.ideaswire.ui.activity_blogpage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,10 +200,6 @@ public class blogpageDataTemplate extends dataOfTemplate {
 
 
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return activity_blogpage.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

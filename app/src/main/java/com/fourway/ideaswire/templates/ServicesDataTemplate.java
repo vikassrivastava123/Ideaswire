@@ -4,7 +4,6 @@ import android.app.Fragment;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentServiceOnApp;
-import com.fourway.ideaswire.ui.ServicesOnApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,10 +200,6 @@ public class ServicesDataTemplate extends dataOfTemplate {
     }
 
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return ServicesOnApp.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

@@ -83,12 +83,6 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.AboutUsOnApp"
-            android:label="@string/title_activity_about_us_ui_template1"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.HomePageUiTemplate1"
             android:label="@string/title_activity_home_page_ui_template1"
             android:theme="@style/AppTheme.NoActionBar"
@@ -111,21 +105,6 @@
 
         <activity android:name=".ui.button_link" />
         <activity
-            android:name=".ui.home_page_onapp"
-            android:label="@string/title_activity_home_page_onapp"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.contact_details"
-            android:label="@string/title_activity_contact_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.ServicesOnApp"
-            android:label="@string/title_activity_services_on_app"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".ui.Gridlayout"
             android:label="@string/title_activity_gridlayout"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -133,16 +112,6 @@
             android:name=".ui.business_title"
             android:label="@string/title_activity_business_title"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.activity_blogpage"
-            android:label="@string/title_activity_activity_blogpage"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.ClientsOnapp"
-            android:label="@string/title_activity_clients_onapp"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.teamonapp"
             android:label="@string/title_activity_teamonapp"

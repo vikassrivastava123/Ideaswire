@@ -7,7 +7,6 @@ import android.util.Log;
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.ui.FragmentTeamOnApp;
 import com.fourway.ideaswire.ui.MainActivity;
-import com.fourway.ideaswire.ui.teamonapp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,10 +129,6 @@ public class TeamDataTemplate extends dataOfTemplate {
         }
     }
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return teamonapp.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

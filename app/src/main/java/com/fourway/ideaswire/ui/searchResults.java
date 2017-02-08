@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -86,9 +85,7 @@ public class searchResults extends Activity implements GetProfileRequest.GetProf
 
         dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(0).getTemplateData(1,false);
 
-        Class intenetToLaunch = data.getIntentToLaunchPage();
-        Log.v(TAG, "5" + intenetToLaunch);
-//        Intent intent = new Intent(this, intenetToLaunch);
+
         Intent intent = new Intent(this, FragmenMainActivity.class);
 //        intent.putExtra(MainActivity.ExplicitEditModeKey, true);
         intent.putExtra("data",data);

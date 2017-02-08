@@ -3,7 +3,6 @@ package com.fourway.ideaswire.templates;
 import android.app.Fragment;
 
 import com.fourway.ideaswire.R;
-import com.fourway.ideaswire.ui.AboutUsOnApp;
 import com.fourway.ideaswire.ui.FragmentHomeLayout_1;
 
 import java.util.ArrayList;
@@ -259,10 +258,6 @@ public class HomePageLayout_1_DataTemplate extends dataOfTemplate{
         return btnUrl;
     }
 
-    @Override
-    public Class getIntentToLaunchPage() {
-       return AboutUsOnApp.class;
-    }
 
     @Override
 

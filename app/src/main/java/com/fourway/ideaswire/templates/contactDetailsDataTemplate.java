@@ -3,7 +3,6 @@ package com.fourway.ideaswire.templates;
 import android.app.Fragment;
 
 import com.fourway.ideaswire.ui.FragmentContactOnApp;
-import com.fourway.ideaswire.ui.contact_details;
 
 import java.util.List;
 
@@ -57,10 +56,6 @@ public class contactDetailsDataTemplate extends dataOfTemplate{
 
 
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return contact_details.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

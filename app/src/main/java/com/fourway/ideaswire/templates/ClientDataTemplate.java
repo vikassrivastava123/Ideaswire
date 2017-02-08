@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import com.fourway.ideaswire.ui.ClientsOnapp;
 import com.fourway.ideaswire.ui.FragmentClientsOnApp;
 import com.fourway.ideaswire.ui.MainActivity;
 
@@ -107,10 +106,6 @@ public class ClientDataTemplate extends dataOfTemplate {
 
     }
 
-    @Override
-    public Class getIntentToLaunchPage() {
-        return ClientsOnapp.class;
-    }
 
     @Override
     public Fragment getFragmentToLaunchPage() {

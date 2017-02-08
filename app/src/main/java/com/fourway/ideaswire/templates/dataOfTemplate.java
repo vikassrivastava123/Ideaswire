@@ -27,7 +27,6 @@ public abstract class dataOfTemplate implements Serializable {
          return header;
     }
 
-    abstract public Class getIntentToLaunchPage();
     abstract public Fragment getFragmentToLaunchPage();
     abstract public boolean isDefaultDataToCreateCampaign();
     abstract public List<Integer> getDefaultDrawableResourceId();
