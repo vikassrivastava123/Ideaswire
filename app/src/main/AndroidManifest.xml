@@ -113,11 +113,6 @@
             android:label="@string/title_activity_business_title"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.teamonapp"
-            android:label="@string/title_activity_teamonapp"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".ui.AddPages"
             android:label="@string/title_activity_add_pages"
             android:theme="@style/AppTheme.NoActionBar" />

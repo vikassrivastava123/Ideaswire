@@ -107,7 +107,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimaryWedding</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryWedding</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkWedding</item>
         <item name="customBackgroundAttributeColor">@color/colorPrimaryWedding</item>
 
     </style>
