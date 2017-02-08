@@ -20,7 +20,6 @@
         android:orientation="horizontal">
     <TextView
         android:id="@+id/HeaderCategory"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
@@ -29,7 +28,7 @@
         android:paddingLeft="10dp"
         android:textColor="@color/text"
         android:text="\n\nChoose a Category"
-        android:textSize="18dp" />
+        android:textSize="20sp" />
     </RelativeLayout>
 
     <GridView
@@ -38,7 +37,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
-        android:columnWidth="100dp"
         android:drawSelectorOnTop="true"
         android:gravity="center"
         android:numColumns="2"

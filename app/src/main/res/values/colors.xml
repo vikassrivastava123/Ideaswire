@@ -16,6 +16,7 @@
     <color name="success">#23C14E</color>
     <color name="cardHint">#90FFFFFF</color>
     <color name="templateBackround">#D3D3D3</color>
+    <color name="background">#EEEEEE</color>
     <color name="backgrndAddCampaign">#201A2953</color>
     <color name="statusbarBckgrnd">#000000</color>
     <color name="colorAccent">#FF4081</color>

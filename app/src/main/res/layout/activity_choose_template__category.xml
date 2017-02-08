@@ -15,7 +15,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/titleBar"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-
             android:clickable="true"
             android:contextClickable="false"
             app:navigationIcon="@drawable/back_1"

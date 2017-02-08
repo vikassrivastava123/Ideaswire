@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    tools:context=".ui.select_layout_of_template">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/titleBar"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-
         android:clickable="true"
         android:contextClickable="true"
         app:navigationIcon="@drawable/back_1"
@@ -20,16 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose a Template"
-
             android:id="@+id/toolbar_title"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#FFFFFF"/>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:id = "@+id/forbckgrnd"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/backgrndAddCampaign"
+        android:background="@color/background"
         android:orientation="horizontal"
         android:layout_marginTop="59dp">
         <TextView
@@ -47,22 +46,19 @@
 
     <GridView
         android:id="@+id/gridViewForSelectLayout"
-        android:layout_below="@+id/forbckgrnd"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_margin="5dp"
-        android:columnWidth="200dp"
         android:drawSelectorOnTop="true"
         android:gravity="center"
         android:numColumns="2"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp"
-        android:horizontalSpacing="5dp"
-        android:layout_centerInParent="true"
+        android:verticalSpacing="15dp"
+        android:horizontalSpacing="20dp"
         android:focusable="true"
-        android:clickable="true"/>
-
-
+        android:clickable="true"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/forbckgrnd"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

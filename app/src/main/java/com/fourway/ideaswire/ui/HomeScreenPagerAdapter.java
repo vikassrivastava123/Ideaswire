@@ -20,8 +20,7 @@ public class HomeScreenPagerAdapter extends PagerAdapter {
         FIRST(R.string.app_name, R.layout.pager1),
         SECOND(R.string.app_name, R.layout.pager2),
         THIRD(R.string.app_name, R.layout.pager3),
-        FOURTH(R.string.app_name, R.layout.pager4),
-        FIFTH(R.string.app_name, R.layout.pager5);
+        FOURTH(R.string.app_name, R.layout.pager4);
 
 
 

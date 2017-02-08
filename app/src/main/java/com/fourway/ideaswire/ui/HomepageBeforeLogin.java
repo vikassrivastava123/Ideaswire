@@ -66,7 +66,7 @@ import java.util.TimerTask;
 
 public class HomepageBeforeLogin extends Activity implements ViewPager.OnPageChangeListener, View.OnClickListener,NavigationView.OnNavigationItemSelectedListener {
 
-    int currentPage = 0, NUM_PAGES = 6;
+    int currentPage = 0, NUM_PAGES = 5;
     ViewPager mViewPager;
     Handler mHandler;
     Runnable mUpdate;

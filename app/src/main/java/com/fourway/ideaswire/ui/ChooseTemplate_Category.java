@@ -48,7 +48,7 @@ public class ChooseTemplate_Category extends Activity {
     //    gridView.setAdapter(gridAdapter);
 
         String[] values = new String[] { "Business", "Individual", "Finance",
-                "Health", "Entertainment","Information","Wedding","Restaurants","Other","See_all_template"};
+                "Health", "Entertainment","Information","Wedding","Restaurants","Other","See all templates"};
 
         // use your custom layout
         ArrayAdapter<String> adapter = new GridViewAdapter<String>(this,
