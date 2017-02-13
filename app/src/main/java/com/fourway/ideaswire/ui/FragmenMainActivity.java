@@ -633,6 +633,8 @@ public void setIndexOfPresentview(int index){
                             final String pageName = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).nameis();
                             final pages mNewPage = select_layout_of_template.listOfTemplatePagesObjForAddPage.get(v.getId()).getNewPage();
                             dataOfTemplate dot = mNewPage.getTemplateData(1,true);
+                            dot.setTemplateByServer(selectedTemplate);
+                            dot.setLayoutByServer(selectedLayout);
                             mNewPage.setDataObj(dot);
 
                             final AlertDialog mAlertDialog = new AlertDialog.Builder(FragmenMainActivity.this).create();
@@ -736,6 +738,13 @@ public void setIndexOfPresentview(int index){
                     if (currentPages != mPages) {
                         MainActivity.listOfTemplatePagesObj.remove(position); //delete from main list
                         MainActivity.getProfileObject().deletePageByName(pageName);
+
+                        for (int pos : selectedPageList) {  //delete page id from selectedPageList
+                            if (pos==position) {
+                                selectedPageList.remove(selectedPageList.indexOf(pos));
+                                break;
+                            }
+                        }
                         list.remove(position);
                         adapter.notifyDataSetChanged();
                         Toast.makeText(FragmenMainActivity.this, pageName + " delete", Toast.LENGTH_SHORT).show();
@@ -1133,7 +1142,6 @@ public void setIndexOfPresentview(int index){
             }
         }else {
             numberOfPage = selectedPageList.size();
-            int[] selectedPagePosition = new int[numberOfPage];
             String[] selectedPageName = new String[numberOfPage];
             for (int i = 0; i < numberOfPage; i++) {
                 String[] nameStrings = MainActivity.listOfTemplatePagesObj.get(FragmenMainActivity.selectedPageList.get(i)).nameis().split(" ", 2);
@@ -1145,7 +1153,6 @@ public void setIndexOfPresentview(int index){
                     name = nameStrings[0];
                 }
                 selectedPageName[i] = name;
-                selectedPagePosition[i] = FragmenMainActivity.selectedPageList.get(i);
             }
 
             listName = selectedPageName;

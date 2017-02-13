@@ -123,7 +123,7 @@
                     android:layout_height="230dp"
                     android:layout_marginTop="8dp"
                     android:id="@+id/Service_CARD_IMAGE"
-                    android:background="@drawable/services_banner"
+                    android:background="@drawable/image_loader"
                     android:layout_centerHorizontal="true" />
 
                 <ImageView

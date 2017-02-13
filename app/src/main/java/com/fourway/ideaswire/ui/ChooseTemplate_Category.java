@@ -55,7 +55,7 @@ public class ChooseTemplate_Category extends Activity {
                 values);
         gridView.setAdapter(adapter);
 
-        ////
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
@@ -63,9 +63,7 @@ public class ChooseTemplate_Category extends Activity {
                 dataOfTemplate.setTemplateSelected(position);
                 Intent sel = new Intent(ChooseTemplate_Category.this,select_layout_of_template.class);
                 startActivity(sel);
-                //Toast.makeText(this,"Press Start Now", Toast.LENGTH_LONG).show();
             }});
-        ////
 
   }
 
@@ -113,7 +111,6 @@ public class ChooseTemplate_Category extends Activity {
                 holderObj = (viewHolder)convertView.getTag();
             }
 
-            Log.v("fristScreenAdapter", "position" + position + " " + values[position]);
             holderObj.tvHeader.setText(values[position]);
 
 

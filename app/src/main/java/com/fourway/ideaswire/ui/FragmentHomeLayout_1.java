@@ -249,22 +249,22 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
 
                     if(posInListOfPage > 0) {
                         int listSize=MainActivity.listOfTemplatePagesObj.size();
-                        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(1,false);
+                        dataOfTemplate data = MainActivity.listOfTemplatePagesObj.get(posInListOfPage).getTemplateData(true);
+                        ((FragmenMainActivity)getActivity()).setDataObj(data); //set dataObj in FragmentMainActivity
+                        ((FragmenMainActivity)getActivity()).setIndexOfPresentview(posInListOfPage); //set dataObj in FragmentMainActivity
 
                         Fragment fragmentToLaunch = data.getFragmentToLaunchPage();
+                        ((FragmenMainActivity)getActivity()).setFragmentToLaunch(fragmentToLaunch); //set fragmentToLaunch in FragmentMainActivity
+
                         FragmentManager fragmentManager=getFragmentManager();
                         FragmentTransaction transaction=fragmentManager.beginTransaction();
 
                         Bundle args = new Bundle();
-                        args.putSerializable("dataKey", data);
-                        args.putBoolean("showPreviewKey", showPreview);
+                        args.putInt("IndexKey", posInListOfPage);
                         fragmentToLaunch.setArguments(args);
                         transaction.replace(R.id.mainRLayout,fragmentToLaunch);
                         transaction.commit();
-                        //  Class intenetToLaunch = data.getIntentToLaunchPage();
-                      //  Intent intent = new Intent(getApplicationContext(), intenetToLaunch);
-                      //  intent.putExtra("data", data);
-                      //  startActivity(intent);
+
                     }else {
                         String btnUrl= dataObj.get_buttonUrl();
                         if (btnUrl!=null) {
@@ -543,13 +543,7 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
         final EditText addUrl = (EditText)v.findViewById(R.id.editTextAddUrl);
         final EditText addNameToButton = (EditText)v.findViewById(R.id.editTextButtonName);
         builderInner.setView(v);
-        /*final EditText addUrl = new EditText(AboutUsOnApp.this);
-        addUrl.setHint("Add Url");
-        builderInner.setView(addUrl);
 
-        final EditText addNameToButton = new EditText(AboutUsOnApp.this);
-        addNameToButton.setHint("Edit Button Name");
-        builderInner.setView(addNameToButton);*/
 
         builderInner.setPositiveButton(
                 "Ok",
@@ -599,11 +593,22 @@ public class FragmentHomeLayout_1 extends Fragment  implements UploadImageForUrl
                 getActivity(),
                 android.R.layout.select_dialog_singlechoice);
 
-        for(pages obj: MainActivity.listOfTemplatePagesObj){
-            arrayAdapter.add(obj.nameis());
+        for (int i=0;i<FragmenMainActivity.selectedPageList.size();i++){
+            pages obj = MainActivity.listOfTemplatePagesObj.get(i);
+            String[] nameStrings = obj.nameis().split(" ", 2);
+            String name;
+
+
+            if (nameStrings.length > 1) {
+                name = nameStrings[1];
+            } else {
+                name = nameStrings[0];
+            }
+            arrayAdapter.add(name);
 
         }
         builderSingle.setIcon(R.drawable.logo);
+        builderSingle.setTitle("Selected page list");
         builderSingle.setNegativeButton(
                 "cancel",
                 new DialogInterface.OnClickListener() {

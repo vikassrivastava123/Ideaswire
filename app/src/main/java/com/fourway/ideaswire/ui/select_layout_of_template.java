@@ -214,8 +214,10 @@ public class select_layout_of_template extends Activity {
             MainActivity.listOfTemplatePagesObj.get(i).getTemplateData(true).setTemplateByServer(typeOfTemplateSelected);
             MainActivity.listOfTemplatePagesObj.get(i).getTemplateData(true).setLayoutByServer(layoutSelected);
 
-//            listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setTemplateByServer(typeOfTemplateSelected);
-//            listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setLayoutByServer(layoutSelected);
+            if (i < 6) {
+                listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setTemplateByServer(typeOfTemplateSelected);
+                listOfTemplatePagesObjForAddPage.get(i).getTemplateData(true).setLayoutByServer(layoutSelected);
+            }
 
         }
 

@@ -228,9 +228,13 @@ public class FragmentContactOnApp extends Fragment implements View.OnClickListen
         init_contactPage_request();
 
 
+        try {
+            setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US, mthispage.nameis() );
+            setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_STATUS, String.valueOf(mthispage.pageStatus()) );
+        }catch (NullPointerException e) {
+            Log.v(TAG,e.getMessage());
+        }
 
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US, mthispage.nameis() );
-        setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_STATUS, String.valueOf(mthispage.pageStatus()) );
 
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_TITLE, dataobj.getTitle());
         setAttribute(ProfileFieldsEnum.PROFILE_PAGE_CONTACT_US_HEADING, dataobj.getHeaderContact());

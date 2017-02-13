@@ -18,21 +18,29 @@ import android.widget.Toast;
 
 import com.fourway.ideaswire.R;
 import com.fourway.ideaswire.data.GetProfileRequestData;
+import com.fourway.ideaswire.data.GetUserProfileRequestData;
 import com.fourway.ideaswire.data.Page;
 import com.fourway.ideaswire.data.Profile;
+import com.fourway.ideaswire.data.SessionManager;
 import com.fourway.ideaswire.request.CommonRequest;
 import com.fourway.ideaswire.request.GetProfileRequest;
+import com.fourway.ideaswire.request.GetUserProfileRequest;
 import com.fourway.ideaswire.templates.dataOfTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class CreateCampaign_homePage extends Activity implements GetProfileRequest.GetProfileResponseCallback {
+import static com.fourway.ideaswire.ui.loginUi.mLogintoken;
+
+public class CreateCampaign_homePage extends Activity implements GetProfileRequest.GetProfileResponseCallback,GetUserProfileRequest.GetUserProfilesResponseCallback {
     TextView tf,mTitle;
     MyProfileAdapter mProfileAdapter;
     Boolean campaignEditMode;
     int profilePosition;
     ImageButton menuButton;
     ProgressDialog mProgressDialog;
+    GridView profileGridView;
+    SessionManager session;
     private static String TAG = "CreateCampaign_homePage";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,55 +68,35 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
            // setSupportActionBar(toolbar);
         }
 
+        session = new SessionManager(this);
+        profileGridView = (GridView) findViewById(R.id.profileGridView);
         try {
-            GridView gv = (GridView) findViewById(R.id.profileGridView);
-            final ProgressDialog pd=new ProgressDialog(this);
-            pd.setMessage("Profile Loading...");
 
             if(loginUi.mProfileList!=null) {
+
                 mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
+                profileGridView.setAdapter(mProfileAdapter);
+                profileGridView.setOnItemClickListener(profileGridClickListener);
 
+            }else {
 
-                gv.setAdapter(mProfileAdapter);
-                gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        campaignEditMode = false;
-                        if(view.getId()==R.id.imgViewProfile) {
-                            Profile p = loginUi.mProfileList.get(position);
+                HashMap<String, String> user = session.getUserDetails();
+                mLogintoken = user.get(SessionManager.KEY_LOGIN_TOKEN);
 
-                            //Clear page if Already have data in page
-                            if (p.getTotalNumberOfPages() != 0){
-                                p.clearPage();
-                            }
-
-                            GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
-                            GetProfileRequest request =
-                                    new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
-                            request.executeRequest();
-                            mProgressDialog = new ProgressDialog(CreateCampaign_homePage.this,
-                                    R.style.AppTheme_Dark_Dialog);
-                            mProgressDialog.setIndeterminate(true);
-                            mProgressDialog.setMessage("Getting data...  ");
-                            mProgressDialog.show();
-
-                        }
-
-                        if(view.getId()==R.id.editCampaign) {
-                            campaignEditMode = true;
-                            profilePosition = position;
-
-
-
-                            shownLiveProfile();
-                        }
-
-                    }
-                });
+                GetUserProfileRequestData data = new GetUserProfileRequestData(mLogintoken);
+                GetUserProfileRequest request = new GetUserProfileRequest(this, data, this);
+                request.executeRequest();
+                mProgressDialog = new ProgressDialog(CreateCampaign_homePage.this,
+                        R.style.AppTheme_Dark_Dialog);
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setMessage("Please wait...  ");
+                mProgressDialog.show();
             }
         }catch(NullPointerException e){
             Toast.makeText(getApplicationContext(), "no profile data received", Toast.LENGTH_SHORT).show();
         }
+
+
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +105,42 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
             }
         });
     }
+
+    AdapterView.OnItemClickListener profileGridClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            campaignEditMode = false;
+            if(view.getId()==R.id.imgViewProfile) {
+                Profile p = loginUi.mProfileList.get(position);
+
+                //Clear page if Already have data in page
+                if (p.getTotalNumberOfPages() != 0){
+                    p.clearPage();
+                }
+
+                GetProfileRequestData data = new GetProfileRequestData(loginUi.mLogintoken, p.getProfileId(), p);
+                GetProfileRequest request =
+                        new GetProfileRequest(CreateCampaign_homePage.this, data, CreateCampaign_homePage.this);
+                request.executeRequest();
+                mProgressDialog = new ProgressDialog(CreateCampaign_homePage.this,
+                        R.style.AppTheme_Dark_Dialog);
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setMessage("Getting data...  ");
+                mProgressDialog.show();
+
+            }
+
+            if(view.getId()==R.id.editCampaign) {
+                campaignEditMode = true;
+                profilePosition = position;
+
+
+
+                shownLiveProfile();
+            }
+        }
+    };
 
 
 
@@ -223,6 +247,19 @@ public class CreateCampaign_homePage extends Activity implements GetProfileReque
                     errorDialog.show();
 
             }
+        }
+    }
+
+    @Override
+    public void onResponse(CommonRequest.ResponseCode res, GetUserProfileRequestData data) {
+        mProgressDialog.dismiss();
+        switch (res){
+            case COMMON_RES_SUCCESS:
+                loginUi.mProfileList = data.getProfileList();
+                mProfileAdapter = new MyProfileAdapter(this, loginUi.mProfileList);
+                profileGridView.setAdapter(mProfileAdapter);
+                profileGridView.setOnItemClickListener(profileGridClickListener);
+                break;
         }
     }
 }

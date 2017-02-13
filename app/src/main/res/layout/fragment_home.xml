@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
                     android:id="@+id/Home_CARD_IMAGE_1"
-
+                    android:background="@drawable/image_loader"
                     android:scaleType="centerCrop"
                     />
                 <!--android:background="@drawable/about_banner_1"-->
@@ -163,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:id="@+id/Home_CARD_IMAGE_2"
-                android:background="@drawable/about_banner_1"
+                android:background="@drawable/image_loader"
                 android:layout_below="@+id/paraGraphHome"
                 android:scaleType="centerCrop"
                 />

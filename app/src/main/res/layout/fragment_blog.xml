@@ -112,7 +112,7 @@
                     android:layout_marginRight="8dp"
                     android:id="@+id/Blog_CARD_IMAGE"
                     android:scaleType="centerCrop"
-                    android:background="@drawable/blog_banner"
+                    android:background="@drawable/image_loader"
                     android:layout_centerHorizontal="true" />
 
                 <ImageView

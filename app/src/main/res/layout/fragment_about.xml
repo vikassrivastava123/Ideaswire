@@ -49,7 +49,7 @@
                     android:id="@+id/ABOUT_US_CARD_IMAGE"
                     android:focusableInTouchMode="true"
                     android:scaleType="centerCrop"
-                    android:background="@drawable/about_banner_1"
+                    android:background="@drawable/image_loader"
                     />
                 <!-- android:onClick="uploadToAboutUsOnApp"-->
 
